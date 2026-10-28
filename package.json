@@ -10,7 +10,9 @@
     "preview": "vite preview",
     "start": "node .output/server/index.mjs",
     "lint": "eslint .",
+    "type-check": "tsc --noEmit",
     "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "db:bundle": "node scripts/bundle-migrations.mjs"
   },
   "dependencies": {
