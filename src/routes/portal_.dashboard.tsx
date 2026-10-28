@@ -396,6 +396,20 @@ function OfficialUpdateBox({ org, userId }: { org: OrgAccount; userId: string })
     }
   };
 
+  // The database only accepts posts from offices staff have verified.
+  if (org.status !== "verified") {
+    return (
+      <div className="rounded-xl border border-border p-3 space-y-1">
+        <p className="font-semibold inline-flex items-center gap-1.5">
+          <Megaphone className="h-4 w-4" /> Post to “Latest from Your Officials”
+        </p>
+        <p className="text-sm text-muted-foreground">
+          You can post updates for residents once our team has verified your office.
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="rounded-xl border border-border p-3 space-y-2">
       <p className="font-semibold inline-flex items-center gap-1.5">
