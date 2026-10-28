@@ -32,6 +32,18 @@ export const Route = createFileRoute("/api/help")({
 
         if (!apiKey) return json({ error: "AI not configured" }, 503);
 
+        const { clientIp, rateLimited } = await import("@/lib/rate-limit.server");
+        if (
+          await rateLimited(
+            "help",
+            clientIp((h) => request.headers.get(h)),
+            20,
+            10 * 60,
+          )
+        ) {
+          return json({ error: "Too many requests. Please wait a few minutes." }, 429);
+        }
+
         let body: { text?: string; lang?: string };
         try {
           body = await request.json();

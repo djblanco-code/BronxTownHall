@@ -1687,6 +1687,27 @@ export type Database = {
         };
         Relationships: [];
       };
+      rate_limit_hits: {
+        Row: {
+          bucket: string;
+          hits: number;
+          key: string;
+          window_start: string;
+        };
+        Insert: {
+          bucket: string;
+          hits?: number;
+          key: string;
+          window_start: string;
+        };
+        Update: {
+          bucket?: string;
+          hits?: number;
+          key?: string;
+          window_start?: string;
+        };
+        Relationships: [];
+      };
       referrals: {
         Row: {
           client_label: string | null;
@@ -2419,6 +2440,15 @@ export type Database = {
         Args: {
           _role: Database["public"]["Enums"]["app_role"];
           _user_id: string;
+        };
+        Returns: boolean;
+      };
+      hit_rate_limit: {
+        Args: {
+          _bucket: string;
+          _key: string;
+          _limit: number;
+          _window_seconds: number;
         };
         Returns: boolean;
       };

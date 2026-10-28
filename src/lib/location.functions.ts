@@ -78,6 +78,10 @@ export const geocodeResource = createServerFn({ method: "POST" })
     }
 
     // 2. geocode — return null on miss instead of throwing so the UI can skip it.
+    // Each lookup is a paid Google call; a cold map can need a few dozen at once.
+    const { getRequestHeader } = await import("@tanstack/react-start/server");
+    const { clientIp, rateLimited } = await import("./rate-limit.server");
+    if (await rateLimited("geocode", clientIp(getRequestHeader), 100, 10 * 60)) return null;
     const geo = await callGeocode(data.address);
     if (!geo) return null;
 
