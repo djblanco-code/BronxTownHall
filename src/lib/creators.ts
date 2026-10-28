@@ -261,6 +261,7 @@ export async function searchListings(query: string, limit = 20): Promise<PickCan
   const { data: biz } = await supabase
     .from("businesses")
     .select("id,name,category,address")
+    .eq("status", "live")
     .ilike("name", `%${q}%`)
     .limit(10);
   for (const b of (biz ?? []) as unknown as {

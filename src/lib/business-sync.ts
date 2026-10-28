@@ -7,17 +7,14 @@ import {
   Business,
   BusinessEvent,
   getBusinesses,
-  getEvents,
   saveBusinesses,
   saveEvents,
   withoutPush,
 } from "./business";
 
-const MIGRATED_KEY = "bx-businesses-migrated";
-
-/** Fields that must never leave the device. */
+/** Fields that must never leave the device: listings are public. */
 function stripSecrets(b: Business) {
-  const { password: _pw, ...rest } = b as Business & { password?: string };
+  const { password: _pw, email: _email, ...rest } = b as Business & { password?: string };
   return rest;
 }
 
@@ -143,30 +140,10 @@ export function pushBusinessEvent(e: BusinessEvent) {
     });
 }
 
-/** One-time migration of anything still sitting in this browser. */
-async function migrateLocalBusinesses() {
-  if (typeof window === "undefined") return;
-  if (localStorage.getItem(MIGRATED_KEY)) return;
-  const local = getBusinesses();
-  if (local.length) {
-    const { error } = await supabase.from("businesses").upsert(local.map(toRow) as never);
-    if (error) {
-      console.warn("[business-sync] migration failed", error.message);
-      return;
-    }
-    const localEvents = getEvents();
-    if (localEvents.length) {
-      await supabase.from("business_events").upsert(localEvents.map(eventToRow) as never);
-    }
-  }
-  localStorage.setItem(MIGRATED_KEY, "1");
-}
-
 /** Pull cloud state into the local cache. Safe to call on every app load. */
 export async function syncBusinesses() {
   if (typeof window === "undefined") return;
   try {
-    await migrateLocalBusinesses();
     const [{ data: rows, error }, { data: eventRows }] = await Promise.all([
       supabase.from("businesses").select("*").order("created_at", { ascending: true }),
       supabase.from("business_events").select("*"),

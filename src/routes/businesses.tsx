@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { AppShell } from "@/features/shell";
 import { useEffect, useMemo, useState } from "react";
-import { getBusinesses } from "@/lib/business";
+import { getBusinesses, isLiveBusiness } from "@/lib/business";
 import { useBusinessSync } from "@/lib/use-business-sync";
 import { loadDirectory } from "@/lib/bronx-resources";
 import { bronxToResource } from "@/lib/bronx-to-resource";
@@ -69,7 +69,7 @@ function guessNeighborhood(address: string): string {
 /** Businesses owners registered through the app (kept until they sync up). */
 function registeredItems(): DirectoryItem[] {
   return getBusinesses()
-    .filter((b) => b.status === "live")
+    .filter(isLiveBusiness)
     .map((b) => {
       const cat = (
         CAT_META(b.category as Category) ? (b.category as Category) : "services"
