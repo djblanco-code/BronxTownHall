@@ -14,6 +14,22 @@ export const Route = createFileRoute("/api/tts/speak")({
             headers: { "content-type": "application/json" },
           });
         }
+        // The player falls back to the browser's voice on any error, including this one.
+        const { clientIp, rateLimited } = await import("@/lib/rate-limit.server");
+        if (
+          await rateLimited(
+            "tts",
+            clientIp((h) => request.headers.get(h)),
+            60,
+            10 * 60,
+          )
+        ) {
+          return new Response(JSON.stringify({ error: "Too many requests" }), {
+            status: 429,
+            headers: { "content-type": "application/json" },
+          });
+        }
+
         let body: {
           text?: string;
           voice?: string;

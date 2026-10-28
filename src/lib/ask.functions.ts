@@ -39,15 +39,6 @@ export type AskResult =
   | { kind: "matches"; category: Category | null; matches: AskMatch[] }
   | { kind: "error"; message: string };
 
-const hits = new Map<string, number[]>();
-function limited(key: string) {
-  const now = Date.now();
-  const arr = (hits.get(key) ?? []).filter((t) => now - t < 10 * 60_000);
-  arr.push(now);
-  hits.set(key, arr);
-  return arr.length > 20;
-}
-
 export const askQuestion = createServerFn({ method: "POST" })
   .inputValidator((d) =>
     z
@@ -59,9 +50,8 @@ export const askQuestion = createServerFn({ method: "POST" })
     const { getRequestHeader } = await import("@tanstack/react-start/server");
     const { supabase } = await import("@/integrations/supabase/client");
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const ip =
-      getRequestHeader("cf-connecting-ip") ?? getRequestHeader("x-forwarded-for") ?? "anon";
-    if (limited(ip))
+    const { clientIp, rateLimited } = await import("./rate-limit.server");
+    if (await rateLimited("ask", clientIp(getRequestHeader), 20, 10 * 60))
       return {
         kind: "error",
         message: "You've asked a lot of questions quickly. Please wait a few minutes.",
