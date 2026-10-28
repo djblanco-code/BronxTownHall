@@ -6,6 +6,8 @@ import { LANGS } from "@/lib/i18n";
 import { VerifiedPill } from "@/components/VerifiedPill";
 import type { VerificationStatus } from "@/lib/verification";
 import { trackEventViewed } from "@/lib/track-event";
+import { Section, SectionAction } from "@/components/ui/section";
+import { EmptyState } from "@/components/ui/empty-state";
 import { useUpcomingEvents, type UpcomingEvent } from "../lib/upcoming-events";
 
 const MAX_EVENTS = 6;
@@ -35,28 +37,16 @@ export function UpcomingEvents({ neighborhood }: { neighborhood: string | null }
   }, [events, neighborhood]);
 
   return (
-    <section
-      data-home-events
-      aria-labelledby="home-events-title"
-      className="mx-auto mt-8 max-w-5xl px-4"
+    <Section
+      id="home-events-title"
+      title={t("interface.upcomingEvents")}
+      titleAside={neighborhood}
+      action={
+        <SectionAction asChild>
+          <Link to="/events">{t("home.seeAll")}</Link>
+        </SectionAction>
+      }
     >
-      <div className="mb-3 flex items-end justify-between gap-3">
-        <h2 id="home-events-title" className="text-lg font-bold text-foreground sm:text-2xl">
-          {t("interface.upcomingEvents")}
-          {neighborhood && (
-            <span className="ms-1.5 align-middle font-sans text-sm font-medium text-muted-foreground">
-              · {neighborhood}
-            </span>
-          )}
-        </h2>
-        <Link
-          to="/events"
-          className="no-min-h shrink-0 text-sm font-semibold text-primary hover:underline"
-        >
-          {t("home.seeAll")}
-        </Link>
-      </div>
-
       {events === null ? (
         <div className="-mx-4 flex gap-3 overflow-hidden px-4 lg:mx-0 lg:px-0" aria-busy="true">
           <span className="sr-only">{t("interface.loadingEvents")}</span>
@@ -69,16 +59,16 @@ export function UpcomingEvents({ neighborhood }: { neighborhood: string | null }
           ))}
         </div>
       ) : failed ? (
-        <p className="rounded-2xl border border-border bg-card p-4 text-sm text-muted-foreground">
-          {t("home.eventsError")}{" "}
-          <Link to="/events" className="font-semibold text-primary hover:underline">
-            {t("interface.allEvents")}
-          </Link>
-        </p>
+        <EmptyState
+          title={t("home.eventsError")}
+          action={
+            <Link to="/events" className="font-semibold text-primary hover:underline">
+              {t("interface.allEvents")}
+            </Link>
+          }
+        />
       ) : shown.length === 0 ? (
-        <p className="rounded-2xl border border-border bg-card p-4 text-sm text-muted-foreground">
-          {t("interface.noEvents")}
-        </p>
+        <EmptyState title={t("interface.noEvents")} />
       ) : (
         <ul className="-mx-4 flex snap-x snap-mandatory scroll-px-4 gap-3 overflow-x-auto px-4 pb-2 [scrollbar-width:none] lg:mx-0 lg:grid lg:grid-cols-3 lg:overflow-visible lg:px-0">
           {shown.map((e) => (
@@ -91,7 +81,7 @@ export function UpcomingEvents({ neighborhood }: { neighborhood: string | null }
           ))}
         </ul>
       )}
-    </section>
+    </Section>
   );
 }
 

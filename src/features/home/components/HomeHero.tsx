@@ -13,6 +13,7 @@ import { BRONX_NEIGHBORHOODS } from "@/lib/neighborhoods";
 import { useResourceMeta } from "@/lib/resource-meta";
 import { SpeakButton } from "@/components/SpeakButton";
 import { VoiceSearchButton } from "@/components/VoiceSearchButton";
+import { Chip } from "@/components/ui/chip";
 
 const PLACEHOLDERS = [
   "Free events this weekend",
@@ -126,21 +127,14 @@ export function HomeHero({
         </form>
 
         <div className="mt-3 flex flex-wrap gap-2">
-          <Link
-            to="/ask"
-            className="no-min-h inline-flex h-9 items-center gap-1.5 rounded-full border border-border bg-card px-3 text-sm font-semibold text-foreground hover:bg-secondary"
-          >
-            <MessageCircleQuestion className="h-4 w-4 text-primary" aria-hidden="true" />
-            {t("home.askQuestion")}
-          </Link>
-          <Link
-            to="/search"
-            search={{ q: "" }}
-            className="no-min-h inline-flex h-9 items-center gap-1.5 rounded-full border border-border bg-card px-3 text-sm font-semibold text-foreground hover:bg-secondary"
-          >
-            <Search className="h-4 w-4 text-primary" aria-hidden="true" />
-            {t("interface.keywordSearch")}
-          </Link>
+          <Chip asChild icon={MessageCircleQuestion}>
+            <Link to="/ask">{t("home.askQuestion")}</Link>
+          </Chip>
+          <Chip asChild icon={Search}>
+            <Link to="/search" search={{ q: "" }}>
+              {t("interface.keywordSearch")}
+            </Link>
+          </Chip>
         </div>
 
         <ul className="mt-4 space-y-1.5 text-xs text-muted-foreground">

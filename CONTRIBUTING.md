@@ -75,6 +75,11 @@ supabase/migrations/   database changes
 - Import a feature only through `@/features/<name>`, never from files inside it.
 - If two features need the same piece of UI, move it to `src/components/ui`
   instead of copying it.
+- Reach for the shared blocks first: `Section` + `SectionAction` (a titled
+  section with "See all"), `Chip`, `ListGroup` + `ListRow` (tappable rows),
+  `EmptyState`, `BottomSheet`, and the shadcn primitives in the same folder.
+  Pass a router `<Link>` as the child (with `asChild` where the block offers
+  it) so links stay type-checked.
 - Anything fixed to the bottom of the screen uses the `app-float-bottom` or
   `app-dock-bottom` utilities; a page's floating button goes in
   `<AppShell fab={…}>`.
