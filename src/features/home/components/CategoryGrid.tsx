@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import type { CategoryMeta } from "@/lib/data";
 import { useI18n } from "@/lib/i18n-context";
+import { Section, SectionAction } from "@/components/ui/section";
 
 /**
  * Compact icon grid: four across on phones, so eight categories fit in two
@@ -19,23 +20,22 @@ export function CategoryGrid({
   const shown = showAll ? [...featured, ...more] : featured;
 
   return (
-    <section aria-labelledby="home-categories-title" className="mx-auto mt-6 max-w-5xl px-4">
-      <div className="mb-3 flex items-end justify-between gap-3">
-        <h2 id="home-categories-title" className="text-lg font-bold text-foreground sm:text-2xl">
-          {t("interface.browseCategory")}
-        </h2>
-        {more.length > 0 && (
-          <button
-            type="button"
+    <Section
+      id="home-categories-title"
+      title={t("interface.browseCategory")}
+      className="mt-6"
+      action={
+        more.length > 0 && (
+          <SectionAction
             aria-expanded={showAll}
             aria-controls="category-grid"
             onClick={() => setShowAll((v) => !v)}
-            className="no-min-h simplified-exempt shrink-0 text-sm font-semibold text-primary hover:underline"
           >
             {showAll ? t("home.showFewer") : t("home.seeAll")}
-          </button>
-        )}
-      </div>
+          </SectionAction>
+        )
+      }
+    >
       <ul id="category-grid" className="grid grid-cols-4 gap-x-2 gap-y-4 sm:grid-cols-8">
         {shown.map((c) => {
           const linkProps =
@@ -63,6 +63,6 @@ export function CategoryGrid({
           );
         })}
       </ul>
-    </section>
+    </Section>
   );
 }
