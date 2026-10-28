@@ -3,7 +3,7 @@ import { AppShell } from "@/features/shell";
 import { ResourceCard } from "@/features/resources";
 import { useI18n } from "@/lib/i18n-context";
 import { RESOURCES } from "@/lib/data";
-import { detectIntent } from "@/lib/search-intent";
+import { countMatches, detectIntent, hasAnyFilter, searchTerms } from "@/lib/search-intent";
 import { matchesFilters } from "@/components/FilterPanel";
 import { VoiceSearchButton } from "@/components/VoiceSearchButton";
 import { suggestCorrection } from "@/lib/fuzzy";
@@ -53,27 +53,35 @@ function SearchPage() {
   const distanceFor = useLiveDistances(useMemo(() => RESOURCES.map((r) => r.address), []));
 
   const results = useMemo(() => {
-    const term = q.trim().toLowerCase();
-    const matched = RESOURCES.filter((r) => {
+    const filtered = RESOURCES.filter((r) => {
       if (intent.category && r.category !== intent.category) return false;
-      if (
-        !matchesFilters(r, {
-          ownership: intent.ownership,
-          heritage: intent.heritage.join(","),
-          dietary: intent.dietary,
-          languages: intent.languages,
-          accessibility: intent.accessibility,
-          neighborhood: "",
-        })
-      )
-        return false;
-      if (!term) return true;
-      const kw = (r.keywords ?? []).join(" ");
-      const sub = r.subcategory ?? "";
-      const hay =
-        `${r.name.en} ${r.description.en} ${r.address} ${r.category} ${sub} ${kw} ${r.neighborhood ?? ""}`.toLowerCase();
-      return hay.includes(term);
+      return matchesFilters(r, {
+        ownership: intent.ownership,
+        heritage: intent.heritage.join(","),
+        dietary: intent.dietary,
+        languages: intent.languages,
+        accessibility: intent.accessibility,
+        neighborhood: "",
+      });
     });
+    // Words left after the filters: a listing matches if it mentions any of
+    // them, best matches first. A whole sentence ("help paying my heating
+    // bill") still finds the listings that mention "heating".
+    const terms = searchTerms(q);
+    let matched = filtered;
+    if (terms.length) {
+      const scored = filtered
+        .map((r) => {
+          const text = `${r.name.en} ${r.description.en} ${r.address} ${r.category} ${r.subcategory ?? ""} ${(r.keywords ?? []).join(" ")} ${r.neighborhood ?? ""}`;
+          return { r, score: countMatches(text, terms) };
+        })
+        .filter((x) => x.score > 0)
+        .sort((a, b) => b.score - a.score);
+      // A category or filter was recognised but no listing mentions the other
+      // words: show the category rather than "no matches".
+      const hasFilter = !!intent.category || hasAnyFilter(intent);
+      matched = scored.length || !hasFilter ? scored.map((x) => x.r) : filtered;
+    }
     // Measure from live coordinates when the resident opted in, else their zip.
     return matched.map((r) =>
       isNonSpecificAddress(r.address) ? r : { ...r, distance: distanceFor(r.address, r.distance) },
