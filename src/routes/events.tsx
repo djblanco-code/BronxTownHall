@@ -2,30 +2,13 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { submitCommunityEvent } from "@/lib/events.functions";
 import { AppShell } from "@/features/shell";
+import { EventCard, type EventSummary } from "@/features/events";
 import { supabase } from "@/integrations/supabase/client";
-import { buildIcs, downloadIcs } from "@/lib/civic-data";
-import { useEffect, useMemo, useRef, useState } from "react";
-import {
-  CalendarDays,
-  MapPin,
-  Share2,
-  Plus,
-  Check,
-  Loader2,
-  ArrowLeft,
-  List,
-  CalendarRange,
-} from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import { Plus, Loader2, ArrowLeft, List, CalendarRange } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { z } from "zod";
-import {
-  trackEventViewed,
-  trackEventShared,
-  trackEventSaved,
-  trackEventRsvp,
-} from "@/lib/track-event";
 import { loadDirectory } from "@/lib/bronx-resources";
-import { VerifiedPill } from "@/components/VerifiedPill";
 
 export const Route = createFileRoute("/events")({
   head: () => ({
@@ -324,7 +307,9 @@ function CalendarView({ items }: { items: EventRow[] }) {
           ) : (
             <ul className="space-y-3">
               {selectedEvents.map((e) => (
-                <EventCard key={e.id} e={e} />
+                <li key={e.id}>
+                  <EventCard event={toSummary(e)} detail="full" />
+                </li>
               ))}
             </ul>
           )}
@@ -343,178 +328,25 @@ function Section({ title, items }: { title: string; items: EventRow[] }) {
       </h2>
       <ul className="space-y-3">
         {items.map((e) => (
-          <EventCard key={e.id} e={e} />
+          <li key={e.id}>
+            <EventCard event={toSummary(e)} detail="full" />
+          </li>
         ))}
       </ul>
     </section>
   );
 }
 
-function EventCard({ e }: { e: EventRow }) {
-  const meta = EVENT_TYPES.find((t) => t.id === e.event_type);
-  const cardRef = useRef<HTMLLIElement | null>(null);
-  const seen = useRef(false);
-
-  // Events render as cards (no detail route) — count a view the first time a
-  // card is actually visible on screen.
-  useEffect(() => {
-    const node = cardRef.current;
-    if (!node || typeof IntersectionObserver === "undefined") return;
-    const obs = new IntersectionObserver(
-      (entries) => {
-        for (const en of entries) {
-          if (en.isIntersecting && !seen.current) {
-            seen.current = true;
-            trackEventViewed({
-              eventId: e.id,
-              category: e.category ?? e.event_type,
-              date: e.event_date,
-            });
-            obs.disconnect();
-          }
-        }
-      },
-      { threshold: 0.5 },
-    );
-    obs.observe(node);
-    return () => obs.disconnect();
-  }, [e.id, e.category, e.event_type, e.event_date]);
-
-  const d = new Date(e.event_date + "T12:00:00");
-  const startLabel = d.toLocaleDateString(undefined, {
-    weekday: "short",
-    month: "short",
-    day: "numeric",
-  });
-  const endLabel = e.event_end_date
-    ? new Date(e.event_end_date + "T12:00:00").toLocaleDateString(undefined, {
-        month: "short",
-        day: "numeric",
-      })
-    : null;
-  const dateLabel = endLabel ? `${startLabel}–${endLabel}` : startLabel;
-
-  const onAddToCal = () => {
-    trackEventSaved({ eventId: e.id, eventDate: e.event_date });
-    const dt = new Date(e.event_date + "T" + (parseTime(e.event_time) || "12:00:00"));
-    downloadIcs(
-      e.title,
-      buildIcs({
-        title: e.title,
-        description: e.description ?? "",
-        location: e.address || e.location || "Bronx, NY",
-        date: dt,
-        durationMinutes: 120,
-      }),
-    );
+/** The events table stores yes/no flags; the shared card speaks verification statuses. */
+function toSummary(e: EventRow): EventSummary {
+  return {
+    ...e,
+    verification_status: e.is_verified
+      ? "verified_by_bronx_app"
+      : e.is_community_submitted
+        ? "community_submitted"
+        : "needs_verification",
   };
-
-  const onShare = async () => {
-    const shareData = {
-      title: e.title,
-      text: `${e.title} · ${dateLabel} · ${e.location ?? ""}`,
-      url: window.location.href,
-    };
-    if (navigator.share) {
-      try {
-        await navigator.share(shareData);
-        trackEventShared({ eventId: e.id, method: "native" });
-      } catch {
-        /* ignored */
-      }
-    } else {
-      await navigator.clipboard.writeText(`${shareData.text} — ${shareData.url}`);
-      trackEventShared({ eventId: e.id, method: "copy" });
-      alert("Link copied to clipboard!");
-    }
-  };
-
-  return (
-    <li
-      ref={cardRef}
-      className="rounded-2xl border-2 border-border bg-card p-4 hover:border-primary transition"
-    >
-      <div className="flex items-start gap-3">
-        <div className="text-3xl">{meta?.emoji ?? "📅"}</div>
-        <div className="flex-1 min-w-0">
-          <p className="text-xs uppercase tracking-wide text-accent font-semibold">
-            {dateLabel}
-            {e.event_time ? ` · ${e.event_time}` : ""}
-          </p>
-          <p className="font-bold text-foreground mt-0.5 text-lg flex items-center gap-2 flex-wrap">
-            {e.title}
-            {e.is_verified && (
-              <span className="inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-full bg-success/15 text-success font-semibold">
-                <Check className="h-3 w-3" /> Verified
-              </span>
-            )}
-            {e.is_community_submitted && !e.is_verified && (
-              <span className="text-xs px-2 py-0.5 rounded-full bg-warning/20 text-warning font-semibold">
-                Community Submitted
-              </span>
-            )}
-            {e.id.startsWith("bx-") && (
-              <VerifiedPill
-                compact
-                category="events"
-                status="needs_verification"
-                lastVerified={null}
-                source={null}
-              />
-            )}
-          </p>
-          {e.description && <p className="text-sm text-muted-foreground mt-1">{e.description}</p>}
-          {(e.location || e.address) && (
-            <p className="text-sm text-muted-foreground mt-2 inline-flex items-center gap-1">
-              <MapPin className="h-4 w-4" /> {e.location}
-              {e.address ? ` — ${e.address}` : ""}
-            </p>
-          )}
-          <p className="text-sm mt-1 font-medium">
-            {e.is_free ? "Free" : "Paid"}
-            {e.cost ? ` · ${e.cost}` : ""}
-          </p>
-          <div className="flex flex-wrap gap-2 mt-3">
-            <button
-              onClick={onAddToCal}
-              className="no-min-h inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-sm font-medium bg-secondary hover:bg-secondary/70"
-            >
-              <CalendarDays className="h-4 w-4" /> Add to Calendar
-            </button>
-            <button
-              onClick={onShare}
-              className="no-min-h inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-sm font-medium bg-secondary hover:bg-secondary/70"
-            >
-              <Share2 className="h-4 w-4" /> Share
-            </button>
-            {e.website && (
-              <a
-                href={e.website}
-                target="_blank"
-                rel="noreferrer"
-                onClick={() => trackEventRsvp({ eventId: e.id, organization: e.location })}
-                className="no-min-h inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-sm font-medium bg-primary/10 text-primary hover:bg-primary/20"
-              >
-                RSVP / Website ↗
-              </a>
-            )}
-          </div>
-        </div>
-      </div>
-    </li>
-  );
-}
-
-function parseTime(t: string | null): string | null {
-  if (!t) return null;
-  const m = t.trim().match(/^(\d{1,2}):?(\d{2})?\s*(am|pm|AM|PM)?/);
-  if (!m) return null;
-  let h = parseInt(m[1], 10);
-  const min = m[2] ?? "00";
-  const p = m[3]?.toLowerCase();
-  if (p === "pm" && h < 12) h += 12;
-  if (p === "am" && h === 12) h = 0;
-  return `${String(h).padStart(2, "0")}:${min}:00`;
 }
 
 function Chip({

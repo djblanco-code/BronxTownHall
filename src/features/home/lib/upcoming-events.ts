@@ -1,21 +1,10 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { loadDirectory } from "@/lib/bronx-resources";
+import type { VerificationStatus } from "@/lib/verification";
+import type { EventSummary } from "@/features/events";
 
-export type UpcomingEvent = {
-  id: string;
-  title: string;
-  category: string | null;
-  event_date: string;
-  event_end_date: string | null;
-  event_time: string | null;
-  location: string | null;
-  neighborhood: string | null;
-  is_free: boolean;
-  source: string | null;
-  verification_status: string | null;
-  last_verified: string | null;
-};
+export type UpcomingEvent = EventSummary;
 
 const TIMEOUT_MS = 10_000;
 
@@ -36,7 +25,12 @@ async function loadUpcomingEvents(): Promise<UpcomingEvent[]> {
   ]);
   if (error) throw error;
 
-  const submitted = (data ?? []).map((event) => ({ ...event, event_end_date: null }));
+  const submitted = (data ?? []).map<UpcomingEvent>((event) => ({
+    ...event,
+    event_end_date: null,
+    verification_status:
+      (event.verification_status as VerificationStatus | null) ?? "needs_verification",
+  }));
   const imported = directory
     .filter(
       (r) =>
