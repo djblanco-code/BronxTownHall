@@ -83,10 +83,11 @@ describe("openingStatus", () => {
     expect(openingStatus("M-F 9am-5pm", at(MON, 18)).opensAt).toBeNull();
   });
 
-  it("counts as open tonight only past 5 PM and before closing", () => {
+  it("counts as open tonight only past 6 PM and before closing", () => {
     expect(openingStatus("M-F 8am-8pm", at(MON, 12)).tonight).toBe(true);
     expect(openingStatus("M-F 8am-8pm", at(MON, 20)).tonight).toBe(false);
     expect(openingStatus("M-F 9am-5pm", at(MON, 12)).tonight).toBe(false);
+    expect(openingStatus("M-F 9am-6pm", at(MON, 12)).tonight).toBe(false);
     expect(openingStatus("24/7", at(SUN, 23)).tonight).toBe(true);
     expect(openingStatus("Monthly", at(MON, 12)).tonight).toBeNull();
   });
@@ -112,5 +113,6 @@ describe("formatClock", () => {
   it("formats minutes as a clock time", () => {
     expect(formatClock(21 * 60, "en-US")).toBe("9 PM");
     expect(formatClock(17 * 60 + 30, "en-US")).toBe("5:30 PM");
+    expect(formatClock(21 * 60, "es")).toBe("21:00");
   });
 });

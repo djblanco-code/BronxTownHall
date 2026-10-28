@@ -42,6 +42,7 @@ src/components/ui shared design-system primitives (shadcn, bottom-sheet)
 | --- | ---------------------------------------------------------------------------------------------------------------------------- | ------- |
 | 1   | **App shell**: top bar, tab bar, language picker, floating actions, footer                                                   | ✅ Done |
 | 2   | **Home / Discover**: search-first hero, compact categories, no arrival pop-ups, rethink the Feedback button                  | ✅ Done |
+| 2b  | **Home: Today in the Bronx**: greeting, deadline alerts, open tonight, events today and this weekend, picks from history     | ✅ Done |
 | 3   | **Browse a category**: list cards, filters in a bottom sheet                                                                 | Next    |
 | 4   | **Resource detail**: sticky Call / Directions / Save / Share bar                                                             |         |
 | 5   | **Search + Ask**: one search screen with recents and suggestions                                                             |         |
@@ -61,6 +62,40 @@ Cross-cutting follow-ups:
 - **PWA polish**: opt into `viewport-fit=cover`. The safe-area insets already
   flow through `--app-tabbar-h` / `--app-bottom-inset`, so this only needs
   top-bar and landscape padding added.
+
+## Piece 2b: Today in the Bronx (done)
+
+Home now answers "what's useful right now?" instead of asking "what do you
+need today?". It builds on the opening-hours parser (`src/lib/opening-hours.ts`),
+which reads 176 of the 231 seeded listings' hours and says "unknown" for the
+rest rather than guessing.
+
+- A greeting for the time of day in New York, in the visitor's language, with
+  their neighborhood and the date ("Good evening, Mott Haven · Wed, Oct 28"),
+  above the title "Today in the Bronx". It appears after hydration in a
+  fixed-height line, so nothing shifts.
+- Staff-published deadlines that haven't passed yet, as up to two amber rows.
+  Nothing renders when none are active.
+- "Right now": chips for Open tonight, Events today and This weekend, starting
+  on the first one with something in it. Open tonight lists places still open
+  after 6 PM, open ones first, nearest first, preferring the chosen
+  neighborhood when it has at least three. Each tile says "Open until 8 PM",
+  "Opens at 3 PM", "Open until dusk" (parks) or "Open 24 hours".
+- "Picked for you": listings from the categories this phone has browsed most
+  (on-device history only), open ones first. Legal, health and housing are
+  never used to personalise, and the row hides when personalisation is off.
+- Listing tiles (`ResourceTile`) live in the resources feature next to
+  `ResourceCard`; the row layout (`CardRow`) is shared by both Home rows.
+
+Mobbin references:
+
+- Greeting with today's summary underneath:
+  [Withings](https://mobbin.com/screens/6852bc4c-c9d3-434d-b52f-54521e690076),
+  [Bloom](https://mobbin.com/screens/1b17c919-dc12-4e39-ad3d-5da1d854bf69)
+- Local, time-sensitive items first:
+  [Nextdoor](https://mobbin.com/screens/f0b2ac3d-75b2-4f56-af18-24f4417377c9)
+- A row picked from what you've looked at:
+  [Nike](https://mobbin.com/screens/8ea0b69c-e7d6-49ee-b2b9-414b4ecda229)
 
 ## Piece 2: Home (done)
 

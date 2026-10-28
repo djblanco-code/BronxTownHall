@@ -14,6 +14,9 @@ import { useResourceMeta } from "@/lib/resource-meta";
 import { SpeakButton } from "@/components/SpeakButton";
 import { VoiceSearchButton } from "@/components/VoiceSearchButton";
 import { Chip } from "@/components/ui/chip";
+import { LANGS } from "@/lib/i18n";
+import { useNycTime } from "@/lib/opening-hours";
+import { greetingKey } from "../lib/today";
 
 const PLACEHOLDERS = [
   "Free events this weekend",
@@ -26,8 +29,8 @@ const PLACEHOLDERS = [
 ];
 
 /**
- * Search-first top of Home: where (neighborhood), what (one search field
- * with voice inside it), and two quiet trust lines. Nothing else competes.
+ * Top of Home: a greeting for the time of day and neighborhood, then one
+ * search field (voice inside it) and two quiet trust lines.
  */
 export function HomeHero({
   neighborhood,
@@ -88,10 +91,10 @@ export function HomeHero({
           <SpeakButton text={`${t("appName")}. ${t("interface.homeHero")}`} label={t("listen")} />
         </div>
 
-        <h1 className="mt-3 text-2xl tracking-tight text-foreground sm:text-4xl">
-          {t("home.title")}
+        <Greeting neighborhood={neighborhood} />
+        <h1 className="text-2xl tracking-tight text-foreground sm:text-4xl">
+          {t("home.todayTitle")}
         </h1>
-        <p className="mt-1 text-sm text-muted-foreground sm:text-base">{t("interface.homeHero")}</p>
 
         <form
           role="search"
@@ -161,5 +164,30 @@ export function HomeHero({
         </ul>
       </div>
     </section>
+  );
+}
+
+/**
+ * "Good evening, Mott Haven · Wed, Oct 28", in New York time and
+ * the visitor's language. Shown once the page is running in the browser, in
+ * a fixed-height line so nothing shifts when it appears.
+ */
+function Greeting({ neighborhood }: { neighborhood: string }) {
+  const { t, lang } = useI18n();
+  const now = useNycTime();
+  const locale = LANGS.find((l) => l.code === lang)?.bcp47;
+  if (!now) return <p className="mt-3 h-5" aria-hidden="true" />;
+  const greeting = t(`home.${greetingKey(now.minutes)}`);
+  const date = new Date().toLocaleDateString(locale, {
+    weekday: "short",
+    month: "short",
+    day: "numeric",
+    timeZone: "America/New_York",
+  });
+  return (
+    <p className="mt-3 h-5 truncate text-sm font-semibold text-primary">
+      {neighborhood ? t("home.greetingPlace", { greeting, place: neighborhood }) : greeting}
+      <span className="font-medium text-muted-foreground"> · {date}</span>
+    </p>
   );
 }
