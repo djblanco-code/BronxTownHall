@@ -1,5 +1,6 @@
 import { useTts, TTS_VOICES } from "@/lib/tts-context";
 import { Play, Pause, Square, X, Loader2, Volume2 } from "lucide-react";
+import { useDockHeight } from "@/hooks/use-dock-height";
 
 function fmt(sec: number): string {
   if (!isFinite(sec) || sec <= 0) return "0:00";
@@ -14,14 +15,16 @@ export function TtsPlayer() {
     currentTime, duration, voice, setVoice, speed, setSpeed,
     pause, resume, stop, seek, hidePlayer,
   } = useTts();
+  const dockRef = useDockHeight();
 
   if (!playerVisible) return null;
 
   return (
     <div
+      ref={dockRef}
       role="region"
       aria-label="Text to speech player"
-      className="print-hide fixed bottom-0 inset-x-0 z-[60] border-t border-border bg-card/95 backdrop-blur shadow-[0_-8px_24px_rgba(0,0,0,0.08)]"
+      className="print-hide fixed app-dock-bottom inset-x-0 z-[60] border-t border-border bg-card/95 backdrop-blur shadow-[0_-8px_24px_rgba(0,0,0,0.08)]"
     >
       <div className="max-w-3xl mx-auto px-3 py-2.5 flex flex-col gap-2">
         <div className="flex items-center gap-2">

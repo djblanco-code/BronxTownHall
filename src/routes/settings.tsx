@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { DataControls } from "@/components/DataControls";
-import { AppShell } from "@/components/AppShell";
+import { AppShell } from "@/features/shell";
 import { useI18n } from "@/lib/i18n-context";
 import { usePersonalization } from "@/lib/personalization";
 import { resetOnboarding, useProfile, saveProfile, getProfile, BRONX_ZIPS } from "@/lib/onboarding";

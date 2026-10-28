@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { submitCommunityEvent } from "@/lib/events.functions";
-import { AppShell } from "@/components/AppShell";
+import { AppShell } from "@/features/shell";
 import { supabase } from "@/integrations/supabase/client";
 import { buildIcs, downloadIcs } from "@/lib/civic-data";
 import { useEffect, useMemo, useRef, useState } from "react";

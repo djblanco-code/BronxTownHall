@@ -1,7 +1,7 @@
 import { MessageCircleQuestion } from "lucide-react";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { DemoTour } from "@/components/DemoTour";
-import { AppShell } from "@/components/AppShell";
+import { AppShell } from "@/features/shell";
 import { useI18n } from "@/lib/i18n-context";
 import { ReportModal } from "@/components/ReportModal";
 import { CATEGORIES, RESOURCES, Category } from "@/lib/data";
@@ -143,7 +143,13 @@ function HomePage() {
   );
 
   return (
-    <AppShell>
+    <AppShell
+      fab={
+        <button onClick={() => setShowReport(true)} className="no-min-h inline-flex items-center gap-2 px-5 py-3.5 rounded-full bg-foreground text-background shadow-xl hover:scale-105 transition font-semibold">
+          <MessageCircle className="h-5 w-5" /> {t("interface.feedback")}
+        </button>
+      }
+    >
       {/* 1. Hero + search — one job: what's around me, right now */}
       <section className="bg-gradient-to-b from-primary/10 via-background to-background">
         <div className="max-w-5xl mx-auto px-4 pt-8 pb-6 text-center">
@@ -299,9 +305,6 @@ function HomePage() {
         </Link>
       </section>
 
-      <button onClick={() => setShowReport(true)} className="no-min-h fixed bottom-6 end-6 z-40 inline-flex items-center gap-2 px-5 py-3.5 rounded-full bg-foreground text-background shadow-xl hover:scale-105 transition font-semibold">
-        <MessageCircle className="h-5 w-5" /> {t("interface.feedback")}
-      </button>
       {showReport && <ReportModal onClose={() => setShowReport(false)} />}
       {tourOpen && <DemoTour onClose={() => setTourOpen(false)} />}
       <BronxFactPopup />

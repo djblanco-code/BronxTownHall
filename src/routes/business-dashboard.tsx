@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { AppShell } from "@/components/AppShell";
+import { AppShell } from "@/features/shell";
 import { useEffect, useState } from "react";
 import { Business, DayHours, getCurrentBusiness, setSession } from "@/lib/business";
 import { LogOut, ExternalLink, Star, Check, Clock, Camera, BarChart3, Megaphone, Share2 } from "lucide-react";

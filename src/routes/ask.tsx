@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
-import { AppShell } from "@/components/AppShell";
+import { AppShell } from "@/features/shell";
 import { VerifiedPill } from "@/components/VerifiedPill";
 import { askQuestion, type AskResult } from "@/lib/ask.functions";
 import { useI18n } from "@/lib/i18n-context";

@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { isNonSpecificAddress } from "@/lib/address";
 import { useEffect, useState } from "react";
-import { AppShell } from "@/components/AppShell";
+import { AppShell } from "@/features/shell";
 import { supabase } from "@/integrations/supabase/client";
 import { RESOURCES } from "@/lib/data";
 import { useI18n } from "@/lib/i18n-context";

@@ -12,7 +12,7 @@ import {
   Loader2,
   ArrowRight,
 } from "lucide-react";
-import { AppShell } from "@/components/AppShell";
+import { AppShell } from "@/features/shell";
 import { VerifiedPill } from "@/components/VerifiedPill";
 import { supabase } from "@/integrations/supabase/client";
 import { loadDirectory, loadRecentActivity, type BronxResource } from "@/lib/bronx-resources";

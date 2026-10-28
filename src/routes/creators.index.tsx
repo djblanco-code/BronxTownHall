@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { AppShell } from "@/components/AppShell";
+import { AppShell } from "@/features/shell";
 import { listCreators, type Creator } from "@/lib/creators";
 import { Users } from "lucide-react";
 

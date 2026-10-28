@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { AppShell } from "@/components/AppShell";
+import { AppShell } from "@/features/shell";
 import { useEffect, useMemo, useState } from "react";
 import { getBusinesses } from "@/lib/business";
 import { useBusinessSync } from "@/lib/use-business-sync";

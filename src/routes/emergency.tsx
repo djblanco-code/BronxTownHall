@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { AppShell } from "@/components/AppShell";
+import { AppShell } from "@/features/shell";
 import { useI18n } from "@/lib/i18n-context";
 import { HOTLINES } from "@/lib/resources-extra";
 import { ArrowLeft, Phone, ShieldCheck, WifiOff, MessageSquare, Wifi } from "lucide-react";

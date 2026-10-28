@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { AppShell } from "@/components/AppShell";
+import { AppShell } from "@/features/shell";
 import { MapView, MapResource } from "@/components/MapView";
 import { SpreadsheetView, SheetRow } from "@/components/SpreadsheetView";
 import { ViewToggle, ViewMode } from "@/components/ViewToggle";

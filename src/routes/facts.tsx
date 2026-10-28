@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { AppShell } from "@/components/AppShell";
+import { AppShell } from "@/features/shell";
 import { BRONX_FACTS, factOfTheDay, getLikedFacts, toggleLikedFact, dateForFact, type FactCategory } from "@/lib/bronx-facts";
 import { ArrowLeft, Heart, Search, Sparkles } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";

@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { AppShell } from "@/components/AppShell";
+import { AppShell } from "@/features/shell";
 import { RESOURCES } from "@/lib/data";
 import { useResourceMeta } from "@/lib/resource-meta";
 import { freshnessOf, isVerified, verifyEveryDaysFor } from "@/lib/verification";

@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { AppShell } from "@/components/AppShell";
+import { AppShell } from "@/features/shell";
 import { useI18n } from "@/lib/i18n-context";
 import { CATEGORIES, RESOURCES, Category, MinorEligibility, YouthSubcategory, isArtRelatedEvent } from "@/lib/data";
 import { getBusinesses, Business } from "@/lib/business";
@@ -262,7 +262,11 @@ function CategoryPage() {
   if (!meta) return <AppShell><div className="max-w-3xl mx-auto px-4 py-10"><p>{t("interface.categoryNotFound")}</p><Link to="/" className="text-primary underline">← {t("home")}</Link></div></AppShell>;
 
   return (
-    <AppShell>
+    <AppShell
+      fab={
+        <button onClick={() => setShowSuggest(true)} className="no-min-h inline-flex items-center gap-2 px-5 py-3.5 rounded-full bg-primary text-primary-foreground shadow-xl hover:scale-105 transition font-semibold"><Plus className="h-5 w-5" /> {t("interface.suggestResource")}</button>
+      }
+    >
       <div className="max-w-3xl mx-auto px-4 py-6">
         <button onClick={() => navigate({ to: "/" })} className="no-min-h inline-flex items-center gap-1.5 text-sm text-primary font-medium mb-4 hover:underline"><ArrowLeft className="h-4 w-4" /> {t("back")}</button>
 
@@ -378,7 +382,6 @@ function CategoryPage() {
         )}
       </div>
 
-      <button onClick={() => setShowSuggest(true)} className="no-min-h fixed bottom-6 end-6 z-40 inline-flex items-center gap-2 px-5 py-3.5 rounded-full bg-primary text-primary-foreground shadow-xl hover:scale-105 transition font-semibold"><Plus className="h-5 w-5" /> {t("interface.suggestResource")}</button>
       {showSuggest && <SuggestModal onClose={() => setShowSuggest(false)} defaultCategory={cat as Category} />}
     </AppShell>
   );

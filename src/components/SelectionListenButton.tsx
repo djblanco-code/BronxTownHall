@@ -38,7 +38,7 @@ export function SelectionListenButton() {
         void speak(selectedText, { title: `Selection: ${preview}` });
       }}
       data-tts-ignore
-      className="print-hide fixed bottom-24 end-4 z-[55] inline-flex items-center gap-2 px-4 py-3 rounded-full bg-primary text-primary-foreground shadow-xl hover:scale-105 transition font-semibold"
+      className="print-hide fixed app-float-bottom start-4 z-[55] inline-flex items-center gap-2 px-4 py-3 rounded-full bg-primary text-primary-foreground shadow-xl hover:scale-105 transition font-semibold"
       aria-label="Listen to selected text"
     >
       <Volume2 className="h-5 w-5" />

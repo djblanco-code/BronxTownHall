@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { AppShell } from "@/components/AppShell";
+import { AppShell } from "@/features/shell";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/hooks/use-auth";
 import { fetchMyProProfile, upsertProProfile, fetchMyReferrals, updateReferralStatus, deleteReferral, type ProProfile, type Referral } from "@/lib/cloud-pro";

@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { AppShell } from "@/components/AppShell";
+import { AppShell } from "@/features/shell";
 import { DemoVideo } from "@/components/DemoVideo";
 import {
   Heart, MapPin, Bell, Shield, Store, Rocket, Users, Globe2,

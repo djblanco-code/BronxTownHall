@@ -107,7 +107,7 @@ export function TourOverlay() {
         role="dialog"
         aria-modal="true"
         aria-labelledby="tour-title"
-        className="fixed left-1/2 -translate-x-1/2 bottom-24 sm:bottom-8 z-[80] w-[min(560px,calc(100vw-1.5rem))]"
+        className="fixed left-1/2 -translate-x-1/2 app-float-bottom lg:bottom-8 z-[80] w-[min(560px,calc(100vw-1.5rem))]"
       >
         <div className="rounded-2xl bg-card border-2 border-primary shadow-2xl overflow-hidden">
           <div className="flex items-center justify-between gap-3 px-4 py-2.5 bg-primary text-primary-foreground">

@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { AppShell } from "@/components/AppShell";
+import { AppShell } from "@/features/shell";
 import { ArrowLeft, MapPin, Phone, Globe, Mail } from "lucide-react";
 import { COMMUNITY_BOARDS, PRECINCTS, ZIP_MAP } from "@/lib/civic-data";
 

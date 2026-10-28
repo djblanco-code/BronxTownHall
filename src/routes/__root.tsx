@@ -20,7 +20,6 @@ import { SelectionListenButton } from "@/components/SelectionListenButton";
 import { SkipLink } from "@/components/SkipLink";
 import { SimplifiedModeEffect } from "@/lib/simplified-mode";
 import { TextSizeEffect } from "@/lib/text-size";
-import { SimplifiedHelpFab } from "@/components/SimplifiedHelpFab";
 import { TourOverlay } from "@/components/TourOverlay";
 import { OfflineNotice } from "@/components/OfflineNotice";
 import { LiveLocationProvider } from "@/lib/live-location";
@@ -132,7 +131,6 @@ function RootComponent() {
               <Outlet />
               <SelectionListenButton />
               <TtsPlayer />
-              <SimplifiedHelpFab />
               <TourOverlay />
               <PersonalizeNudge />
               <OfflineNotice />
@@ -167,7 +165,7 @@ function PersonalizeNudge() {
     <div
       role="region"
       aria-label="Personalize your experience"
-      className="fixed bottom-24 sm:bottom-6 left-1/2 -translate-x-1/2 z-[60] w-[min(420px,calc(100vw-1.5rem))] rounded-2xl border border-border bg-card shadow-2xl p-4"
+      className="fixed app-float-bottom lg:bottom-6 left-1/2 -translate-x-1/2 z-[60] w-[min(420px,calc(100vw-1.5rem))] rounded-2xl border border-border bg-card shadow-2xl p-4"
     >
       <div className="flex items-start gap-3">
         <div className="flex-1">

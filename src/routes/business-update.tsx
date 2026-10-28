@@ -1,5 +1,5 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { AppShell } from "@/components/AppShell";
+import { AppShell } from "@/features/shell";
 import { useEffect, useState } from "react";
 import { Business, ConnectedAccounts, buildShareMessage, getCurrentBusiness, whatsappShareLink } from "@/lib/business";
 import { ArrowLeft, Send } from "lucide-react";

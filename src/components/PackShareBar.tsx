@@ -4,10 +4,12 @@ import { toast } from "sonner";
 import { usePack, generateShortLink } from "@/lib/pack";
 import { RESOURCES } from "@/lib/data";
 import { trackResourceShared } from "@/lib/track-resource";
+import { useDockHeight } from "@/hooks/use-dock-height";
 
 export function PackShareBar() {
   const { ids, count, clear } = usePack();
   const [busy, setBusy] = useState<null | "sms" | "whatsapp" | "copy">(null);
+  const dockRef = useDockHeight();
 
   if (count === 0) return null;
 
@@ -36,7 +38,7 @@ export function PackShareBar() {
   }
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-40 px-3 pb-[env(safe-area-inset-bottom)]">
+    <div ref={dockRef} className="fixed inset-x-0 app-dock-bottom z-40 px-3">
       <div className="mx-auto mb-3 max-w-2xl rounded-2xl border border-border bg-card shadow-lg p-3 flex items-center gap-2">
         <div className="flex-1 min-w-0">
           <p className="text-sm font-bold">{count} resource{count === 1 ? "" : "s"} selected</p>

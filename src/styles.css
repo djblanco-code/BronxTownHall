@@ -271,12 +271,8 @@ html.simplified [data-message-action] {
   font-weight: 500;
   opacity: 0.92;
 }
-/* Persistent Help button */
+/* Persistent Help button (positioned by the shell's floating-action stack) */
 .simplified-help-fab {
-  position: fixed;
-  right: 16px;
-  bottom: 96px; /* sits above bottom nav */
-  z-index: 60;
   min-height: 56px;
   min-width: 56px;
   padding: 0 20px;
@@ -290,8 +286,33 @@ html.simplified [data-message-action] {
   align-items: center;
   gap: 8px;
 }
-@media (min-width: 640px) {
-  .simplified-help-fab { bottom: 24px; }
+
+/* ============================================================
+   Bottom chrome contract. The shell's tab bar (data-app-tabbar) is shown
+   below lg; anything fixed to the bottom of the screen uses these instead
+   of hard-coded offsets, so it never hides behind the tab bar.
+   ============================================================ */
+:root {
+  /* Height of the tab bar including its safe-area padding; 0 when there is none. */
+  --app-tabbar-h: 0px;
+  /* What floating UI must clear: the tab bar, or the home indicator without one. */
+  --app-bottom-inset: max(var(--app-tabbar-h), env(safe-area-inset-bottom, 0px));
+  /* Height of a docked bar (share bar, audio player) while one is open; set by useDockHeight. */
+  --app-dock-h: 0px;
+}
+@media (width < 64rem) {
+  html:has([data-app-tabbar]) {
+    --app-tabbar-h: calc(4rem + env(safe-area-inset-bottom, 0px));
+  }
+}
+/* Floating buttons, toasts and cards: 1rem above the bottom chrome and any docked bar. */
+@utility app-float-bottom {
+  bottom: calc(var(--app-bottom-inset) + var(--app-dock-h) + 1rem);
+}
+/* Full-width bars (players, share bars): docked on top of the tab bar. */
+@utility app-dock-bottom {
+  bottom: var(--app-tabbar-h);
+  padding-bottom: calc(var(--app-bottom-inset) - var(--app-tabbar-h));
 }
 
 

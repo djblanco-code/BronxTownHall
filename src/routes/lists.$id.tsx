@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { AppShell } from "@/components/AppShell";
+import { AppShell } from "@/features/shell";
 import { useEffect, useState } from "react";
 import { fetchListWithItems, removeFromList, updateList, type List, type ListItem } from "@/lib/cloud-lists";
 import { RESOURCES } from "@/lib/data";

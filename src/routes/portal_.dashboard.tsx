@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useCallback, useEffect, useState } from "react";
-import { AppShell } from "@/components/AppShell";
+import { AppShell } from "@/features/shell";
 import { useAuth } from "@/hooks/use-auth";
 import {
   ACCOUNT_TYPES,

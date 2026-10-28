@@ -1,5 +1,5 @@
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
-import { AppShell } from "@/components/AppShell";
+import { AppShell } from "@/features/shell";
 import { useEffect, useState } from "react";
 import { Business, BusinessEvent, deleteBusiness, getBusinesses, getEvents, saveBusinesses, saveEvents } from "@/lib/business";
 import { listSuggestions, setSuggestionStatus, Suggestion } from "@/lib/suggestions";

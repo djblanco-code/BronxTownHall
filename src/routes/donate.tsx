@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { AppShell } from "@/components/AppShell";
+import { AppShell } from "@/features/shell";
 import { ArrowLeft, Heart, Sparkles } from "lucide-react";
 
 export const Route = createFileRoute("/donate")({

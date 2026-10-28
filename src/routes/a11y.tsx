@@ -1,5 +1,5 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { AppShell } from "@/components/AppShell";
+import { AppShell } from "@/features/shell";
 import { useI18n } from "@/lib/i18n-context";
 import { LanguageSelector } from "@/components/LanguageSelector";
 import { SpeakButton } from "@/components/SpeakButton";

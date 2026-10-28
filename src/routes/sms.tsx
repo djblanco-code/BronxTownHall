@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { AppShell } from "@/components/AppShell";
+import { AppShell } from "@/features/shell";
 import { SMS_KEYWORDS, SMS_SPECIAL_KEYWORDS, SMS_NUMBER, SMS_CONFIGURED, formatSmsNumber, buildSmsReply } from "@/lib/sms";
 import { MessageSquare, Phone, Signal, Check } from "lucide-react";
 
