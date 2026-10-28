@@ -12,9 +12,24 @@ export default defineConfig(({ command, mode }) => {
   const siteUrl =
     env.VITE_SITE_URL ||
     (env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${env.VERCEL_PROJECT_PRODUCTION_URL}` : "");
+  // The Supabase URL and publishable key are public values. Also accept the
+  // names Supabase's Vercel integration creates, and bake them in for the browser.
+  const pick = (...names: string[]) => names.map((n) => env[n]).find(Boolean) ?? "";
+  const supabaseUrl = pick("VITE_SUPABASE_URL", "SUPABASE_URL", "NEXT_PUBLIC_SUPABASE_URL");
+  const supabaseKey = pick(
+    "VITE_SUPABASE_PUBLISHABLE_KEY",
+    "SUPABASE_PUBLISHABLE_KEY",
+    "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY",
+    "SUPABASE_ANON_KEY",
+    "NEXT_PUBLIC_SUPABASE_ANON_KEY",
+  );
 
   return {
-    define: { "import.meta.env.VITE_SITE_URL": JSON.stringify(siteUrl) },
+    define: {
+      "import.meta.env.VITE_SITE_URL": JSON.stringify(siteUrl),
+      "import.meta.env.VITE_SUPABASE_URL": JSON.stringify(supabaseUrl),
+      "import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY": JSON.stringify(supabaseKey),
+    },
     server: { host: "::", port: 8080 },
     resolve: {
       dedupe: [

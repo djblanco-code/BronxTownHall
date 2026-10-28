@@ -12,6 +12,15 @@ Steps 1–4 are a one-time setup. Allow about 30 minutes.
 
 ## 1. Create the Supabase project
 
+**Easiest:** in Vercel, open your project → **Storage → Create Database →
+Supabase**. Vercel creates the project and adds its settings
+(`SUPABASE_URL`, `SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`, …) to the
+project for you; the app reads those names, so step 4's Supabase rows are
+already done. Open the database from Vercel's Storage tab with
+**Open in Supabase**, then continue with step 2.
+
+**Or directly:**
+
 1. Sign up at [supabase.com](https://supabase.com) and create a new project.
    Pick the **East US** region (closest to the Bronx) and save the database
    password somewhere safe.
@@ -40,6 +49,11 @@ npx supabase db push
 `db push` asks for the database password from step 1. When it finishes you
 have every table, security policy and function the app expects.
 
+**Without the CLI:** run `npm run --silent db:bundle > setup.sql` to get all
+migrations as one script, open Supabase → **SQL Editor → New query**, paste
+it and press **Run**. It runs as one transaction, so it either fully succeeds
+or changes nothing. Only run it on an empty project.
+
 ## 3. Set up sign-in
 
 In Supabase, under **Authentication → URL Configuration**:
@@ -61,6 +75,9 @@ Vercel → your project → **Settings → Environment Variables**. Add each one
 for Production (and Preview if you use preview deploys), then **redeploy**.
 `VITE_*` values are baked in when the site builds, so a change only takes
 effect after a new deployment.
+
+If the database came from Vercel's Supabase integration, the first three rows
+are already covered by the variables it added.
 
 | Variable | Required | What it is |
 |---|---|---|
