@@ -1,0 +1,320 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-cat-food: var(--cat-food);
+  --color-cat-health: var(--cat-health);
+  --color-cat-legal: var(--cat-legal);
+  --color-cat-jobs: var(--cat-jobs);
+  --color-cat-events: var(--cat-events);
+  --color-cat-gov: var(--cat-gov);
+  --color-cat-childcare: var(--cat-childcare);
+}
+
+:root {
+  --radius: 0.875rem;
+  /* Bronx-rooted palette: paper-off-white background, deep Bronx navy foreground,
+     subway-cobalt primary, brownstone-terracotta accent, park-green success. */
+  --background: oklch(0.985 0.008 85);
+  --foreground: oklch(0.2 0.04 255);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.2 0.04 255);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.2 0.04 255);
+  /* Subway-map cobalt — recognizable NYC transit blue */
+  --primary: oklch(0.45 0.19 255);
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: oklch(0.955 0.015 85);
+  --secondary-foreground: oklch(0.22 0.04 255);
+  --muted: oklch(0.955 0.012 85);
+  --muted-foreground: oklch(0.4 0.025 255);
+  /* Brownstone terracotta accent */
+  --accent: oklch(0.48 0.14 42);
+  --accent-foreground: oklch(0.99 0 0);
+  --destructive: oklch(0.55 0.22 27);
+  --destructive-foreground: oklch(0.99 0 0);
+  /* Van Cortlandt park green */
+  --success: oklch(0.45 0.13 150);
+  --success-foreground: oklch(0.99 0 0);
+  --warning: oklch(0.75 0.16 75);
+  --warning-foreground: oklch(0.2 0.04 60);
+  --border: oklch(0.88 0.012 85);
+  --input: oklch(0.9 0.012 85);
+  --ring: oklch(0.45 0.19 255);
+
+  /* Category colors — tuned so white text meets WCAG AA (≥4.5:1). */
+  --cat-food: oklch(0.55 0.2 35);
+  --cat-health: oklch(0.5 0.15 160);
+  --cat-legal: oklch(0.45 0.17 280);
+  --cat-jobs: oklch(0.5 0.16 220);
+  --cat-events: oklch(0.55 0.17 60);
+  --cat-gov: oklch(0.42 0.13 250);
+  --cat-childcare: oklch(0.55 0.2 350);
+  --cat-housing: oklch(0.5 0.16 200);
+  --cat-education: oklch(0.5 0.18 300);
+  --cat-money: oklch(0.5 0.17 140);
+  --cat-family: oklch(0.55 0.18 10);
+  --cat-nature: oklch(0.48 0.14 145);
+  --cat-art: oklch(0.55 0.2 320);
+  --cat-recreation: oklch(0.6 0.18 50);
+  --cat-retail: oklch(0.52 0.17 25);
+  --cat-services: oklch(0.48 0.1 265);
+}
+
+.dark {
+  --background: oklch(0.15 0.02 250);
+  --foreground: oklch(0.98 0 0);
+  --card: oklch(0.2 0.025 250);
+  --card-foreground: oklch(0.98 0 0);
+  --popover: oklch(0.2 0.025 250);
+  --popover-foreground: oklch(0.98 0 0);
+  --primary: oklch(0.75 0.15 230);
+  --primary-foreground: oklch(0.15 0.02 250);
+  --secondary: oklch(0.28 0.03 250);
+  --secondary-foreground: oklch(0.98 0 0);
+  --muted: oklch(0.28 0.03 250);
+  --muted-foreground: oklch(0.78 0.02 240);
+  --accent: oklch(0.7 0.15 165);
+  --accent-foreground: oklch(0.15 0.02 250);
+  --border: oklch(1 0 0 / 18%);
+  --input: oklch(1 0 0 / 20%);
+  --ring: oklch(0.75 0.15 230);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  html[dir="rtl"] {
+    text-align: right;
+  }
+
+  /* WCAG 2.4.7: always-visible focus indicator on every interactive element */
+  :focus-visible {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  /* Keep the focus ring readable on colored buttons */
+  .bg-destructive :focus-visible,
+  .bg-primary :focus-visible,
+  .bg-warning :focus-visible {
+    outline-color: white;
+    outline-offset: 3px;
+  }
+
+  /* Skip-to-main link (visually hidden until focused) */
+  .skip-link {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -120%);
+    z-index: 100;
+    padding: 12px 20px;
+    background: var(--color-primary);
+    color: var(--color-primary-foreground);
+    border-radius: 0 0 8px 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 0.15s ease;
+  }
+  .skip-link:focus {
+    transform: translate(-50%, 0);
+  }
+}
+
+/* WCAG 2.3.3 — respect user motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .hover\:scale-105:hover,
+  .hover\:-translate-y-0\.5:hover {
+    transform: none !important;
+  }
+}
+
+@media print {
+  header, nav, footer, .print-hide { display: none !important; }
+  body { background: white; color: black; }
+  a { color: black; text-decoration: none; }
+  .print-area { padding: 0 !important; max-width: 100% !important; }
+  .rounded-2xl, .border { border: 1px solid #ccc !important; box-shadow: none !important; }
+
+  /* Flyer mode: print only the flyer sheet */
+  body.flyer-open > *:not(.flyer-overlay) { display: none !important; }
+  body.flyer-open .flyer-overlay {
+    position: static !important;
+    inset: auto !important;
+    background: white !important;
+    overflow: visible !important;
+    padding: 0 !important;
+    z-index: auto !important;
+  }
+  body.flyer-open .flyer-overlay > div {
+    max-width: 100% !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+  }
+  body.flyer-open #flyer-sheet {
+    padding: 0.5in !important;
+    color: black !important;
+  }
+  body.flyer-open #flyer-sheet * { color: black !important; }
+}
+
+
+/* ============================================================
+   Simplified View — larger text, bigger tap targets, high contrast
+   Enabled by adding the `simplified` class to <html>.
+   ============================================================ */
+html.simplified {
+  font-size: 19.2px; /* +20% from default 16px → ~18px+ body */
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.12 0.02 240);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.12 0.02 240);
+  --muted-foreground: oklch(0.28 0.02 240);
+  --border: oklch(0.6 0.02 240);
+}
+html.simplified body {
+  font-size: 1.125rem; /* ≥18px */
+  line-height: 1.6;
+}
+/* Ensure minimum body text size everywhere */
+html.simplified p,
+html.simplified li,
+html.simplified span,
+html.simplified label,
+html.simplified div {
+  font-size: max(1em, 1.125rem);
+}
+html.simplified .text-xs,
+html.simplified .text-sm { font-size: 1.0625rem !important; line-height: 1.5 !important; }
+html.simplified .text-base { font-size: 1.1875rem !important; }
+html.simplified .text-lg { font-size: 1.3125rem !important; }
+html.simplified .text-xl { font-size: 1.5rem !important; }
+html.simplified .text-2xl { font-size: 1.875rem !important; }
+html.simplified .text-3xl { font-size: 2.25rem !important; }
+
+/* 48×48 minimum touch targets on all interactive elements */
+html.simplified button:not(.simplified-exempt),
+html.simplified a[role="button"]:not(.simplified-exempt),
+html.simplified [role="button"]:not(.simplified-exempt),
+html.simplified input[type="button"],
+html.simplified input[type="submit"],
+html.simplified select,
+html.simplified .min-h-\[44px\] {
+  min-height: 48px !important;
+  min-width: 48px !important;
+}
+/* Rounded corners on all buttons */
+html.simplified button:not(.simplified-exempt),
+html.simplified a[role="button"]:not(.simplified-exempt) {
+  border-radius: 14px;
+}
+/* Bigger focus ring for visibility */
+html.simplified :focus-visible {
+  outline-width: 3px;
+  outline-offset: 3px;
+}
+/* "Call Now" emphasis: any link/button with data-call-now is bolder & bigger */
+html.simplified [data-call-now] {
+  font-size: 1.1875rem !important;
+  font-weight: 800 !important;
+  background: var(--color-primary) !important;
+  color: var(--color-primary-foreground) !important;
+  padding: 14px 20px !important;
+}
+html.simplified [data-message-action] {
+  font-weight: 500;
+  opacity: 0.92;
+}
+/* Persistent Help button */
+.simplified-help-fab {
+  position: fixed;
+  right: 16px;
+  bottom: 96px; /* sits above bottom nav */
+  z-index: 60;
+  min-height: 56px;
+  min-width: 56px;
+  padding: 0 20px;
+  border-radius: 9999px;
+  background: var(--color-primary);
+  color: var(--color-primary-foreground);
+  font-weight: 800;
+  font-size: 1.125rem;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+@media (min-width: 640px) {
+  .simplified-help-fab { bottom: 24px; }
+}
+
+
+/* Bronx-rooted typography — Archivo Black for display headings, Inter for body */
+:root {
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+body {
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+}
+h1, h2, .font-display {
+  font-family: 'Archivo Black', 'Inter', system-ui, sans-serif;
+  letter-spacing: -0.01em;
+}
+
+/* ============================================================
+   In-app text size (Normal / Large / Extra Large), independent of OS.
+   All Tailwind sizes are rem-based, so scaling the root scales everything.
+   ============================================================ */
+html[data-text-size="large"] { font-size: 118.75%; }
+html[data-text-size="xl"] { font-size: 137.5%; }
+html.simplified[data-text-size="large"] { font-size: 22.8px; }
+html.simplified[data-text-size="xl"] { font-size: 26.4px; }
+html[data-text-size] body { overflow-wrap: anywhere; }
+html[data-text-size] img, html[data-text-size] video { max-width: 100%; height: auto; }

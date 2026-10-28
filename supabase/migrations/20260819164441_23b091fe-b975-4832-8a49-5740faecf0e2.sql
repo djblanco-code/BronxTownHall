@@ -1,0 +1,1 @@
+DELETE FROM public.resource_verifications WHERE resource_id IN ('bronxworks-food','poe-pantry');

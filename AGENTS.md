@@ -1,0 +1,2 @@
+- Event sourcing: scraped events land only in `scraped_events` for admin review; approval is the sole path into `bronx_resources` (keeps human verification as the publish gate).
+- Ask a Question: the AI only extracts search terms and picks IDs from listings retrieved from our own data; every displayed detail is rendered from the listing record, never AI text (prevents invented answers).

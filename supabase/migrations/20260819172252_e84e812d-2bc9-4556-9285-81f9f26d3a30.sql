@@ -1,0 +1,2 @@
+ALTER TABLE public.events ALTER COLUMN verification_status SET DEFAULT 'needs_verification';
+UPDATE public.events SET verification_status = 'verified_by_bronx_app' WHERE verification_status = 'verified';
