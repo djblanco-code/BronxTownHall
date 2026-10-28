@@ -1,4 +1,12 @@
-import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+  type ReactNode,
+} from "react";
 import { supabase } from "@/integrations/supabase/client";
 
 const KEY = "bx-pack";
@@ -30,33 +38,50 @@ export function PackProvider({ children }: { children: ReactNode }) {
           setActive(true);
         }
       }
-    } catch { /* ignore */ }
+    } catch {
+      /* ignore */
+    }
   }, []);
 
   const persist = useCallback((next: string[]) => {
     setIds(next);
-    try { localStorage.setItem(KEY, JSON.stringify(next)); } catch { /* ignore */ }
+    try {
+      localStorage.setItem(KEY, JSON.stringify(next));
+    } catch {
+      /* ignore */
+    }
   }, []);
 
   const toggle = useCallback((id: string) => {
     setIds((prev) => {
-      const next = prev.includes(id) ? prev.filter((x) => x !== id) : prev.length >= MAX ? prev : [...prev, id];
-      try { localStorage.setItem(KEY, JSON.stringify(next)); } catch { /* ignore */ }
+      const next = prev.includes(id)
+        ? prev.filter((x) => x !== id)
+        : prev.length >= MAX
+          ? prev
+          : [...prev, id];
+      try {
+        localStorage.setItem(KEY, JSON.stringify(next));
+      } catch {
+        /* ignore */
+      }
       return next;
     });
   }, []);
 
   const clear = useCallback(() => persist([]), [persist]);
 
-  const value = useMemo<PackCtx>(() => ({
-    ids,
-    active,
-    setActive,
-    has: (id: string) => ids.includes(id),
-    toggle,
-    clear,
-    count: ids.length,
-  }), [ids, active, toggle, clear]);
+  const value = useMemo<PackCtx>(
+    () => ({
+      ids,
+      active,
+      setActive,
+      has: (id: string) => ids.includes(id),
+      toggle,
+      clear,
+      count: ids.length,
+    }),
+    [ids, active, toggle, clear],
+  );
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }

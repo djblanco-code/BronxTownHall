@@ -2,13 +2,16 @@ import { useEffect, useState } from "react";
 import { Lang } from "./i18n";
 import { Category } from "./data";
 
-export type Need =
-  | "food" | "health" | "legal" | "jobs"
-  | "childcare" | "youth" | "civic";
+export type Need = "food" | "health" | "legal" | "jobs" | "childcare" | "youth" | "civic";
 
 export const NEED_TO_CATEGORY: Record<Need, Category> = {
-  food: "food", health: "health", legal: "legal", jobs: "jobs",
-  childcare: "childcare", youth: "youth", civic: "government",
+  food: "food",
+  health: "health",
+  legal: "legal",
+  jobs: "jobs",
+  childcare: "childcare",
+  youth: "youth",
+  civic: "government",
 };
 
 export type Comfort = "very" | "somewhat" | "not";
@@ -41,10 +44,14 @@ function read(): UserProfile {
   try {
     const raw = localStorage.getItem(KEY);
     return raw ? { ...DEFAULT, ...JSON.parse(raw) } : DEFAULT;
-  } catch { return DEFAULT; }
+  } catch {
+    return DEFAULT;
+  }
 }
 
-export function getProfile(): UserProfile { return read(); }
+export function getProfile(): UserProfile {
+  return read();
+}
 
 export function saveProfile(p: UserProfile) {
   if (typeof window === "undefined") return;

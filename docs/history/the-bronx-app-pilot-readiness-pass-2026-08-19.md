@@ -14,11 +14,13 @@ Events already have a real `events` table with dates, approval status, and RLS. 
 ## What changes
 
 ### 1. Resources move to the database (Priority 6)
+
 New `resources` table mirroring the existing `Resource` type plus the missing trust fields: `source`, `source_url`, `verification_status`, `last_verified`, `verify_every_days`, `neighborhood`, `community_board`, `organization_id`, `is_active`, `submitted_by`. Migration seeds all 201 existing records with literal INSERTs so nothing is lost.
 
 `src/lib/data.ts` stays in place as the offline/SSR fallback and type source. A new loader reads from the database and falls back to the static array on error — no route breaks during the transition.
 
 ### 2. Verification becomes real (Priorities 5 + 11)
+
 - Delete `lastVerifiedFor()`. `VerifiedPill` reads the actual `last_verified` and `verification_status` columns.
 - Five statuses: verified by organization, verified by Bronx App, verified via public source, community submitted, needs verification.
 - `verify_every_days` per record (defaulting per category, editable) drives freshness — a pantry at 90 days, a hospital at 365.
@@ -26,9 +28,11 @@ New `resources` table mirroring the existing `Resource` type plus the missing tr
 - `/data-quality` counters recompute from real columns.
 
 ### 3. Admin content management (Priority 7)
+
 `/admin` gains a Resources tab and an Events tab: create, edit, deactivate, set verification status, stamp "verified today", and review community submissions. Plain forms, admin-role gated, no dashboard framework.
 
 ### 4. Home page focus (Priority 1)
+
 - Remove the auto-opening trivia modal. The fact card moves inline near the footer and stays on `/facts`.
 - "Show me what this can do" moves off the resident home; the tour stays reachable at `/?tour=1` and from `/pitch`.
 - Rotating search placeholders: free events this weekend, dentist near me, food pantry near me, things happening in my neighborhood, community meetings this week, free kayaking in the Bronx.
@@ -36,27 +40,34 @@ New `resources` table mirroring the existing `Resource` type plus the missing tr
 - Trim competing CTAs: emergency and SMS stay, the ticker and secondary links consolidate.
 
 ### 5. Events become the hero (Priority 4)
+
 New "This Weekend in the Bronx" section directly under search, above the category grid. Real cards from the `events` table with date, time, location, neighborhood, free/paid, category, source, verification. Filter chips: Today · This week · This weekend · Next week. `/events` gains the same filters.
 
 ### 6. Categories and personalization (Priorities 2 + 3)
+
 All 14 categories stay. The home grid keeps 6 featured + "See all 14" — featured slots fill from pinned categories first, then behavioral signals, then defaults. Onboarding becomes location-only with a skip; the needs quiz stays reachable at `/onboarding?full=1`. Sensitive categories (legal, health, immigration-adjacent) never feed personalization signals.
 
 ### 7. Privacy by design (Priority 9)
+
 - Stop storing raw query text. `trackSearchPerformed` persists only a coarse intent bucket, result-count band, and a found/not-found boolean.
 - Sensitive categories (legal, health, and any record flagged sensitive) emit no analytics events at all — no view, no call, no directions.
 - "We don't save what you search" appears under the search bar, worded as a description of behavior, not a legal guarantee.
 - `search_analytics` DB function rewritten to read buckets instead of strings.
 
 ### 8. Six pilot metrics (Priority 10)
+
 `/admin/analytics` reduces to: Weekly Active Residents · W1 and W4 return · Action Rate · **Discovery Rate** (actions on records the user did not search for, from an existing `surface` field on each event) · Zero-result and no-action rate by bucket · Verification Freshness. Existing charts stay below the fold.
 
 ### 9. Hyperlocal architecture (Priority 13)
+
 `neighborhood` and `community_board` on resources and events, with an optional district filter. Bronx-wide remains the default — this only makes a curated single-district pilot possible later.
 
 ### 10. Multilingual honesty (Priority 12)
+
 UI translation untouched. A `translated_langs` field marks which records are genuinely translated; untranslated content shows a small "English only" note instead of silently serving English. No bulk auto-translation.
 
 ### 11. Organization claiming (Priority 8)
+
 A "Is this your organization?" link on resource detail pages writing to the existing report/submission flow with a `claim` type, surfacing in the admin queue. No portal.
 
 ## Not being touched

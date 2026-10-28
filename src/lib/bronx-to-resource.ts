@@ -66,7 +66,9 @@ export function topCategoryFor(resourceCategory: string): Category {
  * Anything we can't confidently place defaults to "pantry" — the most common
  * type — rather than creating a parallel taxonomy.
  */
-export function foodSubcategoryFor(r: Pick<BronxResource, "resource_category" | "resource_subcategory" | "description">): string {
+export function foodSubcategoryFor(
+  r: Pick<BronxResource, "resource_category" | "resource_subcategory" | "description">,
+): string {
   if (r.resource_category === "restaurants_dining") return "dining";
   const hay = [r.resource_category, r.resource_subcategory, r.description]
     .filter(Boolean)
@@ -75,13 +77,20 @@ export function foodSubcategoryFor(r: Pick<BronxResource, "resource_category" | 
 
   // Farmers markets, community gardens giving away produce, and health-food
   // focused grocery resources. Nutrition classes alone no longer belong here.
-  if (/farmers? ?market|greenmarket|farm stand|produce stand|mobile market|community garden|garden .*produce|health food|farm share|csa\b/.test(hay)) {
+  if (
+    /farmers? ?market|greenmarket|farm stand|produce stand|mobile market|community garden|garden .*produce|health food|farm share|csa\b/.test(
+      hay,
+    )
+  ) {
     return "farmers";
   }
   // Only nonprofit/senior home-delivered meal programs belong here — never
   // commercial delivery apps (Uber Eats, DoorDash, Grubhub, etc.).
   if (/uber eats|doordash|grubhub|seamless|instacart|postmates/.test(hay)) return "pantry";
-  if (/home[- ]?deliver|meals on wheels|citymeals|homebound|deliver\w*\s+(?:hot\s+)?meals?/.test(hay)) return "delivery";
+  if (
+    /home[- ]?deliver|meals on wheels|citymeals|homebound|deliver\w*\s+(?:hot\s+)?meals?/.test(hay)
+  )
+    return "delivery";
   if (/soup kitchen|community meal|prepared meal|hot meal|congregate/.test(hay)) return "meals";
   if (/grocer|market|produce|snap|ebt|benefit/.test(hay)) return "grocery";
   return "pantry";
@@ -92,11 +101,24 @@ export function foodSubcategoryFor(r: Pick<BronxResource, "resource_category" | 
  * (internships / training / finding / self). Anything we can't place
  * confidently defaults to "finding" — the broadest bucket.
  */
-export function jobsSubcategoryFor(r: { resource_subcategory?: string | null; description?: string | null }): string {
+export function jobsSubcategoryFor(r: {
+  resource_subcategory?: string | null;
+  description?: string | null;
+}): string {
   const hay = [r.resource_subcategory, r.description].filter(Boolean).join(" ").toLowerCase();
   if (/intern|fellowship|summer youth|youth employ/.test(hay)) return "internships";
-  if (/training|apprentice|certification|certificate|workforce development|upskill|bootcamp|vocational|ged|credential/.test(hay)) return "training";
-  if (/self-employ|entrepreneur|small business|start a business|freelanc|business development|vendor|licens/.test(hay)) return "self";
+  if (
+    /training|apprentice|certification|certificate|workforce development|upskill|bootcamp|vocational|ged|credential/.test(
+      hay,
+    )
+  )
+    return "training";
+  if (
+    /self-employ|entrepreneur|small business|start a business|freelanc|business development|vendor|licens/.test(
+      hay,
+    )
+  )
+    return "self";
   return "finding";
 }
 
@@ -104,10 +126,19 @@ export function jobsSubcategoryFor(r: { resource_subcategory?: string | null; de
  * Map an Education listing onto the three life-stage pills
  * (k12 / adult / college). Falls back to "k12" — the most common audience.
  */
-export function educationSubcategoryFor(r: { resource_subcategory?: string | null; description?: string | null }): string {
+export function educationSubcategoryFor(r: {
+  resource_subcategory?: string | null;
+  description?: string | null;
+}): string {
   const hay = [r.resource_subcategory, r.description].filter(Boolean).join(" ").toLowerCase();
-  if (/college|university|fafsa|financial aid|scholarship|cuny|suny|higher ed|degree/.test(hay)) return "college";
-  if (/\besl\b|english as a second|\bged\b|adult (?:education|literacy|basic)|hse|citizenship class|adult learner/.test(hay)) return "adult";
+  if (/college|university|fafsa|financial aid|scholarship|cuny|suny|higher ed|degree/.test(hay))
+    return "college";
+  if (
+    /\besl\b|english as a second|\bged\b|adult (?:education|literacy|basic)|hse|citizenship class|adult learner/.test(
+      hay,
+    )
+  )
+    return "adult";
   return "k12";
 }
 
@@ -116,11 +147,18 @@ export function educationSubcategoryFor(r: { resource_subcategory?: string | nul
  * (emergency / prevention / lottery / rights). Anything we can't place
  * confidently defaults to "prevention" — the broadest bucket.
  */
-export function housingSubcategoryFor(r: { resource_subcategory?: string | null; description?: string | null }): string {
+export function housingSubcategoryFor(r: {
+  resource_subcategory?: string | null;
+  description?: string | null;
+}): string {
   const hay = [r.resource_subcategory, r.description].filter(Boolean).join(" ").toLowerCase();
   if (/shelter|homeless|drop-?in|overnight|transitional|crisis/.test(hay)) return "emergency";
-  if (/lottery|housing connect|affordable housing|section 8|affordable unit/.test(hay)) return "lottery";
-  if (/tenant rights|eviction|housing court|rent strike|organizing|harassment|repairs|legal/.test(hay)) return "rights";
+  if (/lottery|housing connect|affordable housing|section 8|affordable unit/.test(hay))
+    return "lottery";
+  if (
+    /tenant rights|eviction|housing court|rent strike|organizing|harassment|repairs|legal/.test(hay)
+  )
+    return "rights";
   return "prevention";
 }
 
@@ -179,10 +217,10 @@ function subcategoryFor(r: BronxResource, cat: Category): string | undefined {
   return undefined;
 }
 
-
 /** Dietary chips we can honestly infer from the source text. */
 function dietaryFor(r: BronxResource): string[] {
-  const hay = `${r.resource_subcategory ?? ""} ${r.description ?? ""} ${r.organization_name}`.toLowerCase();
+  const hay =
+    `${r.resource_subcategory ?? ""} ${r.description ?? ""} ${r.organization_name}`.toLowerCase();
   const out: string[] = [];
   if (hay.includes("halal")) out.push("halal");
   if (hay.includes("kosher")) out.push("kosher");
@@ -195,8 +233,12 @@ function dietaryFor(r: BronxResource): string[] {
  * Only a real human verification (recorded with a date) counts.
  */
 function statusFor(r: BronxResource): { status: VerificationStatus; lastVerified: string | null } {
-  const manual = r.verification_method === "manual" || r.verification_method === "call" || r.verification_method === "visit";
-  if (manual && r.last_verified) return { status: "verified_by_bronx_app", lastVerified: r.last_verified };
+  const manual =
+    r.verification_method === "manual" ||
+    r.verification_method === "call" ||
+    r.verification_method === "visit";
+  if (manual && r.last_verified)
+    return { status: "verified_by_bronx_app", lastVerified: r.last_verified };
   return { status: "needs_verification", lastVerified: null };
 }
 
@@ -214,16 +256,19 @@ export function formatAddress(address: string | null, zip: string | null): strin
 }
 
 export function bronxToResource(r: BronxResource): ImportedResource {
-  const name = r.resource_name && r.resource_name !== r.organization_name
-    ? `${r.organization_name} — ${r.resource_name}`
-    : r.organization_name;
+  const name =
+    r.resource_name && r.resource_name !== r.organization_name
+      ? `${r.organization_name} — ${r.resource_name}`
+      : r.organization_name;
 
   const listingType = r.listing_type === "business" ? "business" : "service";
 
   const summary =
     (r.description ?? "").trim() ||
     [r.resource_subcategory, r.neighborhood].filter(Boolean).join(" · ") ||
-    (listingType === "business" ? "Local Bronx business." : "Community resource for Bronx residents.");
+    (listingType === "business"
+      ? "Local Bronx business."
+      : "Community resource for Bronx residents.");
 
   const { status, lastVerified } = statusFor(r);
   const cat = topCategoryFor(r.resource_category);
@@ -262,6 +307,5 @@ export function bronxToResource(r: BronxResource): ImportedResource {
       zip: r.zip_code,
       listingType,
     },
-
   };
 }

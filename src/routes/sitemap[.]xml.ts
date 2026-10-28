@@ -1,7 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SITE_URL } from "@/lib/site";
 import { getRouterInstance } from "@tanstack/react-start";
-import { sitemapStaticPaths, sitemapXML, sitemapPathForLocation, isSitemapRouteIncluded, type SitemapEntry } from "@/lib/sitemap";
+import {
+  sitemapStaticPaths,
+  sitemapXML,
+  sitemapPathForLocation,
+  isSitemapRouteIncluded,
+  type SitemapEntry,
+} from "@/lib/sitemap";
 import { CATEGORIES, RESOURCES } from "@/lib/data";
 import "@/lib/resources-extra";
 
@@ -19,7 +25,10 @@ export const Route = createFileRoute("/sitemap.xml")({
         if (isSitemapRouteIncluded(router.routesById[catRouteId])) {
           for (const cat of CATEGORIES) {
             const location = router.buildLocation({
-              to: "/category/$cat", params: { cat: cat.id }, search: () => ({}), hash: "",
+              to: "/category/$cat",
+              params: { cat: cat.id },
+              search: () => ({}),
+              hash: "",
             });
             const path = sitemapPathForLocation(router, location, catRouteId);
             if (path) entries.push({ path });
@@ -30,7 +39,10 @@ export const Route = createFileRoute("/sitemap.xml")({
         if (isSitemapRouteIncluded(router.routesById[resRouteId])) {
           for (const r of RESOURCES) {
             const location = router.buildLocation({
-              to: "/resource/$id", params: { id: r.id }, search: () => ({}), hash: "",
+              to: "/resource/$id",
+              params: { id: r.id },
+              search: () => ({}),
+              hash: "",
             });
             const path = sitemapPathForLocation(router, location, resRouteId);
             if (path) entries.push({ path });
@@ -39,7 +51,7 @@ export const Route = createFileRoute("/sitemap.xml")({
 
         if (entries.length === 0) {
           return new Response(
-            'No pages are included in this sitemap. Check route decisions and ancestor exclusions.',
+            "No pages are included in this sitemap. Check route decisions and ancestor exclusions.",
             { status: 404, headers: { "Cache-Control": "no-store" } },
           );
         }

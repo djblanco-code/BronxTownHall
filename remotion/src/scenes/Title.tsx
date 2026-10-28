@@ -7,9 +7,18 @@ export const Title: React.FC<{ display: string; body: string }> = ({ display, bo
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const s = spring({ frame, fps, config: { damping: 18, stiffness: 120 } });
-  const wipe = interpolate(frame, [8, 44], [100, 0], { extrapolateRight: "clamp", extrapolateLeft: "clamp" });
-  const sub = interpolate(frame, [40, 66], [0, 1], { extrapolateRight: "clamp", extrapolateLeft: "clamp" });
-  const bar = interpolate(frame, [58, 96], [0, 1], { extrapolateRight: "clamp", extrapolateLeft: "clamp" });
+  const wipe = interpolate(frame, [8, 44], [100, 0], {
+    extrapolateRight: "clamp",
+    extrapolateLeft: "clamp",
+  });
+  const sub = interpolate(frame, [40, 66], [0, 1], {
+    extrapolateRight: "clamp",
+    extrapolateLeft: "clamp",
+  });
+  const bar = interpolate(frame, [58, 96], [0, 1], {
+    extrapolateRight: "clamp",
+    extrapolateLeft: "clamp",
+  });
 
   return (
     <AbsoluteFill>

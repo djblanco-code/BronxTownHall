@@ -25,11 +25,9 @@ export function initAnalytics() {
   if (!enabled() || tracker) return;
 
   const domain =
-    (import.meta.env["VITE_PLAUSIBLE_DOMAIN"] as string | undefined) ||
-    window.location.hostname;
+    (import.meta.env["VITE_PLAUSIBLE_DOMAIN"] as string | undefined) || window.location.hostname;
   const apiHost =
-    (import.meta.env["VITE_PLAUSIBLE_API_HOST"] as string | undefined) ||
-    "https://plausible.io";
+    (import.meta.env["VITE_PLAUSIBLE_API_HOST"] as string | undefined) || "https://plausible.io";
 
   tracker = Plausible({
     domain,

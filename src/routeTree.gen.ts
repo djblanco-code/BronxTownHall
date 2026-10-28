@@ -48,6 +48,7 @@ import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ProRouteImport } from './routes/pro'
 import { Route as RequestResourceRouteImport } from './routes/request-resource'
 import { Route as RoadmapRouteImport } from './routes/roadmap'
+import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
 import { Route as SearchRouteImport } from './routes/search'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
@@ -268,6 +269,11 @@ const RoadmapRoute = RoadmapRouteImport.update({
   path: '/roadmap',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RobotsDottxtRoute = RobotsDottxtRouteImport.update({
+  id: '/robots.txt',
+  path: '/robots.txt',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SearchRoute = SearchRouteImport.update({
   id: '/search',
   path: '/search',
@@ -431,6 +437,7 @@ export interface FileRoutesByFullPath {
   '/pro': typeof ProRoute
   '/request-resource': typeof RequestResourceRoute
   '/roadmap': typeof RoadmapRoute
+  '/robots.txt': typeof RobotsDottxtRoute
   '/search': typeof SearchRoute
   '/settings': typeof SettingsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -496,6 +503,7 @@ export interface FileRoutesByTo {
   '/pro': typeof ProRoute
   '/request-resource': typeof RequestResourceRoute
   '/roadmap': typeof RoadmapRoute
+  '/robots.txt': typeof RobotsDottxtRoute
   '/search': typeof SearchRoute
   '/settings': typeof SettingsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -562,6 +570,7 @@ export interface FileRoutesById {
   '/pro': typeof ProRoute
   '/request-resource': typeof RequestResourceRoute
   '/roadmap': typeof RoadmapRoute
+  '/robots.txt': typeof RobotsDottxtRoute
   '/search': typeof SearchRoute
   '/settings': typeof SettingsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -629,6 +638,7 @@ export interface FileRouteTypes {
     | '/pro'
     | '/request-resource'
     | '/roadmap'
+    | '/robots.txt'
     | '/search'
     | '/settings'
     | '/sitemap.xml'
@@ -694,6 +704,7 @@ export interface FileRouteTypes {
     | '/pro'
     | '/request-resource'
     | '/roadmap'
+    | '/robots.txt'
     | '/search'
     | '/settings'
     | '/sitemap.xml'
@@ -759,6 +770,7 @@ export interface FileRouteTypes {
     | '/pro'
     | '/request-resource'
     | '/roadmap'
+    | '/robots.txt'
     | '/search'
     | '/settings'
     | '/sitemap.xml'
@@ -825,6 +837,7 @@ export interface RootRouteChildren {
   ProRoute: typeof ProRoute
   RequestResourceRoute: typeof RequestResourceRoute
   RoadmapRoute: typeof RoadmapRoute
+  RobotsDottxtRoute: typeof RobotsDottxtRoute
   SearchRoute: typeof SearchRoute
   SettingsRoute: typeof SettingsRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
@@ -1124,6 +1137,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RoadmapRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/robots.txt': {
+      id: '/robots.txt'
+      path: '/robots.txt'
+      fullPath: '/robots.txt'
+      preLoaderRoute: typeof RobotsDottxtRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/search': {
       id: '/search'
       path: '/search'
@@ -1355,6 +1375,7 @@ const rootRouteChildren: RootRouteChildren = {
   ProRoute: ProRoute,
   RequestResourceRoute: RequestResourceRoute,
   RoadmapRoute: RoadmapRoute,
+  RobotsDottxtRoute: RobotsDottxtRoute,
   SearchRoute: SearchRoute,
   SettingsRoute: SettingsRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,

@@ -29,7 +29,9 @@ export async function fetchMyLists(): Promise<List[]> {
   return (data ?? []) as List[];
 }
 
-export async function fetchListBySlug(slug: string): Promise<{ list: List; items: ListItem[] } | null> {
+export async function fetchListBySlug(
+  slug: string,
+): Promise<{ list: List; items: ListItem[] } | null> {
   const { data: list, error } = await supabase
     .from("lists")
     .select("*")
@@ -44,7 +46,9 @@ export async function fetchListBySlug(slug: string): Promise<{ list: List; items
   return { list: list as List, items: (items ?? []) as ListItem[] };
 }
 
-export async function fetchListWithItems(id: string): Promise<{ list: List; items: ListItem[] } | null> {
+export async function fetchListWithItems(
+  id: string,
+): Promise<{ list: List; items: ListItem[] } | null> {
   const { data: list, error } = await supabase.from("lists").select("*").eq("id", id).maybeSingle();
   if (error || !list) return null;
   const { data: items } = await supabase
@@ -55,19 +59,31 @@ export async function fetchListWithItems(id: string): Promise<{ list: List; item
   return { list: list as List, items: (items ?? []) as ListItem[] };
 }
 
-export async function createList(input: { name: string; description?: string; is_public?: boolean }) {
+export async function createList(input: {
+  name: string;
+  description?: string;
+  is_public?: boolean;
+}) {
   const { data: u } = await supabase.auth.getUser();
   if (!u.user) throw new Error("Not signed in");
   const { data, error } = await supabase
     .from("lists")
-    .insert({ user_id: u.user.id, name: input.name, description: input.description ?? null, is_public: input.is_public ?? false })
+    .insert({
+      user_id: u.user.id,
+      name: input.name,
+      description: input.description ?? null,
+      is_public: input.is_public ?? false,
+    })
     .select()
     .single();
   if (error) throw error;
   return data as List;
 }
 
-export async function updateList(id: string, patch: Partial<Pick<List, "name" | "description" | "is_public">>) {
+export async function updateList(
+  id: string,
+  patch: Partial<Pick<List, "name" | "description" | "is_public">>,
+) {
   const { error } = await supabase.from("lists").update(patch).eq("id", id);
   if (error) throw error;
 }
@@ -80,7 +96,10 @@ export async function deleteList(id: string) {
 export async function addToList(listId: string, resourceId: string, note?: string) {
   const { error } = await supabase
     .from("list_items")
-    .upsert({ list_id: listId, resource_id: resourceId, note: note ?? null }, { onConflict: "list_id,resource_id" });
+    .upsert(
+      { list_id: listId, resource_id: resourceId, note: note ?? null },
+      { onConflict: "list_id,resource_id" },
+    );
   if (error) throw error;
 }
 

@@ -9,7 +9,7 @@ export const terms: Bundle = {
       "By using The Bronx App you agree to these terms. This is a community information service — not a substitute for professional advice, and not a crisis service. If you're in danger, call 911; for mental-health support call 988; for domestic violence call 1-800-621-HOPE.",
     accuracyTitle: "Information accuracy",
     accuracy:
-      "We work hard to keep resources current, but hours, eligibility, and programs change frequently. Please call ahead. Every listing has a \"Report\" button — use it to help us fix mistakes.",
+      'We work hard to keep resources current, but hours, eligibility, and programs change frequently. Please call ahead. Every listing has a "Report" button — use it to help us fix mistakes.',
     submissionsTitle: "Your submissions",
     submissions:
       "Resources and events you submit are reviewed before going live. You affirm you have the right to share the info, and grant us permission to publish it in the app. Don't submit false, hateful, or unlawful content.",
@@ -22,7 +22,7 @@ export const terms: Bundle = {
     use3: "Don't use the app to harass, threaten, or defraud others.",
     warrantyTitle: "No warranty",
     warranty:
-      "The app is provided \"as is.\" We don't guarantee any resource, hotline, or event listing will be available at a given time. Use at your own risk.",
+      'The app is provided "as is." We don\'t guarantee any resource, hotline, or event listing will be available at a given time. Use at your own risk.',
     contactTitle: "Contact",
     contactPre: "Email",
     contactPost: "with questions.",

@@ -7,7 +7,11 @@ export const Route = createFileRoute("/donate")({
   head: () => ({
     meta: [
       { title: "Donate — The Bronx App" },
-      { name: "description", content: "Support The Bronx App: help us keep resources current, add new categories, and reach more residents." },
+      {
+        name: "description",
+        content:
+          "Support The Bronx App: help us keep resources current, add new categories, and reach more residents.",
+      },
     ],
   }),
   component: DonatePage,
@@ -17,7 +21,10 @@ function DonatePage() {
   return (
     <AppShell>
       <div className="max-w-2xl mx-auto px-4 py-8 text-center">
-        <Link to="/" className="no-min-h inline-flex items-center gap-1.5 text-sm text-primary font-medium mb-4 hover:underline">
+        <Link
+          to="/"
+          className="no-min-h inline-flex items-center gap-1.5 text-sm text-primary font-medium mb-4 hover:underline"
+        >
           <ArrowLeft className="h-4 w-4" /> Home
         </Link>
         <div className="h-16 w-16 mx-auto rounded-2xl bg-gradient-to-br from-primary to-accent grid place-items-center text-primary-foreground mb-4">
@@ -25,8 +32,8 @@ function DonatePage() {
         </div>
         <h1 className="text-3xl sm:text-4xl font-bold mb-3">Keep The Bronx App Free</h1>
         <p className="text-lg text-muted-foreground mb-6">
-          Your donation pays for hosting, verifying listings, and translating
-          resources into five languages — so every Bronx neighbor can find help.
+          Your donation pays for hosting, verifying listings, and translating resources into five
+          languages — so every Bronx neighbor can find help.
         </p>
 
         <div className="grid grid-cols-3 gap-3 mb-6">
@@ -48,7 +55,11 @@ function DonatePage() {
         </a>
 
         <p className="text-sm text-muted-foreground mt-6">
-          Prefer to give another way? Email <a href="mailto:hello@thebronxapp.org" className="text-primary underline">hello@thebronxapp.org</a> — we accept checks, employer matches, and volunteer time.
+          Prefer to give another way? Email{" "}
+          <a href="mailto:hello@thebronxapp.org" className="text-primary underline">
+            hello@thebronxapp.org
+          </a>{" "}
+          — we accept checks, employer matches, and volunteer time.
         </p>
       </div>
     </AppShell>

@@ -13,10 +13,19 @@ export function SponsoredBanner() {
 
   useEffect(() => {
     let alive = true;
-    void loadPlacement("homepage_banner").then((p) => {
-      if (alive) { setAd(p); setLoaded(true); }
-    }).catch(() => { if (alive) setLoaded(true); });
-    return () => { alive = false; };
+    void loadPlacement("homepage_banner")
+      .then((p) => {
+        if (alive) {
+          setAd(p);
+          setLoaded(true);
+        }
+      })
+      .catch(() => {
+        if (alive) setLoaded(true);
+      });
+    return () => {
+      alive = false;
+    };
   }, []);
 
   // House ad shown until a real sponsor is active. Same container and the
@@ -30,10 +39,7 @@ export function SponsoredBanner() {
   if (!loaded) return null;
 
   return (
-    <aside
-      aria-label="Sponsored message"
-      className="max-w-5xl mx-auto px-4 mt-8"
-    >
+    <aside aria-label="Sponsored message" className="max-w-5xl mx-auto px-4 mt-8">
       <div className="rounded-xl border border-dashed border-muted-foreground/50 bg-secondary/50 p-4 flex flex-col sm:flex-row sm:items-center gap-3">
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2 flex-wrap">

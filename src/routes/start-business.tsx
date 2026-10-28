@@ -1,22 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { AppShell } from "@/features/shell";
-import {
-  ROADMAP,
-  GRANTS,
-  ADVISORS,
-  STORIES,
-  LIBRARY,
-} from "@/lib/entrepreneur-data";
+import { ROADMAP, GRANTS, ADVISORS, STORIES, LIBRARY } from "@/lib/entrepreneur-data";
 import { EntrepreneurLeadForm } from "@/components/EntrepreneurLeadForm";
-import {
-  ArrowLeft,
-  ExternalLink,
-  Phone,
-  MapPin,
-  Rocket,
-  Sparkles,
-  Calendar,
-} from "lucide-react";
+import { ArrowLeft, ExternalLink, Phone, MapPin, Rocket, Sparkles, Calendar } from "lucide-react";
 
 export const Route = createFileRoute("/start-business")({
   staticData: { sitemap: true },
@@ -31,8 +17,7 @@ export const Route = createFileRoute("/start-business")({
       { property: "og:title", content: "Start a Business in The Bronx" },
       {
         property: "og:description",
-        content:
-          "Bronx grants, free advisors, and a step-by-step pathway from idea to launch.",
+        content: "Bronx grants, free advisors, and a step-by-step pathway from idea to launch.",
       },
     ],
   }),
@@ -60,12 +45,10 @@ function StartBusinessPage() {
               <p className="text-xs uppercase tracking-wider font-semibold opacity-80">
                 Bronx Entrepreneur Hub
               </p>
-              <h1 className="text-3xl sm:text-4xl font-bold mt-1">
-                Start a Business in The Bronx
-              </h1>
+              <h1 className="text-3xl sm:text-4xl font-bold mt-1">Start a Business in The Bronx</h1>
               <p className="mt-2 text-sm sm:text-base opacity-95 max-w-2xl">
-                A step-by-step roadmap, Bronx-only grants, and free advisors —
-                so your idea doesn't stay just an idea.
+                A step-by-step roadmap, Bronx-only grants, and free advisors — so your idea doesn't
+                stay just an idea.
               </p>
               <div className="mt-4 flex flex-wrap gap-2">
                 <a
@@ -111,9 +94,7 @@ function StartBusinessPage() {
                   </span>
                   <h3 className="font-bold">{step.title}</h3>
                 </div>
-                <p className="text-xs text-muted-foreground mt-2">
-                  {step.summary}
-                </p>
+                <p className="text-xs text-muted-foreground mt-2">{step.summary}</p>
                 <ul className="mt-3 space-y-1.5 text-xs">
                   {step.checklist.map((c) => (
                     <li key={c} className="flex gap-2">
@@ -135,8 +116,8 @@ function StartBusinessPage() {
                 Grants for Bronx entrepreneurs
               </h2>
               <p className="text-sm text-muted-foreground">
-                Free money — grants first, loans second. Always confirm current
-                eligibility on the grantor's site.
+                Free money — grants first, loans second. Always confirm current eligibility on the
+                grantor's site.
               </p>
             </div>
           </div>
@@ -152,9 +133,7 @@ function StartBusinessPage() {
                     {g.amount}
                   </span>
                 </div>
-                <p className="text-xs text-muted-foreground mt-1">
-                  {g.eligibility}
-                </p>
+                <p className="text-xs text-muted-foreground mt-1">{g.eligibility}</p>
                 <p className="text-xs mt-2 inline-flex items-center gap-1">
                   <Calendar className="h-3.5 w-3.5" aria-hidden /> Deadline: {g.deadline}
                 </p>
@@ -177,15 +156,12 @@ function StartBusinessPage() {
             Free Bronx advisors & mentors
           </h2>
           <p className="text-sm text-muted-foreground mb-4">
-            All of these are free. Book a session — they'll help you write a
-            plan, pick a legal structure, and apply for money.
+            All of these are free. Book a session — they'll help you write a plan, pick a legal
+            structure, and apply for money.
           </p>
           <ul className="grid sm:grid-cols-2 gap-3">
             {ADVISORS.map((a) => (
-              <li
-                key={a.id}
-                className="rounded-2xl border-2 border-border bg-card p-4"
-              >
+              <li key={a.id} className="rounded-2xl border-2 border-border bg-card p-4">
                 <h3 className="font-bold">{a.name}</h3>
                 <p className="text-sm mt-1">{a.what}</p>
                 <p className="text-xs text-muted-foreground mt-2 inline-flex items-center gap-1">
@@ -214,13 +190,15 @@ function StartBusinessPage() {
         </section>
 
         {/* Events */}
-        <section aria-labelledby="events-heading" className="rounded-2xl border-2 border-border bg-card p-5">
+        <section
+          aria-labelledby="events-heading"
+          className="rounded-2xl border-2 border-border bg-card p-5"
+        >
           <h2 id="events-heading" className="text-xl font-bold flex items-center gap-2">
             <Calendar className="h-5 w-5 text-accent" aria-hidden /> Workshops & pitch nights
           </h2>
           <p className="text-sm text-muted-foreground mt-1">
-            Browse upcoming Bronx business workshops, pitch competitions, and
-            networking events.
+            Browse upcoming Bronx business workshops, pitch competitions, and networking events.
           </p>
           <Link
             to="/events"
@@ -233,7 +211,8 @@ function StartBusinessPage() {
         {/* Success stories */}
         <section aria-labelledby="stories-heading">
           <h2 id="stories-heading" className="text-2xl font-bold mb-1 flex items-center gap-2">
-            <Sparkles className="h-6 w-6 text-warning" aria-hidden /> Bronx entrepreneurs who made it
+            <Sparkles className="h-6 w-6 text-warning" aria-hidden /> Bronx entrepreneurs who made
+            it
           </h2>
           <p className="text-sm text-muted-foreground mb-4">
             Real Bronx founders who started with an idea — just like you.
@@ -280,9 +259,7 @@ function StartBusinessPage() {
                     <p className="font-bold inline-flex items-center gap-1.5">
                       {l.title} <ExternalLink className="h-3.5 w-3.5 opacity-70" />
                     </p>
-                    <p className="text-xs text-muted-foreground mt-0.5">
-                      {l.description}
-                    </p>
+                    <p className="text-xs text-muted-foreground mt-0.5">{l.description}</p>
                   </div>
                 </a>
               </li>
@@ -296,8 +273,8 @@ function StartBusinessPage() {
             Not sure where to start?
           </h2>
           <p className="text-sm text-muted-foreground mb-4">
-            Send us a few sentences about your idea and we'll match you with the
-            right grant, advisor, or program.
+            Send us a few sentences about your idea and we'll match you with the right grant,
+            advisor, or program.
           </p>
           <EntrepreneurLeadForm />
         </section>

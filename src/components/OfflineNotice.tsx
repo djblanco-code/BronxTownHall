@@ -30,7 +30,8 @@ export function OfflineNotice() {
     >
       <span className="inline-flex items-center gap-1.5">
         <WifiOff className="h-3.5 w-3.5" aria-hidden="true" />
-        You&apos;re offline — pages you already opened still work. Emergency numbers are saved on this device.
+        You&apos;re offline — pages you already opened still work. Emergency numbers are saved on
+        this device.
       </span>
     </div>
   );

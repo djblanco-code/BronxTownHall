@@ -2,14 +2,67 @@
 // Levenshtein distance + small dictionary of common resource terms.
 
 const DICT = [
-  "pantry","food pantry","soup kitchen","shelter","clinic","legal aid","job training",
-  "childcare","daycare","esl","snap","wic","medicaid","medicare","housing","section 8",
-  "homeless","mental health","rehab","detox","domestic violence","immigration","asylum",
-  "halal","kosher","vegetarian","wheelchair","accessible","bilingual","spanish","french",
-  "bengali","arabic","tutoring","after school","summer camp","internship","resume",
-  "pharmacy","dentist","urgent care","hospital","precinct","community board","library",
-  "shower","laundry","clothing","diapers","formula","baby","senior","veteran","lgbtq",
-  "hiv","testing","pregnancy","wic","benefits","cash assistance","unemployment",
+  "pantry",
+  "food pantry",
+  "soup kitchen",
+  "shelter",
+  "clinic",
+  "legal aid",
+  "job training",
+  "childcare",
+  "daycare",
+  "esl",
+  "snap",
+  "wic",
+  "medicaid",
+  "medicare",
+  "housing",
+  "section 8",
+  "homeless",
+  "mental health",
+  "rehab",
+  "detox",
+  "domestic violence",
+  "immigration",
+  "asylum",
+  "halal",
+  "kosher",
+  "vegetarian",
+  "wheelchair",
+  "accessible",
+  "bilingual",
+  "spanish",
+  "french",
+  "bengali",
+  "arabic",
+  "tutoring",
+  "after school",
+  "summer camp",
+  "internship",
+  "resume",
+  "pharmacy",
+  "dentist",
+  "urgent care",
+  "hospital",
+  "precinct",
+  "community board",
+  "library",
+  "shower",
+  "laundry",
+  "clothing",
+  "diapers",
+  "formula",
+  "baby",
+  "senior",
+  "veteran",
+  "lgbtq",
+  "hiv",
+  "testing",
+  "pregnancy",
+  "wic",
+  "benefits",
+  "cash assistance",
+  "unemployment",
 ];
 
 export function levenshtein(a: string, b: string): number {
@@ -37,8 +90,15 @@ export function suggestCorrection(query: string): string | null {
   const q = query.trim().toLowerCase();
   if (!q || q.length < 3) return null;
   // First try whole-phrase match against multi-word entries.
-  const phraseBest = bestMatch(q, DICT.filter((d) => d.includes(" ")));
-  if (phraseBest && phraseBest.dist > 0 && phraseBest.dist <= Math.max(1, Math.floor(q.length / 5))) {
+  const phraseBest = bestMatch(
+    q,
+    DICT.filter((d) => d.includes(" ")),
+  );
+  if (
+    phraseBest &&
+    phraseBest.dist > 0 &&
+    phraseBest.dist <= Math.max(1, Math.floor(q.length / 5))
+  ) {
     return phraseBest.term;
   }
   // Otherwise token-by-token.
@@ -46,7 +106,10 @@ export function suggestCorrection(query: string): string | null {
   let changed = false;
   const fixed = tokens.map((tok) => {
     if (tok.length < 3) return tok;
-    const m = bestMatch(tok, DICT.filter((d) => !d.includes(" ")));
+    const m = bestMatch(
+      tok,
+      DICT.filter((d) => !d.includes(" ")),
+    );
     if (m && m.dist > 0 && m.dist <= Math.max(1, Math.floor(tok.length / 4))) {
       changed = true;
       return m.term;

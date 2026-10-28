@@ -28,7 +28,9 @@ export function LanguageSelector({ compact = false }: { compact?: boolean }) {
         </div>
       </div>
       {showAudioNote && (
-        <p className="text-[11px] text-muted-foreground sm:text-end">🔊 {t("interface.audioSoon")}</p>
+        <p className="text-[11px] text-muted-foreground sm:text-end">
+          🔊 {t("interface.audioSoon")}
+        </p>
       )}
     </div>
   );

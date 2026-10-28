@@ -14,7 +14,9 @@ export function useResourceLocations(addresses: string[]) {
   const fetchGeocode = useServerFn(geocodeResource);
   const [state, setState] = useState<State>(() => {
     const init: State = {};
-    addresses.forEach((a) => { if (memCache[a]) init[a] = memCache[a]; });
+    addresses.forEach((a) => {
+      if (memCache[a]) init[a] = memCache[a];
+    });
     return init;
   });
 
@@ -32,7 +34,9 @@ export function useResourceLocations(addresses: string[]) {
 
     setState((s) => {
       const next = { ...s };
-      toFetch.forEach((a) => { next[a] = "loading"; });
+      toFetch.forEach((a) => {
+        next[a] = "loading";
+      });
       return next;
     });
 
@@ -41,13 +45,19 @@ export function useResourceLocations(addresses: string[]) {
       let cached: Record<string, ResourceLocation> = {};
       try {
         cached = await fetchCached({ data: { addresses: toFetch } });
-      } catch { /* ignore */ }
+      } catch {
+        /* ignore */
+      }
       if (cancelled) return;
 
-      Object.entries(cached).forEach(([addr, loc]) => { memCache[addr] = loc; });
+      Object.entries(cached).forEach(([addr, loc]) => {
+        memCache[addr] = loc;
+      });
       setState((s) => {
         const next = { ...s };
-        Object.entries(cached).forEach(([addr, loc]) => { next[addr] = loc; });
+        Object.entries(cached).forEach(([addr, loc]) => {
+          next[addr] = loc;
+        });
         return next;
       });
 
@@ -75,7 +85,9 @@ export function useResourceLocations(addresses: string[]) {
       await Promise.all(Array.from({ length: CONCURRENCY }, worker));
     })();
 
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [stableAddrs.join("|")]);
 
@@ -83,7 +95,9 @@ export function useResourceLocations(addresses: string[]) {
     const v = state[address] ?? (memCache[address] as ResourceLocation | undefined);
     return v && typeof v === "object" ? (v as ResourceLocation) : null;
   };
-  const isLoading = stableAddrs.some((a) => state[a] === "loading" || (state[a] === undefined && !memCache[a]));
+  const isLoading = stableAddrs.some(
+    (a) => state[a] === "loading" || (state[a] === undefined && !memCache[a]),
+  );
 
   return { get, isLoading, state };
 }

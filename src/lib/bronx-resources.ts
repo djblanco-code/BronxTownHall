@@ -21,11 +21,7 @@ import { supabase } from "@/integrations/supabase/client";
 /* ------------------------------------------------------------------ */
 
 export type SourceId =
-  | "nyc_food_help"
-  | "nyc_dycd"
-  | "nyc_open_data_snap"
-  | "bronx_app_manual"
-  | "other";
+  "nyc_food_help" | "nyc_dycd" | "nyc_open_data_snap" | "bronx_app_manual" | "other";
 
 export type SourceDef = {
   id: SourceId;
@@ -101,10 +97,7 @@ export type ResourceCategoryRow = {
 };
 
 export type BronxVerificationStatus =
-  | "verified"
-  | "needs_verification"
-  | "temporarily_unverified"
-  | "inactive";
+  "verified" | "needs_verification" | "temporarily_unverified" | "inactive";
 
 export const BRONX_VERIFICATION_LABELS: Record<BronxVerificationStatus, string> = {
   verified: "Verified",
@@ -195,39 +188,87 @@ export function shown(value: string | null | undefined): string {
 
 const FIELD_ALIASES: Record<string, string[]> = {
   organization_name: [
-    "organization_name", "organization", "org_name", "provider", "provider_name",
-    "agency", "agency_name", "name", "facility_name", "site_name", "sponsor_name",
-    "center_name", "snap_center_name", "location_name",
+    "organization_name",
+    "organization",
+    "org_name",
+    "provider",
+    "provider_name",
+    "agency",
+    "agency_name",
+    "name",
+    "facility_name",
+    "site_name",
+    "sponsor_name",
+    "center_name",
+    "snap_center_name",
+    "location_name",
   ],
   resource_name: ["resource_name", "program", "program_name", "service_name", "site", "title"],
-  resource_category: ["resource_category", "category", "type", "service_type", "food_type", "location_type"],
+  resource_category: [
+    "resource_category",
+    "category",
+    "type",
+    "service_type",
+    "food_type",
+    "location_type",
+  ],
   resource_subcategory: ["resource_subcategory", "subcategory", "sub_type", "distribution_model"],
-  address: ["address", "street_address", "address1", "address_1", "full_address", "location_address", "street"],
+  address: [
+    "address",
+    "street_address",
+    "address1",
+    "address_1",
+    "full_address",
+    "location_address",
+    "street",
+  ],
   borough: ["borough", "boro", "boroname", "city", "borough_name"],
   neighborhood: ["neighborhood", "nta", "community", "community_district", "area"],
   zip_code: ["zip_code", "zip", "zipcode", "postcode", "postal_code"],
   phone: ["phone", "phone_number", "telephone", "contact_phone", "phone1", "public_phone"],
   email: ["email", "email_address", "contact_email"],
   website: ["website", "url", "web_site", "site_url", "link", "website_url"],
-  hours: ["hours", "hours_of_operation", "open_hours", "schedule", "days_hours", "operation_hours", "distribution_hours"],
+  hours: [
+    "hours",
+    "hours_of_operation",
+    "open_hours",
+    "schedule",
+    "days_hours",
+    "operation_hours",
+    "distribution_hours",
+  ],
   eligibility: ["eligibility", "eligibility_requirements", "requirements", "who_can_apply"],
   languages: ["languages", "language", "languages_spoken", "language_capacity"],
   description: ["description", "notes", "details", "additional_info", "comments", "services"],
   latitude: ["latitude", "lat", "y"],
   longitude: ["longitude", "lon", "lng", "long", "x"],
-  source_record_id: ["source_record_id", "record_id", "id", "objectid", "unique_id", "site_id", "facility_id"],
+  source_record_id: [
+    "source_record_id",
+    "record_id",
+    "id",
+    "objectid",
+    "unique_id",
+    "site_id",
+    "facility_id",
+  ],
 };
 
 const CATEGORY_HINTS: Array<{ match: RegExp; category: string; sub?: string }> = [
   { match: /soup kitchen|community meal|hot meal|congregate/i, category: "community_meal" },
   { match: /emergency food|emergency pantry|food box|disaster/i, category: "emergency_food" },
   { match: /snap|ebt|hra|benefits access center|food stamp/i, category: "snap_ebt" },
-  { match: /wic|school meal|application (help|assistance)|benefits (help|screening|enrollment)/i, category: "food_benefits_help" },
+  {
+    match: /wic|school meal|application (help|assistance)|benefits (help|screening|enrollment)/i,
+    category: "food_benefits_help",
+  },
   { match: /pantry|food distribution|grocery|cfc/i, category: "food_pantry" },
 ];
 
 export function slugKey(s: string): string {
-  return s.toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_|_$/g, "");
+  return s
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "_")
+    .replace(/^_|_$/g, "");
 }
 
 function pick(row: Record<string, unknown>, field: string): string | null {
@@ -250,28 +291,67 @@ export function normalizePhone(raw: string | null): string | null {
 }
 
 const STREET_ABBR: Array<[RegExp, string]> = [
-  [/\bstreet\b/g, "st"], [/\bavenue\b/g, "ave"], [/\bboulevard\b/g, "blvd"],
-  [/\broad\b/g, "rd"], [/\bplace\b/g, "pl"], [/\bdrive\b/g, "dr"],
-  [/\bconcourse\b/g, "conc"], [/\bparkway\b/g, "pkwy"], [/\bterrace\b/g, "ter"],
-  [/\bnorth\b/g, "n"], [/\bsouth\b/g, "s"], [/\beast\b/g, "e"], [/\bwest\b/g, "w"],
+  [/\bstreet\b/g, "st"],
+  [/\bavenue\b/g, "ave"],
+  [/\bboulevard\b/g, "blvd"],
+  [/\broad\b/g, "rd"],
+  [/\bplace\b/g, "pl"],
+  [/\bdrive\b/g, "dr"],
+  [/\bconcourse\b/g, "conc"],
+  [/\bparkway\b/g, "pkwy"],
+  [/\bterrace\b/g, "ter"],
+  [/\bnorth\b/g, "n"],
+  [/\bsouth\b/g, "s"],
+  [/\beast\b/g, "e"],
+  [/\bwest\b/g, "w"],
 ];
 
 export function normalizeAddress(raw: string | null): string | null {
   if (!raw) return null;
   let a = raw.toLowerCase().replace(/[.,#]/g, " ").replace(/\s+/g, " ").trim();
   for (const [re, to] of STREET_ABBR) a = a.replace(re, to);
-  a = a.replace(/\b(bronx|ny|new york|usa)\b/g, "").replace(/\b1\d{4}\b/g, "").replace(/\s+/g, " ").trim();
+  a = a
+    .replace(/\b(bronx|ny|new york|usa)\b/g, "")
+    .replace(/\b1\d{4}\b/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
   return a || null;
 }
 
 /** Step 3 — Bronx filter. A record must positively look like the Bronx. */
 export const BRONX_ZIPS = new Set([
-  "10451","10452","10453","10454","10455","10456","10457","10458","10459","10460",
-  "10461","10462","10463","10464","10465","10466","10467","10468","10469","10470",
-  "10471","10472","10473","10474","10475",
+  "10451",
+  "10452",
+  "10453",
+  "10454",
+  "10455",
+  "10456",
+  "10457",
+  "10458",
+  "10459",
+  "10460",
+  "10461",
+  "10462",
+  "10463",
+  "10464",
+  "10465",
+  "10466",
+  "10467",
+  "10468",
+  "10469",
+  "10470",
+  "10471",
+  "10472",
+  "10473",
+  "10474",
+  "10475",
 ]);
 
-export function isBronxRecord(input: { borough?: string | null; zip_code?: string | null; address?: string | null }): boolean {
+export function isBronxRecord(input: {
+  borough?: string | null;
+  zip_code?: string | null;
+  address?: string | null;
+}): boolean {
   const zip = (input.zip_code ?? "").match(/\b\d{5}\b/)?.[0];
   if (zip) return BRONX_ZIPS.has(zip);
   const boro = (input.borough ?? "").toLowerCase();
@@ -312,16 +392,31 @@ function inferCategory(row: Record<string, unknown>, fallback: string): string {
   const explicit = pick(row, "resource_category");
   if (explicit) {
     const s = slugKey(explicit);
-    if (["food_pantry", "community_meal", "emergency_food", "snap_ebt", "food_benefits_help"].includes(s)) return s;
+    if (
+      [
+        "food_pantry",
+        "community_meal",
+        "emergency_food",
+        "snap_ebt",
+        "food_benefits_help",
+      ].includes(s)
+    )
+      return s;
     for (const hint of CATEGORY_HINTS) if (hint.match.test(explicit)) return hint.category;
   }
-  const blob = Object.values(row).map((v) => (typeof v === "string" ? v : "")).join(" ");
+  const blob = Object.values(row)
+    .map((v) => (typeof v === "string" ? v : ""))
+    .join(" ");
   for (const hint of CATEGORY_HINTS) if (hint.match.test(blob)) return hint.category;
   return fallback;
 }
 
 /** Step 2 — dedupe key: organization + street address, else org + phone. */
-export function buildDedupeKey(orgName: string, address: string | null, phone: string | null): string {
+export function buildDedupeKey(
+  orgName: string,
+  address: string | null,
+  phone: string | null,
+): string {
   const org = slugKey(orgName).replace(/_(inc|corp|llc|the|of|and)_/g, "_");
   const addr = normalizeAddress(address);
   if (addr) return `${org}|${slugKey(addr)}`;
@@ -363,7 +458,12 @@ export function normalizeRow(
     website: pick(row, "website"),
     hours: pick(row, "hours"),
     eligibility: pick(row, "eligibility"),
-    languages: langRaw ? langRaw.split(/[,;/]/).map((s) => s.trim()).filter(Boolean) : [],
+    languages: langRaw
+      ? langRaw
+          .split(/[,;/]/)
+          .map((s) => s.trim())
+          .filter(Boolean)
+      : [],
     description: pick(row, "description"),
     latitude: Number.isFinite(lat) && lat !== 0 ? lat : null,
     longitude: Number.isFinite(lon) && lon !== 0 ? lon : null,
@@ -387,23 +487,43 @@ export function parseCSV(text: string): Record<string, string>[] {
   for (let i = 0; i < text.length; i++) {
     const c = text[i];
     if (quoted) {
-      if (c === '"' && text[i + 1] === '"') { field += '"'; i++; }
-      else if (c === '"') quoted = false;
+      if (c === '"' && text[i + 1] === '"') {
+        field += '"';
+        i++;
+      } else if (c === '"') quoted = false;
       else field += c;
       continue;
     }
-    if (c === '"') { quoted = true; continue; }
-    if (c === ",") { cur.push(field); field = ""; continue; }
-    if (c === "\n") { cur.push(field); rows.push(cur); cur = []; field = ""; continue; }
+    if (c === '"') {
+      quoted = true;
+      continue;
+    }
+    if (c === ",") {
+      cur.push(field);
+      field = "";
+      continue;
+    }
+    if (c === "\n") {
+      cur.push(field);
+      rows.push(cur);
+      cur = [];
+      field = "";
+      continue;
+    }
     if (c === "\r") continue;
     field += c;
   }
-  if (field.length || cur.length) { cur.push(field); rows.push(cur); }
+  if (field.length || cur.length) {
+    cur.push(field);
+    rows.push(cur);
+  }
   const [header, ...body] = rows.filter((r) => r.some((c) => c.trim() !== ""));
   if (!header) return [];
   return body.map((r) => {
     const obj: Record<string, string> = {};
-    header.forEach((h, i) => { obj[h.trim()] = (r[i] ?? "").trim(); });
+    header.forEach((h, i) => {
+      obj[h.trim()] = (r[i] ?? "").trim();
+    });
     return obj;
   });
 }
@@ -426,7 +546,9 @@ export function toCSV(rows: Record<string, unknown>[]): string {
     const s = v == null ? "" : Array.isArray(v) ? v.join("; ") : String(v).replace(/\r?\n/g, " ");
     return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
   };
-  return [headers.join(","), ...rows.map((r) => headers.map((h) => esc(r[h])).join(","))].join("\n");
+  return [headers.join(","), ...rows.map((r) => headers.map((h) => esc(r[h])).join(","))].join(
+    "\n",
+  );
 }
 
 /* ------------------------------------------------------------------ */
@@ -434,9 +556,19 @@ export function toCSV(rows: Record<string, unknown>[]): string {
 /* ------------------------------------------------------------------ */
 
 const MERGEABLE_FIELDS = [
-  "resource_name", "resource_subcategory", "address", "neighborhood", "zip_code",
-  "phone", "email", "website", "hours", "eligibility", "description",
-  "latitude", "longitude",
+  "resource_name",
+  "resource_subcategory",
+  "address",
+  "neighborhood",
+  "zip_code",
+  "phone",
+  "email",
+  "website",
+  "hours",
+  "eligibility",
+  "description",
+  "latitude",
+  "longitude",
 ] as const;
 
 /**
@@ -466,7 +598,11 @@ export function resolveConflicts(
     if (next === null || next === undefined || next === "") continue;
     const prev = existing[field];
     const prevEmpty = prev === null || prev === undefined || prev === "";
-    if (prevEmpty) { patch[field] = next; contributed.push(field); continue; }
+    if (prevEmpty) {
+      patch[field] = next;
+      contributed.push(field);
+      continue;
+    }
     if (manuallyVerified) continue;
     if (incomingPriority >= existingPriority && String(prev) !== String(next)) {
       patch[field] = next;
@@ -504,10 +640,17 @@ function collapseBatch(records: NormalizedRecord[]): NormalizedRecord[] {
   const byKey = new Map<string, NormalizedRecord>();
   for (const r of records) {
     const prior = byKey.get(r.dedupe_key);
-    if (!prior) { byKey.set(r.dedupe_key, r); continue; }
+    if (!prior) {
+      byKey.set(r.dedupe_key, r);
+      continue;
+    }
     byKey.set(r.dedupe_key, {
       ...prior,
-      ...Object.fromEntries(Object.entries(r).filter(([, v]) => v !== null && v !== "" && !(Array.isArray(v) && v.length === 0))),
+      ...Object.fromEntries(
+        Object.entries(r).filter(
+          ([, v]) => v !== null && v !== "" && !(Array.isArray(v) && v.length === 0),
+        ),
+      ),
     } as NormalizedRecord);
   }
   return [...byKey.values()];
@@ -520,15 +663,24 @@ export async function ingestRecords(
   opts: { filename?: string; format: "csv" | "json" | "manual" } = { format: "csv" },
 ): Promise<IngestResult> {
   const result: IngestResult = {
-    received: rows.length, created: 0, updated: 0, merged: 0,
-    skippedNonBronx: 0, skippedInvalid: 0, errors: [],
+    received: rows.length,
+    created: 0,
+    updated: 0,
+    merged: 0,
+    skippedNonBronx: 0,
+    skippedInvalid: 0,
+    errors: [],
   };
 
   const normalized: NormalizedRecord[] = [];
   for (const row of rows) {
     const org = pick(row, "organization_name");
     const n = normalizeRow(row, source, fallbackCategory);
-    if (!n) { if (org) result.skippedNonBronx++; else result.skippedInvalid++; continue; }
+    if (!n) {
+      if (org) result.skippedNonBronx++;
+      else result.skippedInvalid++;
+      continue;
+    }
     normalized.push(n);
   }
 
@@ -557,8 +709,14 @@ export async function ingestRecords(
       contributed = fieldsContributed;
       resourceId = prior.merged_into ?? prior.id;
       if (Object.keys(patch).length > 0) {
-        const { error } = await supabase.from("bronx_resources").update(patch as never).eq("id", resourceId);
-        if (error) { result.errors.push(`${rec.organization_name}: ${error.message}`); continue; }
+        const { error } = await supabase
+          .from("bronx_resources")
+          .update(patch as never)
+          .eq("id", resourceId);
+        if (error) {
+          result.errors.push(`${rec.organization_name}: ${error.message}`);
+          continue;
+        }
         result.updated++;
       } else {
         result.merged++;
@@ -592,10 +750,15 @@ export async function ingestRecords(
         } as never)
         .select("*")
         .single();
-      if (error || !data) { result.errors.push(`${rec.organization_name}: ${error?.message ?? "insert failed"}`); continue; }
+      if (error || !data) {
+        result.errors.push(`${rec.organization_name}: ${error?.message ?? "insert failed"}`);
+        continue;
+      }
       resourceId = (data as unknown as BronxResource).id;
       existing.set(rec.dedupe_key, data as unknown as BronxResource);
-      contributed = Object.entries(rec).filter(([, v]) => v !== null && v !== "").map(([k]) => k);
+      contributed = Object.entries(rec)
+        .filter(([, v]) => v !== null && v !== "")
+        .map(([k]) => k);
       result.created++;
     }
 
@@ -645,20 +808,26 @@ export async function loadCategories(): Promise<ResourceCategoryRow[]> {
   return (data ?? []) as unknown as ResourceCategoryRow[];
 }
 
-export async function loadDirectory(opts: { includeInactive?: boolean } = {}): Promise<BronxResource[]> {
+export async function loadDirectory(
+  opts: { includeInactive?: boolean } = {},
+): Promise<BronxResource[]> {
   let q = supabase.from("bronx_resources").select("*").order("organization_name");
   if (!opts.includeInactive) q = q.eq("active", true).is("merged_into", null);
   const { data } = await q;
   return (data ?? []) as unknown as BronxResource[];
 }
 
-export async function loadSourcesFor(resourceIds: string[]): Promise<Record<string, BronxResourceSource[]>> {
+export async function loadSourcesFor(
+  resourceIds: string[],
+): Promise<Record<string, BronxResourceSource[]>> {
   if (resourceIds.length === 0) return {};
   const out: Record<string, BronxResourceSource[]> = {};
   for (let i = 0; i < resourceIds.length; i += 200) {
     const { data } = await supabase
       .from("bronx_resource_sources")
-      .select("id,resource_id,source,source_label,source_url,source_record_id,source_priority,fields_contributed,source_last_seen")
+      .select(
+        "id,resource_id,source,source_label,source_url,source_record_id,source_priority,fields_contributed,source_last_seen",
+      )
       .in("resource_id", resourceIds.slice(i, i + 200));
     for (const s of (data ?? []) as unknown as BronxResourceSource[]) {
       (out[s.resource_id] ??= []).push(s);
@@ -670,7 +839,10 @@ export async function loadSourcesFor(resourceIds: string[]): Promise<Record<stri
 /** Merge one listing into another, preserving every source reference. */
 export async function mergeResources(loserId: string, winnerId: string): Promise<string | null> {
   if (loserId === winnerId) return "Cannot merge a listing into itself.";
-  const { data: rows } = await supabase.from("bronx_resources").select("*").in("id", [loserId, winnerId]);
+  const { data: rows } = await supabase
+    .from("bronx_resources")
+    .select("*")
+    .in("id", [loserId, winnerId]);
   const list = (rows ?? []) as unknown as BronxResource[];
   const loser = list.find((r) => r.id === loserId);
   const winner = list.find((r) => r.id === winnerId);
@@ -680,12 +852,20 @@ export async function mergeResources(loserId: string, winnerId: string): Promise
   for (const field of MERGEABLE_FIELDS) {
     const w = winner[field];
     const l = loser[field];
-    if ((w === null || w === undefined || w === "") && l !== null && l !== undefined && l !== "") patch[field] = l;
+    if ((w === null || w === undefined || w === "") && l !== null && l !== undefined && l !== "")
+      patch[field] = l;
   }
   if (winner.languages.length === 0 && loser.languages.length) patch.languages = loser.languages;
-  if (Object.keys(patch).length) await supabase.from("bronx_resources").update(patch as never).eq("id", winnerId);
+  if (Object.keys(patch).length)
+    await supabase
+      .from("bronx_resources")
+      .update(patch as never)
+      .eq("id", winnerId);
 
-  await supabase.from("bronx_resource_sources").update({ resource_id: winnerId } as never).eq("resource_id", loserId);
+  await supabase
+    .from("bronx_resource_sources")
+    .update({ resource_id: winnerId } as never)
+    .eq("resource_id", loserId);
   const { error } = await supabase
     .from("bronx_resources")
     .update({ merged_into: winnerId, active: false } as never)

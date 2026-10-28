@@ -92,7 +92,8 @@ export function headlineIssue(headline: string): string | null {
   const h = headline.trim();
   if (h.length < 3) return "Write a headline.";
   if (h.length > 160) return "Keep the headline under 160 characters.";
-  if ((h.match(/[.!?](\s|$)/g) ?? []).length > 1) return "Keep it to one sentence — put detail in Read more.";
+  if ((h.match(/[.!?](\s|$)/g) ?? []).length > 1)
+    return "Keep it to one sentence — put detail in Read more.";
   return null;
 }
 

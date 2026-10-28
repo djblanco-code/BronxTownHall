@@ -29,7 +29,6 @@ import { trackVisit } from "@/lib/track-journey";
 import { logVisit } from "@/lib/visit-log";
 import "@/lib/resources-extra"; // side-effect: appends new-category resources
 
-
 function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
@@ -37,7 +36,10 @@ function NotFoundComponent() {
         <h1 className="text-7xl font-bold text-foreground">404</h1>
         <p className="mt-2 text-sm text-muted-foreground">Page not found.</p>
         <div className="mt-6">
-          <Link to="/" className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground">
+          <Link
+            to="/"
+            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground"
+          >
             Go home
           </Link>
         </div>
@@ -53,9 +55,14 @@ function ErrorComponent({ error, reset }: { error: unknown; reset: () => void })
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
         <h1 className="text-xl font-semibold text-foreground">Something went wrong</h1>
-        <p className="mt-2 text-sm text-muted-foreground">{error instanceof Error ? error.message : String(error)}</p>
+        <p className="mt-2 text-sm text-muted-foreground">
+          {error instanceof Error ? error.message : String(error)}
+        </p>
         <button
-          onClick={() => { router.invalidate(); reset(); }}
+          onClick={() => {
+            router.invalidate();
+            reset();
+          }}
           className="mt-6 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground"
         >
           Try again
@@ -72,9 +79,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "The Bronx App — Connecting 1.4 Million Neighbors" },
-      { name: "description", content: "Free multilingual community resource finder for Bronx residents: food pantries, health clinics, legal aid, jobs, and events." },
+      {
+        name: "description",
+        content:
+          "Free multilingual community resource finder for Bronx residents: food pantries, health clinics, legal aid, jobs, and events.",
+      },
       { property: "og:title", content: "The Bronx App" },
-      { property: "og:description", content: "Free multilingual community resource finder for the Bronx." },
+      {
+        property: "og:description",
+        content: "Free multilingual community resource finder for the Bronx.",
+      },
       { property: "og:type", content: "website" },
       // Installable-app (home screen) support — optional layer, the site works the same without it.
       { name: "theme-color", content: "#1d4ed8" },
@@ -93,7 +107,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon.png" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700;800&display=swap" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700;800&display=swap",
+      },
     ],
   }),
   shellComponent: RootShell,
@@ -119,7 +136,13 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
-  useEffect(() => { registerServiceWorker(); initAnalytics(); trackVisit(); void logVisit(); void syncBusinesses(); }, []);
+  useEffect(() => {
+    registerServiceWorker();
+    initAnalytics();
+    trackVisit();
+    void logVisit();
+    void syncBusinesses();
+  }, []);
   return (
     <QueryClientProvider client={queryClient}>
       <I18nProvider>
@@ -152,13 +175,19 @@ function PersonalizeNudge() {
       const raw = localStorage.getItem("bronx.profile");
       const p = raw ? JSON.parse(raw) : null;
       if (dismissed || p?.completed) return;
-    } catch { /* ignore */ }
+    } catch {
+      /* ignore */
+    }
     const t = setTimeout(() => setShow(true), 30000);
     return () => clearTimeout(t);
   }, []);
   if (!show) return null;
   const dismiss = () => {
-    try { localStorage.setItem("bronx.personalizeNudge", "dismissed"); } catch { /* ignore */ }
+    try {
+      localStorage.setItem("bronx.personalizeNudge", "dismissed");
+    } catch {
+      /* ignore */
+    }
     setShow(false);
   };
   return (
@@ -169,8 +198,12 @@ function PersonalizeNudge() {
     >
       <div className="flex items-start gap-3">
         <div className="flex-1">
-          <p className="text-sm font-semibold text-foreground">Help us personalize your experience</p>
-          <p className="text-xs text-muted-foreground mt-0.5">Answer a few quick questions to see resources tailored to you.</p>
+          <p className="text-sm font-semibold text-foreground">
+            Help us personalize your experience
+          </p>
+          <p className="text-xs text-muted-foreground mt-0.5">
+            Answer a few quick questions to see resources tailored to you.
+          </p>
           <div className="mt-3 flex items-center gap-2">
             <Link
               to="/onboarding"

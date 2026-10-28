@@ -41,9 +41,21 @@ export type AdInquiry = {
 };
 
 export const INTEREST_OPTIONS: { id: AdInterest; label: string; desc: string }[] = [
-  { id: "homepage_banner", label: "Homepage banner", desc: "One modest banner on the home screen." },
-  { id: "sponsored_card", label: "Sponsored listing card", desc: "A clearly-labeled card inside a relevant category." },
-  { id: "not_sure", label: "Not sure yet", desc: "Tell us what you're trying to reach and we'll suggest a fit." },
+  {
+    id: "homepage_banner",
+    label: "Homepage banner",
+    desc: "One modest banner on the home screen.",
+  },
+  {
+    id: "sponsored_card",
+    label: "Sponsored listing card",
+    desc: "A clearly-labeled card inside a relevant category.",
+  },
+  {
+    id: "not_sure",
+    label: "Not sure yet",
+    desc: "Tell us what you're trying to reach and we'll suggest a fit.",
+  },
 ];
 
 export function interestLabel(i: string): string {

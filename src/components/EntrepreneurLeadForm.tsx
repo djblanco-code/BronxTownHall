@@ -65,11 +65,15 @@ export function EntrepreneurLeadForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="rounded-2xl border-2 border-border bg-card p-5 sm:p-6 shadow-sm space-y-4">
+    <form
+      onSubmit={onSubmit}
+      className="rounded-2xl border-2 border-border bg-card p-5 sm:p-6 shadow-sm space-y-4"
+    >
       <div>
         <h3 className="text-lg font-bold">Tell us your idea</h3>
         <p className="text-sm text-muted-foreground">
-          We'll match you with a free Bronx advisor and the right resources — no pitch deck required.
+          We'll match you with a free Bronx advisor and the right resources — no pitch deck
+          required.
         </p>
       </div>
 
@@ -85,12 +89,16 @@ export function EntrepreneurLeadForm() {
       </div>
 
       <label className="block">
-        <span className="text-xs font-semibold text-muted-foreground">Your idea in a few sentences</span>
+        <span className="text-xs font-semibold text-muted-foreground">
+          Your idea in a few sentences
+        </span>
         <textarea name="idea_summary" required rows={4} maxLength={4000} className={inp} />
       </label>
 
       <fieldset>
-        <legend className="text-xs font-semibold text-muted-foreground mb-2">Where are you now?</legend>
+        <legend className="text-xs font-semibold text-muted-foreground mb-2">
+          Where are you now?
+        </legend>
         <div className="flex flex-wrap gap-2">
           {STAGE_OPTIONS.map((o) => {
             const active = stage === o.id;
@@ -139,14 +147,22 @@ export function EntrepreneurLeadForm() {
         </div>
       </fieldset>
 
-      {err && <p role="alert" className="text-sm text-destructive">{err}</p>}
+      {err && (
+        <p role="alert" className="text-sm text-destructive">
+          {err}
+        </p>
+      )}
 
       <button
         type="submit"
         disabled={status === "loading"}
         className="no-min-h w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-primary text-primary-foreground font-semibold shadow hover:opacity-90 disabled:opacity-60 min-h-[48px]"
       >
-        {status === "loading" ? <Loader2 className="h-5 w-5 animate-spin" /> : <Send className="h-5 w-5" />}
+        {status === "loading" ? (
+          <Loader2 className="h-5 w-5 animate-spin" />
+        ) : (
+          <Send className="h-5 w-5" />
+        )}
         Send my idea
       </button>
     </form>

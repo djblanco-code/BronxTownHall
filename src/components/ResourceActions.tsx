@@ -8,8 +8,18 @@ import { toast } from "sonner";
 import { trackResourceShared } from "@/lib/track-resource";
 import { useI18n } from "@/lib/i18n-context";
 
-export function ResourceActions({ resourceId, resourceName, address, phone, category }: {
-  resourceId: string; resourceName: string; address: string; phone: string; category?: string;
+export function ResourceActions({
+  resourceId,
+  resourceName,
+  address,
+  phone,
+  category,
+}: {
+  resourceId: string;
+  resourceName: string;
+  address: string;
+  phone: string;
+  category?: string;
 }) {
   const { user } = useAuth();
   const { t } = useI18n();
@@ -22,7 +32,10 @@ export function ResourceActions({ resourceId, resourceName, address, phone, cate
   const [referralNote, setReferralNote] = useState("");
 
   useEffect(() => {
-    if (showLists && user) fetchMyLists().then(setLists).catch(() => {});
+    if (showLists && user)
+      fetchMyLists()
+        .then(setLists)
+        .catch(() => {});
   }, [showLists, user]);
 
   const smsBody = `Check out this resource I found: ${resourceName} at ${address}. Call them at ${phone}.${typeof window !== "undefined" ? " More info: " + window.location.href : ""}`;
@@ -36,7 +49,9 @@ export function ResourceActions({ resourceId, resourceName, address, phone, cate
       setShowLists(false);
     } catch (e) {
       toast.error((e as Error).message);
-    } finally { setLoading(false); }
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleCreateList = async () => {
@@ -50,44 +65,76 @@ export function ResourceActions({ resourceId, resourceName, address, phone, cate
       setNewName("");
     } catch (e) {
       toast.error((e as Error).message);
-    } finally { setLoading(false); }
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleLogReferral = async () => {
     setLoading(true);
     try {
-      await logReferral({ resource_id: resourceId, client_label: clientLabel || undefined, note: referralNote || undefined });
+      await logReferral({
+        resource_id: resourceId,
+        client_label: clientLabel || undefined,
+        note: referralNote || undefined,
+      });
       toast.success("Referral logged");
       setShowReferral(false);
-      setClientLabel(""); setReferralNote("");
+      setClientLabel("");
+      setReferralNote("");
     } catch (e) {
       toast.error((e as Error).message);
-    } finally { setLoading(false); }
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="print-hide">
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4">
-        <button onClick={() => user ? setShowLists(true) : toast.info("Sign in to save to a list")}
-          className="no-min-h inline-flex items-center justify-center gap-1.5 py-3 rounded-xl border border-border bg-card text-sm font-medium hover:bg-secondary min-h-[44px]">
+        <button
+          onClick={() => (user ? setShowLists(true) : toast.info("Sign in to save to a list"))}
+          className="no-min-h inline-flex items-center justify-center gap-1.5 py-3 rounded-xl border border-border bg-card text-sm font-medium hover:bg-secondary min-h-[44px]"
+        >
           <ListPlus className="h-4 w-4" /> {t("interface.addList")}
         </button>
-        <a href={smsHref} onClick={() => trackResourceShared({ resourceId, category, method: "sms" })} className="no-min-h inline-flex items-center justify-center gap-1.5 py-3 rounded-xl border border-border bg-card text-sm font-medium hover:bg-secondary min-h-[44px]">
+        <a
+          href={smsHref}
+          onClick={() => trackResourceShared({ resourceId, category, method: "sms" })}
+          className="no-min-h inline-flex items-center justify-center gap-1.5 py-3 rounded-xl border border-border bg-card text-sm font-medium hover:bg-secondary min-h-[44px]"
+        >
           <MessageSquare className="h-4 w-4" /> {t("interface.shareSms")}
         </a>
-        <button onClick={() => { trackResourceShared({ resourceId, category, method: "print" }); if (typeof window !== "undefined") window.print(); }}
-          className="no-min-h inline-flex items-center justify-center gap-1.5 py-3 rounded-xl border border-border bg-card text-sm font-medium hover:bg-secondary min-h-[44px]">
+        <button
+          onClick={() => {
+            trackResourceShared({ resourceId, category, method: "print" });
+            if (typeof window !== "undefined") window.print();
+          }}
+          className="no-min-h inline-flex items-center justify-center gap-1.5 py-3 rounded-xl border border-border bg-card text-sm font-medium hover:bg-secondary min-h-[44px]"
+        >
           <Printer className="h-4 w-4" /> {t("interface.print")}
         </button>
-        <button onClick={() => user ? setShowReferral(true) : toast.info("Sign in as a professional to log referrals")}
-          className="no-min-h inline-flex items-center justify-center gap-1.5 py-3 rounded-xl border border-border bg-card text-sm font-medium hover:bg-secondary min-h-[44px]">
+        <button
+          onClick={() =>
+            user ? setShowReferral(true) : toast.info("Sign in as a professional to log referrals")
+          }
+          className="no-min-h inline-flex items-center justify-center gap-1.5 py-3 rounded-xl border border-border bg-card text-sm font-medium hover:bg-secondary min-h-[44px]"
+        >
           <ClipboardCheck className="h-4 w-4" /> {t("interface.logReferral")}
         </button>
       </div>
 
       {showLists && (
-        <div role="dialog" aria-modal className="fixed inset-0 z-50 grid place-items-center bg-black/50 p-4" onClick={() => setShowLists(false)}>
-          <div className="bg-card rounded-2xl border border-border w-full max-w-md p-5" onClick={(e) => e.stopPropagation()}>
+        <div
+          role="dialog"
+          aria-modal
+          className="fixed inset-0 z-50 grid place-items-center bg-black/50 p-4"
+          onClick={() => setShowLists(false)}
+        >
+          <div
+            className="bg-card rounded-2xl border border-border w-full max-w-md p-5"
+            onClick={(e) => e.stopPropagation()}
+          >
             <h3 className="font-bold text-lg mb-3">Add to a list</h3>
             {lists.length === 0 ? (
               <p className="text-sm text-muted-foreground mb-3">You don't have any lists yet.</p>
@@ -95,40 +142,87 @@ export function ResourceActions({ resourceId, resourceName, address, phone, cate
               <ul className="space-y-1 mb-4 max-h-60 overflow-auto">
                 {lists.map((l) => (
                   <li key={l.id}>
-                    <button disabled={loading} onClick={() => handleAddToList(l.id)} className="no-min-h w-full text-left px-3 py-2 rounded-lg hover:bg-secondary">
-                      {l.name} {l.is_public && <span className="text-xs text-muted-foreground">· public</span>}
+                    <button
+                      disabled={loading}
+                      onClick={() => handleAddToList(l.id)}
+                      className="no-min-h w-full text-left px-3 py-2 rounded-lg hover:bg-secondary"
+                    >
+                      {l.name}{" "}
+                      {l.is_public && (
+                        <span className="text-xs text-muted-foreground">· public</span>
+                      )}
                     </button>
                   </li>
                 ))}
               </ul>
             )}
             <div className="flex gap-2">
-              <input value={newName} onChange={(e) => setNewName(e.target.value)} placeholder="New list name"
-                className="flex-1 px-3 py-2 rounded-lg border border-border bg-background text-sm" />
-              <button disabled={loading || !newName.trim()} onClick={handleCreateList}
-                className="no-min-h px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-semibold disabled:opacity-50">Create</button>
+              <input
+                value={newName}
+                onChange={(e) => setNewName(e.target.value)}
+                placeholder="New list name"
+                className="flex-1 px-3 py-2 rounded-lg border border-border bg-background text-sm"
+              />
+              <button
+                disabled={loading || !newName.trim()}
+                onClick={handleCreateList}
+                className="no-min-h px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-semibold disabled:opacity-50"
+              >
+                Create
+              </button>
             </div>
             <div className="mt-4 text-right">
-              <Link to="/lists" className="text-sm text-primary underline">Manage all lists →</Link>
+              <Link to="/lists" className="text-sm text-primary underline">
+                Manage all lists →
+              </Link>
             </div>
           </div>
         </div>
       )}
 
       {showReferral && (
-        <div role="dialog" aria-modal className="fixed inset-0 z-50 grid place-items-center bg-black/50 p-4" onClick={() => setShowReferral(false)}>
-          <div className="bg-card rounded-2xl border border-border w-full max-w-md p-5" onClick={(e) => e.stopPropagation()}>
+        <div
+          role="dialog"
+          aria-modal
+          className="fixed inset-0 z-50 grid place-items-center bg-black/50 p-4"
+          onClick={() => setShowReferral(false)}
+        >
+          <div
+            className="bg-card rounded-2xl border border-border w-full max-w-md p-5"
+            onClick={(e) => e.stopPropagation()}
+          >
             <h3 className="font-bold text-lg mb-1">Log a client referral</h3>
-            <p className="text-xs text-muted-foreground mb-3">For caseworkers tracking client outcomes. Client label is optional and stays private.</p>
+            <p className="text-xs text-muted-foreground mb-3">
+              For caseworkers tracking client outcomes. Client label is optional and stays private.
+            </p>
             <label className="block text-sm font-medium mb-1">Client label (optional)</label>
-            <input value={clientLabel} onChange={(e) => setClientLabel(e.target.value)} placeholder="e.g. Case #1234"
-              className="w-full px-3 py-2 rounded-lg border border-border bg-background text-sm mb-3" />
+            <input
+              value={clientLabel}
+              onChange={(e) => setClientLabel(e.target.value)}
+              placeholder="e.g. Case #1234"
+              className="w-full px-3 py-2 rounded-lg border border-border bg-background text-sm mb-3"
+            />
             <label className="block text-sm font-medium mb-1">Note</label>
-            <textarea value={referralNote} onChange={(e) => setReferralNote(e.target.value)} rows={3}
-              className="w-full px-3 py-2 rounded-lg border border-border bg-background text-sm mb-3" />
+            <textarea
+              value={referralNote}
+              onChange={(e) => setReferralNote(e.target.value)}
+              rows={3}
+              className="w-full px-3 py-2 rounded-lg border border-border bg-background text-sm mb-3"
+            />
             <div className="flex justify-end gap-2">
-              <button onClick={() => setShowReferral(false)} className="no-min-h px-3 py-2 rounded-lg border border-border text-sm">Cancel</button>
-              <button disabled={loading} onClick={handleLogReferral} className="no-min-h px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-semibold disabled:opacity-50">Log referral</button>
+              <button
+                onClick={() => setShowReferral(false)}
+                className="no-min-h px-3 py-2 rounded-lg border border-border text-sm"
+              >
+                Cancel
+              </button>
+              <button
+                disabled={loading}
+                onClick={handleLogReferral}
+                className="no-min-h px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-semibold disabled:opacity-50"
+              >
+                Log referral
+              </button>
             </div>
           </div>
         </div>

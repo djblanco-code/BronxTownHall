@@ -42,13 +42,19 @@ function FlyerModal({ data, onClose }: { data: FlyerData; onClose: () => void })
   const [qr, setQr] = useState<string>("");
 
   useEffect(() => {
-    QRCode.toDataURL(data.url, { margin: 1, width: 320, color: { dark: "#000000", light: "#ffffff" } })
+    QRCode.toDataURL(data.url, {
+      margin: 1,
+      width: 320,
+      color: { dark: "#000000", light: "#ffffff" },
+    })
       .then(setQr)
       .catch(() => setQr(""));
   }, [data.url]);
 
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
     window.addEventListener("keydown", onKey);
     document.body.classList.add("flyer-open");
     return () => {
@@ -58,10 +64,17 @@ function FlyerModal({ data, onClose }: { data: FlyerData; onClose: () => void })
   }, [onClose]);
 
   return (
-    <div className="fixed inset-0 z-[100] bg-black/60 overflow-auto p-4 flyer-overlay" role="dialog" aria-modal="true" aria-label="Printable flyer preview">
+    <div
+      className="fixed inset-0 z-[100] bg-black/60 overflow-auto p-4 flyer-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Printable flyer preview"
+    >
       <div className="mx-auto max-w-[8.5in] bg-white text-black rounded-lg shadow-xl">
         <div className="print-hide flex items-center justify-between gap-2 border-b border-neutral-300 px-4 py-3">
-          <p className="text-sm font-medium text-neutral-700">Flyer preview — black &amp; white, no images</p>
+          <p className="text-sm font-medium text-neutral-700">
+            Flyer preview — black &amp; white, no images
+          </p>
           <div className="flex items-center gap-2">
             <button
               onClick={() => window.print()}
@@ -69,7 +82,11 @@ function FlyerModal({ data, onClose }: { data: FlyerData; onClose: () => void })
             >
               <Printer className="h-4 w-4" /> {t("interface.print")}
             </button>
-            <button onClick={onClose} aria-label={t("interface.close")} className="no-min-h rounded-lg border border-neutral-300 p-2 hover:bg-neutral-100">
+            <button
+              onClick={onClose}
+              aria-label={t("interface.close")}
+              className="no-min-h rounded-lg border border-neutral-300 p-2 hover:bg-neutral-100"
+            >
               <X className="h-4 w-4" />
             </button>
           </div>
@@ -85,20 +102,28 @@ function FlyerModal({ data, onClose }: { data: FlyerData; onClose: () => void })
 
           <dl className="mt-8 space-y-4 text-xl">
             <div>
-              <dt className="text-xs font-bold uppercase tracking-widest">{t("interface.address")}</dt>
+              <dt className="text-xs font-bold uppercase tracking-widest">
+                {t("interface.address")}
+              </dt>
               <dd className="mt-0.5 font-semibold">{data.address}</dd>
             </div>
             <div>
-              <dt className="text-xs font-bold uppercase tracking-widest">{t("interface.phone")}</dt>
+              <dt className="text-xs font-bold uppercase tracking-widest">
+                {t("interface.phone")}
+              </dt>
               <dd className="mt-0.5 font-semibold">{data.phone}</dd>
             </div>
             <div>
-              <dt className="text-xs font-bold uppercase tracking-widest">{t("interface.hours")}</dt>
+              <dt className="text-xs font-bold uppercase tracking-widest">
+                {t("interface.hours")}
+              </dt>
               <dd className="mt-0.5 font-semibold">{data.hours}</dd>
             </div>
             {data.notes && (
               <div>
-                <dt className="text-xs font-bold uppercase tracking-widest">What to bring / notes</dt>
+                <dt className="text-xs font-bold uppercase tracking-widest">
+                  What to bring / notes
+                </dt>
                 <dd className="mt-0.5 text-lg font-normal">{data.notes}</dd>
               </div>
             )}
@@ -111,15 +136,20 @@ function FlyerModal({ data, onClose }: { data: FlyerData; onClose: () => void })
               <p className="mt-4 text-xs">Free · Multilingual · Made for Bronx residents</p>
             </div>
             {qr ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={qr} alt="QR code linking to this resource in The Bronx App" width={150} height={150} />
+              <img
+                src={qr}
+                alt="QR code linking to this resource in The Bronx App"
+                width={150}
+                height={150}
+              />
             ) : (
               <div className="h-[150px] w-[150px] border border-black" aria-hidden="true" />
             )}
           </div>
 
           <p className="mt-6 text-[10px]">
-            Printed from The Bronx App on {new Date().toLocaleDateString()}. Information may change — call ahead to confirm.
+            Printed from The Bronx App on {new Date().toLocaleDateString()}. Information may change
+            — call ahead to confirm.
           </p>
         </div>
       </div>

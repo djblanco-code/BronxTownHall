@@ -14,7 +14,7 @@ export type ConnectedAccounts = {
 
 export type DayHours = { open: boolean; from: string; to: string };
 export const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"] as const;
-export type DayKey = typeof DAYS[number];
+export type DayKey = (typeof DAYS)[number];
 
 export type BusinessEvent = {
   id: string;
@@ -31,8 +31,8 @@ export type BusinessEvent = {
 export type BusinessVideoCategory = "products" | "storefront" | "events" | "behind_the_scenes";
 export type BusinessVideo = {
   id: string;
-  url: string;           // signed playback URL
-  storagePath: string;   // path in the storage bucket
+  url: string; // signed playback URL
+  storagePath: string; // path in the storage bucket
   thumbnailUrl?: string;
   caption?: string;
   category: BusinessVideoCategory;
@@ -84,13 +84,21 @@ const isB = () => typeof window !== "undefined";
 
 export function getBusinesses(): Business[] {
   if (!isB()) return [];
-  try { return JSON.parse(localStorage.getItem(BKEY) || "[]"); } catch { return []; }
+  try {
+    return JSON.parse(localStorage.getItem(BKEY) || "[]");
+  } catch {
+    return [];
+  }
 }
 let suppressPush = false;
 /** Used by the cloud sync layer when writing rows pulled FROM the cloud. */
 export function withoutPush(fn: () => void) {
   suppressPush = true;
-  try { fn(); } finally { suppressPush = false; }
+  try {
+    fn();
+  } finally {
+    suppressPush = false;
+  }
 }
 export function saveBusinesses(list: Business[]) {
   if (!isB()) return;
@@ -104,7 +112,11 @@ export function saveBusinesses(list: Business[]) {
 }
 export function getEvents(): BusinessEvent[] {
   if (!isB()) return [];
-  try { return JSON.parse(localStorage.getItem(EKEY) || "[]"); } catch { return []; }
+  try {
+    return JSON.parse(localStorage.getItem(EKEY) || "[]");
+  } catch {
+    return [];
+  }
 }
 export function saveEvents(list: BusinessEvent[]) {
   if (!isB()) return;
@@ -122,7 +134,8 @@ export function getSessionId(): string | null {
 }
 export function setSession(id: string | null) {
   if (!isB()) return;
-  if (id) localStorage.setItem(SKEY, id); else localStorage.removeItem(SKEY);
+  if (id) localStorage.setItem(SKEY, id);
+  else localStorage.removeItem(SKEY);
 }
 
 export function findBusinessByEmail(email: string) {
@@ -136,7 +149,8 @@ export function getCurrentBusiness(): Business | null {
 export function upsertBusiness(b: Business) {
   const list = getBusinesses();
   const i = list.findIndex((x) => x.id === b.id);
-  if (i >= 0) list[i] = b; else list.push(b);
+  if (i >= 0) list[i] = b;
+  else list.push(b);
   saveBusinesses(list);
   void import("./business-sync").then((m) => m.pushBusiness(b));
 }
@@ -157,7 +171,15 @@ export function newId() {
 }
 
 export const SUBCATEGORIES: Record<string, string[]> = {
-  food: ["Food Pantry / Free Meal", "Grocery Store", "Bodega", "Supermarket", "Restaurant", "Bakery", "Cafe"],
+  food: [
+    "Food Pantry / Free Meal",
+    "Grocery Store",
+    "Bodega",
+    "Supermarket",
+    "Restaurant",
+    "Bakery",
+    "Cafe",
+  ],
   health: ["Clinic", "Hospital", "Pharmacy", "Mental Health", "Dental", "Urgent Care", "Home Care"],
   legal: ["Free Legal Aid", "Low-Cost Legal", "Mediation", "Notary", "Immigration Services"],
   jobs: ["Job Placement", "Internships", "Resume Help", "Job Training", "Career Counseling"],
@@ -181,10 +203,13 @@ export const CATEGORY_OPTIONS: { id: keyof typeof SUBCATEGORIES; label: string }
 ];
 
 export function defaultHours(): Record<DayKey, DayHours> {
-  return DAYS.reduce((acc, d) => {
-    acc[d] = { open: d !== "Sun", from: "09:00", to: "17:00" };
-    return acc;
-  }, {} as Record<DayKey, DayHours>);
+  return DAYS.reduce(
+    (acc, d) => {
+      acc[d] = { open: d !== "Sun", from: "09:00", to: "17:00" };
+      return acc;
+    },
+    {} as Record<DayKey, DayHours>,
+  );
 }
 
 export function whatsappShareLink(message: string) {

@@ -26,9 +26,12 @@ const MIN_ZOOM = 11;
 const NYC_BOUNDS = { minLat: 40.45, maxLat: 41.0, minLng: -74.3, maxLng: -73.65 };
 function inNyc(lat: number, lng: number) {
   return (
-    Number.isFinite(lat) && Number.isFinite(lng) &&
-    lat >= NYC_BOUNDS.minLat && lat <= NYC_BOUNDS.maxLat &&
-    lng >= NYC_BOUNDS.minLng && lng <= NYC_BOUNDS.maxLng
+    Number.isFinite(lat) &&
+    Number.isFinite(lng) &&
+    lat >= NYC_BOUNDS.minLat &&
+    lat <= NYC_BOUNDS.maxLat &&
+    lng >= NYC_BOUNDS.minLng &&
+    lng <= NYC_BOUNDS.maxLng
   );
 }
 
@@ -83,7 +86,9 @@ export function MapView({
         setReady(true);
       })
       .catch((e) => setErr(e.message ?? "Map failed to load"));
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   // Filtered/locatable resources
@@ -125,9 +130,13 @@ export function MapView({
     // Dynamic import keeps the CJS package out of the SSR module graph.
     import("@googlemaps/markerclusterer").then((mod) => {
       if (cancelled || !mapRef.current) return;
-      type Ctor = new (opts: { map: google.maps.Map; markers: google.maps.Marker[] }) => MarkerClustererType;
-      const C = (mod as { MarkerClusterer?: Ctor }).MarkerClusterer
-        ?? (mod as { default?: { MarkerClusterer: Ctor } }).default?.MarkerClusterer;
+      type Ctor = new (opts: {
+        map: google.maps.Map;
+        markers: google.maps.Marker[];
+      }) => MarkerClustererType;
+      const C =
+        (mod as { MarkerClusterer?: Ctor }).MarkerClusterer ??
+        (mod as { default?: { MarkerClusterer: Ctor } }).default?.MarkerClusterer;
       if (!C) return;
       clusterRef.current = new C({ map: mapRef.current, markers });
     });
@@ -136,25 +145,39 @@ export function MapView({
     if (markers.length) {
       const map = mapRef.current;
       const bounds = new g.maps.LatLngBounds();
-      markers.forEach((m) => { const p = m.getPosition(); if (p) bounds.extend(p); });
+      markers.forEach((m) => {
+        const p = m.getPosition();
+        if (p) bounds.extend(p);
+      });
       map.fitBounds(bounds, 64);
       if (markers.length === 1) map.setZoom(15);
       g.maps.event.addListenerOnce(map, "idle", () => {
         const z = map.getZoom() ?? BRONX_DEFAULT_ZOOM;
-        if (z < MIN_ZOOM) { map.setCenter(BRONX_CENTER); map.setZoom(BRONX_DEFAULT_ZOOM); }
+        if (z < MIN_ZOOM) {
+          map.setCenter(BRONX_CENTER);
+          map.setZoom(BRONX_DEFAULT_ZOOM);
+        }
       });
     } else {
       mapRef.current.setCenter(BRONX_CENTER);
       mapRef.current.setZoom(BRONX_DEFAULT_ZOOM);
     }
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
   }, [ready, visible]);
 
   // Heatmap
   useEffect(() => {
     if (!ready || !mapRef.current) return;
     const g = window.google!;
-    const viz = (g.maps as unknown as { visualization?: { HeatmapLayer: new (opts: unknown) => { setMap: (m: google.maps.Map | null) => void } } }).visualization;
+    const viz = (
+      g.maps as unknown as {
+        visualization?: {
+          HeatmapLayer: new (opts: unknown) => { setMap: (m: google.maps.Map | null) => void };
+        };
+      }
+    ).visualization;
     if (!viz) return;
     heatRef.current?.setMap(null);
     heatRef.current = null;
@@ -204,7 +227,10 @@ export function MapView({
   }
 
   return (
-    <div className="relative rounded-2xl overflow-hidden border border-border bg-secondary" style={{ height }}>
+    <div
+      className="relative rounded-2xl overflow-hidden border border-border bg-secondary"
+      style={{ height }}
+    >
       <div ref={elRef} className="absolute inset-0" aria-label="Resource map" role="application" />
       <div className="absolute bottom-3 end-3 flex flex-col gap-2">
         <button
@@ -217,28 +243,39 @@ export function MapView({
       </div>
       {(!ready || isLoading) && (
         <div className="absolute top-3 start-3 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-card border border-border shadow text-xs font-medium">
-          <Loader2 className="h-3.5 w-3.5 animate-spin" /> {ready ? "Locating resources…" : "Loading map…"}
+          <Loader2 className="h-3.5 w-3.5 animate-spin" />{" "}
+          {ready ? "Locating resources…" : "Loading map…"}
         </div>
       )}
       <p className="absolute bottom-3 start-3 px-2.5 py-1 rounded-full bg-card/95 border border-border shadow text-[11px] font-medium text-muted-foreground">
-         {visible.length} on map
+        {visible.length} on map
       </p>
     </div>
   );
 }
 
 function escapeHtml(s: string) {
-  return s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#39;" }[c] ?? c));
+  return s.replace(
+    /[&<>"']/g,
+    (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c] ?? c,
+  );
 }
 
 function renderInfoHtml(r: MapResource, loc: ResourceLocation): string {
   const cat = CATEGORY_PIN[r.category] ?? CATEGORY_PIN.government;
   const ua = typeof navigator === "undefined" ? "" : navigator.userAgent;
-  const apple = /iPhone|iPad|iPod/i.test(ua)
-    || ((navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1)
-      || (/Macintosh/i.test(ua) && /Safari/i.test(ua) && !/Chrome|Chromium|CriOS|Edg/i.test(ua)));
-  const directionsHref = getDirectionsUrl({ address: r.address, latitude: loc.latitude, longitude: loc.longitude }, apple) ?? "#";
-  const detailHref = r.isBiz ? "" : `<a href="/resource/${encodeURIComponent(r.id)}" style="display:inline-block;margin-top:8px;color:#fff;background:#2563eb;padding:6px 10px;border-radius:6px;font-weight:600;font-size:12px;text-decoration:none;">View details</a>`;
+  const apple =
+    /iPhone|iPad|iPod/i.test(ua) ||
+    (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1) ||
+    (/Macintosh/i.test(ua) && /Safari/i.test(ua) && !/Chrome|Chromium|CriOS|Edg/i.test(ua));
+  const directionsHref =
+    getDirectionsUrl(
+      { address: r.address, latitude: loc.latitude, longitude: loc.longitude },
+      apple,
+    ) ?? "#";
+  const detailHref = r.isBiz
+    ? ""
+    : `<a href="/resource/${encodeURIComponent(r.id)}" style="display:inline-block;margin-top:8px;color:#fff;background:#2563eb;padding:6px 10px;border-radius:6px;font-weight:600;font-size:12px;text-decoration:none;">View details</a>`;
   return `
     <div style="min-width:240px;max-width:280px;font-family:system-ui,sans-serif;">
       <div style="display:flex;align-items:center;gap:6px;font-weight:700;font-size:14px;">
@@ -254,4 +291,3 @@ function renderInfoHtml(r: MapResource, loc: ResourceLocation): string {
       </div>
     </div>`;
 }
-

@@ -29,13 +29,21 @@ export function AdminPolicyAlertPanel() {
     expires_at: "",
   });
 
-  const refresh = () => loadAllAlerts().then(setAlerts).catch((e) => setErr(String(e.message ?? e)));
-  useEffect(() => { void refresh(); }, []);
+  const refresh = () =>
+    loadAllAlerts()
+      .then(setAlerts)
+      .catch((e) => setErr(String(e.message ?? e)));
+  useEffect(() => {
+    void refresh();
+  }, []);
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
     const issue = headlineIssue(form.headline);
-    if (issue) { setErr(issue); return; }
+    if (issue) {
+      setErr(issue);
+      return;
+    }
     setErr("");
     setBusy(true);
     try {
@@ -49,7 +57,15 @@ export function AdminPolicyAlertPanel() {
         deadline_date: form.deadline_date || null,
         expires_at: form.expires_at ? new Date(form.expires_at).toISOString() : null,
       });
-      setForm({ ...form, headline: "", detail: "", source_url: "", source_label: "", deadline_date: "", expires_at: "" });
+      setForm({
+        ...form,
+        headline: "",
+        detail: "",
+        source_url: "",
+        source_label: "",
+        deadline_date: "",
+        expires_at: "",
+      });
       await refresh();
     } catch (e) {
       setErr(e instanceof Error ? e.message : "Could not save alert.");
@@ -71,13 +87,25 @@ export function AdminPolicyAlertPanel() {
         <div className="grid sm:grid-cols-2 gap-2">
           <label className="block">
             <span className="text-xs font-semibold text-muted-foreground">Category</span>
-            <select className={input} value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value as Category })}>
-              {CATEGORIES.map((c) => <option key={c.id} value={c.id}>{c.id}</option>)}
+            <select
+              className={input}
+              value={form.category}
+              onChange={(e) => setForm({ ...form, category: e.target.value as Category })}
+            >
+              {CATEGORIES.map((c) => (
+                <option key={c.id} value={c.id}>
+                  {c.id}
+                </option>
+              ))}
             </select>
           </label>
           <label className="block">
             <span className="text-xs font-semibold text-muted-foreground">Type</span>
-            <select className={input} value={form.kind} onChange={(e) => setForm({ ...form, kind: e.target.value as AlertKind })}>
+            <select
+              className={input}
+              value={form.kind}
+              onChange={(e) => setForm({ ...form, kind: e.target.value as AlertKind })}
+            >
               <option value="policy">Policy / eligibility change</option>
               <option value="deadline">Deadline / renewal reminder</option>
             </select>
@@ -85,38 +113,84 @@ export function AdminPolicyAlertPanel() {
         </div>
 
         <label className="block">
-          <span className="text-xs font-semibold text-muted-foreground">Headline (max 160 characters, one sentence)</span>
-          <input className={input} maxLength={160} value={form.headline} onChange={(e) => setForm({ ...form, headline: e.target.value })} placeholder="3-K income eligibility threshold changed" />
+          <span className="text-xs font-semibold text-muted-foreground">
+            Headline (max 160 characters, one sentence)
+          </span>
+          <input
+            className={input}
+            maxLength={160}
+            value={form.headline}
+            onChange={(e) => setForm({ ...form, headline: e.target.value })}
+            placeholder="3-K income eligibility threshold changed"
+          />
           <span className="text-xs text-muted-foreground">{form.headline.length}/160</span>
         </label>
 
         <label className="block">
-          <span className="text-xs font-semibold text-muted-foreground">Detail (shown under “Read more”)</span>
-          <textarea className={`${input} min-h-[90px]`} value={form.detail} onChange={(e) => setForm({ ...form, detail: e.target.value })} />
+          <span className="text-xs font-semibold text-muted-foreground">
+            Detail (shown under “Read more”)
+          </span>
+          <textarea
+            className={`${input} min-h-[90px]`}
+            value={form.detail}
+            onChange={(e) => setForm({ ...form, detail: e.target.value })}
+          />
         </label>
 
         <div className="grid sm:grid-cols-2 gap-2">
           <label className="block">
             <span className="text-xs font-semibold text-muted-foreground">Official source URL</span>
-            <input className={input} type="url" value={form.source_url} onChange={(e) => setForm({ ...form, source_url: e.target.value })} />
+            <input
+              className={input}
+              type="url"
+              value={form.source_url}
+              onChange={(e) => setForm({ ...form, source_url: e.target.value })}
+            />
           </label>
           <label className="block">
             <span className="text-xs font-semibold text-muted-foreground">Source label</span>
-            <input className={input} value={form.source_label} onChange={(e) => setForm({ ...form, source_label: e.target.value })} placeholder="NYC DOE" />
+            <input
+              className={input}
+              value={form.source_label}
+              onChange={(e) => setForm({ ...form, source_label: e.target.value })}
+              placeholder="NYC DOE"
+            />
           </label>
           <label className="block">
-            <span className="text-xs font-semibold text-muted-foreground">Deadline date (optional)</span>
-            <input className={input} type="date" value={form.deadline_date} onChange={(e) => setForm({ ...form, deadline_date: e.target.value })} />
+            <span className="text-xs font-semibold text-muted-foreground">
+              Deadline date (optional)
+            </span>
+            <input
+              className={input}
+              type="date"
+              value={form.deadline_date}
+              onChange={(e) => setForm({ ...form, deadline_date: e.target.value })}
+            />
           </label>
           <label className="block">
-            <span className="text-xs font-semibold text-muted-foreground">Hide after (optional)</span>
-            <input className={input} type="date" value={form.expires_at} onChange={(e) => setForm({ ...form, expires_at: e.target.value })} />
+            <span className="text-xs font-semibold text-muted-foreground">
+              Hide after (optional)
+            </span>
+            <input
+              className={input}
+              type="date"
+              value={form.expires_at}
+              onChange={(e) => setForm({ ...form, expires_at: e.target.value })}
+            />
           </label>
         </div>
 
-        {err && <p role="alert" className="text-sm text-destructive">{err}</p>}
+        {err && (
+          <p role="alert" className="text-sm text-destructive">
+            {err}
+          </p>
+        )}
 
-        <button type="submit" disabled={busy} className="no-min-h inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground font-semibold disabled:opacity-60">
+        <button
+          type="submit"
+          disabled={busy}
+          className="no-min-h inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground font-semibold disabled:opacity-60"
+        >
           {busy && <Loader2 className="h-4 w-4 animate-spin" />} Save as draft
         </button>
       </form>
@@ -128,7 +202,8 @@ export function AdminPolicyAlertPanel() {
             <div className="flex-1">
               <p className="font-semibold text-sm">{a.headline}</p>
               <p className="text-xs text-muted-foreground mt-0.5">
-                {a.category} · {a.kind}{a.deadline_date ? ` · due ${a.deadline_date}` : ""} ·{" "}
+                {a.category} · {a.kind}
+                {a.deadline_date ? ` · due ${a.deadline_date}` : ""} ·{" "}
                 {a.published ? "Published" : "Draft"}
               </p>
             </div>
@@ -140,7 +215,9 @@ export function AdminPolicyAlertPanel() {
               {a.published ? "Unpublish" : "Publish"}
             </button>
             <button
-              onClick={() => { if (confirm("Delete this alert?")) void deleteAlert(a.id).then(refresh); }}
+              onClick={() => {
+                if (confirm("Delete this alert?")) void deleteAlert(a.id).then(refresh);
+              }}
               aria-label="Delete alert"
               className="no-min-h p-1.5 rounded-lg border-2 border-border hover:border-destructive"
             >

@@ -6,7 +6,8 @@ export const howToAdd: Bundle = {
     title: "How to Add Information",
     subtitle: "Everyone can contribute. Here's how, based on who you are.",
     membersTitle: "For Community Members",
-    members1: "Found a resource that's not listed? Tap the '+ Suggest a Resource' button on any category page.",
+    members1:
+      "Found a resource that's not listed? Tap the '+ Suggest a Resource' button on any category page.",
     members2: "Fill in name, address, category, and any notes (hours, languages, restrictions).",
     members3: "We'll review within 48 hours before it goes live.",
     membersCta: "Submit a Resource",
@@ -30,7 +31,8 @@ export const howToAdd: Bundle = {
     title: "Cómo agregar información",
     subtitle: "Todos pueden contribuir. Así se hace, según quién sea usted.",
     membersTitle: "Para miembros de la comunidad",
-    members1: "¿Encontró un recurso que no aparece? Toque el botón «+ Sugerir un recurso» en cualquier página de categoría.",
+    members1:
+      "¿Encontró un recurso que no aparece? Toque el botón «+ Sugerir un recurso» en cualquier página de categoría.",
     members2: "Complete nombre, dirección, categoría y notas (horarios, idiomas, requisitos).",
     members3: "Lo revisamos en 48 horas antes de publicarlo.",
     membersCta: "Enviar un recurso",
@@ -41,7 +43,8 @@ export const howToAdd: Bundle = {
     orgs4: "Pase a Premium ($19 al mes) para ubicación destacada y estadísticas.",
     orgsCta: "Registre su organización",
     eventsTitle: "Para organizadores de eventos",
-    events1: "¿Organiza una fiesta de cuadra, un festival o un día familiar? Agréguelo al tablero de eventos.",
+    events1:
+      "¿Organiza una fiesta de cuadra, un festival o un día familiar? Agréguelo al tablero de eventos.",
     events2: "Toque «Enviar un evento» en la página de Eventos y complete los datos.",
     events3: "Se revisa en 24–48 horas antes de publicarse.",
     eventsCta: "Enviar un evento",
@@ -54,8 +57,10 @@ export const howToAdd: Bundle = {
     title: "Comment ajouter une information",
     subtitle: "Tout le monde peut contribuer. Voici comment, selon votre profil.",
     membersTitle: "Pour les habitants",
-    members1: "Vous avez trouvé une ressource absente ? Appuyez sur « + Suggérer une ressource » sur n'importe quelle page de catégorie.",
-    members2: "Indiquez le nom, l'adresse, la catégorie et les précisions (horaires, langues, conditions).",
+    members1:
+      "Vous avez trouvé une ressource absente ? Appuyez sur « + Suggérer une ressource » sur n'importe quelle page de catégorie.",
+    members2:
+      "Indiquez le nom, l'adresse, la catégorie et les précisions (horaires, langues, conditions).",
     members3: "Nous vérifions sous 48 heures avant la publication.",
     membersCta: "Proposer une ressource",
     orgsTitle: "Pour les organisations et associations",
@@ -65,8 +70,10 @@ export const howToAdd: Bundle = {
     orgs4: "Passez à Premium (19 $/mois) pour une mise en avant et des statistiques.",
     orgsCta: "Inscrivez votre organisation",
     eventsTitle: "Pour les organisateurs d'événements",
-    events1: "Vous organisez une fête de quartier, un festival ou une journée familiale ? Ajoutez-la au tableau des événements.",
-    events2: "Appuyez sur « Proposer un événement » sur la page Événements et remplissez les détails.",
+    events1:
+      "Vous organisez une fête de quartier, un festival ou une journée familiale ? Ajoutez-la au tableau des événements.",
+    events2:
+      "Appuyez sur « Proposer un événement » sur la page Événements et remplissez les détails.",
     events3: "Examiné sous 24 à 48 heures avant publication.",
     eventsCta: "Proposer un événement",
     reportTitle: "Signaler une information incorrecte",
@@ -78,7 +85,8 @@ export const howToAdd: Bundle = {
     title: "কীভাবে তথ্য যোগ করবেন",
     subtitle: "সবাই অবদান রাখতে পারেন। আপনি কে, তার ভিত্তিতে জেনে নিন কীভাবে।",
     membersTitle: "কমিউনিটির সদস্যদের জন্য",
-    members1: "তালিকায় নেই এমন কোনো সম্পদ পেয়েছেন? যেকোনো বিভাগের পৃষ্ঠায় “+ একটি সম্পদ প্রস্তাব করুন” চাপুন।",
+    members1:
+      "তালিকায় নেই এমন কোনো সম্পদ পেয়েছেন? যেকোনো বিভাগের পৃষ্ঠায় “+ একটি সম্পদ প্রস্তাব করুন” চাপুন।",
     members2: "নাম, ঠিকানা, বিভাগ ও প্রয়োজনীয় তথ্য (সময়, ভাষা, শর্ত) দিন।",
     members3: "প্রকাশের আগে ৪৮ ঘণ্টার মধ্যে আমরা যাচাই করব।",
     membersCta: "একটি সম্পদ জমা দিন",

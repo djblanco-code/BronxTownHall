@@ -31,10 +31,19 @@ export function VoiceSearchButton({
     if (typeof window === "undefined") return;
     const w = window as unknown as { SpeechRecognition?: SR; webkitSpeechRecognition?: SR };
     const Ctor = w.SpeechRecognition || w.webkitSpeechRecognition;
-    if (!Ctor) { setSupported(false); return; }
+    if (!Ctor) {
+      setSupported(false);
+      return;
+    }
     const rec = new Ctor();
     // Map UI language to BCP-47; en-US is most accent-tolerant for Bronx users.
-    const langMap: Record<string, string> = { en: "en-US", es: "es-US", fr: "fr-FR", bn: "bn-IN", ar: "ar-EG" };
+    const langMap: Record<string, string> = {
+      en: "en-US",
+      es: "es-US",
+      fr: "fr-FR",
+      bn: "bn-IN",
+      ar: "ar-EG",
+    };
     rec.lang = langMap[lang] ?? "en-US";
     rec.continuous = false;
     rec.interimResults = false;
@@ -45,7 +54,13 @@ export function VoiceSearchButton({
     rec.onend = () => setListening(false);
     rec.onerror = () => setListening(false);
     recRef.current = rec;
-    return () => { try { rec.stop(); } catch {} };
+    return () => {
+      try {
+        rec.stop();
+      } catch {
+        /* already stopped */
+      }
+    };
   }, [lang, onResult]);
 
   if (!supported) return null;
@@ -53,8 +68,21 @@ export function VoiceSearchButton({
   const toggle = () => {
     const rec = recRef.current;
     if (!rec) return;
-    if (listening) { try { rec.stop(); } catch {} setListening(false); return; }
-    try { rec.start(); setListening(true); } catch { setListening(false); }
+    if (listening) {
+      try {
+        rec.stop();
+      } catch {
+        /* already stopped */
+      }
+      setListening(false);
+      return;
+    }
+    try {
+      rec.start();
+      setListening(true);
+    } catch {
+      setListening(false);
+    }
   };
 
   return (
@@ -64,7 +92,9 @@ export function VoiceSearchButton({
       aria-label={listening ? t("stop") : t("listen")}
       title={listening ? t("stop") : t("listen")}
       className={`no-min-h relative inline-flex items-center justify-center h-11 w-11 rounded-full transition shrink-0 ${
-        listening ? "bg-destructive text-destructive-foreground" : "bg-primary text-primary-foreground hover:bg-primary/90"
+        listening
+          ? "bg-destructive text-destructive-foreground"
+          : "bg-primary text-primary-foreground hover:bg-primary/90"
       } ${className}`}
     >
       {listening ? <MicOff className="h-5 w-5" /> : <Mic className="h-5 w-5" />}

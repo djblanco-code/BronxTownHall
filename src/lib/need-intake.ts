@@ -5,31 +5,78 @@ import type { Lang } from "./i18n";
 export type NeedParse = {
   primaryNeed: Category;
   relatedNeeds: Category[];
-  signals: string[];        // e.g. "has children", "lost job", "urgent"
+  signals: string[]; // e.g. "has children", "lost job", "urgent"
   urgent: boolean;
-  summary: string;          // one-line empathetic restatement (English)
+  summary: string; // one-line empathetic restatement (English)
   source: "keywords" | "ai";
 };
 
 type Rule = { cat: Category; re: RegExp; signal?: string };
 
 const RULES: Rule[] = [
-  { cat: "jobs", re: /\b(laid off|lost my job|fired|unemploy|need (a )?job|work|hiring|resume|career|income)\b/, signal: "lost job / needs work" },
-  { cat: "food", re: /\b(food|hungry|eat|meal|pantry|grocer|formula|wic|snap|ebt|feed)\b/, signal: "needs food" },
-  { cat: "housing", re: /\b(evict|rent|homeless|shelter|landlord|apartment|housing|heat|no hot water|mold)\b/, signal: "housing risk" },
-  { cat: "childcare", re: /\b(child ?care|daycare|day care|babysit|pre-?k|toddler|infant|kids?|children|son|daughter|baby)\b/, signal: "has children" },
-  { cat: "health", re: /\b(sick|doctor|clinic|health|medicaid|insurance|medicine|prescription|dentist|pregnan|mental health|depress|anxious|therapy)\b/, signal: "health need" },
-  { cat: "legal", re: /\b(legal|lawyer|attorney|immigration|ice |deport|asylum|court|ticket|discriminat|custody|divorce)\b/, signal: "legal need" },
-  { cat: "money", re: /\b(cash|benefit|bill|utility|con ?ed|debt|money|financial|tax|budget)\b/, signal: "money strain" },
-  { cat: "education", re: /\b(school|ged|esl|english class|college|class|training|certificat|learn)\b/, signal: "education" },
-  { cat: "youth", re: /\b(teen|youth|after ?school|mentor|internship|summer job)\b/, signal: "youth" },
-  { cat: "government", re: /\b(family|senior|elder|domestic violence|abuse|parent)\b/, signal: "family support" },
-  { cat: "nature", re: /\b(gym|sport|exercise|swim|recreation|fitness|park|garden|outdoor|trail|nature)\b/ },
+  {
+    cat: "jobs",
+    re: /\b(laid off|lost my job|fired|unemploy|need (a )?job|work|hiring|resume|career|income)\b/,
+    signal: "lost job / needs work",
+  },
+  {
+    cat: "food",
+    re: /\b(food|hungry|eat|meal|pantry|grocer|formula|wic|snap|ebt|feed)\b/,
+    signal: "needs food",
+  },
+  {
+    cat: "housing",
+    re: /\b(evict|rent|homeless|shelter|landlord|apartment|housing|heat|no hot water|mold)\b/,
+    signal: "housing risk",
+  },
+  {
+    cat: "childcare",
+    re: /\b(child ?care|daycare|day care|babysit|pre-?k|toddler|infant|kids?|children|son|daughter|baby)\b/,
+    signal: "has children",
+  },
+  {
+    cat: "health",
+    re: /\b(sick|doctor|clinic|health|medicaid|insurance|medicine|prescription|dentist|pregnan|mental health|depress|anxious|therapy)\b/,
+    signal: "health need",
+  },
+  {
+    cat: "legal",
+    re: /\b(legal|lawyer|attorney|immigration|ice |deport|asylum|court|ticket|discriminat|custody|divorce)\b/,
+    signal: "legal need",
+  },
+  {
+    cat: "money",
+    re: /\b(cash|benefit|bill|utility|con ?ed|debt|money|financial|tax|budget)\b/,
+    signal: "money strain",
+  },
+  {
+    cat: "education",
+    re: /\b(school|ged|esl|english class|college|class|training|certificat|learn)\b/,
+    signal: "education",
+  },
+  {
+    cat: "youth",
+    re: /\b(teen|youth|after ?school|mentor|internship|summer job)\b/,
+    signal: "youth",
+  },
+  {
+    cat: "government",
+    re: /\b(family|senior|elder|domestic violence|abuse|parent)\b/,
+    signal: "family support",
+  },
+  {
+    cat: "nature",
+    re: /\b(gym|sport|exercise|swim|recreation|fitness|park|garden|outdoor|trail|nature)\b/,
+  },
   { cat: "art", re: /\b(art|music|dance|museum|theater|paint)\b/ },
-  { cat: "government", re: /\b(id card|idnyc|benefits office|community board|council member|311)\b/ },
+  {
+    cat: "government",
+    re: /\b(id card|idnyc|benefits office|community board|council member|311)\b/,
+  },
 ];
 
-const URGENT_RE = /\b(tonight|today|right now|emergency|urgent|no food|nowhere to (go|sleep)|evicted|suicid|unsafe|abuse|hurt)\b/;
+const URGENT_RE =
+  /\b(tonight|today|right now|emergency|urgent|no food|nowhere to (go|sleep)|evicted|suicid|unsafe|abuse|hurt)\b/;
 
 /** Phase 1: fast, offline keyword parse. Always works, no network. */
 export function parseNeedKeywords(input: string): NeedParse {
@@ -59,7 +106,12 @@ export function parseNeedKeywords(input: string): NeedParse {
   };
 }
 
-export function buildSummary(primary: Category, related: Category[], signals: string[], urgent: boolean): string {
+export function buildSummary(
+  primary: Category,
+  related: Category[],
+  signals: string[],
+  urgent: boolean,
+): string {
   const label = (c: Category) => CATEGORIES.find((x) => x.id === c)?.labelKey ?? c;
   const names = [primary, ...related].map((c) => String(label(c)));
   const lead = urgent ? "This sounds urgent." : "Here's what I found for you.";
@@ -75,15 +127,14 @@ export function buildResourcePack(parse: NeedParse, size = 5): Resource[] {
 
   // one per need first, so the pack spans categories
   for (const cat of order) {
-    const best = RESOURCES.filter((r) => r.category === cat && !pack.includes(r)).sort((a, b) => score(a) - score(b))[0];
+    const best = RESOURCES.filter((r) => r.category === cat && !pack.includes(r)).sort(
+      (a, b) => score(a) - score(b),
+    )[0];
     if (best) pack.push(best);
     if (pack.length >= size) return pack;
   }
   // fill with more from the needs, then anything nearby
-  const pool = [
-    ...RESOURCES.filter((r) => order.includes(r.category)),
-    ...RESOURCES,
-  ];
+  const pool = [...RESOURCES.filter((r) => order.includes(r.category)), ...RESOURCES];
   for (const r of pool.sort((a, b) => score(a) - score(b))) {
     if (pack.length >= size) break;
     if (!pack.includes(r)) pack.push(r);
@@ -94,8 +145,10 @@ export function buildResourcePack(parse: NeedParse, size = 5): Resource[] {
 const SPOKEN_LEAD: Record<Lang, (n: number) => string> = {
   en: (n) => `I hear you. Here are ${n} places that can help, closest first.`,
   es: (n) => `Te escucho. Aquí hay ${n} lugares que pueden ayudarte, los más cercanos primero.`,
-  fr: (n) => `Je vous entends. Voici ${n} endroits qui peuvent vous aider, les plus proches d'abord.`,
-  bn: (n) => `আমি বুঝতে পারছি। এখানে ${n}টি জায়গা আছে যারা সাহায্য করতে পারে, সবচেয়ে কাছেরটি প্রথমে।`,
+  fr: (n) =>
+    `Je vous entends. Voici ${n} endroits qui peuvent vous aider, les plus proches d'abord.`,
+  bn: (n) =>
+    `আমি বুঝতে পারছি। এখানে ${n}টি জায়গা আছে যারা সাহায্য করতে পারে, সবচেয়ে কাছেরটি প্রথমে।`,
   ar: (n) => `أنا أسمعك. إليك ${n} أماكن يمكنها المساعدة، الأقرب أولاً.`,
 };
 
@@ -115,18 +168,26 @@ function speakPhone(p: string) {
 export function buildPackScript(pack: Resource[], lang: Lang, summary?: string): string {
   const lead = SPOKEN_LEAD[lang](pack.length);
   const body = pack
-    .map((r, i) =>
-      `${i + 1}. ${r.name[lang]}. ${r.description[lang]} ${r.address}. ${r.hours[lang]}. Phone, ${speakPhone(r.phone)}.`,
+    .map(
+      (r, i) =>
+        `${i + 1}. ${r.name[lang]}. ${r.description[lang]} ${r.address}. ${r.hours[lang]}. Phone, ${speakPhone(r.phone)}.`,
     )
     .join(" ");
-  return [lang === "en" && summary ? summary : "", lead, body, SPOKEN_CLOSE[lang]].filter(Boolean).join(" ");
+  return [lang === "en" && summary ? summary : "", lead, body, SPOKEN_CLOSE[lang]]
+    .filter(Boolean)
+    .join(" ");
 }
 
 /** Plain-text pack for SMS / share sheets. */
 export function buildPackSms(pack: Resource[], lang: Lang, request: string): string {
-  const head = request.trim() ? `Help for: "${request.trim().slice(0, 80)}"` : "Your Bronx help pack";
+  const head = request.trim()
+    ? `Help for: "${request.trim().slice(0, 80)}"`
+    : "Your Bronx help pack";
   const body = pack
-    .map((r, i) => `${i + 1}. ${r.name[lang]}${r.openNow ? " (OPEN NOW)" : ""}\n${r.address}\n${r.phone}`)
+    .map(
+      (r, i) =>
+        `${i + 1}. ${r.name[lang]}${r.openNow ? " (OPEN NOW)" : ""}\n${r.address}\n${r.phone}`,
+    )
     .join("\n\n");
   return `${head}\n\n${body}\n\nMore: thebronxapp.org`;
 }

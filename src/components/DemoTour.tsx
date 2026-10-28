@@ -11,27 +11,32 @@ export type DemoStep = {
 export const DEMO_STEPS: DemoStep[] = [
   {
     title: "Find Food Near You",
-    description: "Say it in plain words — “I need food today” — and we build a pack of open pantries near your ZIP.",
+    description:
+      "Say it in plain words — “I need food today” — and we build a pack of open pantries near your ZIP.",
     target: "#search-bar",
   },
   {
     title: "Browse by category",
-    description: "Food, legal, health, jobs, childcare, youth and more — every category is one tap from home.",
+    description:
+      "Food, legal, health, jobs, childcare, youth and more — every category is one tap from home.",
     target: "#category-grid",
   },
   {
     title: "Get Directions",
-    description: "Each card shows its distance and whether it's open right now. Tap “Get Directions” to use your maps app.",
+    description:
+      "Each card shows its distance and whether it's open right now. Tap “Get Directions” to use your maps app.",
     target: "#resource-card",
   },
   {
     title: "Share with a Neighbor · Report an Issue",
-    description: "Open any resource to share it by SMS or WhatsApp, or report info that's wrong. Fixes show up publicly on the Data Quality page.",
+    description:
+      "Open any resource to share it by SMS or WhatsApp, or report info that's wrong. Fixes show up publicly on the Data Quality page.",
     target: "#resource-card",
   },
   {
     title: "Text FOOD to our line",
-    description: "No smartphone? Neighbors can text FOOD and get open pantries back as a plain text message.",
+    description:
+      "No smartphone? Neighbors can text FOOD and get open pantries back as a plain text message.",
     target: "#sms-callout",
   },
 ];
@@ -40,16 +45,30 @@ const PAD = 8;
 
 type Rect = { top: number; left: number; width: number; height: number };
 
-export function DemoTour({ steps = DEMO_STEPS, onClose }: { steps?: DemoStep[]; onClose: () => void }) {
+export function DemoTour({
+  steps = DEMO_STEPS,
+  onClose,
+}: {
+  steps?: DemoStep[];
+  onClose: () => void;
+}) {
   const [i, setI] = useState(0);
   const [rect, setRect] = useState<Rect | null>(null);
   const step = steps[i];
 
   const measure = useCallback(() => {
     const el = step?.target ? document.querySelector(step.target) : null;
-    if (!el) { setRect(null); return; }
+    if (!el) {
+      setRect(null);
+      return;
+    }
     const r = el.getBoundingClientRect();
-    setRect({ top: r.top - PAD, left: r.left - PAD, width: r.width + PAD * 2, height: r.height + PAD * 2 });
+    setRect({
+      top: r.top - PAD,
+      left: r.left - PAD,
+      width: r.width + PAD * 2,
+      height: r.height + PAD * 2,
+    });
   }, [step]);
 
   useLayoutEffect(() => {
@@ -91,7 +110,12 @@ export function DemoTour({ steps = DEMO_STEPS, onClose }: { steps?: DemoStep[]; 
     : { top: "50%", left: 12, right: 12, transform: "translateY(-50%)" };
 
   return createPortal(
-    <div className="fixed inset-0 z-[120]" role="dialog" aria-modal="true" aria-label="Guided demo tour">
+    <div
+      className="fixed inset-0 z-[120]"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Guided demo tour"
+    >
       <div className="absolute inset-0 bg-foreground/60" onClick={onClose} />
       {rect && (
         <div
@@ -112,11 +136,17 @@ export function DemoTour({ steps = DEMO_STEPS, onClose }: { steps?: DemoStep[]; 
         <div className="flex items-start gap-2">
           <Sparkles className="h-5 w-5 text-primary shrink-0 mt-0.5" aria-hidden />
           <div className="min-w-0 flex-1">
-            <p className="text-xs font-semibold text-muted-foreground">Step {i + 1} of {steps.length}</p>
+            <p className="text-xs font-semibold text-muted-foreground">
+              Step {i + 1} of {steps.length}
+            </p>
             <h2 className="font-bold text-foreground text-lg leading-tight mt-0.5">{step.title}</h2>
             <p className="text-sm text-muted-foreground mt-1">{step.description}</p>
           </div>
-          <button onClick={onClose} aria-label="Close tour" className="no-min-h rounded-lg p-1.5 hover:bg-secondary">
+          <button
+            onClick={onClose}
+            aria-label="Close tour"
+            className="no-min-h rounded-lg p-1.5 hover:bg-secondary"
+          >
             <X className="h-4 w-4" />
           </button>
         </div>
@@ -130,7 +160,10 @@ export function DemoTour({ steps = DEMO_STEPS, onClose }: { steps?: DemoStep[]; 
           </button>
           <div className="flex gap-1" aria-hidden>
             {steps.map((_, n) => (
-              <span key={n} className={`h-1.5 w-1.5 rounded-full ${n === i ? "bg-primary" : "bg-border"}`} />
+              <span
+                key={n}
+                className={`h-1.5 w-1.5 rounded-full ${n === i ? "bg-primary" : "bg-border"}`}
+              />
             ))}
           </div>
           {i < steps.length - 1 ? (

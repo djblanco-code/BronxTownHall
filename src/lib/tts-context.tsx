@@ -1,4 +1,13 @@
-import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, ReactNode } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  ReactNode,
+} from "react";
 
 export type TtsVoice = {
   id: string;
@@ -8,19 +17,39 @@ export type TtsVoice = {
 };
 
 export const TTS_VOICES: TtsVoice[] = [
-  { id: "alloy",   label: "Alloy (Neutral, balanced)", gender: "neutral", description: "Versatile, friendly default" },
-  { id: "coral",   label: "Coral (Warm female)",       gender: "female",  description: "Warm and reassuring" },
-  { id: "shimmer", label: "Shimmer (Bright female)",   gender: "female",  description: "Bright and upbeat" },
-  { id: "sage",    label: "Sage (Calm female)",        gender: "female",  description: "Calm and thoughtful" },
-  { id: "ash",     label: "Ash (Soft male)",           gender: "male",    description: "Soft, conversational" },
-  { id: "echo",    label: "Echo (Clear male)",         gender: "male",    description: "Clear newsreader tone" },
-  { id: "verse",   label: "Verse (Expressive male)",   gender: "male",    description: "Warm and expressive" },
+  {
+    id: "alloy",
+    label: "Alloy (Neutral, balanced)",
+    gender: "neutral",
+    description: "Versatile, friendly default",
+  },
+  {
+    id: "coral",
+    label: "Coral (Warm female)",
+    gender: "female",
+    description: "Warm and reassuring",
+  },
+  {
+    id: "shimmer",
+    label: "Shimmer (Bright female)",
+    gender: "female",
+    description: "Bright and upbeat",
+  },
+  { id: "sage", label: "Sage (Calm female)", gender: "female", description: "Calm and thoughtful" },
+  { id: "ash", label: "Ash (Soft male)", gender: "male", description: "Soft, conversational" },
+  { id: "echo", label: "Echo (Clear male)", gender: "male", description: "Clear newsreader tone" },
+  {
+    id: "verse",
+    label: "Verse (Expressive male)",
+    gender: "male",
+    description: "Warm and expressive",
+  },
 ];
 
 export type TtsStyle = "calm" | "empathetic" | "cheerful" | "directions";
 
 type SpeakOptions = {
-  title?: string;     // shown in player as "Now playing"
+  title?: string; // shown in player as "Now playing"
   style?: TtsStyle;
 };
 
@@ -32,9 +61,9 @@ type Ctx = {
   isPlaying: boolean;
   isLoading: boolean;
   nowPlaying: string;
-  progress: number;     // 0..1
-  duration: number;     // seconds
-  currentTime: number;  // seconds
+  progress: number; // 0..1
+  duration: number; // seconds
+  currentTime: number; // seconds
   speak: (text: string, opts?: SpeakOptions) => Promise<void>;
   pause: () => void;
   resume: () => void;
@@ -71,17 +100,27 @@ export function TtsProvider({ children }: { children: ReactNode }) {
       if (v) setVoiceState(v);
       const s = localStorage.getItem(LS_SPEED);
       if (s) setSpeedState(Math.min(Math.max(parseFloat(s) || 1, 0.5), 2));
-    } catch { /* ignore */ }
+    } catch {
+      /* ignore */
+    }
   }, []);
 
   const setVoice = useCallback((v: string) => {
     setVoiceState(v);
-    try { localStorage.setItem(LS_VOICE, v); } catch { /* ignore */ }
+    try {
+      localStorage.setItem(LS_VOICE, v);
+    } catch {
+      /* ignore */
+    }
   }, []);
   const setSpeed = useCallback((s: number) => {
     const clamped = Math.min(Math.max(s, 0.5), 2);
     setSpeedState(clamped);
-    try { localStorage.setItem(LS_SPEED, String(clamped)); } catch { /* ignore */ }
+    try {
+      localStorage.setItem(LS_SPEED, String(clamped));
+    } catch {
+      /* ignore */
+    }
     if (audioRef.current) audioRef.current.playbackRate = clamped;
   }, []);
 
@@ -123,82 +162,94 @@ export function TtsProvider({ children }: { children: ReactNode }) {
     setNowPlaying("");
   }, [stop]);
 
-  const playWithFallback = useCallback((text: string) => {
-    if (typeof window === "undefined" || !("speechSynthesis" in window)) {
-      setIsPlaying(false);
-      return;
-    }
-    const synth = window.speechSynthesis;
-    synth.cancel();
-    const u = new SpeechSynthesisUtterance(text);
-    u.rate = Math.min(Math.max(speed, 0.5), 2);
-    u.pitch = 1.0;
-    u.onend = () => { setIsPlaying(false); fallbackRef.current = null; };
-    u.onerror = () => { setIsPlaying(false); fallbackRef.current = null; };
-    fallbackRef.current = u;
-    setIsPlaying(true);
-    synth.speak(u);
-  }, [speed]);
-
-  const speak = useCallback(async (text: string, opts?: SpeakOptions) => {
-    const clean = text.trim();
-    if (!clean) return;
-    stop();
-    setNowPlaying(opts?.title ?? clean.slice(0, 80));
-    setPlayerVisible(true);
-    setIsLoading(true);
-
-    const ctrl = new AbortController();
-    abortRef.current = ctrl;
-
-    try {
-      const res = await fetch("/api/tts/speak", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          text: clean.slice(0, 4000),
-          voice,
-          speed,
-          style: opts?.style ?? "calm",
-        }),
-        signal: ctrl.signal,
-      });
-      if (!res.ok) throw new Error(`TTS server returned ${res.status}`);
-      const blob = await res.blob();
-      if (ctrl.signal.aborted) return;
-      const url = URL.createObjectURL(blob);
-      objectUrlRef.current = url;
-      const audio = new Audio(url);
-      audio.playbackRate = speed;
-      audioRef.current = audio;
-
-      audio.addEventListener("loadedmetadata", () => {
-        setDuration(isFinite(audio.duration) ? audio.duration : 0);
-      });
-      audio.addEventListener("timeupdate", () => {
-        setCurrentTime(audio.currentTime);
-      });
-      audio.addEventListener("ended", () => {
+  const playWithFallback = useCallback(
+    (text: string) => {
+      if (typeof window === "undefined" || !("speechSynthesis" in window)) {
         setIsPlaying(false);
-        setCurrentTime(0);
-      });
-      audio.addEventListener("error", () => {
+        return;
+      }
+      const synth = window.speechSynthesis;
+      synth.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.rate = Math.min(Math.max(speed, 0.5), 2);
+      u.pitch = 1.0;
+      u.onend = () => {
         setIsPlaying(false);
-        setIsLoading(false);
-        // Fall back to browser TTS on playback error
-        playWithFallback(clean);
-      });
-
-      await audio.play();
+        fallbackRef.current = null;
+      };
+      u.onerror = () => {
+        setIsPlaying(false);
+        fallbackRef.current = null;
+      };
+      fallbackRef.current = u;
       setIsPlaying(true);
-    } catch (err) {
-      if ((err as Error)?.name === "AbortError") return;
-      console.warn("TTS server failed, using browser fallback", err);
-      playWithFallback(clean);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [voice, speed, stop, playWithFallback]);
+      synth.speak(u);
+    },
+    [speed],
+  );
+
+  const speak = useCallback(
+    async (text: string, opts?: SpeakOptions) => {
+      const clean = text.trim();
+      if (!clean) return;
+      stop();
+      setNowPlaying(opts?.title ?? clean.slice(0, 80));
+      setPlayerVisible(true);
+      setIsLoading(true);
+
+      const ctrl = new AbortController();
+      abortRef.current = ctrl;
+
+      try {
+        const res = await fetch("/api/tts/speak", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            text: clean.slice(0, 4000),
+            voice,
+            speed,
+            style: opts?.style ?? "calm",
+          }),
+          signal: ctrl.signal,
+        });
+        if (!res.ok) throw new Error(`TTS server returned ${res.status}`);
+        const blob = await res.blob();
+        if (ctrl.signal.aborted) return;
+        const url = URL.createObjectURL(blob);
+        objectUrlRef.current = url;
+        const audio = new Audio(url);
+        audio.playbackRate = speed;
+        audioRef.current = audio;
+
+        audio.addEventListener("loadedmetadata", () => {
+          setDuration(isFinite(audio.duration) ? audio.duration : 0);
+        });
+        audio.addEventListener("timeupdate", () => {
+          setCurrentTime(audio.currentTime);
+        });
+        audio.addEventListener("ended", () => {
+          setIsPlaying(false);
+          setCurrentTime(0);
+        });
+        audio.addEventListener("error", () => {
+          setIsPlaying(false);
+          setIsLoading(false);
+          // Fall back to browser TTS on playback error
+          playWithFallback(clean);
+        });
+
+        await audio.play();
+        setIsPlaying(true);
+      } catch (err) {
+        if ((err as Error)?.name === "AbortError") return;
+        console.warn("TTS server failed, using browser fallback", err);
+        playWithFallback(clean);
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [voice, speed, stop, playWithFallback],
+  );
 
   const pause = useCallback(() => {
     if (audioRef.current && !audioRef.current.paused) {
@@ -211,7 +262,10 @@ export function TtsProvider({ children }: { children: ReactNode }) {
   }, []);
   const resume = useCallback(() => {
     if (audioRef.current && audioRef.current.paused && audioRef.current.src) {
-      audioRef.current.play().then(() => setIsPlaying(true)).catch(() => undefined);
+      audioRef.current
+        .play()
+        .then(() => setIsPlaying(true))
+        .catch(() => undefined);
     } else if (typeof window !== "undefined" && window.speechSynthesis?.paused) {
       window.speechSynthesis.resume();
       setIsPlaying(true);
@@ -225,16 +279,52 @@ export function TtsProvider({ children }: { children: ReactNode }) {
   }, []);
 
   // Cleanup on unmount
-  useEffect(() => () => { stop(); }, [stop]);
+  useEffect(
+    () => () => {
+      stop();
+    },
+    [stop],
+  );
 
-  const value = useMemo<Ctx>(() => ({
-    voice, setVoice, speed, setSpeed,
-    isPlaying, isLoading, nowPlaying,
-    progress: duration > 0 ? currentTime / duration : 0,
-    duration, currentTime,
-    speak, pause, resume, stop, seek,
-    hidePlayer, playerVisible,
-  }), [voice, setVoice, speed, setSpeed, isPlaying, isLoading, nowPlaying, currentTime, duration, speak, pause, resume, stop, seek, hidePlayer, playerVisible]);
+  const value = useMemo<Ctx>(
+    () => ({
+      voice,
+      setVoice,
+      speed,
+      setSpeed,
+      isPlaying,
+      isLoading,
+      nowPlaying,
+      progress: duration > 0 ? currentTime / duration : 0,
+      duration,
+      currentTime,
+      speak,
+      pause,
+      resume,
+      stop,
+      seek,
+      hidePlayer,
+      playerVisible,
+    }),
+    [
+      voice,
+      setVoice,
+      speed,
+      setSpeed,
+      isPlaying,
+      isLoading,
+      nowPlaying,
+      currentTime,
+      duration,
+      speak,
+      pause,
+      resume,
+      stop,
+      seek,
+      hidePlayer,
+      playerVisible,
+    ],
+  );
 
   return <TtsCtx.Provider value={value}>{children}</TtsCtx.Provider>;
 }

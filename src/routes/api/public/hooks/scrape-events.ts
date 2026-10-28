@@ -9,10 +9,18 @@ export const Route = createFileRoute("/api/public/hooks/scrape-events")({
     handlers: {
       POST: async ({ request }) => {
         const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-        const { data } = await supabaseAdmin.from("internal_settings").select("value").eq("key", "event_scrape_cron_secret").maybeSingle();
+        const { data } = await supabaseAdmin
+          .from("internal_settings")
+          .select("value")
+          .eq("key", "event_scrape_cron_secret")
+          .maybeSingle();
         const secret = data?.value ?? "";
         const got = request.headers.get("x-cron-secret") ?? "";
-        if (!secret || got.length !== secret.length || !timingSafeEqual(Buffer.from(got), Buffer.from(secret))) {
+        if (
+          !secret ||
+          got.length !== secret.length ||
+          !timingSafeEqual(Buffer.from(got), Buffer.from(secret))
+        ) {
           return new Response("Unauthorized", { status: 401 });
         }
         const { runEventScrape } = await import("@/lib/event-scrape.server");

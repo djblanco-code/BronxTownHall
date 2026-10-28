@@ -119,7 +119,9 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
-    font-feature-settings: "rlig" 1, "calt" 1;
+    font-feature-settings:
+      "rlig" 1,
+      "calt" 1;
   }
   html[dir="rtl"] {
     text-align: right;
@@ -176,14 +178,34 @@
 }
 
 @media print {
-  header, nav, footer, .print-hide { display: none !important; }
-  body { background: white; color: black; }
-  a { color: black; text-decoration: none; }
-  .print-area { padding: 0 !important; max-width: 100% !important; }
-  .rounded-2xl, .border { border: 1px solid #ccc !important; box-shadow: none !important; }
+  header,
+  nav,
+  footer,
+  .print-hide {
+    display: none !important;
+  }
+  body {
+    background: white;
+    color: black;
+  }
+  a {
+    color: black;
+    text-decoration: none;
+  }
+  .print-area {
+    padding: 0 !important;
+    max-width: 100% !important;
+  }
+  .rounded-2xl,
+  .border {
+    border: 1px solid #ccc !important;
+    box-shadow: none !important;
+  }
 
   /* Flyer mode: print only the flyer sheet */
-  body.flyer-open > *:not(.flyer-overlay) { display: none !important; }
+  body.flyer-open > *:not(.flyer-overlay) {
+    display: none !important;
+  }
   body.flyer-open .flyer-overlay {
     position: static !important;
     inset: auto !important;
@@ -201,9 +223,10 @@
     padding: 0.5in !important;
     color: black !important;
   }
-  body.flyer-open #flyer-sheet * { color: black !important; }
+  body.flyer-open #flyer-sheet * {
+    color: black !important;
+  }
 }
-
 
 /* ============================================================
    Simplified View — larger text, bigger tap targets, high contrast
@@ -231,12 +254,25 @@ html.simplified div {
   font-size: max(1em, 1.125rem);
 }
 html.simplified .text-xs,
-html.simplified .text-sm { font-size: 1.0625rem !important; line-height: 1.5 !important; }
-html.simplified .text-base { font-size: 1.1875rem !important; }
-html.simplified .text-lg { font-size: 1.3125rem !important; }
-html.simplified .text-xl { font-size: 1.5rem !important; }
-html.simplified .text-2xl { font-size: 1.875rem !important; }
-html.simplified .text-3xl { font-size: 2.25rem !important; }
+html.simplified .text-sm {
+  font-size: 1.0625rem !important;
+  line-height: 1.5 !important;
+}
+html.simplified .text-base {
+  font-size: 1.1875rem !important;
+}
+html.simplified .text-lg {
+  font-size: 1.3125rem !important;
+}
+html.simplified .text-xl {
+  font-size: 1.5rem !important;
+}
+html.simplified .text-2xl {
+  font-size: 1.875rem !important;
+}
+html.simplified .text-3xl {
+  font-size: 2.25rem !important;
+}
 
 /* 48×48 minimum touch targets on all interactive elements */
 html.simplified button:not(.simplified-exempt),
@@ -281,7 +317,7 @@ html.simplified [data-message-action] {
   color: var(--color-primary-foreground);
   font-weight: 800;
   font-size: 1.125rem;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -315,17 +351,30 @@ html.simplified [data-message-action] {
   padding-bottom: calc(var(--app-bottom-inset) - var(--app-tabbar-h));
 }
 
-
 /* Bronx-rooted typography — Archivo Black for display headings, Inter for body */
 :root {
-  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
 }
 body {
-  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
 }
-h1, h2, .font-display {
-  font-family: 'Archivo Black', 'Inter', system-ui, sans-serif;
+h1,
+h2,
+.font-display {
+  font-family: "Archivo Black", "Inter", system-ui, sans-serif;
   letter-spacing: -0.01em;
 }
 
@@ -333,9 +382,23 @@ h1, h2, .font-display {
    In-app text size (Normal / Large / Extra Large), independent of OS.
    All Tailwind sizes are rem-based, so scaling the root scales everything.
    ============================================================ */
-html[data-text-size="large"] { font-size: 118.75%; }
-html[data-text-size="xl"] { font-size: 137.5%; }
-html.simplified[data-text-size="large"] { font-size: 22.8px; }
-html.simplified[data-text-size="xl"] { font-size: 26.4px; }
-html[data-text-size] body { overflow-wrap: anywhere; }
-html[data-text-size] img, html[data-text-size] video { max-width: 100%; height: auto; }
+html[data-text-size="large"] {
+  font-size: 118.75%;
+}
+html[data-text-size="xl"] {
+  font-size: 137.5%;
+}
+html.simplified[data-text-size="large"] {
+  font-size: 22.8px;
+}
+html.simplified[data-text-size="xl"] {
+  font-size: 26.4px;
+}
+html[data-text-size] body {
+  overflow-wrap: anywhere;
+}
+html[data-text-size] img,
+html[data-text-size] video {
+  max-width: 100%;
+  height: auto;
+}

@@ -32,8 +32,7 @@ export const Route = createFileRoute("/roadmap")({
       { property: "og:title", content: "What's Coming to The Bronx App" },
       {
         property: "og:description",
-        content:
-          "See the roadmap for upcoming Bronx App features and pilot opportunities.",
+        content: "See the roadmap for upcoming Bronx App features and pilot opportunities.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -86,7 +85,8 @@ const ROADMAP_ITEMS = [
       "Generate a flyer and social caption for your event or promotion in seconds — no design skills needed.",
     status: "Coming Soon",
     icon: WandSparkles,
-    partnerNote: "Premium feature — built for business owners who don't have time to learn design tools",
+    partnerNote:
+      "Premium feature — built for business owners who don't have time to learn design tools",
   },
   {
     id: "sms-business-messaging",
@@ -113,7 +113,8 @@ const ROADMAP_ITEMS = [
       "Homepage banner space and sponsored listing cards for Bronx businesses and organizations who want extra visibility.",
     status: "Coming Soon",
     icon: Megaphone,
-    partnerNote: "Additional revenue stream — pilot opportunity with a future borough or government partner",
+    partnerNote:
+      "Additional revenue stream — pilot opportunity with a future borough or government partner",
   },
   {
     id: "linknyc-kiosk-integration",
@@ -122,12 +123,14 @@ const ROADMAP_ITEMS = [
       "Access The Bronx App directly from LinkNYC kiosks across the borough — no smartphone required.",
     status: "Coming Soon",
     icon: MonitorSmartphone,
-    partnerNote: "Long-term infrastructure goal — pilot opportunity with a future borough or government partner",
+    partnerNote:
+      "Long-term infrastructure goal — pilot opportunity with a future borough or government partner",
   },
   {
     id: "peer-collaboration-board",
     title: "Peer Collaboration Board",
-    description: "A space for Bronx business owners to find each other — share event costs, split venue space, or team up on a project.",
+    description:
+      "A space for Bronx business owners to find each other — share event costs, split venue space, or team up on a project.",
     status: "Coming Soon",
     icon: Handshake,
     partnerNote: "Still gathering feedback from business owners before building",
@@ -135,7 +138,8 @@ const ROADMAP_ITEMS = [
   {
     id: "self-employed-insurance-guidance",
     title: "Self-Employed Insurance Guidance",
-    description: "Straightforward, Bronx-specific guidance on where self-employed residents typically go for affordable health and life insurance.",
+    description:
+      "Straightforward, Bronx-specific guidance on where self-employed residents typically go for affordable health and life insurance.",
     status: "Coming Soon",
     icon: HeartPulse,
     partnerNote: "Educational content, not a searchable data field — still in planning",
@@ -171,13 +175,10 @@ function RoadmapPage() {
               <p className="text-xs uppercase tracking-wider font-semibold opacity-80">
                 Product Roadmap
               </p>
-              <h1 className="text-3xl sm:text-4xl font-bold mt-1">
-                What's Coming to Hyperlocal
-              </h1>
+              <h1 className="text-3xl sm:text-4xl font-bold mt-1">What's Coming to Hyperlocal</h1>
               <p className="mt-2 text-sm sm:text-base opacity-95 max-w-2xl">
-                Features that are designed but not yet live. Each one is a
-                candidate for a pilot with a future borough or government
-                partner and local partners.
+                Features that are designed but not yet live. Each one is a candidate for a pilot
+                with a future borough or government partner and local partners.
               </p>
             </div>
           </div>
@@ -197,9 +198,7 @@ function RoadmapPage() {
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between gap-2 flex-wrap">
-                      <h2 className="text-lg font-bold text-foreground">
-                        {item.title}
-                      </h2>
+                      <h2 className="text-lg font-bold text-foreground">{item.title}</h2>
                       <span className="inline-flex items-center px-2.5 py-1 rounded-full bg-warning/15 text-warning text-xs font-bold">
                         {item.status}
                       </span>
@@ -224,14 +223,11 @@ function RoadmapPage() {
         <section className="rounded-2xl border-2 border-primary/20 bg-primary/5 p-6 sm:p-8">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div>
-              <h2 className="text-xl font-bold text-foreground">
-                Want to co-design a pilot?
-              </h2>
+              <h2 className="text-xl font-bold text-foreground">Want to co-design a pilot?</h2>
               <p className="text-sm text-muted-foreground mt-1 max-w-xl">
-                These features are staged for partner input. If you're with a
-                borough president's office, a Community Board, a council
-                member's office, or a local business organization, we'd love to
-                shape the first release together.
+                These features are staged for partner input. If you're with a borough president's
+                office, a Community Board, a council member's office, or a local business
+                organization, we'd love to shape the first release together.
               </p>
             </div>
             <Link

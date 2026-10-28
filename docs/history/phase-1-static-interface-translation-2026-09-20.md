@@ -1,6 +1,7 @@
 # Phase 1: Static interface translation
 
 ## Goal
+
 Make the existing language switcher visibly translate the fixed, resident-facing interface in English, Spanish, French, Bengali, and Arabic. Keep all listing names, descriptions, hours, and requirements unchanged in this phase.
 
 ## Implementation

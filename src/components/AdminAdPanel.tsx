@@ -31,11 +31,18 @@ export function AdminAdPanel() {
     setBusy(false);
   }, []);
 
-  useEffect(() => { void refresh(); }, [refresh]);
+  useEffect(() => {
+    void refresh();
+  }, [refresh]);
 
   const act = async (fn: () => Promise<unknown>, msg: string) => {
-    try { await fn(); toast.success(msg); void refresh(); }
-    catch (e) { toast.error(e instanceof Error ? e.message : "Action failed"); }
+    try {
+      await fn();
+      toast.success(msg);
+      void refresh();
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "Action failed");
+    }
   };
 
   async function onCreate(e: React.FormEvent<HTMLFormElement>) {
@@ -65,16 +72,23 @@ export function AdminAdPanel() {
             <Megaphone className="h-5 w-5 text-primary" aria-hidden /> Advertising
           </h2>
           <p className="text-sm text-muted-foreground">
-            Inquiries from businesses, and manual on/off control of sponsored placements. Ads are contextual only — no
-            user data is used to choose them.
+            Inquiries from businesses, and manual on/off control of sponsored placements. Ads are
+            contextual only — no user data is used to choose them.
           </p>
         </div>
-        <button onClick={() => void refresh()} className="no-min-h inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border-2 border-border text-sm font-semibold hover:bg-secondary">
+        <button
+          onClick={() => void refresh()}
+          className="no-min-h inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border-2 border-border text-sm font-semibold hover:bg-secondary"
+        >
           <RefreshCw className="h-4 w-4" /> Refresh
         </button>
       </div>
 
-      {busy && <p className="text-sm text-muted-foreground inline-flex items-center gap-2"><Loader2 className="h-4 w-4 animate-spin" /> Loading…</p>}
+      {busy && (
+        <p className="text-sm text-muted-foreground inline-flex items-center gap-2">
+          <Loader2 className="h-4 w-4 animate-spin" /> Loading…
+        </p>
+      )}
 
       <div>
         <h3 className="font-bold mb-2">Ad inquiries ({inquiries.length})</h3>
@@ -98,20 +112,36 @@ export function AdminAdPanel() {
                   <tr key={q.id} className="border-t border-border align-top">
                     <td className="py-2 pe-3 font-semibold">
                       {q.org_name}
-                      {q.message && <p className="font-normal text-xs text-muted-foreground mt-0.5 max-w-xs">{q.message}</p>}
+                      {q.message && (
+                        <p className="font-normal text-xs text-muted-foreground mt-0.5 max-w-xs">
+                          {q.message}
+                        </p>
+                      )}
                     </td>
                     <td className="py-2 pe-3">
                       {q.contact_name}
                       <br />
-                      <a href={`mailto:${q.contact_email}`} className="text-primary hover:underline text-xs">{q.contact_email}</a>
+                      <a
+                        href={`mailto:${q.contact_email}`}
+                        className="text-primary hover:underline text-xs"
+                      >
+                        {q.contact_email}
+                      </a>
                     </td>
                     <td className="py-2 pe-3">{interestLabel(q.interest)}</td>
                     <td className="py-2 pe-3">{q.budget_range || "—"}</td>
-                    <td className="py-2 pe-3 whitespace-nowrap">{new Date(q.created_at).toLocaleDateString()}</td>
+                    <td className="py-2 pe-3 whitespace-nowrap">
+                      {new Date(q.created_at).toLocaleDateString()}
+                    </td>
                     <td className="py-2">
                       <select
                         value={q.status}
-                        onChange={(e) => void act(() => setInquiryStatus(q.id, e.target.value as AdInquiry["status"]), "Status updated")}
+                        onChange={(e) =>
+                          void act(
+                            () => setInquiryStatus(q.id, e.target.value as AdInquiry["status"]),
+                            "Status updated",
+                          )
+                        }
                         className="px-2 py-1 rounded-lg border border-border bg-background text-xs"
                       >
                         <option value="new">New</option>
@@ -131,20 +161,33 @@ export function AdminAdPanel() {
         <h3 className="font-bold mb-2">Sponsored placements ({placements.length})</h3>
         <ul className="space-y-2 mb-4">
           {placements.map((p) => (
-            <li key={p.id} className="rounded-xl border border-border p-3 flex items-start justify-between gap-3">
+            <li
+              key={p.id}
+              className="rounded-xl border border-border p-3 flex items-start justify-between gap-3"
+            >
               <div className="min-w-0">
                 <p className="font-semibold">{p.headline}</p>
                 <p className="text-xs text-muted-foreground">
-                  {p.sponsor_name} · {p.placement === "homepage_banner" ? "Homepage banner" : `Category card · ${p.category}`}
+                  {p.sponsor_name} ·{" "}
+                  {p.placement === "homepage_banner"
+                    ? "Homepage banner"
+                    : `Category card · ${p.category}`}
                   {" · "}
-                  <span className={p.active ? "text-success font-semibold" : "text-muted-foreground"}>
+                  <span
+                    className={p.active ? "text-success font-semibold" : "text-muted-foreground"}
+                  >
                     {p.active ? "Live" : "Off"}
                   </span>
                 </p>
               </div>
               <div className="flex items-center gap-2 shrink-0">
                 <button
-                  onClick={() => void act(() => setPlacementActive(p.id, !p.active), p.active ? "Turned off" : "Turned on")}
+                  onClick={() =>
+                    void act(
+                      () => setPlacementActive(p.id, !p.active),
+                      p.active ? "Turned off" : "Turned on",
+                    )
+                  }
                   className="no-min-h inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border-2 border-border text-xs font-semibold hover:bg-secondary"
                 >
                   <Power className="h-3.5 w-3.5" /> {p.active ? "Turn off" : "Turn on"}
@@ -159,7 +202,9 @@ export function AdminAdPanel() {
               </div>
             </li>
           ))}
-          {placements.length === 0 && <li className="text-sm text-muted-foreground">No placements yet.</li>}
+          {placements.length === 0 && (
+            <li className="text-sm text-muted-foreground">No placements yet.</li>
+          )}
         </ul>
 
         <form onSubmit={onCreate} className="rounded-xl border border-border p-3 space-y-3">
@@ -167,7 +212,11 @@ export function AdminAdPanel() {
           <div className="grid sm:grid-cols-2 gap-3">
             <label className="block text-xs font-semibold text-muted-foreground">
               Placement
-              <select value={placement} onChange={(e) => setPlacement(e.target.value as AdPlacement)} className={inp}>
+              <select
+                value={placement}
+                onChange={(e) => setPlacement(e.target.value as AdPlacement)}
+                className={inp}
+              >
                 <option value="homepage_banner">Homepage banner</option>
                 <option value="category_card">Category card</option>
               </select>
@@ -176,7 +225,11 @@ export function AdminAdPanel() {
               <label className="block text-xs font-semibold text-muted-foreground">
                 Category
                 <select name="category" className={inp} defaultValue="food">
-                  {CATEGORIES.map((c) => <option key={c.id} value={c.id}>{c.id}</option>)}
+                  {CATEGORIES.map((c) => (
+                    <option key={c.id} value={c.id}>
+                      {c.id}
+                    </option>
+                  ))}
                 </select>
               </label>
             )}
@@ -201,7 +254,10 @@ export function AdminAdPanel() {
               <input name="cta_url" type="url" maxLength={500} className={inp} />
             </label>
           </div>
-          <button type="submit" className="no-min-h px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-bold hover:bg-primary/90">
+          <button
+            type="submit"
+            className="no-min-h px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-bold hover:bg-primary/90"
+          >
             Create (starts off)
           </button>
         </form>

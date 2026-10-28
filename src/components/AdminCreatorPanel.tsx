@@ -32,8 +32,9 @@ export function AdminCreatorPanel() {
     refresh();
   }, []);
 
-  const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
-    setForm((f) => ({ ...f, [k]: e.target.value }));
+  const set =
+    (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+      setForm((f) => ({ ...f, [k]: e.target.value }));
 
   return (
     <section className="rounded-2xl border-2 border-border bg-card p-4 space-y-4">
@@ -67,18 +68,65 @@ export function AdminCreatorPanel() {
             return;
           }
           setMsg(`Created /creators/${form.handle.toLowerCase()}`);
-          setForm({ handle: "", display_name: "", bio: "", photo_url: "", instagram: "", tiktok: "", youtube: "", follower_count: "", contact_email: "" });
+          setForm({
+            handle: "",
+            display_name: "",
+            bio: "",
+            photo_url: "",
+            instagram: "",
+            tiktok: "",
+            youtube: "",
+            follower_count: "",
+            contact_email: "",
+          });
           refresh();
         }}
       >
-        <Field label="Page handle (URL)" value={form.handle} onChange={set("handle")} required placeholder="fatmatas-picks" />
-        <Field label="Display name" value={form.display_name} onChange={set("display_name")} required placeholder="Fatmata's Bronx Picks" />
-        <Field label="Photo URL" value={form.photo_url} onChange={set("photo_url")} placeholder="https://…" />
-        <Field label="Contact email (private)" value={form.contact_email} onChange={set("contact_email")} type="email" />
-        <Field label="Instagram" value={form.instagram} onChange={set("instagram")} placeholder="@handle" />
+        <Field
+          label="Page handle (URL)"
+          value={form.handle}
+          onChange={set("handle")}
+          required
+          placeholder="fatmatas-picks"
+        />
+        <Field
+          label="Display name"
+          value={form.display_name}
+          onChange={set("display_name")}
+          required
+          placeholder="Fatmata's Bronx Picks"
+        />
+        <Field
+          label="Photo URL"
+          value={form.photo_url}
+          onChange={set("photo_url")}
+          placeholder="https://…"
+        />
+        <Field
+          label="Contact email (private)"
+          value={form.contact_email}
+          onChange={set("contact_email")}
+          type="email"
+        />
+        <Field
+          label="Instagram"
+          value={form.instagram}
+          onChange={set("instagram")}
+          placeholder="@handle"
+        />
         <Field label="TikTok" value={form.tiktok} onChange={set("tiktok")} placeholder="@handle" />
-        <Field label="YouTube" value={form.youtube} onChange={set("youtube")} placeholder="@channel" />
-        <Field label="Follower count (internal)" value={form.follower_count} onChange={set("follower_count")} type="number" />
+        <Field
+          label="YouTube"
+          value={form.youtube}
+          onChange={set("youtube")}
+          placeholder="@channel"
+        />
+        <Field
+          label="Follower count (internal)"
+          value={form.follower_count}
+          onChange={set("follower_count")}
+          type="number"
+        />
         <label className="sm:col-span-2 block">
           <span className="text-sm font-medium">Short bio (shown publicly, 200 characters)</span>
           <textarea
@@ -98,9 +146,16 @@ export function AdminCreatorPanel() {
 
       <ul className="space-y-2">
         {creators.map((c) => (
-          <li key={c.id} className="rounded-xl border border-border p-3 flex flex-wrap items-center gap-3">
+          <li
+            key={c.id}
+            className="rounded-xl border border-border p-3 flex flex-wrap items-center gap-3"
+          >
             <span className="font-semibold">{c.display_name}</span>
-            <Link to="/creators/$handle" params={{ handle: c.handle }} className="text-sm text-primary hover:underline">
+            <Link
+              to="/creators/$handle"
+              params={{ handle: c.handle }}
+              className="text-sm text-primary hover:underline"
+            >
               /creators/{c.handle}
             </Link>
             <span className="text-xs text-muted-foreground">{c.active ? "Active" : "Hidden"}</span>
@@ -143,7 +198,10 @@ function Field({
   return (
     <label className="block">
       <span className="text-sm font-medium">{label}</span>
-      <input {...rest} className="mt-1 w-full px-3 py-2 rounded-xl border-2 border-border bg-background" />
+      <input
+        {...rest}
+        className="mt-1 w-full px-3 py-2 rounded-xl border-2 border-border bg-background"
+      />
     </label>
   );
 }

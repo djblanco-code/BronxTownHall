@@ -13,7 +13,12 @@ const PLATFORMS = [
   { id: "fb", label: "Facebook", account: "Bronx Community Board", Icon: Facebook },
   { id: "ig", label: "Instagram", account: "@TheBronxOfficial", Icon: Instagram },
   { id: "x", label: "X (Twitter)", account: "@BronxApp", Icon: MessageSquare },
-  { id: "sms", label: "SMS Emergency Alert", account: "Send urgent text to 5,200+ opted-in neighbors", Icon: MessageSquare },
+  {
+    id: "sms",
+    label: "SMS Emergency Alert",
+    account: "Send urgent text to 5,200+ opted-in neighbors",
+    Icon: MessageSquare,
+  },
 ];
 
 function SocialSyncPage() {
@@ -23,7 +28,12 @@ function SocialSyncPage() {
   const [desc, setDesc] = useState("");
   const [date, setDate] = useState("");
   const [zip, setZip] = useState("10451");
-  const [enabled, setEnabled] = useState<Record<string, boolean>>({ fb: true, ig: true, x: false, sms: false });
+  const [enabled, setEnabled] = useState<Record<string, boolean>>({
+    fb: true,
+    ig: true,
+    x: false,
+    sms: false,
+  });
   const [success, setSuccess] = useState(false);
 
   const post = () => {
@@ -34,19 +44,30 @@ function SocialSyncPage() {
   return (
     <AppShell>
       <div className="max-w-3xl mx-auto px-4 py-6">
-        <button onClick={() => navigate({ to: "/" })} className="no-min-h inline-flex items-center gap-1.5 text-sm text-primary font-medium mb-4 hover:underline">
+        <button
+          onClick={() => navigate({ to: "/" })}
+          className="no-min-h inline-flex items-center gap-1.5 text-sm text-primary font-medium mb-4 hover:underline"
+        >
           <ArrowLeft className="h-4 w-4" /> {t("back")}
         </button>
 
         <div className="flex items-center justify-between gap-3 flex-wrap">
           <h1 className="text-3xl font-bold text-foreground">Create New Event</h1>
-          <button onClick={post} className="no-min-h px-5 py-2.5 rounded-lg bg-primary text-primary-foreground font-semibold hover:bg-primary/90">Publish</button>
+          <button
+            onClick={post}
+            className="no-min-h px-5 py-2.5 rounded-lg bg-primary text-primary-foreground font-semibold hover:bg-primary/90"
+          >
+            Publish
+          </button>
         </div>
-        <p className="text-sm text-muted-foreground mt-2">Your post will appear with a 'Liaison-verified' badge for Bronx residents.</p>
+        <p className="text-sm text-muted-foreground mt-2">
+          Your post will appear with a 'Liaison-verified' badge for Bronx residents.
+        </p>
 
         {success && (
           <div className="mt-4 rounded-2xl bg-success/15 border border-success/30 p-4 text-success font-medium">
-            ✓ Your event has been posted to all connected platforms and will be sent to 5,200+ neighbors in ZIP code {zip}.
+            ✓ Your event has been posted to all connected platforms and will be sent to 5,200+
+            neighbors in ZIP code {zip}.
           </div>
         )}
 
@@ -60,28 +81,56 @@ function SocialSyncPage() {
           </Field>
 
           <Field label="Event Title">
-            <input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="e.g., Summer Literacy Fair" className="w-full px-4 py-3 rounded-lg border border-border bg-background" />
+            <input
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              placeholder="e.g., Summer Literacy Fair"
+              className="w-full px-4 py-3 rounded-lg border border-border bg-background"
+            />
           </Field>
 
-          <Field label="Description" hint="What's happening? (Multilingual TTS will be auto-generated)">
-            <textarea value={desc} onChange={(e) => setDesc(e.target.value)} rows={4} className="w-full px-4 py-3 rounded-lg border border-border bg-background" />
+          <Field
+            label="Description"
+            hint="What's happening? (Multilingual TTS will be auto-generated)"
+          >
+            <textarea
+              value={desc}
+              onChange={(e) => setDesc(e.target.value)}
+              rows={4}
+              className="w-full px-4 py-3 rounded-lg border border-border bg-background"
+            />
           </Field>
 
           <div className="grid sm:grid-cols-2 gap-4">
             <Field label="Date">
-              <input type="datetime-local" value={date} onChange={(e) => setDate(e.target.value)} className="w-full px-4 py-3 rounded-lg border border-border bg-background" />
+              <input
+                type="datetime-local"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+                className="w-full px-4 py-3 rounded-lg border border-border bg-background"
+              />
             </Field>
             <Field label="Target ZIP Code (for Push Alerts)">
-              <input value={zip} onChange={(e) => setZip(e.target.value)} placeholder="10451" className="w-full px-4 py-3 rounded-lg border border-border bg-background" />
+              <input
+                value={zip}
+                onChange={(e) => setZip(e.target.value)}
+                placeholder="10451"
+                className="w-full px-4 py-3 rounded-lg border border-border bg-background"
+              />
             </Field>
           </div>
         </div>
 
         <section className="mt-8">
-          <h2 className="text-xs font-bold uppercase tracking-wider text-primary mb-3">Social Sync</h2>
+          <h2 className="text-xs font-bold uppercase tracking-wider text-primary mb-3">
+            Social Sync
+          </h2>
           <div className="space-y-2">
             {PLATFORMS.map((p) => (
-              <label key={p.id} className="no-min-h flex items-center gap-3 p-4 rounded-2xl border border-border bg-card cursor-pointer hover:bg-secondary">
+              <label
+                key={p.id}
+                className="no-min-h flex items-center gap-3 p-4 rounded-2xl border border-border bg-card cursor-pointer hover:bg-secondary"
+              >
                 <input
                   type="checkbox"
                   checked={!!enabled[p.id]}
@@ -99,15 +148,30 @@ function SocialSyncPage() {
         </section>
 
         <div className="mt-8 grid sm:grid-cols-2 gap-3">
-          <button className="no-min-h py-4 rounded-2xl border border-border bg-card font-semibold hover:bg-secondary">Schedule for Later</button>
-          <button onClick={post} className="no-min-h py-4 rounded-2xl bg-primary text-primary-foreground font-bold shadow-md hover:bg-primary/90">Post to All Platforms</button>
+          <button className="no-min-h py-4 rounded-2xl border border-border bg-card font-semibold hover:bg-secondary">
+            Schedule for Later
+          </button>
+          <button
+            onClick={post}
+            className="no-min-h py-4 rounded-2xl bg-primary text-primary-foreground font-bold shadow-md hover:bg-primary/90"
+          >
+            Post to All Platforms
+          </button>
         </div>
       </div>
     </AppShell>
   );
 }
 
-function Field({ label, hint, children }: { label: string; hint?: string; children: React.ReactNode }) {
+function Field({
+  label,
+  hint,
+  children,
+}: {
+  label: string;
+  hint?: string;
+  children: React.ReactNode;
+}) {
   return (
     <label className="block">
       <span className="text-sm font-semibold text-foreground mb-1 block">{label}</span>

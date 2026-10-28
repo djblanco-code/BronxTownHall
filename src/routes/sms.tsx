@@ -1,7 +1,14 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { AppShell } from "@/features/shell";
-import { SMS_KEYWORDS, SMS_SPECIAL_KEYWORDS, SMS_NUMBER, SMS_CONFIGURED, formatSmsNumber, buildSmsReply } from "@/lib/sms";
+import {
+  SMS_KEYWORDS,
+  SMS_SPECIAL_KEYWORDS,
+  SMS_NUMBER,
+  SMS_CONFIGURED,
+  formatSmsNumber,
+  buildSmsReply,
+} from "@/lib/sms";
 import { MessageSquare, Phone, Signal, Check } from "lucide-react";
 
 export const Route = createFileRoute("/sms")({
@@ -18,7 +25,8 @@ export const Route = createFileRoute("/sms")({
       { property: "og:title", content: "Text FOOD for Help — The Bronx App" },
       {
         property: "og:description",
-        content: "Get Bronx resources by plain text message. Works on any phone, no app or data needed.",
+        content:
+          "Get Bronx resources by plain text message. Works on any phone, no app or data needed.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -49,13 +57,13 @@ function SmsPage() {
     };
   }, [demo]);
 
-
-
   const notify = (e: React.FormEvent) => {
     e.preventDefault();
     try {
       localStorage.setItem("bronx.smsNotify", email);
-    } catch { /* ignore */ }
+    } catch {
+      /* ignore */
+    }
     setSent(true);
   };
 
@@ -70,8 +78,8 @@ function SmsPage() {
             Text <span className="text-primary">FOOD</span> for help
           </h1>
           <p className="mt-3 text-base sm:text-lg text-muted-foreground">
-            No smartphone, no data, no app. Send one word by text message and get the nearest
-            open Bronx pantry, clinic, or legal clinic right back.
+            No smartphone, no data, no app. Send one word by text message and get the nearest open
+            Bronx pantry, clinic, or legal clinic right back.
           </p>
           <div className="mt-6 rounded-2xl border-2 border-primary/40 bg-card p-5 shadow-sm">
             {SMS_CONFIGURED ? (
@@ -88,8 +96,8 @@ function SmsPage() {
               <>
                 <p className="text-lg font-bold text-foreground">Coming soon</p>
                 <p className="text-sm text-muted-foreground mt-1">
-                  The text line is built and ready — it goes live the day a Bronx number is
-                  assigned to the pilot.
+                  The text line is built and ready — it goes live the day a Bronx number is assigned
+                  to the pilot.
                 </p>
               </>
             )}
@@ -101,7 +109,10 @@ function SmsPage() {
         <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-3">Keywords</h2>
         <ul className="grid sm:grid-cols-2 gap-3">
           {[...SMS_KEYWORDS, ...SMS_SPECIAL_KEYWORDS].map((k) => (
-            <li key={k.keyword} className="rounded-2xl border-2 border-border bg-card p-4 flex items-start gap-3">
+            <li
+              key={k.keyword}
+              className="rounded-2xl border-2 border-border bg-card p-4 flex items-start gap-3"
+            >
               <span className="shrink-0 h-10 w-10 rounded-full bg-primary/15 text-primary grid place-items-center">
                 <MessageSquare className="h-5 w-5" />
               </span>
@@ -113,8 +124,8 @@ function SmsPage() {
           ))}
         </ul>
         <p className="text-xs text-muted-foreground mt-3">
-          Text HELP for emergency hotlines, STOP to opt out. Message and data rates may apply.
-          We never share your number.
+          Text HELP for emergency hotlines, STOP to opt out. Message and data rates may apply. We
+          never share your number.
         </p>
       </section>
 
@@ -168,16 +179,22 @@ function SmsPage() {
         <div className="rounded-2xl border-2 border-border bg-secondary p-5">
           <h2 className="text-lg font-bold text-foreground">Why text message</h2>
           <p className="text-sm text-muted-foreground mt-2">
-            Roughly one in five Bronx households has no home broadband, and many neighbors run
-            out of data before the end of the month. SMS reaches every phone — flip phones,
-            prepaid plans, shared devices — with zero install. It is the most inclusive channel
-            the borough has.
+            Roughly one in five Bronx households has no home broadband, and many neighbors run out
+            of data before the end of the month. SMS reaches every phone — flip phones, prepaid
+            plans, shared devices — with zero install. It is the most inclusive channel the borough
+            has.
           </p>
           <div className="mt-4 flex flex-wrap gap-3">
-            <Link to="/emergency" className="no-min-h inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-destructive text-destructive-foreground font-semibold text-sm">
+            <Link
+              to="/emergency"
+              className="no-min-h inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-destructive text-destructive-foreground font-semibold text-sm"
+            >
               <Phone className="h-4 w-4" /> Emergency hotlines
             </Link>
-            <Link to="/" className="no-min-h inline-flex items-center px-4 py-2.5 rounded-full border-2 border-border bg-card font-semibold text-sm text-foreground">
+            <Link
+              to="/"
+              className="no-min-h inline-flex items-center px-4 py-2.5 rounded-full border-2 border-border bg-card font-semibold text-sm text-foreground"
+            >
               Browse the app
             </Link>
           </div>

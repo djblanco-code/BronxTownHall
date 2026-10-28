@@ -6,7 +6,13 @@ import { AVAILABILITY_CLASS, AVAILABILITY_KEYS, type AvailabilityStatus } from "
  * Renders nothing when a listing has no availability information — an absent
  * badge is more honest than a guessed one.
  */
-export function AvailabilityBadge({ status, compact }: { status?: AvailabilityStatus; compact?: boolean }) {
+export function AvailabilityBadge({
+  status,
+  compact,
+}: {
+  status?: AvailabilityStatus;
+  compact?: boolean;
+}) {
   const { t } = useI18n();
   if (!status) return null;
   return (
@@ -22,6 +28,8 @@ export function AvailabilityBadge({ status, compact }: { status?: AvailabilitySt
 export function CallAheadNote({ className = "" }: { className?: string }) {
   const { t } = useI18n();
   return (
-    <p className={`text-[11px] leading-snug text-muted-foreground ${className}`}>{t("listing.callAhead")}</p>
+    <p className={`text-[11px] leading-snug text-muted-foreground ${className}`}>
+      {t("listing.callAhead")}
+    </p>
   );
 }

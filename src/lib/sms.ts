@@ -42,7 +42,12 @@ export const SMS_HOTLINES = [
 
 /** Fallback events reply used when live events can't be loaded. */
 export function buildEventsReply(
-  events: { title: string; event_date: string; event_time?: string | null; location?: string | null }[],
+  events: {
+    title: string;
+    event_date: string;
+    event_time?: string | null;
+    location?: string | null;
+  }[],
 ): string {
   if (!events.length) {
     return "No events listed for the next 2 weeks. See thebronxapp.org/events for the latest.";

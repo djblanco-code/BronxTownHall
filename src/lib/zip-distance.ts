@@ -1,13 +1,29 @@
 // Approximate centroids for Bronx ZIPs. Good enough for sort-by-distance UX.
 export const ZIP_LATLNG: Record<string, [number, number]> = {
-  "10451": [40.819, -73.927], "10452": [40.838, -73.921], "10453": [40.852, -73.913],
-  "10454": [40.805, -73.917], "10455": [40.815, -73.907], "10456": [40.830, -73.907],
-  "10457": [40.846, -73.900], "10458": [40.861, -73.888], "10459": [40.825, -73.893],
-  "10460": [40.840, -73.879], "10461": [40.847, -73.840], "10462": [40.844, -73.860],
-  "10463": [40.880, -73.906], "10464": [40.870, -73.787], "10465": [40.823, -73.819],
-  "10466": [40.890, -73.844], "10467": [40.878, -73.870], "10468": [40.866, -73.898],
-  "10469": [40.872, -73.847], "10470": [40.898, -73.870], "10471": [40.898, -73.901],
-  "10472": [40.829, -73.870], "10473": [40.819, -73.857], "10474": [40.811, -73.882],
+  "10451": [40.819, -73.927],
+  "10452": [40.838, -73.921],
+  "10453": [40.852, -73.913],
+  "10454": [40.805, -73.917],
+  "10455": [40.815, -73.907],
+  "10456": [40.83, -73.907],
+  "10457": [40.846, -73.9],
+  "10458": [40.861, -73.888],
+  "10459": [40.825, -73.893],
+  "10460": [40.84, -73.879],
+  "10461": [40.847, -73.84],
+  "10462": [40.844, -73.86],
+  "10463": [40.88, -73.906],
+  "10464": [40.87, -73.787],
+  "10465": [40.823, -73.819],
+  "10466": [40.89, -73.844],
+  "10467": [40.878, -73.87],
+  "10468": [40.866, -73.898],
+  "10469": [40.872, -73.847],
+  "10470": [40.898, -73.87],
+  "10471": [40.898, -73.901],
+  "10472": [40.829, -73.87],
+  "10473": [40.819, -73.857],
+  "10474": [40.811, -73.882],
   "10475": [40.872, -73.829],
 };
 
@@ -23,7 +39,8 @@ function haversine(a: [number, number], b: [number, number]) {
 }
 
 export function zipDistanceMiles(fromZip: string, toZip: string): number | null {
-  const a = ZIP_LATLNG[fromZip]; const b = ZIP_LATLNG[toZip];
+  const a = ZIP_LATLNG[fromZip];
+  const b = ZIP_LATLNG[toZip];
   if (!a || !b) return null;
   return Math.round(haversine(a, b) * 10) / 10;
 }
@@ -34,7 +51,11 @@ export function extractZip(address: string): string | null {
   return m ? m[1] : null;
 }
 
-export function distanceFromUser(userZip: string | null | undefined, address: string, fallback: number): number {
+export function distanceFromUser(
+  userZip: string | null | undefined,
+  address: string,
+  fallback: number,
+): number {
   if (!userZip) return fallback;
   const z = extractZip(address);
   if (!z) return fallback;
@@ -57,7 +78,8 @@ export function distanceFromCoords(
   address: string,
   to?: [number, number] | null,
 ): number | null {
-  const target = to ?? (extractZip(address) ? ZIP_LATLNG[extractZip(address) as string] : undefined);
+  const target =
+    to ?? (extractZip(address) ? ZIP_LATLNG[extractZip(address) as string] : undefined);
   if (!target) return null;
   return Math.round(haversine(from, target) * 10) / 10;
 }

@@ -67,7 +67,10 @@ function PortalPage() {
   return (
     <AppShell>
       <div className="max-w-3xl mx-auto px-4 py-6 space-y-6">
-        <Link to="/" className="no-min-h inline-flex items-center gap-1.5 text-sm text-primary font-medium hover:underline">
+        <Link
+          to="/"
+          className="no-min-h inline-flex items-center gap-1.5 text-sm text-primary font-medium hover:underline"
+        >
           <ArrowLeft className="h-4 w-4" /> Home
         </Link>
 
@@ -76,8 +79,8 @@ function PortalPage() {
             <Building2 className="h-7 w-7 text-primary" /> List your organization
           </h1>
           <p className="text-muted-foreground">
-            Add your business, community organization or government office to The Bronx App, then keep your own details up
-            to date. Free — there is no payment anywhere in the app.
+            Add your business, community organization or government office to The Bronx App, then
+            keep your own details up to date. Free — there is no payment anywhere in the app.
           </p>
         </header>
 
@@ -98,7 +101,13 @@ function PortalPage() {
         )}
 
         {type && (
-          <button onClick={() => { setType(null); setForm(null); }} className="no-min-h text-sm text-primary hover:underline">
+          <button
+            onClick={() => {
+              setType(null);
+              setForm(null);
+            }}
+            className="no-min-h text-sm text-primary hover:underline"
+          >
             ← Choose a different account type
           </button>
         )}
@@ -113,13 +122,23 @@ function PortalPage() {
               </p>
             )}
             {form && (
-              <OrgListingForm value={form} onChange={setForm} onSubmit={submit} busy={busy} submitLabel="Submit listing for review" />
+              <OrgListingForm
+                value={form}
+                onChange={setForm}
+                onSubmit={submit}
+                busy={busy}
+                submitLabel="Submit listing for review"
+              />
             )}
           </>
         )}
 
         <p className="text-sm text-muted-foreground">
-          Already have an account? <Link to="/portal/dashboard" className="text-primary underline">Go to your dashboard</Link>.
+          Already have an account?{" "}
+          <Link to="/portal/dashboard" className="text-primary underline">
+            Go to your dashboard
+          </Link>
+          .
         </p>
       </div>
     </AppShell>
@@ -145,7 +164,9 @@ function AccountStep({ type }: { type: AccountType }) {
     try {
       if (mode === "sign-up") {
         const { data, error } = await supabase.auth.signUp({
-          email, password, options: { emailRedirectTo: `${window.location.origin}/portal` },
+          email,
+          password,
+          options: { emailRedirectTo: `${window.location.origin}/portal` },
         });
         if (error) throw error;
         if (!data.session) setSent(true);
@@ -163,9 +184,12 @@ function AccountStep({ type }: { type: AccountType }) {
   if (sent) {
     return (
       <div className="rounded-2xl border-2 border-border bg-card p-5 space-y-2">
-        <p className="font-bold inline-flex items-center gap-2"><CheckCircle2 className="h-5 w-5 text-success" /> Check your email</p>
+        <p className="font-bold inline-flex items-center gap-2">
+          <CheckCircle2 className="h-5 w-5 text-success" /> Check your email
+        </p>
         <p className="text-sm text-muted-foreground">
-          We sent a confirmation link to {email}. Open it, then come back to this page to fill in your listing.
+          We sent a confirmation link to {email}. Open it, then come back to this page to fill in
+          your listing.
         </p>
       </div>
     );
@@ -181,16 +205,30 @@ function AccountStep({ type }: { type: AccountType }) {
       )}
       <label className="block">
         <span className="text-sm font-medium mb-1 block">Email</span>
-        <input required type="email" className={input} value={email} onChange={(e) => setEmail(e.target.value)} />
+        <input
+          required
+          type="email"
+          className={input}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
       </label>
       {govBlocked && (
         <p className="text-sm font-semibold text-destructive">
-          That address isn&apos;t a government one. Please use an address ending in .gov or .nyc.gov.
+          That address isn&apos;t a government one. Please use an address ending in .gov or
+          .nyc.gov.
         </p>
       )}
       <label className="block">
         <span className="text-sm font-medium mb-1 block">Password</span>
-        <input required type="password" minLength={6} className={input} value={password} onChange={(e) => setPassword(e.target.value)} />
+        <input
+          required
+          type="password"
+          minLength={6}
+          className={input}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
       </label>
       <button
         type="submit"
@@ -201,7 +239,11 @@ function AccountStep({ type }: { type: AccountType }) {
       </button>
       <p className="text-sm text-center text-muted-foreground">
         {mode === "sign-up" ? "Already registered?" : "New here?"}{" "}
-        <button type="button" onClick={() => setMode(mode === "sign-up" ? "sign-in" : "sign-up")} className="no-min-h text-primary font-medium hover:underline">
+        <button
+          type="button"
+          onClick={() => setMode(mode === "sign-up" ? "sign-in" : "sign-up")}
+          className="no-min-h text-primary font-medium hover:underline"
+        >
           {mode === "sign-up" ? "Sign in" : "Create an account"}
         </button>
       </p>

@@ -1,8 +1,10 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
+import type { SupabaseClient } from "@supabase/supabase-js";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import type { Database } from "@/integrations/supabase/types";
 
-async function assertAdmin(ctx: { supabase: any; userId: string }) {
+async function assertAdmin(ctx: { supabase: SupabaseClient<Database>; userId: string }) {
   const { data } = await ctx.supabase.rpc("has_role", { _user_id: ctx.userId, _role: "admin" });
   if (!data) throw new Error("Forbidden");
 }
@@ -33,7 +35,11 @@ export const approveScrapedEvent = createServerFn({ method: "POST" })
   .handler(async ({ data, context }) => {
     await assertAdmin(context);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const { data: row } = await supabaseAdmin.from("scraped_events").select("*").eq("id", data.id).single();
+    const { data: row } = await supabaseAdmin
+      .from("scraped_events")
+      .select("*")
+      .eq("id", data.id)
+      .single();
     if (!row || row.status !== "pending") throw new Error("This event is no longer pending.");
     const { data: inserted, error } = await supabaseAdmin
       .from("bronx_resources")
@@ -57,7 +63,16 @@ export const approveScrapedEvent = createServerFn({ method: "POST" })
     if (error) throw new Error(error.message);
     await supabaseAdmin
       .from("scraped_events")
-      .update({ status: "approved", reviewed_at: new Date().toISOString(), published_resource_id: inserted.id, title: data.title, event_date: data.event_date, event_time: data.event_time ?? null, location: data.location ?? null, description: data.description ?? null })
+      .update({
+        status: "approved",
+        reviewed_at: new Date().toISOString(),
+        published_resource_id: inserted.id,
+        title: data.title,
+        event_date: data.event_date,
+        event_time: data.event_time ?? null,
+        location: data.location ?? null,
+        description: data.description ?? null,
+      })
       .eq("id", data.id);
     return { ok: true };
   });

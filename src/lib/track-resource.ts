@@ -82,14 +82,22 @@ export function trackCallClicked({ resourceId, category, phone }: Base & { phone
   persistEvent("call_clicked", { resourceId, category }, { phone_prefix: redactPhone(phone) });
 }
 
-export function trackDirectionsClicked({ resourceId, category, distanceMiles }: Base & { distanceMiles?: number }) {
+export function trackDirectionsClicked({
+  resourceId,
+  category,
+  distanceMiles,
+}: Base & { distanceMiles?: number }) {
   trackEvent("directions_clicked", {
     resource_id: resourceId,
     category: category || "unknown",
     distance_miles: typeof distanceMiles === "number" ? Math.round(distanceMiles * 10) / 10 : -1,
     zip_code: currentZip(),
   });
-  persistEvent("directions_clicked", { resourceId, category }, { distance_miles: distanceMiles ?? -1 });
+  persistEvent(
+    "directions_clicked",
+    { resourceId, category },
+    { distance_miles: distanceMiles ?? -1 },
+  );
 }
 
 export function trackWebsiteClicked({ resourceId, category, url }: Base & { url?: string }) {
@@ -112,7 +120,11 @@ export function trackResourceSaved({ resourceId, category, saved }: Base & { sav
 
 export type ShareMethod = "sms" | "whatsapp" | "native" | "print" | "copy" | "email";
 
-export function trackResourceShared({ resourceId, category, method }: Base & { method: ShareMethod }) {
+export function trackResourceShared({
+  resourceId,
+  category,
+  method,
+}: Base & { method: ShareMethod }) {
   trackEvent("resource_shared", {
     resource_id: resourceId,
     category: category || "unknown",
@@ -121,7 +133,11 @@ export function trackResourceShared({ resourceId, category, method }: Base & { m
   persistEvent("resource_shared", { resourceId, category }, { share_method: method });
 }
 
-export function trackResourceReported({ resourceId, category, issueType }: Base & { issueType: string }) {
+export function trackResourceReported({
+  resourceId,
+  category,
+  issueType,
+}: Base & { issueType: string }) {
   trackEvent("resource_reported", {
     resource_id: resourceId,
     category: category || "unknown",

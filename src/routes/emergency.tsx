@@ -10,9 +10,16 @@ export const Route = createFileRoute("/emergency")({
   head: () => ({
     meta: [
       { title: "Emergency & Crisis Help — The Bronx App" },
-      { name: "description", content: "911, 311, 988 and every Bronx crisis hotline in one tap-to-call page that keeps working offline." },
+      {
+        name: "description",
+        content:
+          "911, 311, 988 and every Bronx crisis hotline in one tap-to-call page that keeps working offline.",
+      },
       { property: "og:title", content: "Emergency & Crisis Help — The Bronx App" },
-      { property: "og:description", content: "Tap-to-call emergency and crisis numbers for the Bronx. Works offline." },
+      {
+        property: "og:description",
+        content: "Tap-to-call emergency and crisis numbers for the Bronx. Works offline.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -23,18 +30,72 @@ export const Route = createFileRoute("/emergency")({
 type Contact = { name: string; desc: string; phone: string; display: string; verified: boolean };
 
 const CRITICAL: Contact[] = [
-  { name: "Emergency Services", desc: "Police, Fire, or Medical emergencies", phone: "911", display: "911", verified: true },
-  { name: "NYC 311", desc: "City services, shelter intake, heat/hot water, non-emergency help", phone: "311", display: "311", verified: true },
-  { name: "988 Suicide & Crisis Lifeline", desc: "Free, confidential support in a mental health crisis", phone: "988", display: "988", verified: true },
-  { name: "Poison Control", desc: "NYC Poison & Drug Information Center", phone: "1-800-222-1222", display: "1-800-222-1222", verified: true },
+  {
+    name: "Emergency Services",
+    desc: "Police, Fire, or Medical emergencies",
+    phone: "911",
+    display: "911",
+    verified: true,
+  },
+  {
+    name: "NYC 311",
+    desc: "City services, shelter intake, heat/hot water, non-emergency help",
+    phone: "311",
+    display: "311",
+    verified: true,
+  },
+  {
+    name: "988 Suicide & Crisis Lifeline",
+    desc: "Free, confidential support in a mental health crisis",
+    phone: "988",
+    display: "988",
+    verified: true,
+  },
+  {
+    name: "Poison Control",
+    desc: "NYC Poison & Drug Information Center",
+    phone: "1-800-222-1222",
+    display: "1-800-222-1222",
+    verified: true,
+  },
 ];
 
 const NYC_SPECIFIC: Contact[] = [
-  { name: "NYC Well", desc: "Mental health support in 200+ languages", phone: "1-888-692-9355", display: "1-888-NYC-WELL", verified: true },
-  { name: "Safe Horizon", desc: "Domestic violence and crime victim support", phone: "1-800-621-4673", display: "1-800-621-HOPE", verified: true },
-  { name: "NYC Homeless Outreach", desc: "Street homelessness outreach team (via 311)", phone: "311", display: "311", verified: true },
-  { name: "Con Edison Gas Emergency", desc: "Report a gas leak or downed power line", phone: "1-800-752-6633", display: "1-800-75-CONED", verified: true },
-  { name: "NY Child Abuse Hotline", desc: "Report suspected child abuse or neglect", phone: "1-800-342-3720", display: "1-800-342-3720", verified: true },
+  {
+    name: "NYC Well",
+    desc: "Mental health support in 200+ languages",
+    phone: "1-888-692-9355",
+    display: "1-888-NYC-WELL",
+    verified: true,
+  },
+  {
+    name: "Safe Horizon",
+    desc: "Domestic violence and crime victim support",
+    phone: "1-800-621-4673",
+    display: "1-800-621-HOPE",
+    verified: true,
+  },
+  {
+    name: "NYC Homeless Outreach",
+    desc: "Street homelessness outreach team (via 311)",
+    phone: "311",
+    display: "311",
+    verified: true,
+  },
+  {
+    name: "Con Edison Gas Emergency",
+    desc: "Report a gas leak or downed power line",
+    phone: "1-800-752-6633",
+    display: "1-800-75-CONED",
+    verified: true,
+  },
+  {
+    name: "NY Child Abuse Hotline",
+    desc: "Report suspected child abuse or neglect",
+    phone: "1-800-342-3720",
+    display: "1-800-342-3720",
+    verified: true,
+  },
 ];
 
 function EmergencyPage() {
@@ -61,15 +122,26 @@ function EmergencyPage() {
   return (
     <AppShell>
       <div className="max-w-3xl mx-auto px-4 py-6">
-        <button onClick={() => navigate({ to: "/" })} className="no-min-h inline-flex items-center gap-1.5 text-sm text-primary font-medium mb-4 hover:underline">
+        <button
+          onClick={() => navigate({ to: "/" })}
+          className="no-min-h inline-flex items-center gap-1.5 text-sm text-primary font-medium mb-4 hover:underline"
+        >
           <ArrowLeft className="h-4 w-4" /> {t("back")}
         </button>
 
         <h1 className="text-3xl font-bold text-foreground">Emergency Contacts</h1>
-        <p className="text-muted-foreground mt-1">Immediate help and essential Bronx services available 24/7.</p>
+        <p className="text-muted-foreground mt-1">
+          Immediate help and essential Bronx services available 24/7.
+        </p>
 
-        <div className={`mt-4 rounded-2xl px-4 py-3 flex items-center gap-3 border ${online ? "bg-success/15 border-success/30" : "bg-warning/15 border-warning/40"}`}>
-          {online ? <WifiOff className="h-5 w-5 text-success shrink-0" /> : <Wifi className="h-5 w-5 text-warning shrink-0" />}
+        <div
+          className={`mt-4 rounded-2xl px-4 py-3 flex items-center gap-3 border ${online ? "bg-success/15 border-success/30" : "bg-warning/15 border-warning/40"}`}
+        >
+          {online ? (
+            <WifiOff className="h-5 w-5 text-success shrink-0" />
+          ) : (
+            <Wifi className="h-5 w-5 text-warning shrink-0" />
+          )}
           <p className={`text-sm font-semibold ${online ? "text-success" : "text-warning"}`}>
             {online
               ? "This page works offline • Saved to your phone, all numbers dial without internet"
@@ -85,11 +157,15 @@ function EmergencyPage() {
         </a>
 
         <Section title="Critical Emergencies" tone="destructive">
-          {CRITICAL.map((c) => <ContactCard key={c.name} c={c} tone="destructive" />)}
+          {CRITICAL.map((c) => (
+            <ContactCard key={c.name} c={c} tone="destructive" />
+          ))}
         </Section>
 
         <Section title="NYC Crisis & Support Lines" tone="primary">
-          {NYC_SPECIFIC.map((c) => <ContactCard key={c.name} c={c} tone="primary" />)}
+          {NYC_SPECIFIC.map((c) => (
+            <ContactCard key={c.name} c={c} tone="primary" />
+          ))}
         </Section>
 
         {otherHotlines.length > 0 && (
@@ -98,7 +174,13 @@ function EmergencyPage() {
               <ContactCard
                 key={h.id}
                 tone="primary"
-                c={{ name: h.name, desc: `${h.description} · ${h.available}`, phone: h.number, display: h.number, verified: true }}
+                c={{
+                  name: h.name,
+                  desc: `${h.description} · ${h.available}`,
+                  phone: h.number,
+                  display: h.number,
+                  verified: true,
+                }}
               />
             ))}
           </Section>
@@ -123,24 +205,41 @@ function EmergencyPage() {
 
         <p className="mt-8 text-sm text-muted-foreground text-center">
           Need shelter, food, or legal help right now?{" "}
-          <Link to="/urgent" className="text-primary font-semibold hover:underline">See all urgent help →</Link>
+          <Link to="/urgent" className="text-primary font-semibold hover:underline">
+            See all urgent help →
+          </Link>
         </p>
       </div>
     </AppShell>
   );
 }
 
-function Section({ title, tone, children }: { title: string; tone: "destructive" | "primary"; children: React.ReactNode }) {
+function Section({
+  title,
+  tone,
+  children,
+}: {
+  title: string;
+  tone: "destructive" | "primary";
+  children: React.ReactNode;
+}) {
   return (
     <section className="mt-8">
-      <h2 className={`text-xs font-bold uppercase tracking-wider mb-3 ${tone === "destructive" ? "text-destructive" : "text-primary"}`}>{title}</h2>
+      <h2
+        className={`text-xs font-bold uppercase tracking-wider mb-3 ${tone === "destructive" ? "text-destructive" : "text-primary"}`}
+      >
+        {title}
+      </h2>
       <div className="space-y-3">{children}</div>
     </section>
   );
 }
 
 function ContactCard({ c, tone }: { c: Contact; tone: "destructive" | "primary" }) {
-  const btn = tone === "destructive" ? "bg-destructive text-destructive-foreground" : "bg-primary text-primary-foreground";
+  const btn =
+    tone === "destructive"
+      ? "bg-destructive text-destructive-foreground"
+      : "bg-primary text-primary-foreground";
   return (
     <div className="rounded-2xl border border-border bg-card p-4">
       <div className="flex items-center gap-2 flex-wrap">
@@ -152,8 +251,12 @@ function ContactCard({ c, tone }: { c: Contact; tone: "destructive" | "primary" 
         )}
       </div>
       <p className="text-sm text-muted-foreground mt-1">{c.desc}</p>
-      <a href={`tel:${c.phone.replace(/[^0-9+]/g, "")}`} className={`no-min-h mt-3 inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-semibold ${btn}`}>
-        <Phone className="h-5 w-5" /> {c.name === "Emergency Services" ? "DIAL 911" : `Call ${c.display}`}
+      <a
+        href={`tel:${c.phone.replace(/[^0-9+]/g, "")}`}
+        className={`no-min-h mt-3 inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-semibold ${btn}`}
+      >
+        <Phone className="h-5 w-5" />{" "}
+        {c.name === "Emergency Services" ? "DIAL 911" : `Call ${c.display}`}
       </a>
     </div>
   );

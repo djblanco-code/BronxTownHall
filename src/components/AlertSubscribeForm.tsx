@@ -3,11 +3,7 @@ import { Bell, Check, Loader2, Mail, MessageSquare } from "lucide-react";
 import { CATEGORIES } from "@/lib/data";
 import { useI18n } from "@/lib/i18n-context";
 import { useProfile, NEED_TO_CATEGORY } from "@/lib/onboarding";
-import {
-  subscribeToAlerts,
-  phoneIssue,
-  type AlertChannel,
-} from "@/lib/policy-alerts";
+import { subscribeToAlerts, phoneIssue, type AlertChannel } from "@/lib/policy-alerts";
 
 export function AlertSubscribeForm({
   defaultCategory,
@@ -41,7 +37,10 @@ export function AlertSubscribeForm({
     }
     if (channel === "sms") {
       const issue = phoneIssue(phone);
-      if (issue) { setErr(issue); return; }
+      if (issue) {
+        setErr(issue);
+        return;
+      }
     } else if (!/^\S+@\S+\.\S+$/.test(email.trim())) {
       setErr(t("alertsBadEmail"));
       return;
@@ -72,7 +71,10 @@ export function AlertSubscribeForm({
         <p className="font-bold">{t("alertsSubOk")}</p>
         <p className="text-sm text-muted-foreground mt-1">{t("alertsSubOkNote")}</p>
         {onDone && (
-          <button onClick={onDone} className="no-min-h mt-3 text-sm text-primary font-semibold hover:underline">
+          <button
+            onClick={onDone}
+            className="no-min-h mt-3 text-sm text-primary font-semibold hover:underline"
+          >
             {t("alertsClose")}
           </button>
         )}
@@ -88,17 +90,19 @@ export function AlertSubscribeForm({
       <p className="text-sm text-muted-foreground">{t("alertsSubIntro")}</p>
 
       <div className="flex gap-2" role="group" aria-label={t("alertsHowLabel")}>
-        {([
+        {[
           { id: "sms" as AlertChannel, label: t("alertsByText"), Icon: MessageSquare },
           { id: "email" as AlertChannel, label: t("alertsByEmail"), Icon: Mail },
-        ]).map(({ id, label, Icon }) => (
+        ].map(({ id, label, Icon }) => (
           <button
             key={id}
             type="button"
             onClick={() => setChannel(id)}
             aria-pressed={channel === id}
             className={`no-min-h inline-flex items-center gap-1.5 text-sm px-3 py-2 rounded-full border-2 transition ${
-              channel === id ? "border-primary bg-primary text-primary-foreground" : "border-border bg-card hover:border-primary"
+              channel === id
+                ? "border-primary bg-primary text-primary-foreground"
+                : "border-border bg-card hover:border-primary"
             }`}
           >
             <Icon className="h-4 w-4" aria-hidden /> {label}
@@ -108,7 +112,9 @@ export function AlertSubscribeForm({
 
       {channel === "sms" ? (
         <label className="block">
-          <span className="text-xs font-semibold text-muted-foreground">{t("alertsPhoneLabel")}</span>
+          <span className="text-xs font-semibold text-muted-foreground">
+            {t("alertsPhoneLabel")}
+          </span>
           <input
             type="tel"
             inputMode="tel"
@@ -121,7 +127,9 @@ export function AlertSubscribeForm({
         </label>
       ) : (
         <label className="block">
-          <span className="text-xs font-semibold text-muted-foreground">{t("alertsEmailLabel")}</span>
+          <span className="text-xs font-semibold text-muted-foreground">
+            {t("alertsEmailLabel")}
+          </span>
           <input
             type="email"
             autoComplete="email"
@@ -134,7 +142,9 @@ export function AlertSubscribeForm({
       )}
 
       <fieldset>
-        <legend className="text-xs font-semibold text-muted-foreground mb-2">{t("alertsWhichCats")}</legend>
+        <legend className="text-xs font-semibold text-muted-foreground mb-2">
+          {t("alertsWhichCats")}
+        </legend>
         <div className="flex flex-wrap gap-2">
           {CATEGORIES.map((c) => {
             const active = cats.includes(c.id);
@@ -145,7 +155,9 @@ export function AlertSubscribeForm({
                 onClick={() => toggle(c.id)}
                 aria-pressed={active}
                 className={`no-min-h text-sm px-3 py-2 rounded-full border-2 transition ${
-                  active ? "border-primary bg-primary text-primary-foreground" : "border-border bg-card hover:border-primary"
+                  active
+                    ? "border-primary bg-primary text-primary-foreground"
+                    : "border-border bg-card hover:border-primary"
                 }`}
               >
                 <span aria-hidden>{c.emoji}</span> {t(c.labelKey)}
@@ -155,7 +167,11 @@ export function AlertSubscribeForm({
         </div>
       </fieldset>
 
-      {err && <p role="alert" className="text-sm text-destructive">{err}</p>}
+      {err && (
+        <p role="alert" className="text-sm text-destructive">
+          {err}
+        </p>
+      )}
 
       <div className="flex items-center justify-between gap-3 flex-wrap">
         <p className="text-xs text-muted-foreground">{t("alertsOptInNote")}</p>
@@ -164,7 +180,11 @@ export function AlertSubscribeForm({
           disabled={status === "loading"}
           className="no-min-h inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-primary text-primary-foreground font-semibold shadow hover:opacity-90 disabled:opacity-60 min-h-[48px]"
         >
-          {status === "loading" ? <Loader2 className="h-5 w-5 animate-spin" /> : <Bell className="h-5 w-5" />}
+          {status === "loading" ? (
+            <Loader2 className="h-5 w-5 animate-spin" />
+          ) : (
+            <Bell className="h-5 w-5" />
+          )}
           {t("alertsSubCta")}
         </button>
       </div>

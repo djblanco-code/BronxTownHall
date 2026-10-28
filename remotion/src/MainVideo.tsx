@@ -23,7 +23,11 @@ const shots: S[] = [
     shot: "home",
     step: "Step 1 · Home",
     title: "Open now, near you",
-    lines: ["Search, ZIP, and voice input up top", "Five languages, one tap", "SOS is always one thumb away"],
+    lines: [
+      "Search, ZIP, and voice input up top",
+      "Five languages, one tap",
+      "SOS is always one thumb away",
+    ],
     panFrom: 0,
     panTo: -160,
     duration: 330,
@@ -32,7 +36,11 @@ const shots: S[] = [
     shot: "search",
     step: "Step 2 · Search",
     title: "Type it, or say it",
-    lines: ["Typo-tolerant fuzzy matching", "Voice search for low-literacy users", "Filters: halal, kosher, language, access"],
+    lines: [
+      "Typo-tolerant fuzzy matching",
+      "Voice search for low-literacy users",
+      "Filters: halal, kosher, language, access",
+    ],
     panFrom: -40,
     panTo: -320,
     duration: 320,
@@ -42,7 +50,11 @@ const shots: S[] = [
     shot: "detail",
     step: "Step 3 · Resource detail",
     title: "Everything you need to show up",
-    lines: ["Hours, eligibility, languages spoken", "\u201CListen\u201D button reads it aloud", "Last verified date, in the open"],
+    lines: [
+      "Hours, eligibility, languages spoken",
+      "\u201CListen\u201D button reads it aloud",
+      "Last verified date, in the open",
+    ],
     panFrom: 0,
     panTo: -420,
     duration: 360,
@@ -51,7 +63,11 @@ const shots: S[] = [
     shot: "detail",
     step: "Step 4 · Act",
     title: "Call · Directions · Share · Report",
-    lines: ["Tap-to-call and one-tap directions", "Share by text or WhatsApp", "Report a problem \u2014 fixes ship publicly"],
+    lines: [
+      "Tap-to-call and one-tap directions",
+      "Share by text or WhatsApp",
+      "Report a problem \u2014 fixes ship publicly",
+    ],
     panFrom: -220,
     panTo: -640,
     duration: 320,
@@ -61,7 +77,11 @@ const shots: S[] = [
     shot: "map",
     step: "Step 5 · Map & transit",
     title: "Which train gets you there",
-    lines: ["Clustered pins across all 12 boards", "Subway and bus lines per listing", "Spreadsheet view for caseworkers"],
+    lines: [
+      "Clustered pins across all 12 boards",
+      "Subway and bus lines per listing",
+      "Spreadsheet view for caseworkers",
+    ],
     panFrom: 0,
     panTo: -140,
     duration: 300,
@@ -70,7 +90,11 @@ const shots: S[] = [
     shot: "civic",
     step: "Step 6 · Your voice",
     title: "Your board, precinct, and reps",
-    lines: ["By ZIP, with meeting calendar export", "Pre-filled contact templates", "311 and HPD reporting built in"],
+    lines: [
+      "By ZIP, with meeting calendar export",
+      "Pre-filled contact templates",
+      "311 and HPD reporting built in",
+    ],
     panFrom: -20,
     panTo: -380,
     duration: 300,
@@ -107,7 +131,13 @@ const Progress: React.FC = () => {
   return (
     <AbsoluteFill style={{ justifyContent: "flex-end" }}>
       <div style={{ height: 6, background: "rgba(255,255,255,0.10)" }}>
-        <div style={{ height: "100%", width: `${w}%`, background: `linear-gradient(90deg, ${C.red}, ${C.gold})` }} />
+        <div
+          style={{
+            height: "100%",
+            width: `${w}%`,
+            background: `linear-gradient(90deg, ${C.red}, ${C.gold})`,
+          }}
+        />
       </div>
     </AbsoluteFill>
   );

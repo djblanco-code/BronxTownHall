@@ -3,7 +3,13 @@ import { useI18n } from "@/lib/i18n-context";
 
 export type ViewMode = "list" | "map" | "sheet";
 
-export function ViewToggle({ value, onChange }: { value: ViewMode; onChange: (m: ViewMode) => void }) {
+export function ViewToggle({
+  value,
+  onChange,
+}: {
+  value: ViewMode;
+  onChange: (m: ViewMode) => void;
+}) {
   const { t } = useI18n();
   const opts: { id: ViewMode; label: string; icon: typeof List }[] = [
     { id: "list", label: t("interface.list"), icon: List },
@@ -11,7 +17,11 @@ export function ViewToggle({ value, onChange }: { value: ViewMode; onChange: (m:
     { id: "sheet", label: t("interface.sheet"), icon: Table2 },
   ];
   return (
-    <div role="tablist" aria-label={t("interface.view")} className="inline-flex rounded-full border border-border bg-card p-0.5">
+    <div
+      role="tablist"
+      aria-label={t("interface.view")}
+      className="inline-flex rounded-full border border-border bg-card p-0.5"
+    >
       {opts.map((o) => {
         const Icon = o.icon;
         const active = value === o.id;

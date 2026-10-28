@@ -20,7 +20,7 @@ export interface DirectionsOptions {
 /**
  * Generates a native maps URL based on the device type.
  * Apple devices get Apple Maps (maps://), others get Google Maps (https://).
- * 
+ *
  * Logic:
  * 1. Returns null if the address is non-specific (virtual/borough-wide).
  * 2. Uses coordinates for precision if available, fallback to address.
@@ -28,7 +28,7 @@ export interface DirectionsOptions {
  */
 export function getDirectionsUrl(
   options: DirectionsOptions,
-  isAppleDevice: boolean
+  isAppleDevice: boolean,
 ): string | null {
   const { address, latitude, longitude, mode = "transit", origin, originLat, originLng } = options;
 
@@ -36,13 +36,17 @@ export function getDirectionsUrl(
     return null;
   }
 
-  const destination = (latitude != null && longitude != null)
-    ? `${latitude},${longitude}`
-    : encodeURIComponent(address);
+  const destination =
+    latitude != null && longitude != null
+      ? `${latitude},${longitude}`
+      : encodeURIComponent(address);
 
-  const start = (originLat != null && originLng != null)
-    ? `${originLat},${originLng}`
-    : origin ? encodeURIComponent(origin) : "";
+  const start =
+    originLat != null && originLng != null
+      ? `${originLat},${originLng}`
+      : origin
+        ? encodeURIComponent(origin)
+        : "";
 
   if (isAppleDevice) {
     // Apple Maps: https://developer.apple.com/library/archive/featuredarticles/iPhoneURLScheme_Reference/MapLinks/MapLinks.html

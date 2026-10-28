@@ -59,7 +59,10 @@ type DigestEvent = {
   endDate: string | null;
   time: string | null;
   place: string | null;
-  verification: { status: "verified_by_bronx_app" | "needs_verification"; lastVerified: string | null };
+  verification: {
+    status: "verified_by_bronx_app" | "needs_verification";
+    lastVerified: string | null;
+  };
 };
 
 const LABEL_BY_ID = new Map(CATEGORIES.map((c) => [c.id as string, c] as const));
@@ -73,7 +76,9 @@ function categoryLabel(id: string | null | undefined): { emoji: string; name: st
 /** ISO week index — used so the spotlight rotates once a week, not per reload. */
 function weekIndex(d = new Date()): number {
   const start = Date.UTC(1970, 0, 5); // a Monday
-  return Math.floor((Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()) - start) / (7 * 86_400_000));
+  return Math.floor(
+    (Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()) - start) / (7 * 86_400_000),
+  );
 }
 
 function sevenDaysOut(): string {
@@ -100,7 +105,9 @@ function DigestPage() {
       const [submitted, directory, recentRows, alertRows] = await Promise.all([
         supabase
           .from("events")
-          .select("id,title,category,event_date,event_time,location,neighborhood,verification_status,last_verified")
+          .select(
+            "id,title,category,event_date,event_time,location,neighborhood,verification_status,last_verified",
+          )
           .eq("approval_status", "approved")
           .gte("event_date", today)
           .order("event_date", { ascending: true })
@@ -133,9 +140,10 @@ function DigestPage() {
         time: e.event_time,
         place: [e.location, e.neighborhood].filter(Boolean).join(" · ") || null,
         verification: {
-          status: e.verification_status === "verified_by_bronx_app" && e.last_verified
-            ? ("verified_by_bronx_app" as const)
-            : ("needs_verification" as const),
+          status:
+            e.verification_status === "verified_by_bronx_app" && e.last_verified
+              ? ("verified_by_bronx_app" as const)
+              : ("needs_verification" as const),
           lastVerified: e.last_verified ?? null,
         },
       }));
@@ -161,11 +169,14 @@ function DigestPage() {
           verification: { status: "needs_verification" as const, lastVerified: null },
         }));
 
-      const upcoming = [...fromEvents, ...fromDirectory].sort((a, b) => a.date.localeCompare(b.date));
+      const upcoming = [...fromEvents, ...fromDirectory].sort((a, b) =>
+        a.date.localeCompare(b.date),
+      );
       // This week first; if the week is thin, the soonest events after it fill in.
       const cutoff = sevenDaysOut();
       const thisWeek = upcoming.filter((e) => e.date <= cutoff);
-      const ordered = thisWeek.length >= 3 ? [...thisWeek, ...upcoming.filter((e) => e.date > cutoff)] : upcoming;
+      const ordered =
+        thisWeek.length >= 3 ? [...thisWeek, ...upcoming.filter((e) => e.date > cutoff)] : upcoming;
       setEvents(ordered);
 
       setRecent(recentRows.filter((r) => !r.needs_review));
@@ -209,12 +220,15 @@ function DigestPage() {
       <div className="max-w-3xl mx-auto px-4 pb-16">
         {/* masthead */}
         <header className="pt-5 pb-4 border-b-2 border-foreground/10">
-          <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-primary">Weekly digest · {today}</p>
+          <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-primary">
+            Weekly digest · {today}
+          </p>
           <h1 className="mt-1 text-3xl sm:text-4xl font-black text-foreground leading-tight">
             This Week in the Bronx
           </h1>
           <p className="mt-2 text-sm text-muted-foreground">
-            One short read: what&apos;s happening, what&apos;s closing soon, and what&apos;s new in the app.{" "}
+            One short read: what&apos;s happening, what&apos;s closing soon, and what&apos;s new in
+            the app.{" "}
             {personalized
               ? "Weighted toward what you browse — with a few picks from outside it on purpose."
               : "A broad mix across every category to start with."}
@@ -308,7 +322,9 @@ function DigestPage() {
                 const badge = categoryLabel(a.category);
                 return (
                   <li key={a.id} className="p-3">
-                    <p className="text-sm font-semibold text-foreground leading-snug">{a.headline}</p>
+                    <p className="text-sm font-semibold text-foreground leading-snug">
+                      {a.headline}
+                    </p>
                     <div className="mt-1.5 flex items-center gap-2 flex-wrap text-xs text-muted-foreground">
                       {badge && (
                         <span className="font-semibold">
@@ -316,7 +332,9 @@ function DigestPage() {
                         </span>
                       )}
                       {a.deadline_date && (
-                        <span className="font-bold text-warning">{formatDeadline(a.deadline_date)}</span>
+                        <span className="font-bold text-warning">
+                          {formatDeadline(a.deadline_date)}
+                        </span>
                       )}
                       {a.source_url ? (
                         <a
@@ -374,7 +392,9 @@ function DigestPage() {
                         {recentPicks.discoveryIds.has(r) && <DiscoveryTag />}
                       </div>
                       <p className="mt-1 font-bold text-foreground leading-snug">{view.name.en}</p>
-                      <p className="mt-1 text-xs text-muted-foreground line-clamp-2">{view.description.en}</p>
+                      <p className="mt-1 text-xs text-muted-foreground line-clamp-2">
+                        {view.description.en}
+                      </p>
                       <div className="mt-1.5">
                         <VerifiedPill
                           compact
@@ -392,18 +412,31 @@ function DigestPage() {
         </Section>
 
         {/* 4. Bronx Fact of the Day */}
-        <Section icon={<Sparkles className="h-5 w-5 text-accent" aria-hidden />} title="Bronx Fact of the Day">
+        <Section
+          icon={<Sparkles className="h-5 w-5 text-accent" aria-hidden />}
+          title="Bronx Fact of the Day"
+        >
           <div className="rounded-xl border border-border bg-gradient-to-br from-primary/5 to-accent/5 p-4">
-            <p className="text-[11px] font-bold uppercase tracking-wider text-primary">{fact.category}</p>
-            <p className="mt-1.5 text-base font-semibold text-foreground leading-snug">{fact.fact}</p>
-            <Link to="/facts" className="no-min-h mt-3 inline-flex items-center gap-1 text-sm font-bold text-primary hover:underline">
+            <p className="text-[11px] font-bold uppercase tracking-wider text-primary">
+              {fact.category}
+            </p>
+            <p className="mt-1.5 text-base font-semibold text-foreground leading-snug">
+              {fact.fact}
+            </p>
+            <Link
+              to="/facts"
+              className="no-min-h mt-3 inline-flex items-center gap-1 text-sm font-bold text-primary hover:underline"
+            >
               More Bronx facts <ArrowRight className="h-3.5 w-3.5" aria-hidden />
             </Link>
           </div>
         </Section>
 
         {/* 5. Neighborhood Spotlight */}
-        <Section icon={<Star className="h-5 w-5 text-warning" aria-hidden />} title="Neighborhood Spotlight">
+        <Section
+          icon={<Star className="h-5 w-5 text-warning" aria-hidden />}
+          title="Neighborhood Spotlight"
+        >
           {spotlight === null ? (
             <Loading label="Loading spotlight" />
           ) : (
@@ -412,8 +445,8 @@ function DigestPage() {
         </Section>
 
         <p className="mt-8 text-xs text-muted-foreground">
-          This page is a view inside the app — nothing is emailed. Everything above comes from live listings,
-          so it changes as dates pass and new resources are added.
+          This page is a view inside the app — nothing is emailed. Everything above comes from live
+          listings, so it changes as dates pass and new resources are added.
         </p>
       </div>
     </AppShell>
@@ -441,7 +474,10 @@ function Section({
           {title}
         </h2>
         {action && (
-          <Link to={action.to} className="no-min-h text-sm font-semibold text-primary hover:underline">
+          <Link
+            to={action.to}
+            className="no-min-h text-sm font-semibold text-primary hover:underline"
+          >
             {action.label} →
           </Link>
         )}
@@ -468,7 +504,11 @@ function Loading({ label }: { label: string }) {
 }
 
 function Empty({ children }: { children: React.ReactNode }) {
-  return <p className="rounded-xl border border-dashed border-border p-3 text-sm text-muted-foreground">{children}</p>;
+  return (
+    <p className="rounded-xl border border-dashed border-border p-3 text-sm text-muted-foreground">
+      {children}
+    </p>
+  );
 }
 
 function SpotlightCard({ row }: { row: BronxResource }) {
@@ -487,7 +527,9 @@ function SpotlightCard({ row }: { row: BronxResource }) {
         </span>
       </div>
       <h3 className="mt-1.5 text-xl font-bold text-foreground leading-tight">{view.name.en}</h3>
-      {row.neighborhood && <p className="text-xs font-semibold text-muted-foreground mt-0.5">{row.neighborhood}</p>}
+      {row.neighborhood && (
+        <p className="text-xs font-semibold text-muted-foreground mt-0.5">{row.neighborhood}</p>
+      )}
       <p className="mt-2 text-sm text-foreground/90 leading-relaxed">{view.description.en}</p>
       {view.requirements?.en && (
         <p className="mt-2 text-xs text-muted-foreground">

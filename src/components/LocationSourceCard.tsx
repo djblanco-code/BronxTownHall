@@ -7,7 +7,8 @@ import { useLiveLocation } from "@/lib/live-location";
  * never on page load — and is dropped the moment the tab closes.
  */
 export function LocationSourceCard({ className = "" }: { className?: string }) {
-  const { mode, status, zip, accuracyMeters, updates, supported, enableLive, useZipOnly } = useLiveLocation();
+  const { mode, status, zip, accuracyMeters, updates, supported, enableLive, useZipOnly } =
+    useLiveLocation();
   const live = mode === "live";
 
   const label = live
@@ -17,10 +18,7 @@ export function LocationSourceCard({ className = "" }: { className?: string }) {
       : "No location set — distances are approximate";
 
   return (
-    <div
-      className={`rounded-2xl border border-border bg-card p-3 ${className}`}
-      aria-live="polite"
-    >
+    <div className={`rounded-2xl border border-border bg-card p-3 ${className}`} aria-live="polite">
       <div className="flex items-start gap-2">
         {live ? (
           <Crosshair className="h-4 w-4 mt-0.5 shrink-0 text-success" aria-hidden />
@@ -39,12 +37,14 @@ export function LocationSourceCard({ className = "" }: { className?: string }) {
 
           {status === "denied" && (
             <p className="mt-1 text-xs font-medium text-warning">
-              Location permission was turned off in your browser, so we&apos;re using your zip code instead.
+              Location permission was turned off in your browser, so we&apos;re using your zip code
+              instead.
             </p>
           )}
           {(status === "unavailable" || (!supported && status !== "idle")) && (
             <p className="mt-1 text-xs font-medium text-warning">
-              Your device can&apos;t share a location right now — zip code distances are still working.
+              Your device can&apos;t share a location right now — zip code distances are still
+              working.
             </p>
           )}
           {status === "error" && (
@@ -69,7 +69,8 @@ export function LocationSourceCard({ className = "" }: { className?: string }) {
               >
                 {status === "requesting" ? (
                   <>
-                    <Loader2 className="h-3.5 w-3.5 animate-spin" aria-hidden /> Waiting for your location…
+                    <Loader2 className="h-3.5 w-3.5 animate-spin" aria-hidden /> Waiting for your
+                    location…
                   </>
                 ) : (
                   <>

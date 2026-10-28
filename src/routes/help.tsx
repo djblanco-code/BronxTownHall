@@ -8,8 +8,13 @@ import { ListenButton } from "@/components/ListenButton";
 import { FavoriteStar } from "@/components/FavoriteStar";
 import { AttributeBadges } from "@/components/AttributeBadges";
 import {
-  parseNeedKeywords, buildResourcePack, buildPackScript, buildPackSms, buildSummary,
-  EXAMPLE_PROMPTS, type NeedParse,
+  parseNeedKeywords,
+  buildResourcePack,
+  buildPackScript,
+  buildPackSms,
+  buildSummary,
+  EXAMPLE_PROMPTS,
+  type NeedParse,
 } from "@/lib/need-intake";
 import { trackSearchPerformed, trackSearchClicked, trackSearchAiUsed } from "@/lib/track-search";
 import { trackResourceFound } from "@/lib/track-journey";
@@ -27,14 +32,23 @@ export const Route = createFileRoute("/help")({
   head: () => ({
     meta: [
       { title: "Tell us what you need — The Bronx App" },
-      { name: "description", content: "Describe your situation in your own words and get 5 Bronx resources, read aloud in your language, ready to share by text." },
+      {
+        name: "description",
+        content:
+          "Describe your situation in your own words and get 5 Bronx resources, read aloud in your language, ready to share by text.",
+      },
       { property: "og:title", content: "Tell us what you need — The Bronx App" },
-      { property: "og:description", content: "One sentence. Five real Bronx resources. Spoken in your language." },
+      {
+        property: "og:description",
+        content: "One sentence. Five real Bronx resources. Spoken in your language.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  validateSearch: (s: Record<string, unknown>): SearchSchema => ({ q: typeof s.q === "string" ? s.q : undefined }),
+  validateSearch: (s: Record<string, unknown>): SearchSchema => ({
+    q: typeof s.q === "string" ? s.q : undefined,
+  }),
 });
 
 function HelpPage() {
@@ -50,7 +64,10 @@ function HelpPage() {
   const reqRef = useRef(0);
 
   const pack = useMemo<Resource[]>(() => (parse ? buildResourcePack(parse, 5) : []), [parse]);
-  const script = useMemo(() => (pack.length ? buildPackScript(pack, lang, parse?.summary) : ""), [pack, lang, parse]);
+  const script = useMemo(
+    () => (pack.length ? buildPackScript(pack, lang, parse?.summary) : ""),
+    [pack, lang, parse],
+  );
 
   function run(text: string) {
     const clean = text.trim();
@@ -78,15 +95,18 @@ function HelpPage() {
       if (id !== reqRef.current || !data?.primaryNeed) return;
       const valid = (c: unknown) => CATEGORIES.some((x) => x.id === c);
       if (!valid(data.primaryNeed)) return;
-      const related = Array.isArray(data.relatedNeeds) ? data.relatedNeeds.filter(valid).slice(0, 4) : [];
+      const related = Array.isArray(data.relatedNeeds)
+        ? data.relatedNeeds.filter(valid).slice(0, 4)
+        : [];
       setParse({
         primaryNeed: data.primaryNeed,
         relatedNeeds: related,
         signals: Array.isArray(data.signals) ? data.signals.slice(0, 5) : fallback.signals,
         urgent: Boolean(data.urgent) || fallback.urgent,
-        summary: typeof data.summary === "string" && data.summary
-          ? data.summary
-          : buildSummary(data.primaryNeed, related, fallback.signals, Boolean(data.urgent)),
+        summary:
+          typeof data.summary === "string" && data.summary
+            ? data.summary
+            : buildSummary(data.primaryNeed, related, fallback.signals, Boolean(data.urgent)),
         source: "ai",
       });
       trackSearchAiUsed({ query: text, responseTimeMs: 0 });
@@ -112,7 +132,12 @@ function HelpPage() {
   const sharePack = async () => {
     if (!smsText) return;
     if (typeof navigator !== "undefined" && navigator.share) {
-      try { await navigator.share({ title: "Bronx help pack", text: smsText }); return; } catch { /* fall through */ }
+      try {
+        await navigator.share({ title: "Bronx help pack", text: smsText });
+        return;
+      } catch {
+        /* fall through */
+      }
     }
     window.location.href = `sms:?&body=${encodeURIComponent(smsText)}`;
   };
@@ -120,31 +145,52 @@ function HelpPage() {
   return (
     <AppShell>
       <div className="max-w-3xl mx-auto px-4 py-6">
-        <button onClick={() => nav({ to: "/" })} className="no-min-h inline-flex items-center gap-1.5 text-sm text-primary font-medium mb-4 hover:underline">
+        <button
+          onClick={() => nav({ to: "/" })}
+          className="no-min-h inline-flex items-center gap-1.5 text-sm text-primary font-medium mb-4 hover:underline"
+        >
           <ArrowLeft className="h-4 w-4" /> {t("back")}
         </button>
 
-        <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">Tell us what's going on</h1>
+        <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
+          Tell us what's going on
+        </h1>
         <p className="mt-1 text-muted-foreground">
-          Write or say one sentence in your own words. We'll pull together five places that can help — and read them out loud.
+          Write or say one sentence in your own words. We'll pull together five places that can help
+          — and read them out loud.
         </p>
 
         <form
-          onSubmit={(e) => { e.preventDefault(); run(input); }}
+          onSubmit={(e) => {
+            e.preventDefault();
+            run(input);
+          }}
           className="mt-4 rounded-2xl border-2 border-border bg-card p-3 shadow-sm focus-within:border-primary"
         >
-          <label htmlFor="need-input" className="sr-only">Describe what you need help with</label>
+          <label htmlFor="need-input" className="sr-only">
+            Describe what you need help with
+          </label>
           <textarea
             id="need-input"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); run(input); } }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && !e.shiftKey) {
+                e.preventDefault();
+                run(input);
+              }
+            }}
             rows={3}
             placeholder="I need help with… (example: “I got laid off and I have two kids”)"
             className="w-full resize-none bg-transparent px-2 py-2 text-base focus:outline-none"
           />
           <div className="flex items-center justify-between gap-2 pt-1">
-            <VoiceSearchButton onResult={(text) => { setInput(text); run(text); }} />
+            <VoiceSearchButton
+              onResult={(text) => {
+                setInput(text);
+                run(text);
+              }}
+            />
             <button
               type="submit"
               disabled={!input.trim()}
@@ -157,12 +203,17 @@ function HelpPage() {
 
         {!parse && (
           <div className="mt-4">
-            <p className="text-sm font-semibold text-muted-foreground mb-2">Not sure how to say it? Try:</p>
+            <p className="text-sm font-semibold text-muted-foreground mb-2">
+              Not sure how to say it? Try:
+            </p>
             <div className="flex flex-wrap gap-2">
               {EXAMPLE_PROMPTS.map((p) => (
                 <button
                   key={p}
-                  onClick={() => { setInput(p); run(p); }}
+                  onClick={() => {
+                    setInput(p);
+                    run(p);
+                  }}
                   className="no-min-h rounded-full border border-border bg-card px-3 py-2 text-sm hover:border-primary hover:bg-primary/5 transition"
                 >
                   “{p}”
@@ -178,12 +229,31 @@ function HelpPage() {
               <div className="mt-5 flex items-start gap-3 rounded-2xl border-2 border-destructive/40 bg-destructive/10 p-4">
                 <AlertTriangle className="h-5 w-5 shrink-0 text-destructive mt-0.5" />
                 <div>
-                  <p className="font-bold text-destructive">If you're in danger or crisis right now</p>
-                  <p className="text-sm text-muted-foreground">Call 911 for emergencies, or 988 for free 24/7 crisis support.</p>
+                  <p className="font-bold text-destructive">
+                    If you're in danger or crisis right now
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    Call 911 for emergencies, or 988 for free 24/7 crisis support.
+                  </p>
                   <div className="mt-2 flex gap-2">
-                    <a href="tel:911" className="no-min-h rounded-full bg-destructive px-4 py-2 text-sm font-bold text-destructive-foreground">Call 911</a>
-                    <a href="tel:988" className="no-min-h rounded-full border border-destructive px-4 py-2 text-sm font-bold text-destructive">Call 988</a>
-                    <Link to="/emergency" className="no-min-h rounded-full border border-border px-4 py-2 text-sm font-semibold">All hotlines</Link>
+                    <a
+                      href="tel:911"
+                      className="no-min-h rounded-full bg-destructive px-4 py-2 text-sm font-bold text-destructive-foreground"
+                    >
+                      Call 911
+                    </a>
+                    <a
+                      href="tel:988"
+                      className="no-min-h rounded-full border border-destructive px-4 py-2 text-sm font-bold text-destructive"
+                    >
+                      Call 988
+                    </a>
+                    <Link
+                      to="/emergency"
+                      className="no-min-h rounded-full border border-border px-4 py-2 text-sm font-semibold"
+                    >
+                      All hotlines
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -215,13 +285,24 @@ function HelpPage() {
                     )}
                   </div>
                   {parse.signals.length > 0 && (
-                    <p className="mt-2 text-xs text-muted-foreground">Heard: {parse.signals.join(" · ")}</p>
+                    <p className="mt-2 text-xs text-muted-foreground">
+                      Heard: {parse.signals.join(" · ")}
+                    </p>
                   )}
                 </div>
               </div>
               <div className="mt-3 flex flex-wrap gap-2">
-                <ListenButton text={script} title="Your help pack" style="empathetic" variant="chip" label="Listen to my help pack" />
-                <button onClick={sharePack} className="no-min-h inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2 text-sm font-semibold hover:border-primary">
+                <ListenButton
+                  text={script}
+                  title="Your help pack"
+                  style="empathetic"
+                  variant="chip"
+                  label="Listen to my help pack"
+                />
+                <button
+                  onClick={sharePack}
+                  className="no-min-h inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2 text-sm font-semibold hover:border-primary"
+                >
                   <Share2 className="h-4 w-4" /> Send by text
                 </button>
               </div>
@@ -237,19 +318,39 @@ function HelpPage() {
                       <Link
                         to="/resource/$id"
                         params={{ id: r.id }}
-                        onClick={() => { trackSearchClicked({ query: request, resourceId: r.id, position: i + 1 }); trackResourceFound({ query: request, resourceId: r.id, category: r.category }); }}
+                        onClick={() => {
+                          trackSearchClicked({ query: request, resourceId: r.id, position: i + 1 });
+                          trackResourceFound({
+                            query: request,
+                            resourceId: r.id,
+                            category: r.category,
+                          });
+                        }}
                         className="no-min-h block"
                       >
                         <span className="flex items-center gap-3">
-                          <span className="h-11 w-11 shrink-0 grid place-items-center rounded-xl text-2xl" style={{ backgroundColor: cat?.color }}>{cat?.emoji}</span>
+                          <span
+                            className="h-11 w-11 shrink-0 grid place-items-center rounded-xl text-2xl"
+                            style={{ backgroundColor: cat?.color }}
+                          >
+                            {cat?.emoji}
+                          </span>
                           <span className="min-w-0 flex-1">
-                            <span className="block font-semibold truncate">{i + 1}. {r.name[lang]}</span>
+                            <span className="block font-semibold truncate">
+                              {i + 1}. {r.name[lang]}
+                            </span>
                             <span className="block text-xs text-muted-foreground truncate">
-                              {cat ? t(cat.labelKey) : r.category} · {isNonSpecificAddress(r.address) ? LOCATION_VARIES_LABEL : `${r.distance} ${t("miles")}`} · {r.openNow ? "Open now" : r.hours[lang]}
+                              {cat ? t(cat.labelKey) : r.category} ·{" "}
+                              {isNonSpecificAddress(r.address)
+                                ? LOCATION_VARIES_LABEL
+                                : `${r.distance} ${t("miles")}`}{" "}
+                              · {r.openNow ? "Open now" : r.hours[lang]}
                             </span>
                           </span>
                         </span>
-                        <span className="mt-2 block text-sm text-muted-foreground line-clamp-2">{r.description[lang]}</span>
+                        <span className="mt-2 block text-sm text-muted-foreground line-clamp-2">
+                          {r.description[lang]}
+                        </span>
                       </Link>
                       <div className="mt-2 flex flex-wrap items-center gap-1.5">
                         <VerifiedPill
@@ -261,7 +362,9 @@ function HelpPage() {
                           compact
                         />
                       </div>
-                      <div className="mt-2"><AttributeBadges a={r} /></div>
+                      <div className="mt-2">
+                        <AttributeBadges a={r} />
+                      </div>
                       <div className="mt-3 flex flex-wrap gap-2">
                         <a
                           href={`tel:${r.phone}`}
@@ -269,7 +372,13 @@ function HelpPage() {
                         >
                           <Phone className="h-3.5 w-3.5" /> Call
                         </a>
-                        {!isNonSpecificAddress(r.address) && <DirectionsLink address={r.address} label="Get Directions" className="no-min-h rounded-full border border-border px-3 py-2 text-xs hover:no-underline" />}
+                        {!isNonSpecificAddress(r.address) && (
+                          <DirectionsLink
+                            address={r.address}
+                            label="Get Directions"
+                            className="no-min-h rounded-full border border-border px-3 py-2 text-xs hover:no-underline"
+                          />
+                        )}
                       </div>
                     </div>
                     <div className="flex flex-col items-center justify-center gap-1.5">
@@ -287,7 +396,11 @@ function HelpPage() {
 
             <p className="mt-6 text-sm text-muted-foreground">
               Need something more specific?{" "}
-              <Link to="/search" search={{ q: request }} className="font-semibold text-primary hover:underline">
+              <Link
+                to="/search"
+                search={{ q: request }}
+                className="font-semibold text-primary hover:underline"
+              >
                 Search all {RESOURCES.length} resources
               </Link>
             </p>

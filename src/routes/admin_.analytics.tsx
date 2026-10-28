@@ -6,15 +6,33 @@ import { supabase } from "@/integrations/supabase/client";
 import { RESOURCES } from "@/lib/data";
 import { ZIP_MAP } from "@/lib/civic-data";
 import { UserZipMap } from "@/components/UserZipMap";
-import { ArrowLeft, Lock, Users, UserPlus, Activity, CalendarRange, Repeat, RefreshCw, Eye, Share2, Search, LayoutGrid, CalendarPlus, MapPin } from "lucide-react";
-
+import {
+  ArrowLeft,
+  Lock,
+  Users,
+  UserPlus,
+  Activity,
+  CalendarRange,
+  Repeat,
+  RefreshCw,
+  Eye,
+  Share2,
+  Search,
+  LayoutGrid,
+  CalendarPlus,
+  MapPin,
+} from "lucide-react";
 
 export const Route = createFileRoute("/admin_/analytics")({
   staticData: { sitemap: false },
   head: () => ({
     meta: [
       { title: "Analytics Dashboard — The Bronx App" },
-      { name: "description", content: "Audience metrics for The Bronx App: total users, new users, weekly and monthly active users, and 7-day retention." },
+      {
+        name: "description",
+        content:
+          "Audience metrics for The Bronx App: total users, new users, weekly and monthly active users, and 7-day retention.",
+      },
       { name: "robots", content: "noindex" },
       { property: "og:title", content: "Analytics Dashboard — The Bronx App" },
       { property: "og:description", content: "Audience metrics for The Bronx App." },
@@ -183,7 +201,14 @@ function AnalyticsPage() {
   const load = async () => {
     setBusy(true);
     const since = new Date(Date.now() - 120 * DAY).toISOString();
-    const [{ data, error: sessionsError }, { data: topData, error: topError }, { data: sharedData, error: sharedError }, { data: searchData }, { data: catData }, { data: eventData }] = await Promise.all([
+    const [
+      { data, error: sessionsError },
+      { data: topData, error: topError },
+      { data: sharedData, error: sharedError },
+      { data: searchData },
+      { data: catData },
+      { data: eventData },
+    ] = await Promise.all([
       supabase
         .from("analytics_sessions")
         .select("visitor_id,occurred_at,is_first_visit,device,language,zip_code")
@@ -219,7 +244,11 @@ function AnalyticsPage() {
   const m = useMemo(() => computeMetrics(rows ?? []), [rows]);
 
   if (loading) {
-    return <AppShell><div className="max-w-md mx-auto p-12 text-center text-muted-foreground">Loading…</div></AppShell>;
+    return (
+      <AppShell>
+        <div className="max-w-md mx-auto p-12 text-center text-muted-foreground">Loading…</div>
+      </AppShell>
+    );
   }
 
   if (!user || !isAdmin) {
@@ -229,10 +258,17 @@ function AnalyticsPage() {
           <Lock className="h-10 w-10 mx-auto text-muted-foreground" />
           <h1 className="text-2xl font-bold">Analytics</h1>
           <p className="text-sm text-muted-foreground">
-            {user ? "This dashboard is limited to admin accounts." : "Sign in with an admin account to continue."}
+            {user
+              ? "This dashboard is limited to admin accounts."
+              : "Sign in with an admin account to continue."}
           </p>
           {!user && (
-            <Link to="/auth" className="inline-block py-2.5 px-4 rounded-lg bg-primary text-primary-foreground font-semibold">Sign in</Link>
+            <Link
+              to="/auth"
+              className="inline-block py-2.5 px-4 rounded-lg bg-primary text-primary-foreground font-semibold"
+            >
+              Sign in
+            </Link>
           )}
         </div>
       </AppShell>
@@ -245,7 +281,10 @@ function AnalyticsPage() {
     <AppShell>
       <div className="max-w-5xl mx-auto px-4 py-6 space-y-6">
         <div className="flex items-center justify-between gap-3">
-          <Link to="/admin" className="no-min-h inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground">
+          <Link
+            to="/admin"
+            className="no-min-h inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground"
+          >
             <ArrowLeft className="h-4 w-4" /> Admin
           </Link>
           <button
@@ -260,20 +299,48 @@ function AnalyticsPage() {
         <header>
           <h1 className="text-2xl sm:text-3xl font-bold">Analytics dashboard</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Anonymous visit data from the last 120 days · {m.sessions.toLocaleString()} sessions recorded
+            Anonymous visit data from the last 120 days · {m.sessions.toLocaleString()} sessions
+            recorded
           </p>
         </header>
 
         {error && (
-          <p className="rounded-xl border border-destructive/40 bg-destructive/10 p-3 text-sm text-destructive">{error}</p>
+          <p className="rounded-xl border border-destructive/40 bg-destructive/10 p-3 text-sm text-destructive">
+            {error}
+          </p>
         )}
 
         <section className="grid grid-cols-2 lg:grid-cols-5 gap-3">
-          <MetricCard icon={<Users className="h-4 w-4" />} title="Total users" value={m.totalUsers.toLocaleString()} hint="Unique visitors" />
-          <MetricCard icon={<UserPlus className="h-4 w-4" />} title="New users (7d)" value={m.newUsersThisWeek.toLocaleString()} hint="First visit this week" />
-          <MetricCard icon={<Activity className="h-4 w-4" />} title="Weekly active" value={m.weeklyActiveUsers.toLocaleString()} hint="≥1 session in 7 days" />
-          <MetricCard icon={<CalendarRange className="h-4 w-4" />} title="Monthly active" value={m.monthlyActiveUsers.toLocaleString()} hint="≥1 session in 30 days" />
-          <MetricCard icon={<Repeat className="h-4 w-4" />} title="7-day retention" value={`${m.retentionRate}%`} hint={`${m.retentionBase.toLocaleString()} users eligible`} />
+          <MetricCard
+            icon={<Users className="h-4 w-4" />}
+            title="Total users"
+            value={m.totalUsers.toLocaleString()}
+            hint="Unique visitors"
+          />
+          <MetricCard
+            icon={<UserPlus className="h-4 w-4" />}
+            title="New users (7d)"
+            value={m.newUsersThisWeek.toLocaleString()}
+            hint="First visit this week"
+          />
+          <MetricCard
+            icon={<Activity className="h-4 w-4" />}
+            title="Weekly active"
+            value={m.weeklyActiveUsers.toLocaleString()}
+            hint="≥1 session in 7 days"
+          />
+          <MetricCard
+            icon={<CalendarRange className="h-4 w-4" />}
+            title="Monthly active"
+            value={m.monthlyActiveUsers.toLocaleString()}
+            hint="≥1 session in 30 days"
+          />
+          <MetricCard
+            icon={<Repeat className="h-4 w-4" />}
+            title="7-day retention"
+            value={`${m.retentionRate}%`}
+            hint={`${m.retentionBase.toLocaleString()} users eligible`}
+          />
         </section>
 
         <section className="rounded-2xl border border-border bg-card p-4">
@@ -281,10 +348,21 @@ function AnalyticsPage() {
           {m.daily.length === 0 ? (
             <p className="text-sm text-muted-foreground">No visits recorded yet.</p>
           ) : (
-            <div className="flex items-end gap-1 h-40" role="img" aria-label="Daily visit chart for the last 30 days">
+            <div
+              className="flex items-end gap-1 h-40"
+              role="img"
+              aria-label="Daily visit chart for the last 30 days"
+            >
               {m.daily.map((d) => (
-                <div key={d.day} className="flex-1 flex flex-col justify-end" title={`${d.day}: ${d.visits} visits, ${d.visitors} visitors`}>
-                  <div className="rounded-t bg-primary" style={{ height: `${(d.visits / maxVisits) * 100}%`, minHeight: 3 }} />
+                <div
+                  key={d.day}
+                  className="flex-1 flex flex-col justify-end"
+                  title={`${d.day}: ${d.visits} visits, ${d.visitors} visitors`}
+                >
+                  <div
+                    className="rounded-t bg-primary"
+                    style={{ height: `${(d.visits / maxVisits) * 100}%`, minHeight: 3 }}
+                  />
                 </div>
               ))}
             </div>
@@ -330,9 +408,15 @@ function AnalyticsPage() {
                             </Link>
                           </div>
                         </td>
-                        <td className="py-2.5 pr-3 capitalize text-muted-foreground">{r.category ?? "—"}</td>
-                        <td className="py-2.5 pr-3 text-right tabular-nums">{r.views.toLocaleString()}</td>
-                        <td className="py-2.5 pr-3 text-right tabular-nums">{r.clicks.toLocaleString()}</td>
+                        <td className="py-2.5 pr-3 capitalize text-muted-foreground">
+                          {r.category ?? "—"}
+                        </td>
+                        <td className="py-2.5 pr-3 text-right tabular-nums">
+                          {r.views.toLocaleString()}
+                        </td>
+                        <td className="py-2.5 pr-3 text-right tabular-nums">
+                          {r.clicks.toLocaleString()}
+                        </td>
                         <td className="py-2.5 text-right tabular-nums">{r.conversion_rate}%</td>
                       </tr>
                     );
@@ -348,7 +432,9 @@ function AnalyticsPage() {
             <Share2 className="h-4 w-4 text-muted-foreground" />
             <h2 className="font-bold">Most shared resources</h2>
           </div>
-          <p className="text-xs text-muted-foreground mb-3">Resources residents pass along to neighbors via text message or WhatsApp.</p>
+          <p className="text-xs text-muted-foreground mb-3">
+            Resources residents pass along to neighbors via text message or WhatsApp.
+          </p>
           {topShared === null || topShared.length === 0 ? (
             <p className="text-sm text-muted-foreground">No shares recorded yet.</p>
           ) : (
@@ -374,22 +460,45 @@ function AnalyticsPage() {
                       <tr key={r.resource_id} className="border-b border-border/50 last:border-0">
                         <td className="py-2.5 pr-3">
                           <div className="flex items-center gap-2">
-                            <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-secondary text-xs font-bold tabular-nums">{i + 1}</span>
-                            <Link to="/resource/$id" params={{ id: r.resource_id }} className="font-medium hover:underline line-clamp-1">
+                            <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-secondary text-xs font-bold tabular-nums">
+                              {i + 1}
+                            </span>
+                            <Link
+                              to="/resource/$id"
+                              params={{ id: r.resource_id }}
+                              className="font-medium hover:underline line-clamp-1"
+                            >
                               {name}
                             </Link>
                           </div>
                         </td>
-                        <td className="py-2.5 pr-3 capitalize text-muted-foreground">{r.category ?? "—"}</td>
-                        <td className="py-2.5 pr-3 text-right tabular-nums">{Number(r.total_shares).toLocaleString()}</td>
+                        <td className="py-2.5 pr-3 capitalize text-muted-foreground">
+                          {r.category ?? "—"}
+                        </td>
+                        <td className="py-2.5 pr-3 text-right tabular-nums">
+                          {Number(r.total_shares).toLocaleString()}
+                        </td>
                         <td className="py-2.5 min-w-[190px]">
-                          <div className="flex h-2 w-full overflow-hidden rounded-full bg-secondary" aria-hidden="true">
-                            <div className="bg-primary" style={{ width: `${(sms / total) * 100}%` }} />
-                            <div className="bg-success" style={{ width: `${(wa / total) * 100}%` }} />
-                            <div className="bg-muted-foreground/40" style={{ width: `${(other / total) * 100}%` }} />
+                          <div
+                            className="flex h-2 w-full overflow-hidden rounded-full bg-secondary"
+                            aria-hidden="true"
+                          >
+                            <div
+                              className="bg-primary"
+                              style={{ width: `${(sms / total) * 100}%` }}
+                            />
+                            <div
+                              className="bg-success"
+                              style={{ width: `${(wa / total) * 100}%` }}
+                            />
+                            <div
+                              className="bg-muted-foreground/40"
+                              style={{ width: `${(other / total) * 100}%` }}
+                            />
                           </div>
                           <p className="mt-1 text-xs text-muted-foreground">
-                            SMS {sms} · WhatsApp {wa}{other > 0 ? ` · Other ${other}` : ""}
+                            SMS {sms} · WhatsApp {wa}
+                            {other > 0 ? ` · Other ${other}` : ""}
                           </p>
                         </td>
                       </tr>
@@ -406,7 +515,9 @@ function AnalyticsPage() {
             <Search className="h-4 w-4 text-muted-foreground" />
             <h2 className="font-bold">Search analytics</h2>
           </div>
-          <p className="text-xs text-muted-foreground mb-3">Last 30 days. Zero-result searches show gaps in the resource data.</p>
+          <p className="text-xs text-muted-foreground mb-3">
+            Last 30 days. Zero-result searches show gaps in the resource data.
+          </p>
           {!searchStats || searchStats.total === 0 ? (
             <p className="text-sm text-muted-foreground">No searches recorded yet.</p>
           ) : (
@@ -431,9 +542,14 @@ function AnalyticsPage() {
                   ) : (
                     <ol className="space-y-1.5">
                       {searchStats.top_queries.map((q, i) => (
-                        <li key={q.query} className="flex items-center justify-between gap-3 text-sm">
+                        <li
+                          key={q.query}
+                          className="flex items-center justify-between gap-3 text-sm"
+                        >
                           <span className="truncate">
-                            <span className="text-muted-foreground tabular-nums mr-2">{i + 1}.</span>
+                            <span className="text-muted-foreground tabular-nums mr-2">
+                              {i + 1}.
+                            </span>
                             {q.query}
                           </span>
                           <span className="shrink-0 tabular-nums text-muted-foreground">
@@ -447,13 +563,20 @@ function AnalyticsPage() {
                 <div>
                   <h3 className="text-sm font-semibold mb-2">Zero-result searches (data gaps)</h3>
                   {searchStats.top_zero_queries.length === 0 ? (
-                    <p className="text-sm text-muted-foreground">Every search returned something. 🎉</p>
+                    <p className="text-sm text-muted-foreground">
+                      Every search returned something. 🎉
+                    </p>
                   ) : (
                     <ul className="space-y-1.5">
                       {searchStats.top_zero_queries.map((q) => (
-                        <li key={q.query} className="flex items-center justify-between gap-3 text-sm">
+                        <li
+                          key={q.query}
+                          className="flex items-center justify-between gap-3 text-sm"
+                        >
                           <span className="truncate">{q.query}</span>
-                          <span className="shrink-0 tabular-nums text-muted-foreground">{q.searches}×</span>
+                          <span className="shrink-0 tabular-nums text-muted-foreground">
+                            {q.searches}×
+                          </span>
                         </li>
                       ))}
                     </ul>
@@ -470,7 +593,8 @@ function AnalyticsPage() {
             <h2 className="font-bold">Category performance</h2>
           </div>
           <p className="text-xs text-muted-foreground mb-3">
-            High views with low conversion can mean incomplete or outdated listings. Low views may need promotion or more content.
+            High views with low conversion can mean incomplete or outdated listings. Low views may
+            need promotion or more content.
           </p>
           {catPerf === null || catPerf.length === 0 ? (
             <p className="text-sm text-muted-foreground">No category activity recorded yet.</p>
@@ -491,9 +615,15 @@ function AnalyticsPage() {
                     return (
                       <tr key={c.category} className="border-b border-border/50 last:border-0">
                         <td className="py-2.5 pr-3 capitalize font-medium">{c.category}</td>
-                        <td className="py-2.5 pr-3 text-right tabular-nums">{Number(c.views).toLocaleString()}</td>
-                        <td className="py-2.5 pr-3 text-right tabular-nums">{Number(c.clicks).toLocaleString()}</td>
-                        <td className={`py-2.5 text-right tabular-nums font-semibold ${rate < 30 ? "text-destructive" : ""}`}>
+                        <td className="py-2.5 pr-3 text-right tabular-nums">
+                          {Number(c.views).toLocaleString()}
+                        </td>
+                        <td className="py-2.5 pr-3 text-right tabular-nums">
+                          {Number(c.clicks).toLocaleString()}
+                        </td>
+                        <td
+                          className={`py-2.5 text-right tabular-nums font-semibold ${rate < 30 ? "text-destructive" : ""}`}
+                        >
                           {rate}%
                         </td>
                       </tr>
@@ -511,12 +641,17 @@ function AnalyticsPage() {
             <h2 className="font-bold">Event submissions</h2>
           </div>
           {!eventStats || eventStats.total === 0 ? (
-            <p className="text-sm text-muted-foreground">No events submitted in the last 12 weeks.</p>
+            <p className="text-sm text-muted-foreground">
+              No events submitted in the last 12 weeks.
+            </p>
           ) : (
             <>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4">
                 <MiniStat label="Total submitted" value={eventStats.total.toLocaleString()} />
-                <MiniStat label="Community submitted" value={eventStats.community_submitted.toLocaleString()} />
+                <MiniStat
+                  label="Community submitted"
+                  value={eventStats.community_submitted.toLocaleString()}
+                />
                 <MiniStat label="Approved" value={eventStats.approved.toLocaleString()} />
                 <MiniStat label="Pending review" value={eventStats.pending.toLocaleString()} />
               </div>
@@ -525,13 +660,26 @@ function AnalyticsPage() {
               {eventStats.by_week.length === 0 ? (
                 <p className="text-sm text-muted-foreground">No weekly data.</p>
               ) : (
-                <div className="flex items-end gap-1.5 h-32" role="img" aria-label="Event submissions by week">
+                <div
+                  className="flex items-end gap-1.5 h-32"
+                  role="img"
+                  aria-label="Event submissions by week"
+                >
                   {eventStats.by_week.map((w) => {
                     const max = Math.max(1, ...eventStats.by_week.map((x) => x.count));
                     return (
-                      <div key={w.week} className="flex-1 flex flex-col justify-end items-center gap-1" title={`Week of ${w.week}: ${w.count} events`}>
-                        <span className="text-[10px] tabular-nums text-muted-foreground">{w.count}</span>
-                        <div className="w-full rounded-t bg-accent" style={{ height: `${(w.count / max) * 100}%`, minHeight: 3 }} />
+                      <div
+                        key={w.week}
+                        className="flex-1 flex flex-col justify-end items-center gap-1"
+                        title={`Week of ${w.week}: ${w.count} events`}
+                      >
+                        <span className="text-[10px] tabular-nums text-muted-foreground">
+                          {w.count}
+                        </span>
+                        <div
+                          className="w-full rounded-t bg-accent"
+                          style={{ height: `${(w.count / max) * 100}%`, minHeight: 3 }}
+                        />
                         <span className="text-[9px] text-muted-foreground">{w.week.slice(5)}</span>
                       </div>
                     );
@@ -540,7 +688,11 @@ function AnalyticsPage() {
               )}
 
               <h3 className="text-sm font-semibold mt-5 mb-2">Events by category</h3>
-              <Breakdown title="" items={eventStats.by_category.map((c) => ({ name: c.category, count: c.count }))} bare />
+              <Breakdown
+                title=""
+                items={eventStats.by_category.map((c) => ({ name: c.category, count: c.count }))}
+                bare
+              />
             </>
           )}
         </section>
@@ -561,7 +713,11 @@ function AnalyticsPage() {
               <div className="space-y-5">
                 <div>
                   <h3 className="text-sm font-semibold mb-2">ZIP codes by users</h3>
-                  <Breakdown title="" items={m.allZips.slice(0, 12).map((z) => ({ name: z.zip, count: z.count }))} bare />
+                  <Breakdown
+                    title=""
+                    items={m.allZips.slice(0, 12).map((z) => ({ name: z.zip, count: z.count }))}
+                    bare
+                  />
                 </div>
                 <div>
                   <h3 className="text-sm font-semibold mb-2">Community board breakdown</h3>
@@ -572,10 +728,6 @@ function AnalyticsPage() {
           )}
         </section>
 
-
-
-
-
         <section className="grid sm:grid-cols-3 gap-3">
           <Breakdown title="Devices" items={m.devices} />
           <Breakdown title="Languages" items={m.languages} />
@@ -583,20 +735,32 @@ function AnalyticsPage() {
         </section>
 
         <p className="text-xs text-muted-foreground">
-          Visits are logged anonymously with a device-local random code. No names, emails, or IP addresses are stored.
-          Page views, referrers, and custom events (searches, calls, directions) are also tracked in the privacy-friendly
-          analytics provider configured for this site.
+          Visits are logged anonymously with a device-local random code. No names, emails, or IP
+          addresses are stored. Page views, referrers, and custom events (searches, calls,
+          directions) are also tracked in the privacy-friendly analytics provider configured for
+          this site.
         </p>
       </div>
     </AppShell>
   );
 }
 
-function MetricCard({ title, value, hint, icon }: { title: string; value: string; hint?: string; icon?: React.ReactNode }) {
+function MetricCard({
+  title,
+  value,
+  hint,
+  icon,
+}: {
+  title: string;
+  value: string;
+  hint?: string;
+  icon?: React.ReactNode;
+}) {
   return (
     <div className="rounded-2xl border border-border bg-card p-4">
       <div className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-        {icon}<span>{title}</span>
+        {icon}
+        <span>{title}</span>
       </div>
       <p className="mt-2 text-2xl sm:text-3xl font-bold tabular-nums">{value}</p>
       {hint && <p className="text-xs text-muted-foreground mt-1">{hint}</p>}
@@ -615,7 +779,15 @@ function boardCounts(zips: { zip: string; count: number }[]) {
     .sort((a, b) => b.count - a.count);
 }
 
-function Breakdown({ title, items, bare }: { title: string; items: { name: string; count: number }[]; bare?: boolean }) {
+function Breakdown({
+  title,
+  items,
+  bare,
+}: {
+  title: string;
+  items: { name: string; count: number }[];
+  bare?: boolean;
+}) {
   const max = Math.max(1, ...items.map((i) => i.count));
   return (
     <div className={bare ? "" : "rounded-2xl border border-border bg-card p-4"}>
@@ -632,7 +804,10 @@ function Breakdown({ title, items, bare }: { title: string; items: { name: strin
                 <span className="font-semibold tabular-nums">{i.count.toLocaleString()}</span>
               </div>
               <div className="mt-1 h-1.5 rounded-full bg-secondary overflow-hidden">
-                <div className="h-full rounded-full bg-accent" style={{ width: `${(i.count / max) * 100}%` }} />
+                <div
+                  className="h-full rounded-full bg-accent"
+                  style={{ width: `${(i.count / max) * 100}%` }}
+                />
               </div>
             </li>
           ))}

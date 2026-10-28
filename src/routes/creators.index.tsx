@@ -40,8 +40,8 @@ function CreatorsIndex() {
           <Users className="h-7 w-7 text-primary" /> Bronx Community Picks
         </h1>
         <p className="text-muted-foreground mt-2">
-          Bronx creators pick their favorite places from listings already in the app. Their notes are
-          personal recommendations — our own verification badge stays with each listing.
+          Bronx creators pick their favorite places from listings already in the app. Their notes
+          are personal recommendations — our own verification badge stays with each listing.
         </p>
 
         {creators === null && <p className="mt-6 text-muted-foreground">Loading…</p>}
@@ -76,7 +76,9 @@ function CreatorsIndex() {
                 <span className="min-w-0">
                   <span className="block font-semibold truncate">{c.display_name}</span>
                   <span className="block text-sm text-muted-foreground truncate">
-                    {c.follower_count ? `${c.follower_count.toLocaleString()} followers` : `@${c.handle}`}
+                    {c.follower_count
+                      ? `${c.follower_count.toLocaleString()} followers`
+                      : `@${c.handle}`}
                   </span>
                 </span>
               </Link>

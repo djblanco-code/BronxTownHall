@@ -29,17 +29,20 @@ export const urgent: Bundle = {
     "nyc-well.name": "NYC Well",
     "nyc-well.desc": "Free mental health support in 200+ languages.",
     "nyc-dv.name": "NYC Domestic Violence Hotline",
-    "nyc-dv.desc": "NYC-specific safety planning and shelter connections for survivors of domestic violence.",
+    "nyc-dv.desc":
+      "NYC-specific safety planning and shelter connections for survivors of domestic violence.",
     "natl-dv.name": "National Domestic Violence Hotline",
     "natl-dv.desc": "National, 24/7 confidential support wherever you are.",
     "rainn.name": "National Sexual Assault Hotline (RAINN)",
     "rainn.desc": "Confidential support for survivors of sexual assault and their loved ones.",
     "hopeline.name": "NY HOPEline",
-    "hopeline.desc": "Confidential substance use and gambling crisis support with treatment referrals.",
+    "hopeline.desc":
+      "Confidential substance use and gambling crisis support with treatment referrals.",
     "trevor.name": "The Trevor Project",
     "trevor.desc": "Crisis support for LGBTQ+ young people, by phone, text, or chat.",
     "moia-immigration.name": "NYC Immigration Legal Support Hotline (MOIA)",
-    "moia-immigration.desc": "City-funded, free and safe immigration legal help and know-your-rights information.",
+    "moia-immigration.desc":
+      "City-funded, free and safe immigration legal help and know-your-rights information.",
     "child-abuse.name": "NY Child Abuse Hotline",
     "child-abuse.desc": "Report suspected child abuse or neglect.",
     "poison.name": "NYC Poison Control",
@@ -80,17 +83,20 @@ export const urgent: Bundle = {
     "nyc-well.name": "NYC Well",
     "nyc-well.desc": "Apoyo gratuito de salud mental en más de 200 idiomas.",
     "nyc-dv.name": "Línea de Violencia Doméstica de NYC",
-    "nyc-dv.desc": "Plan de seguridad y conexión con refugios en NYC para sobrevivientes de violencia doméstica.",
+    "nyc-dv.desc":
+      "Plan de seguridad y conexión con refugios en NYC para sobrevivientes de violencia doméstica.",
     "natl-dv.name": "Línea Nacional de Violencia Doméstica",
     "natl-dv.desc": "Apoyo confidencial nacional, 24/7, dondequiera que esté.",
     "rainn.name": "Línea Nacional de Agresión Sexual (RAINN)",
     "rainn.desc": "Apoyo confidencial para sobrevivientes de agresión sexual y sus seres queridos.",
     "hopeline.name": "NY HOPEline",
-    "hopeline.desc": "Apoyo confidencial en crisis por consumo de sustancias y ludopatía, con referencias a tratamiento.",
+    "hopeline.desc":
+      "Apoyo confidencial en crisis por consumo de sustancias y ludopatía, con referencias a tratamiento.",
     "trevor.name": "The Trevor Project",
     "trevor.desc": "Apoyo en crisis para jóvenes LGBTQ+, por teléfono, texto o chat.",
     "moia-immigration.name": "Línea de Apoyo Legal de Inmigración de NYC (MOIA)",
-    "moia-immigration.desc": "Ayuda legal de inmigración gratuita y segura, financiada por la ciudad, e información sobre sus derechos.",
+    "moia-immigration.desc":
+      "Ayuda legal de inmigración gratuita y segura, financiada por la ciudad, e información sobre sus derechos.",
     "child-abuse.name": "Línea de Maltrato Infantil de NY",
     "child-abuse.desc": "Reporte sospechas de maltrato o negligencia infantil.",
     "poison.name": "Centro de Control de Envenenamiento de NYC",
@@ -104,9 +110,11 @@ export const urgent: Bundle = {
     "trevor-text.name": "Línea de texto de The Trevor Project",
     "trevor-text.desc": "Envíe START al 678-678 para apoyo en crisis para jóvenes LGBTQ+.",
     "hopeline-text.name": "NY HOPEline por texto",
-    "hopeline-text.desc": "Envíe HOPENY (467369) para apoyo confidencial por consumo de sustancias.",
+    "hopeline-text.desc":
+      "Envíe HOPENY (467369) para apoyo confidencial por consumo de sustancias.",
     "311-shelter.name": "NYC 311 — Admisión a refugios",
-    "311-shelter.desc": "Llame al 311 para encontrar refugio de emergencia por la noche en cualquier parte de NYC.",
+    "311-shelter.desc":
+      "Llame al 311 para encontrar refugio de emergencia por la noche en cualquier parte de NYC.",
   },
   fr: {
     title: "Aide urgente — Disponible 24h/24, 7j/7",
@@ -127,21 +135,25 @@ export const urgent: Bundle = {
     availMoia: "Lun–Ven, horaires variables (ou appelez le 311)",
     availHunger: "Lun–Ven, 9h–18h",
     "988.name": "988 Ligne de prévention du suicide et de crise",
-    "988.desc": "Soutien gratuit et confidentiel pour les personnes en détresse ou en crise suicidaire.",
+    "988.desc":
+      "Soutien gratuit et confidentiel pour les personnes en détresse ou en crise suicidaire.",
     "nyc-well.name": "NYC Well",
     "nyc-well.desc": "Soutien gratuit en santé mentale dans plus de 200 langues.",
     "nyc-dv.name": "Ligne de violence conjugale de NYC",
-    "nyc-dv.desc": "Plan de sécurité et mise en relation avec des refuges à NYC pour les victimes de violence conjugale.",
+    "nyc-dv.desc":
+      "Plan de sécurité et mise en relation avec des refuges à NYC pour les victimes de violence conjugale.",
     "natl-dv.name": "Ligne nationale de violence conjugale",
     "natl-dv.desc": "Soutien confidentiel national, 24h/24, où que vous soyez.",
     "rainn.name": "Ligne nationale d'aide aux victimes d'agression sexuelle (RAINN)",
     "rainn.desc": "Soutien confidentiel pour les victimes d'agression sexuelle et leurs proches.",
     "hopeline.name": "NY HOPEline",
-    "hopeline.desc": "Soutien confidentiel en cas de crise liée aux substances ou au jeu, avec orientation vers un traitement.",
+    "hopeline.desc":
+      "Soutien confidentiel en cas de crise liée aux substances ou au jeu, avec orientation vers un traitement.",
     "trevor.name": "The Trevor Project",
     "trevor.desc": "Soutien de crise pour les jeunes LGBTQ+, par téléphone, SMS ou chat.",
     "moia-immigration.name": "Ligne d'aide juridique en immigration de NYC (MOIA)",
-    "moia-immigration.desc": "Aide juridique en immigration gratuite et sûre, financée par la ville, et information sur vos droits.",
+    "moia-immigration.desc":
+      "Aide juridique en immigration gratuite et sûre, financée par la ville, et information sur vos droits.",
     "child-abuse.name": "Ligne de signalement de maltraitance d'enfants (NY)",
     "child-abuse.desc": "Signalez une suspicion de maltraitance ou de négligence envers un enfant.",
     "poison.name": "Centre antipoison de NYC",
@@ -155,9 +167,11 @@ export const urgent: Bundle = {
     "trevor-text.name": "Ligne SMS de The Trevor Project",
     "trevor-text.desc": "Envoyez START au 678-678 pour un soutien de crise pour jeunes LGBTQ+.",
     "hopeline-text.name": "NY HOPEline par SMS",
-    "hopeline-text.desc": "Envoyez HOPENY (467369) pour un soutien confidentiel lié aux substances.",
+    "hopeline-text.desc":
+      "Envoyez HOPENY (467369) pour un soutien confidentiel lié aux substances.",
     "311-shelter.name": "NYC 311 — Accueil en refuge",
-    "311-shelter.desc": "Appelez le 311 pour trouver un hébergement d'urgence pour la nuit partout à NYC.",
+    "311-shelter.desc":
+      "Appelez le 311 pour trouver un hébergement d'urgence pour la nuit partout à NYC.",
   },
   bn: {
     title: "জরুরি সহায়তা — ২৪/৭ উপলব্ধ",
@@ -178,11 +192,13 @@ export const urgent: Bundle = {
     availMoia: "সোম–শুক্র, সময় পরিবর্তনশীল (অথবা 311-এ কল করুন)",
     availHunger: "সোম–শুক্র, সকাল ৯টা–সন্ধ্যা ৬টা",
     "988.name": "988 আত্মহত্যা প্রতিরোধ ও সংকট লাইফলাইন",
-    "988.desc": "মানসিক যন্ত্রণা বা আত্মহত্যার সংকটে থাকা মানুষের জন্য বিনামূল্যে, গোপনীয় সহায়তা।",
+    "988.desc":
+      "মানসিক যন্ত্রণা বা আত্মহত্যার সংকটে থাকা মানুষের জন্য বিনামূল্যে, গোপনীয় সহায়তা।",
     "nyc-well.name": "NYC Well",
     "nyc-well.desc": "২০০-এর বেশি ভাষায় বিনামূল্যে মানসিক স্বাস্থ্য সহায়তা।",
     "nyc-dv.name": "এনওয়াইসি পারিবারিক সহিংসতা হটলাইন",
-    "nyc-dv.desc": "পারিবারিক সহিংসতা থেকে বেঁচে যাওয়াদের জন্য এনওয়াইসি-ভিত্তিক নিরাপত্তা পরিকল্পনা ও আশ্রয়ের সংযোগ।",
+    "nyc-dv.desc":
+      "পারিবারিক সহিংসতা থেকে বেঁচে যাওয়াদের জন্য এনওয়াইসি-ভিত্তিক নিরাপত্তা পরিকল্পনা ও আশ্রয়ের সংযোগ।",
     "natl-dv.name": "জাতীয় পারিবারিক সহিংসতা হটলাইন",
     "natl-dv.desc": "আপনি যেখানেই থাকুন, ২৪/৭ জাতীয় গোপনীয় সহায়তা।",
     "rainn.name": "জাতীয় যৌন নির্যাতন হটলাইন (RAINN)",
@@ -192,7 +208,8 @@ export const urgent: Bundle = {
     "trevor.name": "The Trevor Project",
     "trevor.desc": "LGBTQ+ তরুণদের জন্য ফোন, টেক্সট বা চ্যাটে সংকটকালীন সহায়তা।",
     "moia-immigration.name": "এনওয়াইসি অভিবাসন আইনি সহায়তা হটলাইন (MOIA)",
-    "moia-immigration.desc": "শহর-অর্থায়িত, বিনামূল্যে ও নিরাপদ অভিবাসন আইনি সহায়তা এবং আপনার অধিকার সম্পর্কে তথ্য।",
+    "moia-immigration.desc":
+      "শহর-অর্থায়িত, বিনামূল্যে ও নিরাপদ অভিবাসন আইনি সহায়তা এবং আপনার অধিকার সম্পর্কে তথ্য।",
     "child-abuse.name": "এনওয়াই শিশু নির্যাতন হটলাইন",
     "child-abuse.desc": "শিশু নির্যাতন বা অবহেলার সন্দেহ জানান।",
     "poison.name": "এনওয়াইসি পয়জন কন্ট্রোল",
@@ -243,7 +260,8 @@ export const urgent: Bundle = {
     "trevor.name": "The Trevor Project",
     "trevor.desc": "دعم في الأزمات للشباب من مجتمع الميم، عبر الهاتف أو الرسائل أو الدردشة.",
     "moia-immigration.name": "خط الدعم القانوني للهجرة في مدينة نيويورك (MOIA)",
-    "moia-immigration.desc": "مساعدة قانونية مجانية وآمنة في شؤون الهجرة ممولة من المدينة، ومعلومات عن حقوقك.",
+    "moia-immigration.desc":
+      "مساعدة قانونية مجانية وآمنة في شؤون الهجرة ممولة من المدينة، ومعلومات عن حقوقك.",
     "child-abuse.name": "خط الإبلاغ عن إساءة معاملة الأطفال في نيويورك",
     "child-abuse.desc": "أبلغ عن اشتباه بإساءة معاملة طفل أو إهماله.",
     "poison.name": "مركز مكافحة السموم في نيويورك",
