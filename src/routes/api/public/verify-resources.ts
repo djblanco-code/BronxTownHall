@@ -95,16 +95,25 @@ async function crossCheckGooglePlaces(
   return { ok: true, placeId: place.place_id };
 }
 
+// Each run makes paid Google calls, so only the weekly database job (shared
+// secret) or a signed-in admin ("Run now" in /admin) may start one.
 export const Route = createFileRoute("/api/public/verify-resources")({
   staticData: { sitemap: false },
   server: {
     handlers: {
       POST: async ({ request }) => {
+        const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+        const { hasCronSecret, isAdminRequest } = await import("@/lib/request-auth.server");
+        if (
+          !(await hasCronSecret(request, supabaseAdmin)) &&
+          !(await isAdminRequest(request, supabaseAdmin))
+        ) {
+          return new Response("Unauthorized", { status: 401 });
+        }
+
         const key = process.env["GOOGLE_MAPS_API_KEY"];
         if (!key)
           return Response.json({ error: "GOOGLE_MAPS_API_KEY is not set" }, { status: 500 });
-
-        const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
         let batchSize = DEFAULT_BATCH;
         try {
@@ -115,25 +124,28 @@ export const Route = createFileRoute("/api/public/verify-resources")({
           /* no body is fine */
         }
 
-        // Paused-state guard + single-flight lease.
-        const { data: state } = await supabaseAdmin
-          .from("verification_job_state")
-          .select("status, lease_until")
-          .eq("id", JOB_ID)
-          .maybeSingle();
-
-        if (state?.status === "paused") {
-          return Response.json({ skipped: "job is paused", processed: 0 });
-        }
-        if (state?.lease_until && new Date(state.lease_until).getTime() > Date.now()) {
-          return Response.json({ skipped: "another run is in progress", processed: 0 });
-        }
-
+        // Single-flight lease, taken in one UPDATE so two runs can't both get it.
+        const nowIso = new Date().toISOString();
         const leaseUntil = new Date(Date.now() + LEASE_MINUTES * 60_000).toISOString();
-        await supabaseAdmin
+        const { data: lease } = await supabaseAdmin
           .from("verification_job_state")
           .update({ status: "running", lease_until: leaseUntil, last_error: null })
-          .eq("id", JOB_ID);
+          .eq("id", JOB_ID)
+          .neq("status", "paused")
+          .or(`lease_until.is.null,lease_until.lt.${nowIso}`)
+          .select("id");
+
+        if (!lease?.length) {
+          const { data: state } = await supabaseAdmin
+            .from("verification_job_state")
+            .select("status")
+            .eq("id", JOB_ID)
+            .maybeSingle();
+          return Response.json({
+            skipped: state?.status === "paused" ? "job is paused" : "another run is in progress",
+            processed: 0,
+          });
+        }
 
         try {
           const cutoff = new Date(Date.now() - STALE_DAYS * 24 * 60 * 60 * 1000).toISOString();

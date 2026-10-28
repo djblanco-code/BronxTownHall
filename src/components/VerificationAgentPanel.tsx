@@ -49,11 +49,16 @@ export function VerificationAgentPanel() {
     setRunning(true);
     setMessage(null);
     try {
+      const { data: auth } = await supabase.auth.getSession();
       const res = await fetch("/api/public/verify-resources", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${auth.session?.access_token ?? ""}`,
+        },
         body: JSON.stringify({ batch_size: 10 }),
       });
+      if (res.status === 401) throw new Error("Sign in as an admin to run checks.");
       const body = (await res.json()) as { processed?: number; skipped?: string; error?: string };
       setMessage(
         body.error
