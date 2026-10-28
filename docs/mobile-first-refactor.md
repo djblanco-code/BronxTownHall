@@ -160,7 +160,7 @@ link at all on phones.
 - One floating-action stack (page action → Help → SOS) above the tab bar.
   Docked bars (audio player, share bar) sit on top of the tab bar and lift the
   stack while open.
-- Slim prototype banner that can be dismissed for the visit.
+- Slim prototype banner that could be dismissed for the visit (since removed).
 - Footer on every screen size; navigation defined as data in
   `src/features/shell/nav.ts`.
 

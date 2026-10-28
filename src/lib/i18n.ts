@@ -64,8 +64,6 @@ export const T: Record<Lang, Dict> = {
     a11yBlurb:
       "The Bronx App reads every resource aloud in 5 languages. For seniors, low-literacy users, and anyone who prefers listening.",
     listenAll: "Listen to Full Listing",
-    prototypeBanner:
-      "PROTOTYPE MODE — For demonstration only. The real app will be available on iOS and Android with push notifications and offline access.",
     name: "Name",
     category: "Category",
     submit: "Submit",
@@ -155,8 +153,6 @@ export const T: Record<Lang, Dict> = {
     a11yBlurb:
       "La App del Bronx lee cada recurso en voz alta en 5 idiomas. Para adultos mayores, usuarios con baja alfabetización y cualquiera que prefiera escuchar.",
     listenAll: "Escuchar Listado Completo",
-    prototypeBanner:
-      "MODO PROTOTIPO — Solo para demostración. La app real estará en iOS y Android con notificaciones y acceso sin conexión.",
     name: "Nombre",
     category: "Categoría",
     submit: "Enviar",
@@ -245,8 +241,6 @@ export const T: Record<Lang, Dict> = {
     a11yBlurb:
       "L'App du Bronx lit chaque ressource à voix haute en 5 langues. Pour les seniors, les utilisateurs à faible alphabétisation et quiconque préfère écouter.",
     listenAll: "Écouter la Fiche Complète",
-    prototypeBanner:
-      "MODE PROTOTYPE — Démonstration uniquement. La vraie app sera disponible sur iOS et Android.",
     name: "Nom",
     category: "Catégorie",
     submit: "Envoyer",
@@ -335,8 +329,6 @@ export const T: Record<Lang, Dict> = {
     a11yBlurb:
       "ব্রঙ্কস অ্যাপ প্রতিটি সংস্থান ৫টি ভাষায় উচ্চস্বরে পড়ে। প্রবীণ, কম-সাক্ষর ব্যবহারকারী এবং যারা শুনতে পছন্দ করেন তাদের জন্য।",
     listenAll: "সম্পূর্ণ তালিকা শুনুন",
-    prototypeBanner:
-      "প্রোটোটাইপ মোড — শুধুমাত্র প্রদর্শনের জন্য। আসল অ্যাপটি iOS এবং Android-এ পাওয়া যাবে।",
     name: "নাম",
     category: "বিভাগ",
     submit: "জমা দিন",
@@ -425,8 +417,6 @@ export const T: Record<Lang, Dict> = {
     a11yBlurb:
       "يقرأ تطبيق برونكس كل مورد بصوت عالٍ بـ 5 لغات. للمسنين والمستخدمين ذوي القراءة المحدودة وكل من يفضل الاستماع.",
     listenAll: "استمع للقائمة الكاملة",
-    prototypeBanner:
-      "وضع النموذج الأولي — للعرض فقط. سيكون التطبيق الحقيقي متاحاً على iOS و Android.",
     name: "الاسم",
     category: "الفئة",
     submit: "إرسال",
