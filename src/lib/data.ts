@@ -42,6 +42,7 @@ export type Resource = {
   hours: Record<Lang, string>;
   distance: number;
   free: boolean;
+  /** @deprecated Unused: open/closed is computed from `hours` (see lib/opening-hours). */
   openNow: boolean;
   requirements?: Record<Lang, string>;
   reviews: { name: string; rating: number; text: Record<Lang, string> }[];

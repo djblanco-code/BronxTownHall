@@ -38,6 +38,9 @@ jobs:
       - name: Check formatting
         run: npm run format:check
 
+      - name: Unit tests
+        run: npm test
+
       # Builds without Supabase settings on purpose: the build must not depend on secrets.
       - name: Build
         run: npm run build

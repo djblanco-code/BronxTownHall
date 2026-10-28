@@ -1,5 +1,6 @@
 // Shared SMS shortcode config + keyword reply logic (browser-safe).
 import { RESOURCES, type Category } from "./data";
+import { isOpenNow, nycTime } from "./opening-hours";
 
 /** Public SMS number. Empty string = Twilio not yet provisioned (shows "Coming soon"). */
 export const SMS_NUMBER: string = (import.meta.env?.VITE_SMS_NUMBER as string) || "";
@@ -81,12 +82,14 @@ export function buildSmsReply(body: string): string {
   if (!match) {
     return `Sorry, we didn't recognize that. Text one of: ${ALL_SMS_KEYWORDS.join(", ")}.`;
   }
+  const now = nycTime();
+  const open = (r: (typeof RESOURCES)[number]) => isOpenNow(r.hours.en, now) === true;
   const list = RESOURCES.filter((r) => r.category === match.category)
-    .sort((a, b) => Number(b.openNow) - Number(a.openNow) || a.distance - b.distance)
+    .sort((a, b) => Number(open(b)) - Number(open(a)) || a.distance - b.distance)
     .slice(0, 3)
     .map(
       (r, i) =>
-        `${i + 1}. ${r.name.en}${r.openNow ? " (OPEN NOW)" : ""}\n${r.address}\n${r.phone}\n${r.hours.en}`,
+        `${i + 1}. ${r.name.en}${open(r) ? " (OPEN NOW)" : ""}\n${r.address}\n${r.phone}\n${r.hours.en}`,
     )
     .join("\n\n");
   return list
