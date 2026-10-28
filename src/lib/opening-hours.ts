@@ -143,13 +143,13 @@ function intervalsOn(schedule: Schedule, at: LocalTime): Interval[] {
   return schedule.days[at.day];
 }
 
-/** "Evening" starts at 5 PM for "open tonight". */
-export const EVENING = 17 * 60;
+/** "Open tonight" means still open after 6 PM. */
+export const EVENING = 18 * 60;
 
 export type OpeningStatus = {
   /** Open right now; null when the hours can't be read. */
   open: boolean | null;
-  /** Open at some point between now (or 5 PM, if later) and midnight. */
+  /** Open at some point between now (or 6 PM, if later) and midnight. */
   tonight: boolean | null;
   /** When the current opening ends (minutes), if open. */
   closesAt: number | null;
@@ -198,12 +198,14 @@ export function nycTime(date: Date = new Date()): LocalTime {
   };
 }
 
-/** 1260 → "9 PM" / "21 h" etc., in the given locale. */
+/** 1260 → "9 PM" in English, "21:00" in Spanish: minutes are dropped only on 12-hour clocks. */
 export function formatClock(minutes: number, locale?: string): string {
   const d = new Date(2000, 0, 1, Math.floor(minutes / 60) % 24, minutes % 60);
+  const { hourCycle } = new Intl.DateTimeFormat(locale, { hour: "numeric" }).resolvedOptions();
+  const twelveHour = hourCycle === "h11" || hourCycle === "h12";
   return d.toLocaleTimeString(locale, {
     hour: "numeric",
-    minute: minutes % 60 ? "2-digit" : undefined,
+    minute: minutes % 60 || !twelveHour ? "2-digit" : undefined,
   });
 }
 

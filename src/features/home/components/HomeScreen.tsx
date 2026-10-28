@@ -13,13 +13,17 @@ import { BROWSABLE_CATEGORIES, featuredCategoryIds } from "../lib/featured-categ
 import { HomeHero } from "./HomeHero";
 import { SimplerViewPrompt } from "./SimplerViewPrompt";
 import { CategoryGrid } from "./CategoryGrid";
-import { UpcomingEvents } from "./UpcomingEvents";
+import { DeadlineAlerts } from "./DeadlineAlerts";
+import { TodayModule } from "./TodayModule";
+import { PicksRow } from "./PicksRow";
 import { HelpNowList } from "./HelpNowList";
 
 /**
- * Home, phone first: search, categories and this week's events fill the
- * first screens; urgent help, the daily fact and feedback follow. Nothing
- * opens on top of the page when it loads.
+ * Home is "Today in the Bronx": a greeting and search, any deadline that's
+ * coming up, then what's useful right now (open tonight, events today and
+ * this weekend), categories, and picks from what this phone has browsed.
+ * Urgent help, the daily fact and feedback follow. Nothing opens on top of
+ * the page when it loads.
  */
 export function HomeScreen() {
   const { t } = useI18n();
@@ -53,8 +57,10 @@ export function HomeScreen() {
     <AppShell>
       <HomeHero neighborhood={neighborhood} onNeighborhoodChange={setNeighborhood} />
       <SimplerViewPrompt />
+      <DeadlineAlerts />
+      <TodayModule neighborhood={neighborhood || null} />
       <CategoryGrid featured={featured} more={more} />
-      <UpcomingEvents neighborhood={neighborhood || null} />
+      <PicksRow />
       <HelpNowList />
 
       <div className="mx-auto mt-8 max-w-5xl px-4">
