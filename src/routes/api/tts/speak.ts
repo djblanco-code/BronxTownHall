@@ -5,9 +5,11 @@ export const Route = createFileRoute("/api/tts/speak")({
   server: {
     handlers: {
       POST: async ({ request }) => {
-        const apiKey = process.env.LOVABLE_API_KEY;
+        const { aiConfig } = await import("@/lib/ai.server");
+        const { apiKey, baseURL, ttsModel } = aiConfig();
         if (!apiKey) {
-          return new Response(JSON.stringify({ error: "LOVABLE_API_KEY not configured" }), {
+          // The player falls back to the browser's built-in voice.
+          return new Response(JSON.stringify({ error: "OPENAI_API_KEY not configured" }), {
             status: 500,
             headers: { "content-type": "application/json" },
           });
@@ -60,14 +62,14 @@ export const Route = createFileRoute("/api/tts/speak")({
         const instructions =
           STYLE_INSTRUCTIONS[body.style ?? "calm"] ?? STYLE_INSTRUCTIONS.calm;
 
-        const upstream = await fetch("https://ai.gateway.lovable.dev/v1/audio/speech", {
+        const upstream = await fetch(`${baseURL}/audio/speech`, {
           method: "POST",
           headers: {
             Authorization: `Bearer ${apiKey}`,
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            model: "openai/gpt-4o-mini-tts",
+            model: ttsModel,
             input: text,
             voice,
             speed,

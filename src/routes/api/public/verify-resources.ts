@@ -36,18 +36,13 @@ function checkPhone(phone: string | undefined): { ok: boolean; issue?: string } 
 
 type GeoResult = { ok: boolean; issue?: string; formatted?: string; lat?: number; lng?: number };
 
-const GATEWAY = "https://connector-gateway.lovable.dev/google_maps";
+const MAPS_API = "https://maps.googleapis.com/maps/api";
 
-function mapsHeaders(lovableKey: string, mapsKey: string) {
-  return { Authorization: `Bearer ${lovableKey}`, "X-Connection-Api-Key": mapsKey };
-}
-
-/** Step 2: address validation via Google Geocoding (through the maps connector). */
-async function verifyAddress(address: string, headers: Record<string, string>): Promise<GeoResult> {
+/** Step 2: address validation via Google Geocoding. */
+async function verifyAddress(address: string, key: string): Promise<GeoResult> {
   if (!address?.trim()) return { ok: false, issue: "Missing address" };
   const res = await fetch(
-    `${GATEWAY}/maps/api/geocode/json?address=${encodeURIComponent(`${address}, Bronx, NY`)}`,
-    { headers },
+    `${MAPS_API}/geocode/json?address=${encodeURIComponent(`${address}, Bronx, NY`)}&key=${encodeURIComponent(key)}`,
   );
   if (!res.ok) return { ok: false, issue: `Address check unavailable (${res.status})` };
   const body = (await res.json()) as {
@@ -72,10 +67,10 @@ async function verifyAddress(address: string, headers: Record<string, string>): 
 async function crossCheckGooglePlaces(
   name: string,
   address: string,
-  headers: Record<string, string>,
+  key: string,
 ): Promise<{ ok: boolean | null; issue?: string; placeId?: string }> {
   const query = encodeURIComponent(`${name} ${address} Bronx NY`);
-  const res = await fetch(`${GATEWAY}/maps/api/place/textsearch/json?query=${query}`, { headers });
+  const res = await fetch(`${MAPS_API}/place/textsearch/json?query=${query}&key=${encodeURIComponent(key)}`);
   if (!res.ok) return { ok: null };
   const body = (await res.json()) as {
     status?: string;
@@ -101,9 +96,7 @@ export const Route = createFileRoute("/api/public/verify-resources")({
     handlers: {
       POST: async ({ request }) => {
         const key = process.env["GOOGLE_MAPS_API_KEY"];
-        const lovableKey = process.env["LOVABLE_API_KEY"];
-        if (!key || !lovableKey) return Response.json({ error: "Maps connector not configured" }, { status: 500 });
-        const headers = mapsHeaders(lovableKey, key);
+        if (!key) return Response.json({ error: "GOOGLE_MAPS_API_KEY is not set" }, { status: 500 });
 
 
         const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
@@ -155,10 +148,10 @@ export const Route = createFileRoute("/api/public/verify-resources")({
             const phone = checkPhone(resource.phone);
             if (!phone.ok && phone.issue) issues.push(phone.issue);
 
-            const addr = await verifyAddress(resource.address, headers);
+            const addr = await verifyAddress(resource.address, key);
             if (!addr.ok && addr.issue) issues.push(addr.issue);
 
-            const places = await crossCheckGooglePlaces(resource.name.en, resource.address, headers);
+            const places = await crossCheckGooglePlaces(resource.name.en, resource.address, key);
             if (places.ok === false && places.issue) issues.push(places.issue);
 
             const verified = phone.ok && addr.ok && places.ok !== false;

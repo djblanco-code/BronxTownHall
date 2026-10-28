@@ -59,9 +59,6 @@ Cross-cutting follow-ups:
 - **PWA polish**: opt into `viewport-fit=cover`. The safe-area insets already
   flow through `--app-tabbar-h` / `--app-bottom-inset`, so this only needs
   top-bar and landscape padding added.
-- **Lockfiles**: `package-lock.json` no longer matches `package.json`, and
-  `bun.lock` resolves from Lovable's private registry; regenerate one against
-  the public npm registry.
 
 ## Piece 1: App shell (done)
 

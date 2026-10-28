@@ -5,13 +5,14 @@ const CATEGORIES = [
   "housing", "education", "money", "nature", "art",
 ] as const;
 
-/** Parse a natural-language help request into structured needs (Phase 2: Gemini). */
+/** Parse a natural-language help request into structured needs (OpenAI-compatible model, see lib/ai.server.ts). */
 export const Route = createFileRoute("/api/help")({
   staticData: { sitemap: false },
   server: {
     handlers: {
       POST: async ({ request }) => {
-        const apiKey = process.env.LOVABLE_API_KEY;
+        const { aiConfig } = await import("@/lib/ai.server");
+        const { apiKey, baseURL, model } = aiConfig();
         const json = (b: unknown, status = 200) =>
           new Response(JSON.stringify(b), { status, headers: { "content-type": "application/json" } });
 
@@ -22,11 +23,11 @@ export const Route = createFileRoute("/api/help")({
         const text = (body.text ?? "").trim().slice(0, 600);
         if (!text) return json({ error: "text is required" }, 400);
 
-        const res = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+        const res = await fetch(`${baseURL}/chat/completions`, {
           method: "POST",
           headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
           body: JSON.stringify({
-            model: "google/gemini-2.5-flash",
+            model,
             messages: [
               {
                 role: "system",

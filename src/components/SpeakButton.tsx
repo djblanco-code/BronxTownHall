@@ -2,7 +2,7 @@ import { useTts } from "@/lib/tts-context";
 import { Volume2, Square, Loader2 } from "lucide-react";
 
 /**
- * Legacy wrapper kept for compatibility — now uses the natural Lovable AI TTS
+ * Legacy wrapper kept for compatibility — now uses the natural server-side AI TTS
  * via the global TtsProvider + persistent TtsPlayer.
  */
 export function SpeakButton({ text, large = false, label, title }: { text: string; large?: boolean; label?: string; title?: string }) {
