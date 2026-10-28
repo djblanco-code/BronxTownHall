@@ -41,8 +41,8 @@ src/components/ui shared design-system primitives (shadcn, bottom-sheet)
 | # | Piece | Status |
 |---|-------|--------|
 | 1 | **App shell**: top bar, tab bar, language picker, floating actions, footer | ✅ Done |
-| 2 | **Home / Discover**: search-first hero, compact categories, no arrival pop-ups, rethink the Feedback button | Next |
-| 3 | **Browse a category**: list cards, filters in a bottom sheet | |
+| 2 | **Home / Discover**: search-first hero, compact categories, no arrival pop-ups, rethink the Feedback button | ✅ Done |
+| 3 | **Browse a category**: list cards, filters in a bottom sheet | Next |
 | 4 | **Resource detail**: sticky Call / Directions / Save / Share bar | |
 | 5 | **Search + Ask**: one search screen with recents and suggestions | |
 | 6 | **Map**: map with a draggable results sheet | |
@@ -56,9 +56,52 @@ src/components/ui shared design-system primitives (shadcn, bottom-sheet)
 
 Cross-cutting follow-ups:
 
+- **Root-level nudges**: the "Personalize your experience" card (`__root.tsx`)
+  still appears after 30 seconds on any page; fold it into the Settings piece.
 - **PWA polish**: opt into `viewport-fit=cover`. The safe-area insets already
   flow through `--app-tabbar-h` / `--app-bottom-inset`, so this only needs
   top-bar and landscape padding added.
+
+## Piece 2: Home (done)
+
+**Before** (390×844, returning visitor): the category grid started at 803px,
+right at the bottom of the screen and behind the tab bar; events started at
+1,409px. A first visit opened the daily-fact pop-up on top of everything; the
+category tip dimmed the whole page; a Feedback button floated over SOS; the
+large "Want a simpler view?" card and a location card pushed content down; and
+a failed events request left the section empty or spinning.
+
+**After** (`src/features/home`; the route file went from 313 lines to 25):
+
+- Search first: neighborhood picker above the title, one search field with the
+  microphone inside it, "Ask a question" and "Keyword search" as chips, and the
+  privacy and verification notes as two quiet lines.
+- Categories as a four-across icon grid with labels below: eight in two rows
+  (personalised as before, sensitive categories never surface), "See all" opens
+  the rest in place. The grid now starts at 593px; events at 811px.
+- Upcoming events as swipeable cards with a date badge (a grid on desktop),
+  skeleton cards while loading, and an error line with a link to all events
+  when the request fails or stalls for 10 seconds.
+- "Need help now?" groups Emergency and the text line as list rows.
+- Nothing opens on arrival: the daily fact is an inline card lower down, the
+  category tip is gone, and Feedback is a row at the bottom instead of a
+  floating button, leaving SOS as the only one.
+- Simplified View offer shrunk to one row; all new text in five languages.
+
+Mobbin references:
+
+- Location above search, then content rows with "See all":
+  [StubHub](https://mobbin.com/screens/ce86d8f6-0d1c-4fa5-8d76-0288b648a4a8)
+- Microphone inside the search field:
+  [Google Maps](https://mobbin.com/screens/9ce94629-725e-49bb-ae6c-b112b10c37d1),
+  [Amazon](https://mobbin.com/screens/ade63695-2dfc-46dd-8ccb-59cd3f24416d)
+- Four-across category icons with labels below:
+  [Yahoo News](https://mobbin.com/screens/5edd48cc-5531-4dd5-b510-046aa3639bb8),
+  [Blinkit](https://mobbin.com/screens/780f4eee-3562-4c92-879d-d2199e84493d),
+  [bless.](https://mobbin.com/screens/5a170a57-1114-4248-ac79-0e500194a72f)
+- Swipeable event cards:
+  [Posh](https://mobbin.com/screens/a2ee4aae-acfc-4cc0-ab68-2b98bd352c30),
+  [Swiggy](https://mobbin.com/screens/4244994a-b193-4231-b2cf-ed52f085ae7b)
 
 ## Piece 1: App shell (done)
 
