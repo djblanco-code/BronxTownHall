@@ -273,6 +273,18 @@ html.simplified .text-2xl {
 html.simplified .text-3xl {
   font-size: 2.25rem !important;
 }
+/* Tab labels stay on one line: five words must share a phone's width. */
+html.simplified [data-app-tabbar] span {
+  font-size: 0.75rem;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+[data-app-tabbar] a > span:last-child {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-inline: 2px;
+}
 
 /* 48×48 minimum touch targets on all interactive elements */
 html.simplified button:not(.simplified-exempt),

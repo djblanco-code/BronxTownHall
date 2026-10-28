@@ -1,17 +1,4 @@
-import {
-  Bell,
-  Briefcase,
-  Calendar,
-  Home,
-  Inbox,
-  LayoutGrid,
-  ListPlus,
-  Map,
-  Newspaper,
-  Settings,
-  Star,
-  type LucideIcon,
-} from "lucide-react";
+import { Bookmark, Calendar, Home, Landmark, Search, type LucideIcon } from "lucide-react";
 
 /**
  * Navigation is data, not markup: a new feature adds itself here once and
@@ -22,6 +9,8 @@ export type NavItem = {
   /** i18n key for the visible label. */
   labelKey: string;
   icon: LucideIcon;
+  /** Other paths that belong to this tab (e.g. Find is lit on /map and listing pages). */
+  match?: string[];
 };
 
 export type FooterSection = {
@@ -29,31 +18,25 @@ export type FooterSection = {
   links: { to: string; labelKey: string; soon?: boolean }[];
 };
 
-/** Bottom tab bar (phones and tablets). Keep it to five or fewer. */
+/**
+ * The five tabs from docs/product-scope.md, the same in Simplified View
+ * (which only makes them bigger). Settings sits behind the profile icon.
+ */
 export const TABS: NavItem[] = [
   { to: "/", labelKey: "common.navHome", icon: Home },
-  { to: "/map", labelKey: "common.navMap", icon: Map },
-  { to: "/favorites", labelKey: "common.navFavorites", icon: Star },
-  { to: "/buzz", labelKey: "common.navBuzz", icon: Bell },
-  { to: "/settings", labelKey: "common.navSettings", icon: Settings },
+  {
+    to: "/search",
+    labelKey: "common.navFind",
+    icon: Search,
+    match: ["/ask", "/help", "/category", "/map", "/resource"],
+  },
+  { to: "/events", labelKey: "common.navEvents", icon: Calendar },
+  { to: "/civic", labelKey: "common.navTownHall", icon: Landmark },
+  { to: "/favorites", labelKey: "common.navSaved", icon: Bookmark, match: ["/lists"] },
 ];
 
-/** Simplified View trades tabs for bigger targets: four, task-named. */
-export const SIMPLIFIED_TABS: NavItem[] = [
-  { to: "/", labelKey: "common.navHome", icon: Home },
-  { to: "/map", labelKey: "common.navMap", icon: Map },
-  { to: "/buzz", labelKey: "common.navEvents", icon: Calendar },
-  { to: "/search", labelKey: "common.navServices", icon: LayoutGrid },
-];
-
-/** Top-bar links on desktop, where there is no tab bar. */
-export const DESKTOP_NAV: NavItem[] = [
-  { to: "/digest", labelKey: "shell.thisWeek", icon: Newspaper },
-  { to: "/map", labelKey: "common.navMap", icon: Map },
-  { to: "/lists", labelKey: "common.navLists", icon: ListPlus },
-  { to: "/pro", labelKey: "common.navPro", icon: Briefcase },
-  { to: "/request-resource", labelKey: "common.navRequest", icon: Inbox },
-];
+/** Top-bar links on desktop, where there is no tab bar (the logo is Home). */
+export const DESKTOP_NAV: NavItem[] = TABS.filter((tab) => tab.to !== "/");
 
 export const FOOTER_SECTIONS: FooterSection[] = [
   {
@@ -88,5 +71,8 @@ export const FOOTER_SECTIONS: FooterSection[] = [
 ];
 
 export function isActive(item: NavItem, pathname: string): boolean {
-  return item.to === "/" ? pathname === "/" : pathname.startsWith(item.to);
+  if (item.to === "/") return pathname === "/";
+  return [item.to, ...(item.match ?? [])].some(
+    (p) => pathname === p || pathname.startsWith(`${p}/`),
+  );
 }

@@ -2,7 +2,7 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n-context";
 import { useSimplifiedMode } from "@/lib/simplified-mode";
 import { cn } from "@/lib/utils";
-import { SIMPLIFIED_TABS, TABS, isActive } from "../nav";
+import { TABS, isActive } from "../nav";
 
 /**
  * Bottom tab bar for phones and tablets. `data-app-tabbar` is what the
@@ -13,7 +13,6 @@ export function TabBar() {
   const { t } = useI18n();
   const path = useRouterState({ select: (s) => s.location.pathname });
   const simplified = useSimplifiedMode();
-  const items = simplified ? SIMPLIFIED_TABS : TABS;
 
   return (
     <nav
@@ -22,7 +21,7 @@ export function TabBar() {
       className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-card/95 pb-[env(safe-area-inset-bottom)] backdrop-blur supports-[backdrop-filter]:bg-card/85 lg:hidden"
     >
       <ul className="mx-auto flex h-16 max-w-xl items-stretch px-1">
-        {items.map((item) => {
+        {TABS.map((item) => {
           const active = isActive(item, path);
           return (
             <li key={item.to} className="flex flex-1">
