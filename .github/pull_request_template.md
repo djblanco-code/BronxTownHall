@@ -23,7 +23,7 @@ that changed (tablet, desktop, Arabic, Simplified View).
 ## Checklist ✅
 
 - [ ] I have done a self-review of my code.
-- [ ] `npm run type-check`, `npm run lint`, `npm run format:check` and `npm run build` pass.
+- [ ] `npm run type-check`, `npm run lint`, `npm run format:check`, `npm test` and `npm run build` pass.
 - [ ] UI changes: checked at phone width, in Arabic (right-to-left) and in Simplified View.
 - [ ] New text is translated in all five languages (en, es, fr, bn, ar).
 - [ ] I have updated relevant docs and `.env.example` (if applicable).

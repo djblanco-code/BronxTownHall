@@ -1,4 +1,5 @@
 import { createFileRoute, Link, useNavigate, useSearch } from "@tanstack/react-router";
+import { openingStatus, useNycTime } from "@/lib/opening-hours";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { AppShell } from "@/features/shell";
 import { useI18n } from "@/lib/i18n-context";
@@ -56,6 +57,7 @@ function HelpPage() {
   const nav = useNavigate();
   const { lang, t } = useI18n();
   const resMeta = useResourceMeta();
+  const now = useNycTime();
 
   const [input, setInput] = useState(q ?? "");
   const [request, setRequest] = useState(q ?? "");
@@ -344,7 +346,10 @@ function HelpPage() {
                               {isNonSpecificAddress(r.address)
                                 ? LOCATION_VARIES_LABEL
                                 : `${r.distance} ${t("miles")}`}{" "}
-                              · {r.openNow ? "Open now" : r.hours[lang]}
+                              ·{" "}
+                              {now && openingStatus(r.hours.en, now).open
+                                ? t("interface.openNow")
+                                : r.hours[lang]}
                             </span>
                           </span>
                         </span>

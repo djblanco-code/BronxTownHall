@@ -1,6 +1,7 @@
 // Natural-language intake: "I need help with X" → structured need + resource pack.
 import { RESOURCES, CATEGORIES, type Category, type Resource } from "./data";
 import type { Lang } from "./i18n";
+import { isOpenNow, nycTime } from "./opening-hours";
 
 export type NeedParse = {
   primaryNeed: Category;
@@ -122,7 +123,9 @@ export function buildSummary(
 /** Build a 5-resource "pack": best match per need, filling with nearby open options. */
 export function buildResourcePack(parse: NeedParse, size = 5): Resource[] {
   const order: Category[] = [parse.primaryNeed, ...parse.relatedNeeds];
-  const score = (r: Resource) => (r.openNow ? -100 : 0) + (r.free ? -10 : 0) + r.distance;
+  const now = nycTime();
+  const score = (r: Resource) =>
+    (isOpenNow(r.hours.en, now) ? -100 : 0) + (r.free ? -10 : 0) + r.distance;
   const pack: Resource[] = [];
 
   // one per need first, so the pack spans categories
@@ -186,7 +189,7 @@ export function buildPackSms(pack: Resource[], lang: Lang, request: string): str
   const body = pack
     .map(
       (r, i) =>
-        `${i + 1}. ${r.name[lang]}${r.openNow ? " (OPEN NOW)" : ""}\n${r.address}\n${r.phone}`,
+        `${i + 1}. ${r.name[lang]}${isOpenNow(r.hours.en) ? " (OPEN NOW)" : ""}\n${r.address}\n${r.phone}`,
     )
     .join("\n\n");
   return `${head}\n\n${body}\n\nMore: thebronxapp.org`;

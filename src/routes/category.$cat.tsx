@@ -27,6 +27,7 @@ import { useLiveDistances } from "@/lib/live-location";
 import { LocationSourceCard } from "@/components/LocationSourceCard";
 import { After5Toggle } from "@/components/After5Toggle";
 import { hasEveningHours, countAfter5 } from "@/lib/evening-hours";
+import { openingStatus, useNycTime } from "@/lib/opening-hours";
 import { loadDirectory } from "@/lib/bronx-resources";
 import {
   bronxToResource,
@@ -99,6 +100,7 @@ function CategoryPage() {
   const navigate = useNavigate();
   const [sortDistance, setSortDistance] = useState(true);
   const [openOnly, setOpenOnly] = useState(false);
+  const now = useNycTime();
   const [freeOnly, setFreeOnly] = useState(false);
   const after5 = !!search.after5;
   const setAfter5 = (v: boolean) =>
@@ -279,7 +281,7 @@ function CategoryPage() {
           r.category === "youth" || (r as ResourceWithBiz).__biz?.youthSubcategory === "employment",
       );
 
-    if (openOnly) l = l.filter((r) => r.openNow);
+    if (openOnly) l = l.filter((r) => !!now && openingStatus(r.hours.en, now).open === true);
     if (freeOnly) l = l.filter((r) => r.free);
     if (after5) l = l.filter((r) => hasEveningHours(r));
     // Cross-listed programs (e.g. a GED program serving teens and adults) match
@@ -314,6 +316,7 @@ function CategoryPage() {
     meta,
     sortDistance,
     openOnly,
+    now,
     freeOnly,
     after5,
     isYouth,

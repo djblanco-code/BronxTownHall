@@ -35,7 +35,7 @@ an idea to `main`. For running the app locally and hosting it, see
 
 A pull request can be merged when:
 
-- the **CI** check (type check, lint, formatting, build) passes,
+- the **CI** check (type check, lint, formatting, unit tests, build) passes,
 - the **Vercel** preview deploys and the change works there,
 - review comments are resolved.
 
@@ -51,6 +51,10 @@ npm run lint
 
 ```bash
 npm run format:check
+```
+
+```bash
+npm test
 ```
 
 ```bash

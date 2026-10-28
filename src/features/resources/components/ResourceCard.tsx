@@ -10,6 +10,7 @@ import { isNonSpecificAddress } from "@/lib/address";
 import { formatAgeRange } from "@/lib/age-range";
 import { buildResourceScript } from "@/lib/tts-context";
 import { cn } from "@/lib/utils";
+import { openingStatus, useNycTime } from "@/lib/opening-hours";
 import { VerifiedPill } from "@/components/VerifiedPill";
 import { AvailabilityBadge, CallAheadNote } from "@/components/AvailabilityBadge";
 import { AttributeBadges } from "@/components/AttributeBadges";
@@ -57,6 +58,7 @@ export function ResourceCard({
   const locationVaries = isNonSpecificAddress(r.address);
   const category = CATEGORIES.find((c) => c.id === r.category);
   const full = detail === "full";
+  const now = useNycTime();
 
   const distance = locationVaries ? (
     t("interface.locationVaries")
@@ -107,7 +109,7 @@ export function ResourceCard({
         )}
         <div className="mt-2 flex flex-wrap items-center gap-1.5">
           {full && <TypeBadge resource={r} />}
-          {full && r.openNow && (
+          {full && now && openingStatus(r.hours.en, now).open && (
             <Badge cls="bg-primary/15 text-primary">{t("interface.openNow")}</Badge>
           )}
           {full && <AvailabilityBadge status={r.availabilityStatus} compact />}
