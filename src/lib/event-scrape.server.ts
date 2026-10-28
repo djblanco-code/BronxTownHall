@@ -1,6 +1,6 @@
 // Weekly event-sourcing pipeline: reads configured public event pages,
 // extracts candidate events, and queues them for admin review. Never publishes.
-const GATEWAY = "https://connector-gateway.lovable.dev/firecrawl/v2";
+const FIRECRAWL_API = "https://api.firecrawl.dev/v2";
 const UA = "TheBronxAppBot";
 const PAUSE_MS = 3000;
 
@@ -67,12 +67,11 @@ const schema = {
 };
 
 async function scrape(url: string) {
-  const LOVABLE_API_KEY = process.env["LOVABLE_API_KEY"];
   const FIRECRAWL_API_KEY = process.env["FIRECRAWL_API_KEY"];
-  if (!LOVABLE_API_KEY || !FIRECRAWL_API_KEY) throw new Error("Scraping service is not connected");
-  const res = await fetch(`${GATEWAY}/scrape`, {
+  if (!FIRECRAWL_API_KEY) throw new Error("Scraping service is not connected (FIRECRAWL_API_KEY is not set)");
+  const res = await fetch(`${FIRECRAWL_API}/scrape`, {
     method: "POST",
-    headers: { "Content-Type": "application/json", Authorization: `Bearer ${LOVABLE_API_KEY}`, "X-Connection-Api-Key": FIRECRAWL_API_KEY },
+    headers: { "Content-Type": "application/json", Authorization: `Bearer ${FIRECRAWL_API_KEY}` },
     body: JSON.stringify({
       url,
       onlyMainContent: true,

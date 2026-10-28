@@ -1,10 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { SITE_URL } from "@/lib/site";
 import { getRouterInstance } from "@tanstack/react-start";
 import { sitemapStaticPaths, sitemapXML, sitemapPathForLocation, isSitemapRouteIncluded, type SitemapEntry } from "@/lib/sitemap";
 import { CATEGORIES, RESOURCES } from "@/lib/data";
 import "@/lib/resources-extra";
 
-const BASE_URL = "https://bronx-connect-speak.lovable.app";
+const BASE_URL = SITE_URL;
 
 export const Route = createFileRoute("/sitemap.xml")({
   staticData: { sitemap: false },

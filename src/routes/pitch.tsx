@@ -48,7 +48,7 @@ const stack = [
   { k: "Framework", v: "TanStack Start v1 + React 19 + Vite 7" },
   { k: "Backend", v: "Supabase (Postgres + Auth + Storage + RLS)" },
   { k: "Styling", v: "Tailwind v4 · design tokens · shadcn/ui" },
-  { k: "AI", v: "Lovable AI Gateway (TTS, moderation-ready)" },
+  { k: "AI", v: "OpenAI API (TTS, moderation-ready)" },
   { k: "Maps", v: "Google Maps JS API · clustering · heatmap" },
   { k: "Deploy", v: "Cloudflare Workers (edge) · zero-config" },
   { k: "A11y", v: "WCAG 2.2 AA · focus trap · reduced motion · simplified mode" },

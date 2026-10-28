@@ -2,7 +2,6 @@ import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { AppShell } from "@/features/shell";
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { lovable } from "@/integrations/lovable";
 import { ArrowLeft, LogIn, Mail } from "lucide-react";
 import { toast } from "sonner";
 
@@ -25,10 +24,12 @@ function AuthPage() {
 
   const onGoogle = async () => {
     setBusy(true);
-    const res = await lovable.auth.signInWithOAuth("google", { redirect_uri: window.location.origin });
-    if (res.error) { toast.error("Google sign-in failed"); setBusy(false); return; }
-    if (res.redirected) return;
-    navigate({ to: "/" });
+    // Redirects to Google, then back here; the session is picked up on return.
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: { redirectTo: window.location.origin },
+    });
+    if (error) { toast.error("Google sign-in failed"); setBusy(false); }
   };
 
   const onEmail = async (e: React.FormEvent) => {

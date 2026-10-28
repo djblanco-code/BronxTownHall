@@ -1,4 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { SITE_URL } from "@/lib/site";
 import { AppShell } from "@/features/shell";
 import { useI18n } from "@/lib/i18n-context";
 import { CATEGORIES, RESOURCES, Category, MinorEligibility, YouthSubcategory, isArtRelatedEvent } from "@/lib/data";
@@ -35,7 +36,7 @@ import { HiringBoard } from "@/components/HiringBoard";
 
 type CategorySearch = { after5?: boolean };
 
-const SITE = "https://bronx-connect-speak.lovable.app";
+const SITE = SITE_URL;
 
 export const Route = createFileRoute("/category/$cat")({
   staticData: { sitemap: true },

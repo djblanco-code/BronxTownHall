@@ -8,21 +8,16 @@ export type ResourceLocation = {
   longitude: number;
 };
 
-const GATEWAY_URL = "https://connector-gateway.lovable.dev/google_maps";
+const MAPS_API = "https://maps.googleapis.com/maps/api";
 
 function addressKey(address: string): string {
   return address.trim().toLowerCase().replace(/\s+/g, " ").slice(0, 220);
 }
 
-function gatewayHeaders(): Record<string, string> {
-  const lk = process.env.LOVABLE_API_KEY;
-  const gk = process.env.GOOGLE_MAPS_API_KEY;
-  if (!lk || !gk) throw new Error("Maps connector credentials missing");
-  return {
-    Authorization: `Bearer ${lk}`,
-    "X-Connection-Api-Key": gk,
-    "Content-Type": "application/json",
-  };
+function mapsKey(): string {
+  const key = process.env.GOOGLE_MAPS_API_KEY;
+  if (!key) throw new Error("GOOGLE_MAPS_API_KEY is not set");
+  return key;
 }
 
 // Rough bounding box for NYC's five boroughs. Results outside it are rejected
@@ -39,8 +34,8 @@ function inNyc(lat: number, lng: number) {
 async function callGeocode(address: string) {
   const bias = "&bounds=40.45,-74.3|41.0,-73.65&region=us&components=" +
     encodeURIComponent("administrative_area:NY|country:US");
-  const url = `${GATEWAY_URL}/maps/api/geocode/json?address=${encodeURIComponent(address)}${bias}`;
-  const res = await fetch(url, { headers: gatewayHeaders() });
+  const url = `${MAPS_API}/geocode/json?address=${encodeURIComponent(address)}${bias}&key=${encodeURIComponent(mapsKey())}`;
+  const res = await fetch(url);
   if (!res.ok) throw new Error(`Geocode failed ${res.status}`);
   const data = (await res.json()) as {
     status: string;

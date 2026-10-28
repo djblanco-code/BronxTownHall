@@ -1,4 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { SITE_URL } from "@/lib/site";
 import { AppShell } from "@/features/shell";
 import { useI18n } from "@/lib/i18n-context";
 import { RESOURCES } from "@/lib/data";
@@ -32,7 +33,7 @@ import { trackResourceViewed, trackCallClicked, trackDirectionsClicked, trackWeb
 import { supabase } from "@/integrations/supabase/client";
 import { languageSummary } from "@/lib/languages";
 
-const SITE = "https://bronx-connect-speak.lovable.app";
+const SITE = SITE_URL;
 
 export const Route = createFileRoute("/resource/$id")({
   staticData: { sitemap: true },

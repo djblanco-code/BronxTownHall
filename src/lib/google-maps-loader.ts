@@ -3,12 +3,11 @@
 
 let loadingPromise: Promise<typeof google> | null = null;
 
-const BROWSER_KEY = import.meta.env.VITE_LOVABLE_CONNECTOR_GOOGLE_MAPS_BROWSER_KEY as string | undefined;
-const TRACKING_ID = import.meta.env.VITE_LOVABLE_CONNECTOR_GOOGLE_MAPS_TRACKING_ID as string | undefined;
+const BROWSER_KEY = import.meta.env.VITE_GOOGLE_MAPS_BROWSER_KEY as string | undefined;
 
 declare global {
   interface Window {
-    __lovableGmapsInit?: () => void;
+    __bronxGmapsInit?: () => void;
   }
 }
 
@@ -23,7 +22,7 @@ export function loadGoogleMaps(): Promise<typeof google> {
   }
 
   loadingPromise = new Promise<typeof google>((resolve, reject) => {
-    window.__lovableGmapsInit = () => {
+    window.__bronxGmapsInit = () => {
       if (window.google?.maps) resolve(window.google);
       else reject(new Error("Google Maps loaded but window.google is missing"));
     };
@@ -31,11 +30,10 @@ export function loadGoogleMaps(): Promise<typeof google> {
     const params = new URLSearchParams({
       key: BROWSER_KEY,
       loading: "async",
-      callback: "__lovableGmapsInit",
+      callback: "__bronxGmapsInit",
       libraries: "marker,visualization",
       v: "weekly",
     });
-    if (TRACKING_ID) params.set("channel", TRACKING_ID);
     s.src = `https://maps.googleapis.com/maps/api/js?${params.toString()}`;
     s.async = true;
     s.defer = true;
