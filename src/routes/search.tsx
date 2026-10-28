@@ -1,11 +1,10 @@
 import { createFileRoute, Link, useNavigate, useSearch } from "@tanstack/react-router";
 import { AppShell } from "@/features/shell";
+import { ResourceCard } from "@/features/resources";
 import { useI18n } from "@/lib/i18n-context";
-import { CATEGORIES, RESOURCES } from "@/lib/data";
+import { RESOURCES } from "@/lib/data";
 import { detectIntent } from "@/lib/search-intent";
 import { matchesFilters } from "@/components/FilterPanel";
-import { FavoriteStar } from "@/components/FavoriteStar";
-import { AttributeBadges } from "@/components/AttributeBadges";
 import { VoiceSearchButton } from "@/components/VoiceSearchButton";
 import { suggestCorrection } from "@/lib/fuzzy";
 import { ArrowLeft, Search, Sparkles } from "lucide-react";
@@ -15,7 +14,6 @@ import { buildResourceScript } from "@/lib/tts-context";
 import { ViewToggle, ViewMode } from "@/components/ViewToggle";
 import { MapView, MapResource } from "@/components/MapView";
 import { SpreadsheetView, SheetRow } from "@/components/SpreadsheetView";
-import { DirectionsLink } from "@/components/DirectionsLink";
 import {
   trackSearchPerformed,
   trackSearchClicked,
@@ -25,8 +23,7 @@ import {
 import { trackResourceFound } from "@/lib/track-journey";
 import { useLiveDistances } from "@/lib/live-location";
 import { LocationSourceCard } from "@/components/LocationSourceCard";
-import { isNonSpecificAddress, LOCATION_VARIES_LABEL } from "@/lib/address";
-import { VerifiedPill } from "@/components/VerifiedPill";
+import { isNonSpecificAddress } from "@/lib/address";
 import { useResourceMeta } from "@/lib/resource-meta";
 
 type SearchSchema = { q?: string };
@@ -256,72 +253,19 @@ function SearchPage() {
         )}
         {view === "list" && (
           <ul className="mt-4 space-y-3">
-            {results.map((r, i) => {
-              const cat = CATEGORIES.find((c) => c.id === r.category);
-              const cardScript = buildResourceScript({
-                name: r.name[lang],
-                address: r.address,
-                phone: r.phone,
-                hours: r.hours[lang],
-                distance: r.distance,
-              });
-              return (
-                <li key={r.id}>
-                  <div className="flex items-stretch gap-2">
-                    <Link
-                      to="/resource/$id"
-                      params={{ id: r.id }}
-                      onClick={() => {
-                        trackSearchClicked({ query: q, resourceId: r.id, position: i + 1 });
-                        trackResourceFound({ query: q, resourceId: r.id, category: r.category });
-                      }}
-                      className="no-min-h flex-1 min-w-0 flex items-center gap-3 p-4 rounded-2xl border border-border bg-card hover:border-primary hover:shadow-md transition min-h-[80px]"
-                    >
-                      <div
-                        className="h-12 w-12 rounded-xl grid place-items-center text-2xl shrink-0"
-                        style={{ backgroundColor: cat?.color }}
-                      >
-                        {cat?.emoji}
-                      </div>
-                      <div className="min-w-0 flex-1">
-                        <p className="font-semibold truncate">{r.name[lang]}</p>
-                        <p className="text-xs text-muted-foreground truncate">
-                          {cat ? t(cat.labelKey) : r.category} ·{" "}
-                          {isNonSpecificAddress(r.address)
-                            ? LOCATION_VARIES_LABEL
-                            : `${r.distance} ${t("miles")}`}
-                        </p>
-                        <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
-                          <VerifiedPill
-                            status={resMeta[r.id]?.verification_status ?? "needs_verification"}
-                            lastVerified={resMeta[r.id]?.last_verified ?? null}
-                            verifyEveryDays={resMeta[r.id]?.verify_every_days}
-                            source={resMeta[r.id]?.source ?? undefined}
-                            category={r.category}
-                            compact
-                          />
-                        </div>
-                        <div className="mt-1.5">
-                          <AttributeBadges a={r} />
-                        </div>
-                      </div>
-                    </Link>
-                    <div className="flex flex-col items-center justify-center gap-1.5">
-                      <FavoriteStar id={r.id} category={r.category} />
-                      <ListenButton text={cardScript} title={r.name[lang]} style="calm" />
-                      {!isNonSpecificAddress(r.address) && (
-                        <DirectionsLink
-                          address={r.address}
-                          label={`Get directions to ${r.name[lang]}`}
-                          iconOnly
-                          className="no-min-h h-10 w-10 justify-center rounded-full border border-border bg-card hover:bg-secondary hover:no-underline"
-                        />
-                      )}
-                    </div>
-                  </div>
-                </li>
-              );
-            })}
+            {results.map((r, i) => (
+              <li key={r.id}>
+                <ResourceCard
+                  resource={r}
+                  meta={resMeta[r.id]}
+                  showCategory
+                  onOpen={() => {
+                    trackSearchClicked({ query: q, resourceId: r.id, position: i + 1 });
+                    trackResourceFound({ query: q, resourceId: r.id, category: r.category });
+                  }}
+                />
+              </li>
+            ))}
             {results.length === 0 && (
               <li className="text-center text-muted-foreground py-10">
                 No matches. Try a different keyword.

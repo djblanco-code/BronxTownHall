@@ -1,20 +1,11 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { SITE_URL } from "@/lib/site";
 import { AppShell } from "@/features/shell";
+import { ResourceCard } from "@/features/resources";
 import { useI18n } from "@/lib/i18n-context";
-import {
-  CATEGORIES,
-  RESOURCES,
-  Category,
-  MinorEligibility,
-  YouthSubcategory,
-  isArtRelatedEvent,
-} from "@/lib/data";
+import { CATEGORIES, RESOURCES, Category, YouthSubcategory, isArtRelatedEvent } from "@/lib/data";
 import { getBusinesses, Business } from "@/lib/business";
 import { useBusinessSync } from "@/lib/use-business-sync";
-import { FavoriteStar } from "@/components/FavoriteStar";
-import { PackCheckbox } from "@/components/PackCheckbox";
-import { AttributeBadges } from "@/components/AttributeBadges";
 import {
   FilterPanel,
   FilterState,
@@ -23,16 +14,14 @@ import {
   isFilterActive,
 } from "@/components/FilterPanel";
 import { SUBCATEGORIES_BY_CATEGORY } from "@/lib/subcategories";
-import { formatAgeRange, includesAdults, includesMinors } from "@/lib/age-range";
-import { ArrowLeft, Plus, X, Check, Star, SlidersHorizontal } from "lucide-react";
+import { includesAdults, includesMinors } from "@/lib/age-range";
+import { ArrowLeft, Plus, X, SlidersHorizontal } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { trackCategoryBrowsed } from "@/lib/track-journey";
 import { ListenButton } from "@/components/ListenButton";
-import { buildResourceScript } from "@/lib/tts-context";
 import { ViewToggle, ViewMode } from "@/components/ViewToggle";
 import { MapView, MapResource } from "@/components/MapView";
 import { SpreadsheetView, SheetRow } from "@/components/SpreadsheetView";
-import { DirectionsLink } from "@/components/DirectionsLink";
 import { isNonSpecificAddress } from "@/lib/address";
 import { useLiveDistances } from "@/lib/live-location";
 import { LocationSourceCard } from "@/components/LocationSourceCard";
@@ -47,11 +36,9 @@ import {
   jobsSubcategoryFor,
   type ImportedResource,
 } from "@/lib/bronx-to-resource";
-import { VerifiedPill } from "@/components/VerifiedPill";
-import { useResourceMeta, type ResourceMeta } from "@/lib/resource-meta";
+import { useResourceMeta } from "@/lib/resource-meta";
 import { SponsoredCard } from "@/components/SponsoredCard";
 import { PolicyAlerts } from "@/components/PolicyAlerts";
-import { AvailabilityBadge, CallAheadNote } from "@/components/AvailabilityBadge";
 import { HiringBoard } from "@/components/HiringBoard";
 
 type CategorySearch = { after5?: boolean };
@@ -553,13 +540,14 @@ function CategoryPage() {
                 {/* At most one sponsored card per category; never on civic/urgent pages. */}
                 {cat !== "government" && <SponsoredCard category={cat} />}
                 {list.map((r) => (
-                  <ListingItem
-                    key={(r as ResourceWithBiz).__biz?.id ?? r.id}
-                    r={r as ResourceWithBiz}
-                    lang={lang}
-                    isJobs={isJobs}
-                    meta={resMeta[r.id]}
-                  />
+                  <li key={(r as ResourceWithBiz).__biz?.id ?? r.id}>
+                    <ResourceCard
+                      resource={r as ResourceWithBiz}
+                      meta={resMeta[r.id]}
+                      detail="full"
+                      selectable
+                    />
+                  </li>
                 ))}
                 {list.length === 0 && (
                   <li className="text-center text-muted-foreground py-8">
@@ -608,177 +596,6 @@ function bizToResource(b: Business): import("@/lib/data").Resource & { __biz: Bu
   };
 }
 
-function ListingItem({
-  r,
-  lang,
-  isJobs,
-  meta,
-}: {
-  r: ResourceWithBiz;
-  lang: import("@/lib/i18n").Lang;
-  isJobs: boolean;
-  meta?: ResourceMeta;
-}) {
-  const { t } = useI18n();
-  const isBiz = !!r.__biz;
-  const imported = (r as unknown as Partial<ImportedResource>).__imported;
-  const isPremium = r.__biz?.tier === "premium";
-  const isGov = r.category === "government";
-  const locationVaries = isNonSpecificAddress(r.address);
-  const inner = (
-    <div className="flex items-start justify-between gap-3">
-      <div className="min-w-0">
-        <p className="font-semibold text-foreground flex items-center gap-1.5">
-          {r.name[lang]}
-          {isPremium && r.__biz?.verified && (
-            <Check className="h-4 w-4 text-success bg-success/15 rounded-full p-0.5" />
-          )}
-        </p>
-        <p className="text-sm text-muted-foreground mt-0.5 line-clamp-2">{r.description[lang]}</p>
-        <div className="flex flex-wrap items-center gap-1.5 mt-2">
-          {isPremium ? (
-            <Badge cls="bg-warning/20 text-warning">
-              <Star className="h-3 w-3" fill="currentColor" /> {t("interface.premium")}
-            </Badge>
-          ) : isBiz || imported?.listingType === "business" ? (
-            <Badge cls="bg-muted text-muted-foreground">{t("interface.localBusiness")}</Badge>
-          ) : isGov ? (
-            <Badge cls="bg-primary/15 text-primary">{t("government")}</Badge>
-          ) : r.free ? (
-            <Badge cls="bg-success/15 text-success">{t("interface.free")}</Badge>
-          ) : (
-            <Badge cls="bg-secondary text-secondary-foreground">{t("interface.resource")}</Badge>
-          )}
-          {r.openNow && <Badge cls="bg-primary/15 text-primary">{t("interface.openNow")}</Badge>}
-          <AvailabilityBadge status={r.availabilityStatus} compact />
-          <VerifiedPill
-            status={imported?.status ?? meta?.verification_status ?? "needs_verification"}
-            lastVerified={imported?.lastVerified ?? meta?.last_verified ?? null}
-            verifyEveryDays={meta?.verify_every_days}
-            source={meta?.source ?? undefined}
-            category={r.category}
-            compact
-          />
-
-          <AgeBadge r={r} />
-        </div>
-        <CallAheadNote className="mt-1.5" />
-        {lang !== "en" && r.description[lang] === r.description.en && (
-          <p className="mt-1 text-xs font-medium text-muted-foreground">
-            {t("interface.fullTranslationSoon")}
-          </p>
-        )}
-        <div className="mt-2">
-          <AttributeBadges a={r} />
-        </div>
-        {imported && (
-          <p className="text-sm text-muted-foreground mt-1.5">
-            {r.address}
-            {r.phone && (
-              <>
-                {" · "}
-                <a
-                  href={`tel:${r.phone.replace(/[^\d+]/g, "")}`}
-                  className="text-primary hover:underline"
-                >
-                  {r.phone}
-                </a>
-              </>
-            )}
-          </p>
-        )}
-      </div>
-      {locationVaries ? (
-        <span className="text-xs font-medium text-muted-foreground max-w-[7.5rem] text-right">
-          {t("interface.locationVaries")}
-        </span>
-      ) : r.distance >= 0 ? (
-        <span className="text-sm font-bold text-primary whitespace-nowrap">{r.distance} mi</span>
-      ) : null}
-    </div>
-  );
-  const cardScript = buildResourceScript({
-    name: r.name[lang],
-    address: r.address,
-    phone: r.phone,
-    hours: r.hours[lang],
-    distance: r.distance,
-  });
-  const cardClass =
-    "flex-1 block rounded-2xl border border-border bg-card p-4 hover:border-primary hover:shadow-md transition";
-  return (
-    <li>
-      <div className="flex items-stretch gap-2">
-        {isBiz || imported ? (
-          <div className={cardClass}>{inner}</div>
-        ) : (
-          <Link to="/resource/$id" params={{ id: r.id }} className={`no-min-h ${cardClass}`}>
-            {inner}
-          </Link>
-        )}
-        <div className="flex flex-col items-center justify-center gap-1.5">
-          {!isBiz && <FavoriteStar id={r.id} />}
-          <ListenButton text={cardScript} title={r.name[lang]} style="calm" />
-          {!locationVaries && (
-            <DirectionsLink
-              address={r.address}
-              label={`${t("interface.directions")}: ${r.name[lang]}`}
-              iconOnly
-              className="no-min-h h-10 w-10 justify-center rounded-full border border-border bg-card hover:bg-secondary hover:no-underline"
-            />
-          )}
-          {!isBiz && <PackCheckbox id={r.id} label={r.name[lang]} />}
-        </div>
-      </div>
-    </li>
-  );
-}
-
-/**
- * One age tag per listing, from the listing's own data — never derived from
- * which category page it happens to be shown on. Prefers the stated age range
- * ("Ages 14-24"); falls back to the coarse minor-eligibility flag only when no
- * range is recorded.
- */
-function AgeBadge({ r }: { r: ResourceWithBiz }) {
-  const label = formatAgeRange(r.ageMin, r.ageMax);
-  if (label) {
-    return (
-      <Badge cls="bg-accent/20 text-accent-foreground" title={r.restrictionsNote}>
-        {label}
-      </Badge>
-    );
-  }
-  const me: MinorEligibility | undefined = r.minorEligibility;
-  if (!me) return null;
-  if (me === "yes")
-    return <Badge cls="bg-success/15 text-success">Open to Minors (Under 18)</Badge>;
-  if (me === "no") return <Badge cls="bg-destructive/15 text-destructive">Adults Only (18+)</Badge>;
-  return (
-    <Badge cls="bg-warning/20 text-warning" title={r.restrictionsNote}>
-      Restrictions Apply
-    </Badge>
-  );
-}
-
-function Badge({
-  children,
-  cls,
-  title,
-}: {
-  children: React.ReactNode;
-  cls: string;
-  title?: string;
-}) {
-  return (
-    <span
-      title={title}
-      className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold ${cls}`}
-    >
-      {children}
-    </span>
-  );
-}
 function FilterChip({
   active,
   onClick,
