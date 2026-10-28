@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { ShieldCheck, Trash2, Loader2, BarChart3 } from "lucide-react";
 import { toast } from "sonner";
 import { analyticsOptedOut, setAnalyticsOptOut, deleteAllMyData } from "@/lib/privacy";
+import { initAnalytics, stopAnalytics } from "@/lib/analytics";
 
 export function DataControls() {
   const [optOut, setOptOut] = useState(false);
@@ -16,6 +17,8 @@ export function DataControls() {
     const next = !optOut;
     setOptOut(next);
     setAnalyticsOptOut(next);
+    if (next) stopAnalytics();
+    else initAnalytics();
     toast.success(next ? "Usage counting is off on this device" : "Usage counting is on");
   }
 
