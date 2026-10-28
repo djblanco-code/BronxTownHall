@@ -42,6 +42,65 @@ const HERITAGE_WORDS = [
   "filipino",
 ];
 
+/**
+ * Words that pick a category. Whole words only: "eat" must not match inside
+ * "heating", nor "aid" inside "medicaid".
+ */
+const CATEGORY_WORDS: [RegExp, Category][] = [
+  [/\b(?:food|eat|restaurants?|pantry|pantries|meals?|grocery|groceries)\b/, "food"],
+  [/\b(?:clinics?|doctors?|health|hospitals?|pharmacy|pharmacies)\b/, "health"],
+  [/\b(?:legal|lawyers?|attorneys?|legal aid)\b/, "legal"],
+  [/\b(?:jobs?|work|employment|hiring)\b/, "jobs"],
+  [/\b(?:childcare|daycare|pre[- ]?k)\b/, "childcare"],
+  [/\b(?:youth|teens?|kids?|after[- ]?school)\b/, "youth"],
+];
+
+/** Phrases the filters above already handle, so they aren't searched as text too. */
+const FILTER_PHRASES: RegExp[] = [
+  ...CATEGORY_WORDS.map(([re]) => re),
+  /\b(?:halal|kosher|vegan|vegetarian|gluten[- ]?free)\b/,
+  /\b(?:women|minority|immigrant|veteran)[- ]?owned\b/,
+  /\b(?:wheelchair|accessible)\b/,
+  ...HERITAGE_WORDS.map((w) => new RegExp(`\\b${w}\\b`)),
+];
+
+/**
+ * Filler that says nothing about which listing someone wants ("free" too:
+ * nearly every listing is free, so it would match them all).
+ */
+const STOP_WORDS = new Set(
+  (
+    "a an and any are at be bronx by can do for from get go have help how i in is it me my " +
+    "near need nearby nyc of on or place places please some the there to want where with " +
+    "open now today find looking free"
+  ).split(" "),
+);
+
+/** What's left of a query to match against listing text, once filters and filler are removed. */
+export function searchTerms(q: string): string[] {
+  let t = q.toLowerCase();
+  for (const re of FILTER_PHRASES) t = t.replace(new RegExp(re.source, "g"), " ");
+  return t
+    .split(/[^\p{L}\p{N}'-]+/u)
+    .map((w) => w.replace(/^['-]+|['-]+$/g, ""))
+    .filter((w) => w.length > 1 && !STOP_WORDS.has(w));
+}
+
+/**
+ * How many of the terms start a word in the text ("rent" finds "rental" but
+ * not "parent"), allowing simple plurals ("pantries" finds "pantry").
+ */
+export function countMatches(text: string, terms: string[]): number {
+  const hay = text.toLowerCase();
+  const startsWord = (w: string) =>
+    new RegExp(`(?:^|[^\\p{L}\\p{N}])${w.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}`, "u").test(hay);
+  return terms.filter((w) => {
+    if (startsWord(w)) return true;
+    if (w.endsWith("ies") && startsWord(w.slice(0, -3) + "y")) return true;
+    return w.length > 3 && w.endsWith("s") && startsWord(w.slice(0, -1));
+  }).length;
+}
+
 export function detectIntent(q: string): DetectedFilters {
   const t = q.toLowerCase();
   const out: DetectedFilters = {
@@ -91,7 +150,7 @@ export function detectIntent(q: string): DetectedFilters {
     notes.push("veteran-owned businesses");
   }
 
-  if (/\bwheelchair|accessible\b/.test(t)) {
+  if (/\b(?:wheelchair|accessible)\b/.test(t)) {
     out.accessibility.push("wheelchair");
     notes.push("wheelchair-accessible places");
   }
@@ -103,12 +162,8 @@ export function detectIntent(q: string): DetectedFilters {
     }
   }
 
-  if (/\bfood|eat|restaurant|pantry|meal|grocery\b/.test(t)) out.category = "food";
-  else if (/\bclinic|doctor|health|hospital|pharmacy\b/.test(t)) out.category = "health";
-  else if (/\blegal|lawyer|attorney|aid\b/.test(t)) out.category = "legal";
-  else if (/\bjob|work|employment|hiring\b/.test(t)) out.category = "jobs";
-  else if (/\bchildcare|daycare|pre[- ]?k\b/.test(t)) out.category = "childcare";
-  else if (/\byouth|teen|kid|after[- ]?school\b/.test(t)) out.category = "youth";
+  const category = CATEGORY_WORDS.find(([re]) => re.test(t));
+  if (category) out.category = category[1];
 
   if (notes.length) out.message = `Showing ${notes.join(" + ")}`;
   return out;
