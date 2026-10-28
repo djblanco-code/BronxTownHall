@@ -138,8 +138,9 @@ export function setSession(id: string | null) {
   else localStorage.removeItem(SKEY);
 }
 
-export function findBusinessByEmail(email: string) {
-  return getBusinesses().find((b) => b.email.toLowerCase() === email.toLowerCase());
+/** Only approved ("live") listings are shown to residents. */
+export function isLiveBusiness(b: Business) {
+  return b.status === "live";
 }
 export function getCurrentBusiness(): Business | null {
   const id = getSessionId();

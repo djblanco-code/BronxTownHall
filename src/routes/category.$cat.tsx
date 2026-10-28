@@ -4,7 +4,7 @@ import { AppShell } from "@/features/shell";
 import { ResourceCard } from "@/features/resources";
 import { useI18n } from "@/lib/i18n-context";
 import { CATEGORIES, RESOURCES, Category, YouthSubcategory, isArtRelatedEvent } from "@/lib/data";
-import { getBusinesses, Business } from "@/lib/business";
+import { getBusinesses, isLiveBusiness, Business } from "@/lib/business";
 import { useBusinessSync } from "@/lib/use-business-sync";
 import {
   FilterPanel,
@@ -133,7 +133,7 @@ function CategoryPage() {
 
   // Build merged list = native resources + business listings
   const bizTick = useBusinessSync();
-  const businesses = useMemo<Business[]>(() => getBusinesses(), [bizTick]);
+  const businesses = useMemo<Business[]>(() => getBusinesses().filter(isLiveBusiness), [bizTick]);
   // Addresses in this category, so live mode can measure to the real building.
   const catAddresses = useMemo(
     () => RESOURCES.filter((r) => r.category === cat).map((r) => r.address),
@@ -575,8 +575,8 @@ type ResourceWithBiz = ReturnType<typeof bizToResource> & { __biz?: Business };
 function bizToResource(b: Business): import("@/lib/data").Resource & { __biz: Business } {
   const txt = (s: string) => ({ en: s, es: s, fr: s, bn: s, ar: s });
   const hourStr =
-    Object.entries(b.hours)
-      .filter(([, v]) => v.open)
+    Object.entries(b.hours ?? {})
+      .filter(([, v]) => v?.open)
       .map(([d, v]) => `${d} ${v.from}-${v.to}`)
       .join(", ") || "By appointment";
   return {
