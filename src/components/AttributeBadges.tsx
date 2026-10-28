@@ -79,7 +79,8 @@ function Pill({ children }: { children: ReactNode }) {
   );
 }
 
-export function AttributeBadges({ a }: { a: Attributes }) {
+/** `max` caps how many tags show (compact cards); the rest collapse into a "+N" tag. */
+export function AttributeBadges({ a, max }: { a: Attributes; max?: number }) {
   const { t } = useI18n();
   const items: ReactNode[] = [];
   for (const k of a.ownership ?? []) {
@@ -125,5 +126,11 @@ export function AttributeBadges({ a }: { a: Attributes }) {
       );
   }
   if (items.length === 0) return null;
-  return <div className="flex flex-wrap gap-1.5">{items}</div>;
+  const hidden = max != null && items.length > max ? items.length - max : 0;
+  return (
+    <div className="flex flex-wrap gap-1.5">
+      {hidden ? items.slice(0, max) : items}
+      {hidden > 0 && <Pill key="more">+{hidden}</Pill>}
+    </div>
+  );
 }

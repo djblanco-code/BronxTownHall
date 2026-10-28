@@ -1,5 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { AppShell } from "@/features/shell";
+import { ResourceCard } from "@/features/resources";
+import { useResourceMeta } from "@/lib/resource-meta";
 import { MapView, MapResource } from "@/components/MapView";
 import { SpreadsheetView, SheetRow } from "@/components/SpreadsheetView";
 import { ViewToggle, ViewMode } from "@/components/ViewToggle";
@@ -7,8 +9,7 @@ import { CATEGORIES, RESOURCES, Category } from "@/lib/data";
 import { CATEGORY_PIN } from "@/lib/map-pins";
 import { ArrowLeft, Flame } from "lucide-react";
 import { useMemo, useState } from "react";
-import { isNonSpecificAddress, LOCATION_VARIES_LABEL } from "@/lib/address";
-import { DirectionsLink } from "@/components/DirectionsLink";
+import { isNonSpecificAddress } from "@/lib/address";
 import { useLiveDistances } from "@/lib/live-location";
 import { LocationSourceCard } from "@/components/LocationSourceCard";
 
@@ -24,6 +25,7 @@ function GlobalMapPage() {
   const [heatmap, setHeatmap] = useState(false);
   const [maxDist, setMaxDist] = useState<number>(5);
   const distanceFor = useLiveDistances(useMemo(() => RESOURCES.map((r) => r.address), []));
+  const resMeta = useResourceMeta();
 
   // Mobile / multi-site programs have no single point to pin or measure from,
   // so they are left off the map rather than given a made-up location.
@@ -131,33 +133,12 @@ function GlobalMapPage() {
         {view === "map" && <MapView resources={mapResources} height={560} showHeatmap={heatmap} />}
         {view === "sheet" && <SpreadsheetView rows={sheetRows} />}
         {view === "list" && (
-          <ul className="grid sm:grid-cols-2 gap-3">
-            {mapResources.map((r) => {
-              const meta = CATEGORY_PIN[r.category];
-              return (
-                <li key={r.id} className="rounded-2xl border border-border bg-card p-4">
-                  <Link
-                    to="/resource/$id"
-                    params={{ id: r.id }}
-                    className="no-min-h font-semibold hover:underline"
-                  >
-                    {r.name}
-                  </Link>
-                  <p className="text-xs text-muted-foreground mt-1">
-                    <span className="inline-flex items-center gap-1">
-                      <span>{meta?.emoji}</span> {meta?.label}
-                    </span>{" "}
-                    · {r.distance} mi
-                  </p>
-                  <p className="text-sm mt-1">{r.address}</p>
-                  <DirectionsLink
-                    address={r.address}
-                    label="Get Directions"
-                    className="no-min-h mt-3 rounded-lg border border-border px-3 py-2 text-xs hover:no-underline"
-                  />
-                </li>
-              );
-            })}
+          <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            {filtered.map((r) => (
+              <li key={r.id}>
+                <ResourceCard resource={r} meta={resMeta[r.id]} showCategory />
+              </li>
+            ))}
           </ul>
         )}
       </div>

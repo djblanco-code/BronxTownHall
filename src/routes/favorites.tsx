@@ -1,14 +1,12 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { AppShell } from "@/features/shell";
-import { FavoriteStar } from "@/components/FavoriteStar";
+import { ResourceCard } from "@/features/resources";
 import { useI18n } from "@/lib/i18n-context";
 import { usePersonalization } from "@/lib/personalization";
-import { CATEGORIES, RESOURCES } from "@/lib/data";
+import { RESOURCES } from "@/lib/data";
 import { ArrowLeft, Star } from "lucide-react";
-import { isNonSpecificAddress, LOCATION_VARIES_LABEL } from "@/lib/address";
-import { VerifiedPill } from "@/components/VerifiedPill";
+import { isNonSpecificAddress } from "@/lib/address";
 import { useResourceMeta } from "@/lib/resource-meta";
-import { DirectionsLink } from "@/components/DirectionsLink";
 import { useLiveDistances } from "@/lib/live-location";
 import { useMemo } from "react";
 
@@ -67,57 +65,11 @@ function FavoritesPage() {
           </div>
         ) : (
           <ul className="space-y-3">
-            {items.map((r) => {
-              const cat = CATEGORIES.find((c) => c.id === r.category);
-              return (
-                <li key={r.id}>
-                  <div className="flex items-stretch gap-2">
-                    <Link
-                      to="/resource/$id"
-                      params={{ id: r.id }}
-                      className="no-min-h flex-1 min-h-[80px] flex items-center gap-3 p-4 rounded-2xl border border-border bg-card hover:border-primary hover:shadow-md transition"
-                    >
-                      <div
-                        className="h-12 w-12 rounded-xl grid place-items-center text-2xl shrink-0"
-                        style={{ backgroundColor: cat?.color }}
-                      >
-                        {cat?.emoji}
-                      </div>
-                      <div className="min-w-0 flex-1">
-                        <p className="font-semibold text-foreground truncate">{r.name[lang]}</p>
-                        <p className="text-sm text-muted-foreground truncate">
-                          {cat ? t(cat.labelKey) : r.category} ·{" "}
-                          {isNonSpecificAddress(r.address)
-                            ? LOCATION_VARIES_LABEL
-                            : `${r.distance} ${t("miles")}`}
-                        </p>
-                        <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
-                          <VerifiedPill
-                            status={resMeta[r.id]?.verification_status ?? "needs_verification"}
-                            lastVerified={resMeta[r.id]?.last_verified ?? null}
-                            verifyEveryDays={resMeta[r.id]?.verify_every_days}
-                            source={resMeta[r.id]?.source ?? undefined}
-                            category={r.category}
-                            compact
-                          />
-                        </div>
-                      </div>
-                    </Link>
-                    <div className="flex flex-col items-center justify-center gap-1.5">
-                      <FavoriteStar id={r.id} size="lg" />
-                      {!isNonSpecificAddress(r.address) && (
-                        <DirectionsLink
-                          address={r.address}
-                          label={`Get directions to ${r.name[lang]}`}
-                          iconOnly
-                          className="no-min-h h-10 w-10 justify-center rounded-full border border-border bg-card hover:bg-secondary hover:no-underline"
-                        />
-                      )}
-                    </div>
-                  </div>
-                </li>
-              );
-            })}
+            {items.map((r) => (
+              <li key={r.id}>
+                <ResourceCard resource={r} meta={resMeta[r.id]} showCategory />
+              </li>
+            ))}
           </ul>
         )}
       </div>
