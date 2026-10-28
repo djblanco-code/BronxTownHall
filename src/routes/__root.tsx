@@ -11,7 +11,8 @@ import {
 } from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
-import { I18nProvider } from "@/lib/i18n-context";
+import { I18nProvider, useI18n } from "@/lib/i18n-context";
+import { Toaster } from "@/components/ui/sonner";
 import { TtsProvider } from "@/lib/tts-context";
 import { PackProvider } from "@/lib/pack";
 import { PackShareBar } from "@/components/PackShareBar";
@@ -158,11 +159,26 @@ function RootComponent() {
               <PersonalizeNudge />
               <OfflineNotice />
               <PackShareBar />
+              <ToastHost />
             </PackProvider>
           </LiveLocationProvider>
         </TtsProvider>
       </I18nProvider>
     </QueryClientProvider>
+  );
+}
+
+/** Toast messages (sign-in errors, "Link copied", …), just below the top bar. */
+function ToastHost() {
+  const { dir } = useI18n();
+  return (
+    <Toaster
+      dir={dir}
+      position="top-center"
+      offset={{ top: 64 }}
+      mobileOffset={{ top: 64 }}
+      closeButton
+    />
   );
 }
 
