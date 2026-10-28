@@ -16,6 +16,9 @@ function createSupabaseClient() {
     auth: {
       persistSession: true,
       autoRefreshToken: true,
+      // Sign-in links return with a one-time `?code=` instead of tokens in the
+      // address bar, where page analytics or a shared screenshot could see them.
+      flowType: "pkce",
     },
   });
 }

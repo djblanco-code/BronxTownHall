@@ -21,6 +21,33 @@ function enabled() {
   return typeof window !== "undefined" && !analyticsOptedOut();
 }
 
+/**
+ * The page address without its query or fragment. Those can hold what a
+ * resident searched for (`/help?q=…`) or a sign-in token (`#access_token=…`),
+ * and neither may leave the device.
+ */
+function pageUrl() {
+  return window.location.origin + window.location.pathname;
+}
+
+/** Page views on load and on every client-side route change. */
+function trackPageviews(t: ReturnType<typeof Plausible>) {
+  const page = () => {
+    if (enabled()) t.trackPageview({ url: pageUrl() });
+  };
+  const originalPushState = history.pushState;
+  history.pushState = function (...args: Parameters<History["pushState"]>) {
+    originalPushState.apply(this, args);
+    page();
+  };
+  addEventListener("popstate", page);
+  page();
+  return () => {
+    history.pushState = originalPushState;
+    removeEventListener("popstate", page);
+  };
+}
+
 export function initAnalytics() {
   if (!enabled() || tracker) return;
 
@@ -36,8 +63,7 @@ export function initAnalytics() {
     trackLocalhost: false,
   });
 
-  // Page views fire automatically on every client-side route change.
-  cleanupPageviews = tracker.enableAutoPageviews();
+  cleanupPageviews = trackPageviews(tracker);
 
   // One-time context event so language / device preferences show up as
   // breakdowns even for users who never trigger another event.
@@ -57,7 +83,7 @@ export function stopAnalytics() {
 export function trackEvent(eventName: string, props: Props = {}) {
   if (!enabled() || !tracker) return;
   try {
-    tracker.trackEvent(eventName, { props });
+    tracker.trackEvent(eventName, { props }, { url: pageUrl() });
   } catch {
     /* never let analytics break the app */
   }
