@@ -29,7 +29,8 @@ Open http://localhost:8080.
 
 - [`docs/self-hosting.md`](docs/self-hosting.md): set up Supabase and Vercel, environment variables, admin access, scheduled jobs
 - [`docs/mobile-first-refactor.md`](docs/mobile-first-refactor.md): the piece-by-piece mobile-first redesign and the feature-folder structure
-- [`AGENTS.md`](AGENTS.md): conventions for contributors and coding agents
+- [`CONTRIBUTING.md`](CONTRIBUTING.md): how to open a pull request (titles, template, checks, squash merging)
+- [`AGENTS.md`](AGENTS.md): conventions for coding agents
 
 ## Project layout
 
