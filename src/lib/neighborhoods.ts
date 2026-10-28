@@ -1,0 +1,9 @@
+// Bronx neighborhoods (used for filtering / display).
+export const BRONX_NEIGHBORHOODS = [
+  "Mott Haven", "Melrose", "Morrisania", "Longwood", "Hunts Point",
+  "Concourse", "Highbridge", "University Heights", "Fordham", "Tremont",
+  "Belmont", "Bedford Park", "Kingsbridge", "Riverdale", "Norwood",
+  "Pelham Parkway", "Morris Park", "Westchester Square", "Throgs Neck",
+  "Soundview", "Castle Hill", "Parkchester", "Co-op City", "Wakefield",
+  "Williamsbridge", "Allerton", "Citywide",
+];

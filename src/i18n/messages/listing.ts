@@ -1,0 +1,73 @@
+import type { Bundle } from "../types";
+
+/**
+ * Listing-level UI text: trust copy, the call-ahead reminder, availability
+ * badges and the Health insurance filter. Referenced as `listing.<key>`.
+ */
+export const listing: Bundle = {
+  en: {
+    trustLine: "Verified by real people — not just an algorithm.",
+    callAhead: "Information changes — call ahead to confirm.",
+    availAccepting: "Accepting now",
+    availWaitlist: "Waitlist",
+    availFull: "Currently full — check back",
+    availabilityLabel: "Availability",
+    insuranceLabel: "Insurance accepted",
+    insAny: "Any insurance",
+    insMedicaid: "Medicaid",
+    insMedicare: "Medicare",
+    insUninsured: "Uninsured OK",
+  },
+  es: {
+    trustLine: "Verificado por personas reales, no solo por un algoritmo.",
+    callAhead: "La información cambia: llame antes para confirmar.",
+    availAccepting: "Aceptando ahora",
+    availWaitlist: "Lista de espera",
+    availFull: "Lleno por ahora: vuelva a consultar",
+    availabilityLabel: "Disponibilidad",
+    insuranceLabel: "Seguro aceptado",
+    insAny: "Cualquier seguro",
+    insMedicaid: "Medicaid",
+    insMedicare: "Medicare",
+    insUninsured: "Sin seguro está bien",
+  },
+  fr: {
+    trustLine: "Vérifié par de vraies personnes, pas seulement par un algorithme.",
+    callAhead: "Les informations changent — appelez avant pour confirmer.",
+    availAccepting: "Accepte maintenant",
+    availWaitlist: "Liste d'attente",
+    availFull: "Complet actuellement — revenez plus tard",
+    availabilityLabel: "Disponibilité",
+    insuranceLabel: "Assurance acceptée",
+    insAny: "Toute assurance",
+    insMedicaid: "Medicaid",
+    insMedicare: "Medicare",
+    insUninsured: "Sans assurance accepté",
+  },
+  bn: {
+    trustLine: "সত্যিকারের মানুষ যাচাই করেছে — শুধু অ্যালগরিদম নয়।",
+    callAhead: "তথ্য বদলাতে পারে — যাওয়ার আগে ফোন করে নিশ্চিত করুন।",
+    availAccepting: "এখন ভর্তি নেওয়া হচ্ছে",
+    availWaitlist: "অপেক্ষমাণ তালিকা",
+    availFull: "এই মুহূর্তে পূর্ণ — পরে আবার দেখুন",
+    availabilityLabel: "সহজলভ্যতা",
+    insuranceLabel: "গৃহীত বীমা",
+    insAny: "যেকোনো বীমা",
+    insMedicaid: "মেডিকেইড",
+    insMedicare: "মেডিকেয়ার",
+    insUninsured: "বীমা ছাড়াও চলবে",
+  },
+  ar: {
+    trustLine: "تم التحقق منه بواسطة أشخاص حقيقيين، وليس بواسطة خوارزمية فقط.",
+    callAhead: "قد تتغير المعلومات — اتصل مسبقاً للتأكد.",
+    availAccepting: "يقبل الآن",
+    availWaitlist: "قائمة انتظار",
+    availFull: "ممتلئ حالياً — تحقق لاحقاً",
+    availabilityLabel: "التوفر",
+    insuranceLabel: "التأمين المقبول",
+    insAny: "أي تأمين",
+    insMedicaid: "ميديكيد",
+    insMedicare: "ميديكير",
+    insUninsured: "بدون تأمين مقبول",
+  },
+};

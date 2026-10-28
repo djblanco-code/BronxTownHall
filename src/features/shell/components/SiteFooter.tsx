@@ -1,0 +1,52 @@
+import { Link } from "@tanstack/react-router";
+import { Heart } from "lucide-react";
+import { useI18n } from "@/lib/i18n-context";
+import { FOOTER_SECTIONS } from "../nav";
+
+/**
+ * Shown on every screen size: on phones it is the only path to About, FAQ,
+ * Contact and the legal pages, so it can't be desktop-only.
+ */
+export function SiteFooter() {
+  const { t } = useI18n();
+  return (
+    <footer className="mt-12 border-t border-border bg-card">
+      <div className="mx-auto max-w-5xl px-4 py-8">
+        <div className="mb-6 grid grid-cols-2 gap-6 md:grid-cols-4">
+          {FOOTER_SECTIONS.map((section) => (
+            <div key={section.titleKey}>
+              <h3 className="mb-2 text-sm font-bold">{t(section.titleKey)}</h3>
+              <ul className="space-y-1 text-sm text-muted-foreground">
+                {section.links.map((link) => (
+                  <li key={link.to}>
+                    <Link to={link.to} className="no-min-h hover:text-primary">
+                      {t(link.labelKey)}
+                      {link.soon && (
+                        <span className="ms-1 text-[10px] font-bold text-warning">
+                          {t("common.footerSoon")}
+                        </span>
+                      )}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+          <div>
+            <h3 className="mb-2 text-sm font-bold">{t("common.footerSupport")}</h3>
+            <Link
+              to="/donate"
+              className="no-min-h inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-primary to-accent px-4 py-2 text-sm font-bold text-primary-foreground shadow hover:opacity-90"
+            >
+              <Heart className="h-4 w-4" fill="currentColor" aria-hidden="true" />{" "}
+              {t("common.footerDonate")}
+            </Link>
+          </div>
+        </div>
+        <div className="border-t border-border pt-4 text-center text-xs text-muted-foreground">
+          {t("footer")}
+        </div>
+      </div>
+    </footer>
+  );
+}

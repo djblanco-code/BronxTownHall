@@ -1,0 +1,146 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1789831619876,
+      "tag": "0000_bronx_resources_event_datetime",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1789833592774,
+      "tag": "0001_create_policy_alerts",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1789833903945,
+      "tag": "0002_add_how_to_apply",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1789834105368,
+      "tag": "0003_create_conduct_flags",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1789885038922,
+      "tag": "0004_add_needs_review_flag",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1789886919222,
+      "tag": "0005_add_resource_event_end_date",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1789887303230,
+      "tag": "0006_add_business_support_and_hiring",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1789887368851,
+      "tag": "0007_add_hiring_fair_chance_snapshot",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1789892163399,
+      "tag": "0008_harden_submission_rls",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1789892498008,
+      "tag": "0009_restrict_org_account_owner_updates",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1789892538256,
+      "tag": "0010_fix_org_accounts_guard_columns",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1789892631259,
+      "tag": "0011_guard_pro_profiles_and_org_ein",
+      "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1789892670075,
+      "tag": "0012_restrict_anon_org_accounts_columns",
+      "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "7",
+      "when": 1789892765565,
+      "tag": "0013_tighten_subscription_inserts",
+      "breakpoints": true
+    },
+    {
+      "idx": 14,
+      "version": "7",
+      "when": 1789892969040,
+      "tag": "0014_org_accounts_private_columns",
+      "breakpoints": true
+    },
+    {
+      "idx": 15,
+      "version": "7",
+      "when": 1789893112537,
+      "tag": "0015_hide_report_reporter_email",
+      "breakpoints": true
+    },
+    {
+      "idx": 16,
+      "version": "7",
+      "when": 1789895669518,
+      "tag": "0016_lock_public_business_writes",
+      "breakpoints": true
+    },
+    {
+      "idx": 17,
+      "version": "7",
+      "when": 1790949664638,
+      "tag": "0017_event_sourcing_pipeline",
+      "breakpoints": true
+    },
+    {
+      "idx": 18,
+      "version": "7",
+      "when": 1790949800613,
+      "tag": "0018_internal_cron_secret",
+      "breakpoints": true
+    },
+    {
+      "idx": 19,
+      "version": "7",
+      "when": 1791175276278,
+      "tag": "0019_ask_question_log",
+      "breakpoints": true
+    }
+  ]
+}
