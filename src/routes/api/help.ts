@@ -1,8 +1,19 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 const CATEGORIES = [
-  "food", "health", "legal", "jobs", "events", "government", "childcare", "youth",
-  "housing", "education", "money", "nature", "art",
+  "food",
+  "health",
+  "legal",
+  "jobs",
+  "events",
+  "government",
+  "childcare",
+  "youth",
+  "housing",
+  "education",
+  "money",
+  "nature",
+  "art",
 ] as const;
 
 /** Parse a natural-language help request into structured needs (OpenAI-compatible model, see lib/ai.server.ts). */
@@ -14,12 +25,19 @@ export const Route = createFileRoute("/api/help")({
         const { aiConfig } = await import("@/lib/ai.server");
         const { apiKey, baseURL, model } = aiConfig();
         const json = (b: unknown, status = 200) =>
-          new Response(JSON.stringify(b), { status, headers: { "content-type": "application/json" } });
+          new Response(JSON.stringify(b), {
+            status,
+            headers: { "content-type": "application/json" },
+          });
 
         if (!apiKey) return json({ error: "AI not configured" }, 503);
 
         let body: { text?: string; lang?: string };
-        try { body = await request.json(); } catch { return json({ error: "Invalid JSON" }, 400); }
+        try {
+          body = await request.json();
+        } catch {
+          return json({ error: "Invalid JSON" }, 400);
+        }
         const text = (body.text ?? "").trim().slice(0, 600);
         if (!text) return json({ error: "text is required" }, 400);
 
@@ -49,7 +67,10 @@ export const Route = createFileRoute("/api/help")({
                   additionalProperties: false,
                   properties: {
                     primaryNeed: { type: "string", enum: [...CATEGORIES] },
-                    relatedNeeds: { type: "array", items: { type: "string", enum: [...CATEGORIES] } },
+                    relatedNeeds: {
+                      type: "array",
+                      items: { type: "string", enum: [...CATEGORIES] },
+                    },
                     signals: { type: "array", items: { type: "string" } },
                     urgent: { type: "boolean" },
                     summary: { type: "string" },
@@ -63,12 +84,15 @@ export const Route = createFileRoute("/api/help")({
 
         if (!res.ok) {
           const detail = await res.text().catch(() => "");
-          return json({ error: "ai_failed", status: res.status, detail: detail.slice(0, 300) }, res.status === 429 || res.status === 402 ? res.status : 502);
+          return json(
+            { error: "ai_failed", status: res.status, detail: detail.slice(0, 300) },
+            res.status === 429 || res.status === 402 ? res.status : 502,
+          );
         }
 
-        const data = await res.json().catch(() => null) as
-          | { choices?: { message?: { content?: string } }[] }
-          | null;
+        const data = (await res.json().catch(() => null)) as {
+          choices?: { message?: { content?: string } }[];
+        } | null;
         const content = data?.choices?.[0]?.message?.content;
         if (!content) return json({ error: "empty_response" }, 502);
         try {

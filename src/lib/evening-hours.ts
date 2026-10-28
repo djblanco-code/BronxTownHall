@@ -33,6 +33,8 @@ export function hasEveningHours(r: Pick<Resource, "hours" | "keywords" | "catego
   return maxClosingHour(s) >= 17;
 }
 
-export function countAfter5<T extends Pick<Resource, "hours" | "keywords" | "category">>(list: T[]): number {
+export function countAfter5<T extends Pick<Resource, "hours" | "keywords" | "category">>(
+  list: T[],
+): number {
   return list.reduce((n, r) => n + (hasEveningHours(r) ? 1 : 0), 0);
 }

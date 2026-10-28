@@ -13,8 +13,12 @@ export function SponsoredCard({ category }: { category: string }) {
   useEffect(() => {
     let alive = true;
     setAd(null);
-    void loadPlacement("category_card", category).then((p) => { if (alive) setAd(p); });
-    return () => { alive = false; };
+    void loadPlacement("category_card", category).then((p) => {
+      if (alive) setAd(p);
+    });
+    return () => {
+      alive = false;
+    };
   }, [category]);
 
   if (!ad) return null;
@@ -25,12 +29,16 @@ export function SponsoredCard({ category }: { category: string }) {
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
             <p className="font-semibold text-foreground">{ad.headline}</p>
-            {ad.body && <p className="text-sm text-muted-foreground mt-0.5 line-clamp-2">{ad.body}</p>}
+            {ad.body && (
+              <p className="text-sm text-muted-foreground mt-0.5 line-clamp-2">{ad.body}</p>
+            )}
             <div className="flex flex-wrap items-center gap-1.5 mt-2">
               <span className="inline-flex items-center px-2 py-0.5 rounded-md bg-foreground text-background text-xs font-bold uppercase tracking-wide">
                 Sponsored
               </span>
-              <span className="text-xs font-semibold text-muted-foreground">Paid placement by {ad.sponsor_name}</span>
+              <span className="text-xs font-semibold text-muted-foreground">
+                Paid placement by {ad.sponsor_name}
+              </span>
             </div>
             {ad.cta_url && (
               <a

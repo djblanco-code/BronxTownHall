@@ -27,7 +27,8 @@ import { toast } from "sonner";
 import { BusinessSupportPanel } from "@/components/BusinessSupportPanel";
 
 const TITLE = "Your organization dashboard | The Bronx App";
-const DESC = "Manage the listings your business, community organization or government office has submitted to The Bronx App.";
+const DESC =
+  "Manage the listings your business, community organization or government office has submitted to The Bronx App.";
 
 export const Route = createFileRoute("/portal_/dashboard")({
   staticData: { sitemap: false },
@@ -64,10 +65,18 @@ function DashboardPage() {
     setBusy(false);
   }, [user]);
 
-  useEffect(() => { if (user) void refresh(); }, [user, refresh]);
+  useEffect(() => {
+    if (user) void refresh();
+  }, [user, refresh]);
 
   if (loading) {
-    return <AppShell><p className="max-w-3xl mx-auto px-4 py-10 text-muted-foreground inline-flex items-center gap-2"><Loader2 className="h-4 w-4 animate-spin" /> Loading…</p></AppShell>;
+    return (
+      <AppShell>
+        <p className="max-w-3xl mx-auto px-4 py-10 text-muted-foreground inline-flex items-center gap-2">
+          <Loader2 className="h-4 w-4 animate-spin" /> Loading…
+        </p>
+      </AppShell>
+    );
   }
 
   if (!user) {
@@ -76,7 +85,12 @@ function DashboardPage() {
         <div className="max-w-md mx-auto px-4 py-10 space-y-3 text-center">
           <h1 className="text-2xl font-bold">Sign in to manage your listing</h1>
           <p className="text-muted-foreground">Organization accounts sign in here.</p>
-          <Link to="/portal" className="inline-block px-5 py-3 rounded-lg bg-primary text-primary-foreground font-semibold">Go to the organization portal</Link>
+          <Link
+            to="/portal"
+            className="inline-block px-5 py-3 rounded-lg bg-primary text-primary-foreground font-semibold"
+          >
+            Go to the organization portal
+          </Link>
         </div>
       </AppShell>
     );
@@ -84,13 +98,43 @@ function DashboardPage() {
 
   const save = async (v: OrgFormValue) => {
     if (!editing) return;
-    const { contact_name, contact_role, contact_email, contact_phone, id, user_id, created_at, updated_at, status, verified_at, verified_fields, premium, priority_review, published, admin_notes, ...listing } = v as OrgFormValue & OrgAccount;
+    const {
+      contact_name,
+      contact_role,
+      contact_email,
+      contact_phone,
+      id,
+      user_id,
+      created_at,
+      updated_at,
+      status,
+      verified_at,
+      verified_fields,
+      premium,
+      priority_review,
+      published,
+      admin_notes,
+      ...listing
+    } = v as OrgFormValue & OrgAccount;
     try {
       // Edited details are unconfirmed again until a reviewer re-checks them.
-      await updateOwnOrg(editing, { ...listing, status: "pending_review", verified_at: null, verified_fields: {} });
-      await saveContact({ org_id: editing, user_id: user.id, contact_name, contact_role, contact_email, contact_phone });
+      await updateOwnOrg(editing, {
+        ...listing,
+        status: "pending_review",
+        verified_at: null,
+        verified_fields: {},
+      });
+      await saveContact({
+        org_id: editing,
+        user_id: user.id,
+        contact_name,
+        contact_role,
+        contact_email,
+        contact_phone,
+      });
       toast.success("Saved. Your changes are live and back in the review queue.");
-      setEditing(null); setForm(null);
+      setEditing(null);
+      setForm(null);
       void refresh();
     } catch (e) {
       toast.error(e instanceof Error ? e.message : "Could not save");
@@ -100,7 +144,10 @@ function DashboardPage() {
   return (
     <AppShell>
       <div className="max-w-3xl mx-auto px-4 py-6 space-y-5">
-        <Link to="/" className="no-min-h inline-flex items-center gap-1.5 text-sm text-primary font-medium hover:underline">
+        <Link
+          to="/"
+          className="no-min-h inline-flex items-center gap-1.5 text-sm text-primary font-medium hover:underline"
+        >
           <ArrowLeft className="h-4 w-4" /> Home
         </Link>
 
@@ -110,11 +157,17 @@ function DashboardPage() {
             <p className="text-sm text-muted-foreground">Signed in as {user.email}</p>
           </div>
           <div className="flex gap-2">
-            <Link to="/portal" className="no-min-h inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-primary text-primary-foreground font-semibold text-sm">
+            <Link
+              to="/portal"
+              className="no-min-h inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-primary text-primary-foreground font-semibold text-sm"
+            >
               <Plus className="h-4 w-4" /> Add another
             </Link>
             <button
-              onClick={async () => { await supabase.auth.signOut(); navigate({ to: "/" }); }}
+              onClick={async () => {
+                await supabase.auth.signOut();
+                navigate({ to: "/" });
+              }}
               className="no-min-h px-4 py-2 rounded-lg border-2 border-border font-semibold text-sm hover:bg-secondary"
             >
               Sign out
@@ -122,27 +175,49 @@ function DashboardPage() {
           </div>
         </header>
 
-        {busy && <p className="text-sm text-muted-foreground inline-flex items-center gap-2"><Loader2 className="h-4 w-4 animate-spin" /> Loading your listings…</p>}
+        {busy && (
+          <p className="text-sm text-muted-foreground inline-flex items-center gap-2">
+            <Loader2 className="h-4 w-4 animate-spin" /> Loading your listings…
+          </p>
+        )}
 
         {!busy && orgs.length === 0 && (
           <div className="rounded-2xl border-2 border-dashed border-border p-8 text-center space-y-2">
             <p className="font-semibold">You haven&apos;t submitted a listing yet.</p>
-            <Link to="/portal" className="text-primary underline">Create your first listing</Link>
+            <Link to="/portal" className="text-primary underline">
+              Create your first listing
+            </Link>
           </div>
         )}
 
         {orgs.map((o) =>
           editing === o.id && form ? (
             <div key={o.id} className="space-y-3">
-              <button onClick={() => { setEditing(null); setForm(null); }} className="no-min-h text-sm text-primary hover:underline">← Cancel editing</button>
-              <OrgListingForm value={form} onChange={setForm} onSubmit={save} submitLabel="Save changes" />
+              <button
+                onClick={() => {
+                  setEditing(null);
+                  setForm(null);
+                }}
+                className="no-min-h text-sm text-primary hover:underline"
+              >
+                ← Cancel editing
+              </button>
+              <OrgListingForm
+                value={form}
+                onChange={setForm}
+                onSubmit={save}
+                submitLabel="Save changes"
+              />
             </div>
           ) : (
             <OrgCard
               key={o.id}
               org={o}
               monthEvents={monthEvents}
-              onEdit={() => { setEditing(o.id); setForm(fromExisting(o, contacts[o.id])); }}
+              onEdit={() => {
+                setEditing(o.id);
+                setForm(fromExisting(o, contacts[o.id]));
+              }}
               onChanged={refresh}
               userId={user.id}
               contact={contacts[o.id]}
@@ -154,11 +229,27 @@ function DashboardPage() {
   );
 }
 
-function OrgCard({ org, monthEvents, onEdit, onChanged, userId, contact }: { org: OrgAccount; monthEvents: number; onEdit: () => void; onChanged: () => void; userId: string; contact?: OrgContact }) {
+function OrgCard({
+  org,
+  monthEvents,
+  onEdit,
+  onChanged,
+  userId,
+  contact,
+}: {
+  org: OrgAccount;
+  monthEvents: number;
+  onEdit: () => void;
+  onChanged: () => void;
+  userId: string;
+  contact?: OrgContact;
+}) {
   const typeLabel = ACCOUNT_TYPES.find((t) => t.id === org.account_type)?.label ?? org.account_type;
   const [photo, setPhoto] = useState<string | null>(null);
 
-  useEffect(() => { void orgPhotoUrl(org.photo_url).then(setPhoto); }, [org.photo_url]);
+  useEffect(() => {
+    void orgPhotoUrl(org.photo_url).then(setPhoto);
+  }, [org.photo_url]);
 
   const upload = async (file: File) => {
     try {
@@ -176,58 +267,93 @@ function OrgCard({ org, monthEvents, onEdit, onChanged, userId, contact }: { org
       <div className="flex items-start justify-between gap-3 flex-wrap">
         <div className="flex gap-3">
           {photo ? (
-            <img src={photo} alt={`${org.org_name} logo`} className="h-14 w-14 rounded-xl object-cover border border-border" />
+            <img
+              src={photo}
+              alt={`${org.org_name} logo`}
+              className="h-14 w-14 rounded-xl object-cover border border-border"
+            />
           ) : (
-            <div className="h-14 w-14 rounded-xl border-2 border-dashed border-border grid place-items-center text-muted-foreground"><ImagePlus className="h-5 w-5" /></div>
+            <div className="h-14 w-14 rounded-xl border-2 border-dashed border-border grid place-items-center text-muted-foreground">
+              <ImagePlus className="h-5 w-5" />
+            </div>
           )}
           <div>
             <h2 className="font-bold text-lg">{org.org_name}</h2>
             <p className="text-sm text-muted-foreground">
-              {typeLabel}{org.category ? ` · ${CATEGORY_LABELS[org.category] ?? org.category}` : ""}
+              {typeLabel}
+              {org.category ? ` · ${CATEGORY_LABELS[org.category] ?? org.category}` : ""}
             </p>
-            <div className="mt-1"><StatusBadge org={org} /></div>
+            <div className="mt-1">
+              <StatusBadge org={org} />
+            </div>
           </div>
         </div>
-        <button onClick={onEdit} className="no-min-h inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border-2 border-border font-semibold text-sm hover:bg-secondary">
+        <button
+          onClick={onEdit}
+          className="no-min-h inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border-2 border-border font-semibold text-sm hover:bg-secondary"
+        >
           <Pencil className="h-4 w-4" /> Edit listing
         </button>
       </div>
 
       {org.status === "needs_changes" && (
         <p className="rounded-xl border-2 border-warning/40 bg-warning/10 p-3 text-sm">
-          A reviewer asked for changes{org.admin_notes ? `: ${org.admin_notes}` : "."} Edit your listing and save to send it back.
+          A reviewer asked for changes{org.admin_notes ? `: ${org.admin_notes}` : "."} Edit your
+          listing and save to send it back.
         </p>
       )}
 
       <label className="no-min-h inline-flex items-center gap-2 text-sm font-semibold text-primary cursor-pointer">
-        <ImagePlus className="h-4 w-4" /> {org.photo_url ? "Replace photo" : "Add a logo or storefront photo"}
-        <input type="file" accept="image/*" className="sr-only" onChange={(e) => { const f = e.target.files?.[0]; if (f) void upload(f); }} />
+        <ImagePlus className="h-4 w-4" />{" "}
+        {org.photo_url ? "Replace photo" : "Add a logo or storefront photo"}
+        <input
+          type="file"
+          accept="image/*"
+          className="sr-only"
+          onChange={(e) => {
+            const f = e.target.files?.[0];
+            if (f) void upload(f);
+          }}
+        />
       </label>
 
       {org.account_type === "business" && (
-        <><div className="grid sm:grid-cols-2 gap-3">
-          <div className="rounded-xl border border-border p-3">
-            <p className="text-sm font-semibold">Event posts this month</p>
-            <p className="text-2xl font-bold">
-              {monthEvents}
-              {!org.premium && <span className="text-base font-medium text-muted-foreground"> / {FREE_TIER_EVENTS_PER_MONTH}</span>}
-            </p>
-            <p className="text-xs text-muted-foreground">
-              {org.premium ? "Premium — unlimited event posts." : `Free listing includes ${FREE_TIER_EVENTS_PER_MONTH} event posts a month.`}
-            </p>
-          </div>
-          <div className="rounded-xl border border-border p-3">
-            <p className="text-sm font-semibold inline-flex items-center gap-1.5"><BarChart3 className="h-4 w-4" /> This week</p>
-            {org.premium ? (
-              <p className="text-sm text-muted-foreground mt-1">Views and calls appear here once residents start using your listing.</p>
-            ) : (
-              <p className="text-sm text-muted-foreground mt-1">
-                Weekly views and calls come with Premium ($19/mo, launching soon). Nothing is charged today.
+        <>
+          <div className="grid sm:grid-cols-2 gap-3">
+            <div className="rounded-xl border border-border p-3">
+              <p className="text-sm font-semibold">Event posts this month</p>
+              <p className="text-2xl font-bold">
+                {monthEvents}
+                {!org.premium && (
+                  <span className="text-base font-medium text-muted-foreground">
+                    {" "}
+                    / {FREE_TIER_EVENTS_PER_MONTH}
+                  </span>
+                )}
               </p>
-            )}
+              <p className="text-xs text-muted-foreground">
+                {org.premium
+                  ? "Premium — unlimited event posts."
+                  : `Free listing includes ${FREE_TIER_EVENTS_PER_MONTH} event posts a month.`}
+              </p>
+            </div>
+            <div className="rounded-xl border border-border p-3">
+              <p className="text-sm font-semibold inline-flex items-center gap-1.5">
+                <BarChart3 className="h-4 w-4" /> This week
+              </p>
+              {org.premium ? (
+                <p className="text-sm text-muted-foreground mt-1">
+                  Views and calls appear here once residents start using your listing.
+                </p>
+              ) : (
+                <p className="text-sm text-muted-foreground mt-1">
+                  Weekly views and calls come with Premium ($19/mo, launching soon). Nothing is
+                  charged today.
+                </p>
+              )}
+            </div>
           </div>
-        </div>
-        <BusinessSupportPanel org={org} contact={contact} userId={userId} />
+          <BusinessSupportPanel org={org} contact={contact} userId={userId} />
         </>
       )}
 
@@ -242,11 +368,18 @@ function OfficialUpdateBox({ org, userId }: { org: OrgAccount; userId: string })
   const [busy, setBusy] = useState(false);
 
   const load = useCallback(async () => {
-    const { data } = await supabase.from("official_updates").select("*").eq("org_id", org.id).order("created_at", { ascending: false }).limit(10);
+    const { data } = await supabase
+      .from("official_updates")
+      .select("*")
+      .eq("org_id", org.id)
+      .order("created_at", { ascending: false })
+      .limit(10);
     setItems((data ?? []) as OfficialUpdate[]);
   }, [org.id]);
 
-  useEffect(() => { void load(); }, [load]);
+  useEffect(() => {
+    void load();
+  }, [load]);
 
   const post = async () => {
     if (!body.trim()) return;
@@ -265,7 +398,9 @@ function OfficialUpdateBox({ org, userId }: { org: OrgAccount; userId: string })
 
   return (
     <div className="rounded-xl border border-border p-3 space-y-2">
-      <p className="font-semibold inline-flex items-center gap-1.5"><Megaphone className="h-4 w-4" /> Post to “Latest from Your Officials”</p>
+      <p className="font-semibold inline-flex items-center gap-1.5">
+        <Megaphone className="h-4 w-4" /> Post to “Latest from Your Officials”
+      </p>
       <textarea
         rows={2}
         maxLength={280}
@@ -275,8 +410,14 @@ function OfficialUpdateBox({ org, userId }: { org: OrgAccount; userId: string })
         className="w-full px-3 py-2 rounded-lg border border-border bg-background text-sm"
       />
       <div className="flex items-center justify-between gap-2">
-        <span className="text-xs text-muted-foreground">{body.length}/280 · date stamped automatically</span>
-        <button onClick={post} disabled={busy || !body.trim()} className="no-min-h px-4 py-2 rounded-lg bg-primary text-primary-foreground font-semibold text-sm disabled:opacity-50">
+        <span className="text-xs text-muted-foreground">
+          {body.length}/280 · date stamped automatically
+        </span>
+        <button
+          onClick={post}
+          disabled={busy || !body.trim()}
+          className="no-min-h px-4 py-2 rounded-lg bg-primary text-primary-foreground font-semibold text-sm disabled:opacity-50"
+        >
           {busy ? "Posting…" : "Post"}
         </button>
       </div>
@@ -284,7 +425,10 @@ function OfficialUpdateBox({ org, userId }: { org: OrgAccount; userId: string })
         <ul className="space-y-1 pt-1 border-t border-border">
           {items.map((u) => (
             <li key={u.id} className="text-sm">
-              <span className="text-xs text-muted-foreground">{new Date(u.created_at).toLocaleDateString()}</span> — {u.body}
+              <span className="text-xs text-muted-foreground">
+                {new Date(u.created_at).toLocaleDateString()}
+              </span>{" "}
+              — {u.body}
             </li>
           ))}
         </ul>

@@ -70,7 +70,9 @@ export function TourOverlay() {
   });
   const [mounted, setMounted] = useState(false);
 
-  useEffect(() => { setMounted(true); }, []);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   useEffect(() => {
     if (typeof window !== "undefined") sessionStorage.setItem(KEY, String(step));
   }, [step]);
@@ -124,7 +126,9 @@ export function TourOverlay() {
             </button>
           </div>
           <div className="p-5">
-            <h2 id="tour-title" className="text-lg font-bold mb-1.5">{current.title}</h2>
+            <h2 id="tour-title" className="text-lg font-bold mb-1.5">
+              {current.title}
+            </h2>
             <p className="text-sm text-muted-foreground leading-relaxed">{current.body}</p>
 
             {/* progress dots */}

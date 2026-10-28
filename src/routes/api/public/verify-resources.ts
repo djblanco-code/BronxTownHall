@@ -29,7 +29,8 @@ function checkPhone(phone: string | undefined): { ok: boolean; issue?: string } 
   if (digits === "311" || digits === "911" || digits === "988") return { ok: true };
   const nat = digits.length === 11 && digits.startsWith("1") ? digits.slice(1) : digits;
   if (nat.length !== 10) return { ok: false, issue: "Phone number is not a valid 10-digit number" };
-  if (/^(\d)\1{9}$/.test(nat)) return { ok: false, issue: "Phone number looks like placeholder data" };
+  if (/^(\d)\1{9}$/.test(nat))
+    return { ok: false, issue: "Phone number looks like placeholder data" };
   if (nat[0] === "0" || nat[0] === "1") return { ok: false, issue: "Phone area code is invalid" };
   return { ok: true };
 }
@@ -47,7 +48,10 @@ async function verifyAddress(address: string, key: string): Promise<GeoResult> {
   if (!res.ok) return { ok: false, issue: `Address check unavailable (${res.status})` };
   const body = (await res.json()) as {
     status: string;
-    results?: { formatted_address?: string; geometry?: { location?: { lat: number; lng: number } } }[];
+    results?: {
+      formatted_address?: string;
+      geometry?: { location?: { lat: number; lng: number } };
+    }[];
   };
   const top = body.results?.[0];
   if (body.status !== "OK" || !top) return { ok: false, issue: "Address not found on the map" };
@@ -70,7 +74,9 @@ async function crossCheckGooglePlaces(
   key: string,
 ): Promise<{ ok: boolean | null; issue?: string; placeId?: string }> {
   const query = encodeURIComponent(`${name} ${address} Bronx NY`);
-  const res = await fetch(`${MAPS_API}/place/textsearch/json?query=${query}&key=${encodeURIComponent(key)}`);
+  const res = await fetch(
+    `${MAPS_API}/place/textsearch/json?query=${query}&key=${encodeURIComponent(key)}`,
+  );
   if (!res.ok) return { ok: null };
   const body = (await res.json()) as {
     status?: string;
@@ -89,22 +95,22 @@ async function crossCheckGooglePlaces(
   return { ok: true, placeId: place.place_id };
 }
 
-
 export const Route = createFileRoute("/api/public/verify-resources")({
   staticData: { sitemap: false },
   server: {
     handlers: {
       POST: async ({ request }) => {
         const key = process.env["GOOGLE_MAPS_API_KEY"];
-        if (!key) return Response.json({ error: "GOOGLE_MAPS_API_KEY is not set" }, { status: 500 });
-
+        if (!key)
+          return Response.json({ error: "GOOGLE_MAPS_API_KEY is not set" }, { status: 500 });
 
         const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
         let batchSize = DEFAULT_BATCH;
         try {
           const body = (await request.json()) as { batch_size?: number } | null;
-          if (body?.batch_size) batchSize = Math.min(MAX_BATCH, Math.max(1, Number(body.batch_size)));
+          if (body?.batch_size)
+            batchSize = Math.min(MAX_BATCH, Math.max(1, Number(body.batch_size)));
         } catch {
           /* no body is fine */
         }
@@ -156,7 +162,6 @@ export const Route = createFileRoute("/api/public/verify-resources")({
 
             const verified = phone.ok && addr.ok && places.ok !== false;
             const now = new Date().toISOString();
-
 
             // Idempotent progress marking: written per item, so a re-run skips it.
             await supabaseAdmin.from("resource_verifications").upsert(

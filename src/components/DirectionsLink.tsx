@@ -40,16 +40,19 @@ export function DirectionsLink({
 }: DirectionsLinkProps) {
   const isApple = useIsAppleDevice();
   const { t } = useI18n();
-  
-  const url = getDirectionsUrl({ 
-    address, 
-    latitude, 
-    longitude, 
-    mode, 
-    origin, 
-    originLat, 
-    originLng 
-  }, isApple);
+
+  const url = getDirectionsUrl(
+    {
+      address,
+      latitude,
+      longitude,
+      mode,
+      origin,
+      originLat,
+      originLng,
+    },
+    isApple,
+  );
 
   if (!url) {
     return <>{fallback}</>;
@@ -62,7 +65,7 @@ export function DirectionsLink({
       rel="noreferrer"
       className={cn(
         "inline-flex items-center gap-1.5 font-semibold text-primary hover:underline",
-        className
+        className,
       )}
       aria-label={label || `${t("common.btnDirections")} ${address}`}
       title={props.title ?? (label || t("common.btnDirections"))}

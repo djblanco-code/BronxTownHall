@@ -26,10 +26,7 @@ export function I18nProvider({ children }: { children: ReactNode }) {
       return;
     }
     // First load: auto-detect from browser language
-    const candidates = [
-      ...(navigator.languages ?? []),
-      navigator.language ?? "",
-    ];
+    const candidates = [...(navigator.languages ?? []), navigator.language ?? ""];
     for (const c of candidates) {
       const code = c.split("-")[0]?.toLowerCase() as Lang;
       if (code && T[code]) {
@@ -40,7 +37,6 @@ export function I18nProvider({ children }: { children: ReactNode }) {
     }
     setLangState("en");
   }, []);
-
 
   useEffect(() => {
     const meta = LANGS.find((l) => l.code === lang)!;
@@ -53,7 +49,8 @@ export function I18nProvider({ children }: { children: ReactNode }) {
   const setLang = useCallback((l: Lang) => {
     setLangState(l);
     if (typeof window !== "undefined") localStorage.setItem("bx-lang", l);
-    if (typeof window !== "undefined" && "speechSynthesis" in window) window.speechSynthesis.cancel();
+    if (typeof window !== "undefined" && "speechSynthesis" in window)
+      window.speechSynthesis.cancel();
     setSpeaking(false);
   }, []);
 
@@ -66,53 +63,61 @@ export function I18nProvider({ children }: { children: ReactNode }) {
     [lang],
   );
 
-  const speak = useCallback((text: string) => {
-    if (typeof window === "undefined" || !("speechSynthesis" in window)) {
-      alert("Sorry, your browser does not support text-to-speech.");
-      return;
-    }
-    const synth = window.speechSynthesis;
-    synth.cancel();
-    const meta = LANGS.find((l) => l.code === lang)!;
+  const speak = useCallback(
+    (text: string) => {
+      if (typeof window === "undefined" || !("speechSynthesis" in window)) {
+        alert("Sorry, your browser does not support text-to-speech.");
+        return;
+      }
+      const synth = window.speechSynthesis;
+      synth.cancel();
+      const meta = LANGS.find((l) => l.code === lang)!;
 
-    const doSpeak = (voices: SpeechSynthesisVoice[]) => {
-      const u = new SpeechSynthesisUtterance(text);
-      u.lang = meta.bcp47;
-      u.rate = 0.95;
-      u.pitch = 1.05;
-      const match =
-        voices.find((v) => v.lang.toLowerCase().startsWith(meta.bcp47.toLowerCase())) ||
-        voices.find((v) => v.lang.toLowerCase().startsWith(lang));
-      if (match) u.voice = match;
-      u.onend = () => setSpeaking(false);
-      u.onerror = () => setSpeaking(false);
-      setSpeaking(true);
-      synth.speak(u);
-    };
-
-    const voices = synth.getVoices();
-    if (voices.length === 0) {
-      const handler = () => {
-        synth.removeEventListener("voiceschanged", handler);
-        doSpeak(synth.getVoices());
+      const doSpeak = (voices: SpeechSynthesisVoice[]) => {
+        const u = new SpeechSynthesisUtterance(text);
+        u.lang = meta.bcp47;
+        u.rate = 0.95;
+        u.pitch = 1.05;
+        const match =
+          voices.find((v) => v.lang.toLowerCase().startsWith(meta.bcp47.toLowerCase())) ||
+          voices.find((v) => v.lang.toLowerCase().startsWith(lang));
+        if (match) u.voice = match;
+        u.onend = () => setSpeaking(false);
+        u.onerror = () => setSpeaking(false);
+        setSpeaking(true);
+        synth.speak(u);
       };
-      synth.addEventListener("voiceschanged", handler);
-      setTimeout(() => {
-        if (!synth.speaking) doSpeak(synth.getVoices());
-      }, 400);
-    } else {
-      doSpeak(voices);
-    }
-  }, [lang]);
+
+      const voices = synth.getVoices();
+      if (voices.length === 0) {
+        const handler = () => {
+          synth.removeEventListener("voiceschanged", handler);
+          doSpeak(synth.getVoices());
+        };
+        synth.addEventListener("voiceschanged", handler);
+        setTimeout(() => {
+          if (!synth.speaking) doSpeak(synth.getVoices());
+        }, 400);
+      } else {
+        doSpeak(voices);
+      }
+    },
+    [lang],
+  );
 
   const stop = useCallback(() => {
-    if (typeof window !== "undefined" && "speechSynthesis" in window) window.speechSynthesis.cancel();
+    if (typeof window !== "undefined" && "speechSynthesis" in window)
+      window.speechSynthesis.cancel();
     setSpeaking(false);
   }, []);
 
   const dir = LANGS.find((l) => l.code === lang)?.dir ?? "ltr";
 
-  return <I18nCtx.Provider value={{ lang, setLang, t, dir, speak, stop, speaking }}>{children}</I18nCtx.Provider>;
+  return (
+    <I18nCtx.Provider value={{ lang, setLang, t, dir, speak, stop, speaking }}>
+      {children}
+    </I18nCtx.Provider>
+  );
 }
 
 export function useI18n() {

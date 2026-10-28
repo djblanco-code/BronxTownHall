@@ -7,7 +7,9 @@ export const STOREFRONT_MIN_DIMENSION = 720;
 
 const YEAR_SECONDS = 60 * 60 * 24 * 365;
 
-export async function readVideoMetadata(file: File): Promise<{ duration: number; width: number; height: number }> {
+export async function readVideoMetadata(
+  file: File,
+): Promise<{ duration: number; width: number; height: number }> {
   return new Promise((resolve, reject) => {
     const url = URL.createObjectURL(file);
     const v = document.createElement("video");
@@ -17,7 +19,10 @@ export async function readVideoMetadata(file: File): Promise<{ duration: number;
       URL.revokeObjectURL(url);
       resolve(meta);
     };
-    v.onerror = () => { URL.revokeObjectURL(url); reject(new Error("Could not read video metadata")); };
+    v.onerror = () => {
+      URL.revokeObjectURL(url);
+      reject(new Error("Could not read video metadata"));
+    };
     v.src = url;
   });
 }
@@ -26,8 +31,14 @@ export async function readImageDimensions(file: File): Promise<{ width: number; 
   return new Promise((resolve, reject) => {
     const url = URL.createObjectURL(file);
     const img = new Image();
-    img.onload = () => { URL.revokeObjectURL(url); resolve({ width: img.naturalWidth, height: img.naturalHeight }); };
-    img.onerror = () => { URL.revokeObjectURL(url); reject(new Error("Could not read image")); };
+    img.onload = () => {
+      URL.revokeObjectURL(url);
+      resolve({ width: img.naturalWidth, height: img.naturalHeight });
+    };
+    img.onerror = () => {
+      URL.revokeObjectURL(url);
+      reject(new Error("Could not read image"));
+    };
     img.src = url;
   });
 }

@@ -84,10 +84,7 @@ export function RecentlyFixedTicker({ variant = "full" }: { variant?: "full" | "
               <div className="font-semibold text-sm">
                 {r.resource_name ?? "Listing updated"}
                 {r.resolution_note ? (
-                  <span className="font-normal text-muted-foreground">
-                    {" "}
-                    — {r.resolution_note}
-                  </span>
+                  <span className="font-normal text-muted-foreground"> — {r.resolution_note}</span>
                 ) : null}
               </div>
               <div className="text-xs text-muted-foreground mt-0.5">

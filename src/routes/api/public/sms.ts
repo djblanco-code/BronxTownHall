@@ -2,10 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { buildSmsReply, buildEventsReply } from "@/lib/sms";
 
 function twiml(message: string) {
-  const escaped = message
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
+  const escaped = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   return new Response(
     `<?xml version="1.0" encoding="UTF-8"?><Response><Message>${escaped}</Message></Response>`,
     { headers: { "content-type": "text/xml; charset=utf-8" } },

@@ -34,8 +34,7 @@ export const Route = createFileRoute("/businesses")({
       { property: "og:title", content: "Bronx Businesses Directory" },
       {
         property: "og:description",
-        content:
-          "Find and support local Bronx businesses by category and neighborhood.",
+        content: "Find and support local Bronx businesses by category and neighborhood.",
       },
     ],
   }),
@@ -72,7 +71,9 @@ function registeredItems(): DirectoryItem[] {
   return getBusinesses()
     .filter((b) => b.status === "live")
     .map((b) => {
-      const cat = (CAT_META(b.category as Category) ? (b.category as Category) : "services") as Category;
+      const cat = (
+        CAT_META(b.category as Category) ? (b.category as Category) : "services"
+      ) as Category;
       return {
         id: b.id,
         name: b.name,
@@ -175,19 +176,20 @@ function BusinessesPage() {
               <Briefcase className="h-7 w-7" aria-hidden />
             </div>
             <div className="min-w-0">
-              <h1 className="text-3xl sm:text-4xl font-bold">
-                Bronx Businesses
-              </h1>
+              <h1 className="text-3xl sm:text-4xl font-bold">Bronx Businesses</h1>
               <p className="mt-1 text-sm sm:text-base opacity-95 max-w-2xl">
-                Find and support local Bronx businesses — from Arthur Avenue to
-                Morrisania. Every listing here also appears in its main category.
+                Find and support local Bronx businesses — from Arthur Avenue to Morrisania. Every
+                listing here also appears in its main category.
               </p>
             </div>
           </div>
 
           {/* Search */}
           <div className="mt-5 relative">
-            <Search className="absolute start-4 top-1/2 -translate-y-1/2 h-5 w-5 text-primary" aria-hidden />
+            <Search
+              className="absolute start-4 top-1/2 -translate-y-1/2 h-5 w-5 text-primary"
+              aria-hidden
+            />
             <input
               value={q}
               onChange={(e) => setQ(e.target.value)}
@@ -199,14 +201,11 @@ function BusinessesPage() {
         </section>
 
         {/* Filter chips — the site-wide categories, not a separate taxonomy */}
-        <div
-          role="tablist"
-          aria-label="Filter by category"
-          className="flex flex-wrap gap-2"
-        >
+        <div role="tablist" aria-label="Filter by category" className="flex flex-wrap gap-2">
           {(["All", ...cats] as (Category | "All")[]).map((c) => {
             const active = cat === c;
-            const label = c === "All" ? "All" : `${CAT_META(c)?.emoji ?? ""} ${t(CAT_META(c)?.labelKey ?? c)}`;
+            const label =
+              c === "All" ? "All" : `${CAT_META(c)?.emoji ?? ""} ${t(CAT_META(c)?.labelKey ?? c)}`;
             return (
               <button
                 key={c}
@@ -249,7 +248,10 @@ function BusinessesPage() {
               <Rocket className="h-6 w-6" aria-hidden />
             </div>
             <div className="min-w-0">
-              <p className="font-bold">Starting a business? <span className="text-[10px] font-bold text-warning">(SOON)</span></p>
+              <p className="font-bold">
+                Starting a business?{" "}
+                <span className="text-[10px] font-bold text-warning">(SOON)</span>
+              </p>
               <p className="text-xs text-muted-foreground">
                 Entrepreneur Hub is on the roadmap — see what's coming.
               </p>
@@ -278,59 +280,83 @@ function BusinessesPage() {
                 >
                   {b.storefrontPhoto && (
                     <div className="relative w-full aspect-[16/9] bg-secondary">
-                      <img src={b.storefrontPhoto} alt={`${b.name} storefront`} className="w-full h-full object-cover" loading="lazy" />
-                      <span className="absolute top-2 start-2 text-[10px] font-bold uppercase tracking-wide bg-black/70 text-white px-2 py-0.5 rounded">📸 Storefront</span>
+                      <img
+                        src={b.storefrontPhoto}
+                        alt={`${b.name} storefront`}
+                        className="w-full h-full object-cover"
+                        loading="lazy"
+                      />
+                      <span className="absolute top-2 start-2 text-[10px] font-bold uppercase tracking-wide bg-black/70 text-white px-2 py-0.5 rounded">
+                        📸 Storefront
+                      </span>
                       {b.videoCount ? (
-                        <span className="absolute top-2 end-2 text-[10px] font-bold bg-black/70 text-white px-2 py-0.5 rounded inline-flex items-center gap-1">▶ {b.videoCount}</span>
+                        <span className="absolute top-2 end-2 text-[10px] font-bold bg-black/70 text-white px-2 py-0.5 rounded inline-flex items-center gap-1">
+                          ▶ {b.videoCount}
+                        </span>
                       ) : null}
                     </div>
                   )}
                   <div className="p-4 flex flex-col">
-                  <div className="flex items-start gap-3">
-                    <div className="h-12 w-12 rounded-xl bg-secondary grid place-items-center text-2xl shrink-0" aria-hidden>
-                      {b.emoji}
-                    </div>
-                    <div className="min-w-0 flex-1">
-                      <div className="flex items-center gap-2 flex-wrap">
-                        <h3 className="font-bold truncate">{b.name}</h3>
-                        <VerifiedPill status={b.status} lastVerified={b.lastVerified} category={b.category} compact />
-                        {!b.storefrontPhoto && b.videoCount ? (
-                          <span className="text-[10px] font-bold bg-foreground/85 text-background px-1.5 py-0.5 rounded">▶ {b.videoCount} video{b.videoCount === 1 ? "" : "s"}</span>
-                        ) : null}
+                    <div className="flex items-start gap-3">
+                      <div
+                        className="h-12 w-12 rounded-xl bg-secondary grid place-items-center text-2xl shrink-0"
+                        aria-hidden
+                      >
+                        {b.emoji}
                       </div>
-                      <p className="text-xs text-muted-foreground">
-                        <Link to="/category/$cat" params={{ cat: b.category }} className="hover:underline">
-                          {t(CAT_META(b.category)?.labelKey ?? b.category)}
-                        </Link>{" "}
-                        · {b.neighborhood}
-                      </p>
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <h3 className="font-bold truncate">{b.name}</h3>
+                          <VerifiedPill
+                            status={b.status}
+                            lastVerified={b.lastVerified}
+                            category={b.category}
+                            compact
+                          />
+                          {!b.storefrontPhoto && b.videoCount ? (
+                            <span className="text-[10px] font-bold bg-foreground/85 text-background px-1.5 py-0.5 rounded">
+                              ▶ {b.videoCount} video{b.videoCount === 1 ? "" : "s"}
+                            </span>
+                          ) : null}
+                        </div>
+                        <p className="text-xs text-muted-foreground">
+                          <Link
+                            to="/category/$cat"
+                            params={{ cat: b.category }}
+                            className="hover:underline"
+                          >
+                            {t(CAT_META(b.category)?.labelKey ?? b.category)}
+                          </Link>{" "}
+                          · {b.neighborhood}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                  {b.description && (
-                    <p className="text-sm mt-2 line-clamp-2">{b.description}</p>
-                  )}
-                  <p className="text-xs text-muted-foreground mt-2 inline-flex items-center gap-1">
-                    <MapPin className="h-3.5 w-3.5" aria-hidden /> {b.address}
-                  </p>
-                  <CallAheadNote className="mt-1.5" />
-                  {b.phone && (
-                    <a
-                      href={`tel:${b.phone.replace(/[^0-9+]/g, "")}`}
-                      data-call-now
-                      className="no-min-h mt-3 inline-flex items-center gap-1.5 self-start px-3 py-2 rounded-full bg-primary text-primary-foreground text-sm font-semibold min-h-[44px]"
-                    >
-                      <Phone className="h-4 w-4" aria-hidden /> {b.phone}
-                    </a>
-                  )}
-                  {!b.claimed && (
-                    <p className="mt-3 text-xs text-muted-foreground inline-flex items-center gap-1">
-                      <Megaphone className="h-3.5 w-3.5" aria-hidden />
-                      Is this your business?{" "}
-                      <Link to="/business-register" className="text-primary font-semibold hover:underline ms-1">
-                        Claim it
-                      </Link>
+                    {b.description && <p className="text-sm mt-2 line-clamp-2">{b.description}</p>}
+                    <p className="text-xs text-muted-foreground mt-2 inline-flex items-center gap-1">
+                      <MapPin className="h-3.5 w-3.5" aria-hidden /> {b.address}
                     </p>
-                  )}
+                    <CallAheadNote className="mt-1.5" />
+                    {b.phone && (
+                      <a
+                        href={`tel:${b.phone.replace(/[^0-9+]/g, "")}`}
+                        data-call-now
+                        className="no-min-h mt-3 inline-flex items-center gap-1.5 self-start px-3 py-2 rounded-full bg-primary text-primary-foreground text-sm font-semibold min-h-[44px]"
+                      >
+                        <Phone className="h-4 w-4" aria-hidden /> {b.phone}
+                      </a>
+                    )}
+                    {!b.claimed && (
+                      <p className="mt-3 text-xs text-muted-foreground inline-flex items-center gap-1">
+                        <Megaphone className="h-3.5 w-3.5" aria-hidden />
+                        Is this your business?{" "}
+                        <Link
+                          to="/business-register"
+                          className="text-primary font-semibold hover:underline ms-1"
+                        >
+                          Claim it
+                        </Link>
+                      </p>
+                    )}
                   </div>
                 </li>
               ))}

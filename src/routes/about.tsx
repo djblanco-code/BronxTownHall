@@ -8,9 +8,16 @@ export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
       { title: "About — The Bronx App" },
-      { name: "description", content: "The Bronx App helps residents find free, life-improving resources and hyper-local events in one place." },
+      {
+        name: "description",
+        content:
+          "The Bronx App helps residents find free, life-improving resources and hyper-local events in one place.",
+      },
       { property: "og:title", content: "About — The Bronx App" },
-      { property: "og:description", content: "Our mission: help Bronx residents find resources and events, in one free app." },
+      {
+        property: "og:description",
+        content: "Our mission: help Bronx residents find resources and events, in one free app.",
+      },
     ],
   }),
   component: AboutPage,
@@ -21,7 +28,10 @@ function AboutPage() {
   return (
     <AppShell>
       <div className="max-w-3xl mx-auto px-4 py-8">
-        <Link to="/" className="no-min-h inline-flex items-center gap-1.5 text-sm text-primary font-medium mb-4 hover:underline">
+        <Link
+          to="/"
+          className="no-min-h inline-flex items-center gap-1.5 text-sm text-primary font-medium mb-4 hover:underline"
+        >
           <ArrowLeft className="h-4 w-4" /> {t("about.home")}
         </Link>
         <div className="flex items-center gap-3 mb-6">
@@ -54,8 +64,18 @@ function AboutPage() {
           <div className="mt-8 p-5 rounded-2xl bg-secondary">
             <p className="font-semibold mb-2">{t("about.helpTitle")}</p>
             <div className="flex flex-wrap gap-3">
-              <Link to="/how-to-add" className="no-min-h px-4 py-2 rounded-full bg-primary text-primary-foreground text-sm font-semibold">{t("about.addResource")}</Link>
-              <Link to="/contact" className="no-min-h px-4 py-2 rounded-full border border-border text-sm font-semibold hover:bg-card">{t("about.getInTouch")}</Link>
+              <Link
+                to="/how-to-add"
+                className="no-min-h px-4 py-2 rounded-full bg-primary text-primary-foreground text-sm font-semibold"
+              >
+                {t("about.addResource")}
+              </Link>
+              <Link
+                to="/contact"
+                className="no-min-h px-4 py-2 rounded-full border border-border text-sm font-semibold hover:bg-card"
+              >
+                {t("about.getInTouch")}
+              </Link>
             </div>
           </div>
         </section>

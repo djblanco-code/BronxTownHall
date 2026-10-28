@@ -59,7 +59,10 @@ export function AdInquiryForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="rounded-2xl border-2 border-border bg-card p-5 sm:p-6 shadow-sm space-y-4">
+    <form
+      onSubmit={onSubmit}
+      className="rounded-2xl border-2 border-border bg-card p-5 sm:p-6 shadow-sm space-y-4"
+    >
       <div>
         <h2 className="text-lg font-bold">Tell us about your business</h2>
         <p className="text-sm text-muted-foreground">
@@ -68,7 +71,9 @@ export function AdInquiryForm() {
       </div>
 
       <label className="block">
-        <span className="text-xs font-semibold text-muted-foreground">Business or organization name *</span>
+        <span className="text-xs font-semibold text-muted-foreground">
+          Business or organization name *
+        </span>
         <input name="org_name" required maxLength={160} className={inp} />
       </label>
 
@@ -84,13 +89,17 @@ export function AdInquiryForm() {
       </div>
 
       <fieldset>
-        <legend className="text-xs font-semibold text-muted-foreground mb-2">What are you interested in?</legend>
+        <legend className="text-xs font-semibold text-muted-foreground mb-2">
+          What are you interested in?
+        </legend>
         <div className="space-y-2">
           {INTEREST_OPTIONS.map((o) => (
             <label
               key={o.id}
               className={`flex items-start gap-3 rounded-xl border-2 p-3 cursor-pointer transition ${
-                interest === o.id ? "border-primary bg-primary/5" : "border-border hover:border-primary/50"
+                interest === o.id
+                  ? "border-primary bg-primary/5"
+                  : "border-border hover:border-primary/50"
               }`}
             >
               <input
@@ -114,11 +123,18 @@ export function AdInquiryForm() {
         <span className="text-xs font-semibold text-muted-foreground">
           Budget range (optional — helps us understand fit, not a commitment)
         </span>
-        <input name="budget_range" maxLength={120} placeholder="e.g. $100–$300 a month" className={inp} />
+        <input
+          name="budget_range"
+          maxLength={120}
+          placeholder="e.g. $100–$300 a month"
+          className={inp}
+        />
       </label>
 
       <label className="block">
-        <span className="text-xs font-semibold text-muted-foreground">Anything else you'd like to share</span>
+        <span className="text-xs font-semibold text-muted-foreground">
+          Anything else you'd like to share
+        </span>
         <textarea name="message" rows={4} maxLength={2000} className={inp} />
       </label>
 
@@ -129,7 +145,11 @@ export function AdInquiryForm() {
         disabled={status === "loading"}
         className="no-min-h w-full inline-flex items-center justify-center gap-2 py-3 rounded-xl bg-primary text-primary-foreground font-bold hover:bg-primary/90 disabled:opacity-60 min-h-[48px]"
       >
-        {status === "loading" ? <Loader2 className="h-5 w-5 animate-spin" /> : <Send className="h-5 w-5" />}
+        {status === "loading" ? (
+          <Loader2 className="h-5 w-5 animate-spin" />
+        ) : (
+          <Send className="h-5 w-5" />
+        )}
         Send inquiry
       </button>
     </form>

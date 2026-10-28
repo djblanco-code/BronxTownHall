@@ -38,21 +38,21 @@ src/components/ui shared design-system primitives (shadcn, bottom-sheet)
 
 ## Pieces
 
-| # | Piece | Status |
-|---|-------|--------|
-| 1 | **App shell**: top bar, tab bar, language picker, floating actions, footer | ✅ Done |
-| 2 | **Home / Discover**: search-first hero, compact categories, no arrival pop-ups, rethink the Feedback button | ✅ Done |
-| 3 | **Browse a category**: list cards, filters in a bottom sheet | Next |
-| 4 | **Resource detail**: sticky Call / Directions / Save / Share bar | |
-| 5 | **Search + Ask**: one search screen with recents and suggestions | |
-| 6 | **Map**: map with a draggable results sheet | |
-| 7 | **Events**: Buzz, Events and This Week as one date-driven flow | |
-| 8 | **Saved**: favorites, lists and resource packs | |
-| 9 | **Settings & accessibility**: language, text size, Simplified View, account, About/legal | |
-| 10 | **Civic / Your Voice** | |
-| 11 | **Business**: directory, owner portal and dashboard | |
-| 12 | **Admin**: internal tools, desktop-first, mostly moved rather than redesigned | |
-| W | **Web pass**: desktop (lg+) layouts for 2–11, and desktop navigation (Favorites, Buzz and Settings have no desktop link yet) | |
+| #   | Piece                                                                                                                        | Status  |
+| --- | ---------------------------------------------------------------------------------------------------------------------------- | ------- |
+| 1   | **App shell**: top bar, tab bar, language picker, floating actions, footer                                                   | ✅ Done |
+| 2   | **Home / Discover**: search-first hero, compact categories, no arrival pop-ups, rethink the Feedback button                  | ✅ Done |
+| 3   | **Browse a category**: list cards, filters in a bottom sheet                                                                 | Next    |
+| 4   | **Resource detail**: sticky Call / Directions / Save / Share bar                                                             |         |
+| 5   | **Search + Ask**: one search screen with recents and suggestions                                                             |         |
+| 6   | **Map**: map with a draggable results sheet                                                                                  |         |
+| 7   | **Events**: Buzz, Events and This Week as one date-driven flow                                                               |         |
+| 8   | **Saved**: favorites, lists and resource packs                                                                               |         |
+| 9   | **Settings & accessibility**: language, text size, Simplified View, account, About/legal                                     |         |
+| 10  | **Civic / Your Voice**                                                                                                       |         |
+| 11  | **Business**: directory, owner portal and dashboard                                                                          |         |
+| 12  | **Admin**: internal tools, desktop-first, mostly moved rather than redesigned                                                |         |
+| W   | **Web pass**: desktop (lg+) layouts for 2–11, and desktop navigation (Favorites, Buzz and Settings have no desktop link yet) |         |
 
 Cross-cutting follow-ups:
 
@@ -120,7 +120,7 @@ link at all on phones.
 - Signed in, the account button opens a sheet with Settings and Sign out, so
   signing out is never one stray tap. Phones could not sign in or out from the
   header before.
-- Bottom tabs on phones *and tablets* (below `lg`), with an active pill and
+- Bottom tabs on phones _and tablets_ (below `lg`), with an active pill and
   safe-area padding. Previously 640–767px widths had neither tabs nor links.
 - One floating-action stack (page action → Help → SOS) above the tab bar.
   Docked bars (audio player, share bar) sit on top of the tab bar and lift the

@@ -17,10 +17,22 @@ export function trackEventShared({ eventId, method }: { eventId: string; method:
   trackEvent("event_shared", { event_id: eventId, share_method: method });
 }
 
-export function trackEventSaved({ eventId, eventDate }: { eventId: string; eventDate?: string | null }) {
+export function trackEventSaved({
+  eventId,
+  eventDate,
+}: {
+  eventId: string;
+  eventDate?: string | null;
+}) {
   trackEvent("event_saved", { event_id: eventId, event_date: eventDate || "unknown" });
 }
 
-export function trackEventRsvp({ eventId, organization }: { eventId: string; organization?: string | null }) {
+export function trackEventRsvp({
+  eventId,
+  organization,
+}: {
+  eventId: string;
+  organization?: string | null;
+}) {
   trackEvent("event_rsvp", { event_id: eventId, organization: organization || "unknown" });
 }

@@ -26,13 +26,16 @@ const NYC_BOUNDS = { minLat: 40.45, maxLat: 41.0, minLng: -74.3, maxLng: -73.65 
 
 function inNyc(lat: number, lng: number) {
   return (
-    lat >= NYC_BOUNDS.minLat && lat <= NYC_BOUNDS.maxLat &&
-    lng >= NYC_BOUNDS.minLng && lng <= NYC_BOUNDS.maxLng
+    lat >= NYC_BOUNDS.minLat &&
+    lat <= NYC_BOUNDS.maxLat &&
+    lng >= NYC_BOUNDS.minLng &&
+    lng <= NYC_BOUNDS.maxLng
   );
 }
 
 async function callGeocode(address: string) {
-  const bias = "&bounds=40.45,-74.3|41.0,-73.65&region=us&components=" +
+  const bias =
+    "&bounds=40.45,-74.3|41.0,-73.65&region=us&components=" +
     encodeURIComponent("administrative_area:NY|country:US");
   const url = `${MAPS_API}/geocode/json?address=${encodeURIComponent(address)}${bias}&key=${encodeURIComponent(mapsKey())}`;
   const res = await fetch(url);
@@ -42,7 +45,9 @@ async function callGeocode(address: string) {
     results: { formatted_address: string; geometry: { location: { lat: number; lng: number } } }[];
   };
   if (data.status !== "OK" || !data.results.length) return null;
-  const r = data.results.find((x) => inNyc(x.geometry.location.lat, x.geometry.location.lng)) ?? data.results[0];
+  const r =
+    data.results.find((x) => inNyc(x.geometry.location.lat, x.geometry.location.lng)) ??
+    data.results[0];
   return {
     lat: r.geometry.location.lat,
     lng: r.geometry.location.lng,
@@ -51,9 +56,7 @@ async function callGeocode(address: string) {
 }
 
 export const geocodeResource = createServerFn({ method: "POST" })
-  .inputValidator((d: unknown) =>
-    z.object({ address: z.string().min(3).max(300) }).parse(d),
-  )
+  .inputValidator((d: unknown) => z.object({ address: z.string().min(3).max(300) }).parse(d))
   .handler(async ({ data }): Promise<ResourceLocation | null> => {
     const key = addressKey(data.address);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
@@ -96,9 +99,7 @@ export const geocodeResource = createServerFn({ method: "POST" })
   });
 
 export const getCachedLocations = createServerFn({ method: "POST" })
-  .inputValidator((d: unknown) =>
-    z.object({ addresses: z.array(z.string()).max(500) }).parse(d),
-  )
+  .inputValidator((d: unknown) => z.object({ addresses: z.array(z.string()).max(500) }).parse(d))
   .handler(async ({ data }): Promise<Record<string, ResourceLocation>> => {
     if (!data.addresses.length) return {};
     const keys = data.addresses.map(addressKey);
@@ -123,4 +124,3 @@ export const getCachedLocations = createServerFn({ method: "POST" })
     });
     return out;
   });
-

@@ -14,7 +14,12 @@ const isSize = (v: unknown): v is TextSize => v === "normal" || v === "large" ||
 
 export function getTextSize(): TextSize {
   if (typeof window === "undefined") return "normal";
-  try { const v = localStorage.getItem(KEY); return isSize(v) ? v : "normal"; } catch { return "normal"; }
+  try {
+    const v = localStorage.getItem(KEY);
+    return isSize(v) ? v : "normal";
+  } catch {
+    return "normal";
+  }
 }
 
 function apply(size: TextSize) {
@@ -25,7 +30,11 @@ function apply(size: TextSize) {
 
 /** Saves on this device, and to the account when signed in. */
 export function setTextSize(size: TextSize) {
-  try { localStorage.setItem(KEY, size); } catch { /* ignore */ }
+  try {
+    localStorage.setItem(KEY, size);
+  } catch {
+    /* ignore */
+  }
   apply(size);
   window.dispatchEvent(new CustomEvent(EVT));
   void supabase.auth.getSession().then(({ data }) => {
@@ -40,7 +49,10 @@ export function useTextSize(): TextSize {
     sync();
     window.addEventListener(EVT, sync);
     window.addEventListener("storage", sync);
-    return () => { window.removeEventListener(EVT, sync); window.removeEventListener("storage", sync); };
+    return () => {
+      window.removeEventListener(EVT, sync);
+      window.removeEventListener("storage", sync);
+    };
   }, []);
   return size;
 }
@@ -52,7 +64,11 @@ export function TextSizeEffect() {
     const { data: sub } = supabase.auth.onAuthStateChange((_e, s) => {
       const remote = s?.user?.user_metadata?.text_size;
       if (isSize(remote) && remote !== getTextSize()) {
-        try { localStorage.setItem(KEY, remote); } catch { /* ignore */ }
+        try {
+          localStorage.setItem(KEY, remote);
+        } catch {
+          /* ignore */
+        }
         apply(remote);
         window.dispatchEvent(new CustomEvent(EVT));
       }
@@ -66,7 +82,11 @@ export function TextSizeEffect() {
 export function TextSizeControl({ className = "" }: { className?: string }) {
   const size = useTextSize();
   return (
-    <div role="group" aria-label="Text size" className={`inline-flex items-center rounded-full border border-border bg-card p-0.5 ${className}`}>
+    <div
+      role="group"
+      aria-label="Text size"
+      className={`inline-flex items-center rounded-full border border-border bg-card p-0.5 ${className}`}
+    >
       {TEXT_SIZES.map((s, i) => (
         <button
           key={s.id}

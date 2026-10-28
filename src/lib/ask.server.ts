@@ -18,7 +18,11 @@ export async function askModel(system: string, user: string): Promise<string> {
 export function parseJson<T>(text: string): T | null {
   const m = text.match(/\{[\s\S]*\}/);
   if (!m) return null;
-  try { return JSON.parse(m[0]) as T; } catch { return null; }
+  try {
+    return JSON.parse(m[0]) as T;
+  } catch {
+    return null;
+  }
 }
 
 /** Strip anything that could identify the asker before logging. */

@@ -12,16 +12,25 @@ export function PolicyAlerts({ category }: { category: string }) {
 
   useEffect(() => {
     let live = true;
-    loadCategoryAlerts(category).then((a) => { if (live) setAlerts(a); });
-    return () => { live = false; };
+    loadCategoryAlerts(category).then((a) => {
+      if (live) setAlerts(a);
+    });
+    return () => {
+      live = false;
+    };
   }, [category]);
 
   return (
-    <section aria-labelledby="policy-alerts-heading" className="mb-6 rounded-2xl border-2 border-amber-300/70 bg-amber-50/60 dark:bg-amber-500/5 p-4">
+    <section
+      aria-labelledby="policy-alerts-heading"
+      className="mb-6 rounded-2xl border-2 border-amber-300/70 bg-amber-50/60 dark:bg-amber-500/5 p-4"
+    >
       <div className="flex items-start gap-2">
         <AlertTriangle className="h-5 w-5 text-amber-600 shrink-0 mt-0.5" aria-hidden />
         <div className="flex-1">
-          <h2 id="policy-alerts-heading" className="font-bold">{t("alertsTitle")}</h2>
+          <h2 id="policy-alerts-heading" className="font-bold">
+            {t("alertsTitle")}
+          </h2>
           <p className="text-sm text-muted-foreground">{t("alertsSubtitle")}</p>
         </div>
       </div>
@@ -51,13 +60,18 @@ export function PolicyAlerts({ category }: { category: string }) {
                     className="no-min-h mt-1 inline-flex items-center gap-1 text-sm text-primary font-medium hover:underline"
                   >
                     {isOpen ? t("alertsReadLess") : t("alertsReadMore")}
-                    <ChevronDown className={`h-4 w-4 transition-transform ${isOpen ? "rotate-180" : ""}`} aria-hidden />
+                    <ChevronDown
+                      className={`h-4 w-4 transition-transform ${isOpen ? "rotate-180" : ""}`}
+                      aria-hidden
+                    />
                   </button>
                 )}
 
                 {isOpen && (
                   <div className="mt-2 space-y-2">
-                    {a.detail && <p className="text-sm text-foreground/90 whitespace-pre-line">{a.detail}</p>}
+                    {a.detail && (
+                      <p className="text-sm text-foreground/90 whitespace-pre-line">{a.detail}</p>
+                    )}
                     {a.source_url && (
                       <a
                         href={a.source_url}

@@ -43,7 +43,9 @@ export function isNonSpecificAddress(address?: string | null): boolean {
   // A single named venue is one mappable place even without a street number
   // ("Van Cortlandt Park, Bronx, NY"). Plural/vague forms are caught above.
   const namedVenue =
-    /\b(park|campus|college|university|library|stadium|plaza|garden|museum|hospital|center|centre|school|market|zoo)\b/i.test(s);
+    /\b(park|campus|college|university|library|stadium|plaza|garden|museum|hospital|center|centre|school|market|zoo)\b/i.test(
+      s,
+    );
   return !hasZip && !hasStreetNumber && !hasIntersection && !namedVenue;
 }
 

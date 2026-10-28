@@ -4,8 +4,11 @@ function isBlockedContext(): boolean {
   if (typeof window === "undefined") return true;
   if (!import.meta.env.PROD) return true;
   if (window.top !== window.self) return true;
-  if (new URLSearchParams(window.location.search).has("sw") &&
-      new URLSearchParams(window.location.search).get("sw") === "off") return true;
+  if (
+    new URLSearchParams(window.location.search).has("sw") &&
+    new URLSearchParams(window.location.search).get("sw") === "off"
+  )
+    return true;
   return false;
 }
 
@@ -40,11 +43,10 @@ export function registerServiceWorker() {
           "/emergency/domestic-violence",
           "/emergency/poison-control",
         ];
-        return Promise.allSettled(
-          EMERGENCY_URLS.map((u) => fetch(u, { cache: "reload" })),
-        );
+        return Promise.allSettled(EMERGENCY_URLS.map((u) => fetch(u, { cache: "reload" })));
       })
-      .catch(() => { /* ignore */ });
+      .catch(() => {
+        /* ignore */
+      });
   });
 }
-

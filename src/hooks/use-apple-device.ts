@@ -8,11 +8,11 @@ export function useIsAppleDevice() {
 
   useEffect(() => {
     const ua = window.navigator.userAgent;
-    const isIOS = /iPhone|iPad|iPod/i.test(ua)
-      || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
-    const isMacSafari = /Macintosh/i.test(ua)
-      && /Safari/i.test(ua)
-      && !/Chrome|Chromium|CriOS|Edg/i.test(ua);
+    const isIOS =
+      /iPhone|iPad|iPod/i.test(ua) ||
+      (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+    const isMacSafari =
+      /Macintosh/i.test(ua) && /Safari/i.test(ua) && !/Chrome|Chromium|CriOS|Edg/i.test(ua);
     setIsApple(isIOS || isMacSafari);
   }, []);
 

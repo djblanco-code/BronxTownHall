@@ -3,7 +3,13 @@ import { Heart, Share2, Sparkles, BookOpen } from "lucide-react";
 import { useEffect, useState } from "react";
 import { factOfTheDay, getLikedFacts, toggleLikedFact, type BronxFact } from "@/lib/bronx-facts";
 
-export function BronxFactCard({ fact: forced, compact = false }: { fact?: BronxFact; compact?: boolean }) {
+export function BronxFactCard({
+  fact: forced,
+  compact = false,
+}: {
+  fact?: BronxFact;
+  compact?: boolean;
+}) {
   const [fact, setFact] = useState<BronxFact | null>(forced ?? null);
   const [liked, setLiked] = useState(false);
   const [shared, setShared] = useState(false);
@@ -17,7 +23,10 @@ export function BronxFactCard({ fact: forced, compact = false }: { fact?: BronxF
 
   if (!fact) {
     return (
-      <div className={`rounded-2xl border-2 border-border bg-card ${compact ? "p-4" : "p-5 sm:p-6"} animate-pulse min-h-[140px]`} aria-hidden />
+      <div
+        className={`rounded-2xl border-2 border-border bg-card ${compact ? "p-4" : "p-5 sm:p-6"} animate-pulse min-h-[140px]`}
+        aria-hidden
+      />
     );
   }
 
@@ -32,9 +41,12 @@ export function BronxFactCard({ fact: forced, compact = false }: { fact?: BronxF
         await navigator.share({ title: "Bronx Fact of the Day", text });
       } else if (typeof navigator !== "undefined" && navigator.clipboard) {
         await navigator.clipboard.writeText(text);
-        setShared(true); setTimeout(() => setShared(false), 1800);
+        setShared(true);
+        setTimeout(() => setShared(false), 1800);
       }
-    } catch { /* user cancelled */ }
+    } catch {
+      /* user cancelled */
+    }
   };
 
   return (
@@ -50,10 +62,15 @@ export function BronxFactCard({ fact: forced, compact = false }: { fact?: BronxF
           {fact.category}
         </span>
       </div>
-      <h2 id="bronx-fact-heading" className={`font-bold text-foreground leading-snug ${compact ? "text-base" : "text-lg sm:text-xl"}`}>
+      <h2
+        id="bronx-fact-heading"
+        className={`font-bold text-foreground leading-snug ${compact ? "text-base" : "text-lg sm:text-xl"}`}
+      >
         Did you know?
       </h2>
-      <p className={`mt-2 text-foreground/90 ${compact ? "text-sm" : "text-base sm:text-lg"}`}>{fact.fact}</p>
+      <p className={`mt-2 text-foreground/90 ${compact ? "text-sm" : "text-base sm:text-lg"}`}>
+        {fact.fact}
+      </p>
       <div className="mt-4 flex flex-wrap items-center gap-2">
         <Link
           to="/facts"
@@ -67,7 +84,9 @@ export function BronxFactCard({ fact: forced, compact = false }: { fact?: BronxF
           aria-pressed={liked}
           aria-label={liked ? "Unlike this fact" : "Like this fact"}
           className={`no-min-h inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-sm font-semibold border-2 transition min-h-[40px] ${
-            liked ? "bg-destructive/15 text-destructive border-destructive/30" : "bg-card text-foreground border-border hover:border-destructive/40"
+            liked
+              ? "bg-destructive/15 text-destructive border-destructive/30"
+              : "bg-card text-foreground border-border hover:border-destructive/40"
           }`}
         >
           <Heart className={`h-4 w-4 ${liked ? "fill-current" : ""}`} /> {liked ? "Liked" : "Like"}

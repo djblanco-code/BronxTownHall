@@ -8,7 +8,11 @@ export const Route = createFileRoute("/terms")({
   head: () => ({
     meta: [
       { title: "Terms of Use — The Bronx App" },
-      { name: "description", content: "The Bronx App terms of use for residents, contributors, and listed organizations." },
+      {
+        name: "description",
+        content:
+          "The Bronx App terms of use for residents, contributors, and listed organizations.",
+      },
     ],
   }),
   component: TermsPage,
@@ -19,7 +23,10 @@ function TermsPage() {
   return (
     <AppShell>
       <div className="max-w-3xl mx-auto px-4 py-8">
-        <Link to="/" className="no-min-h inline-flex items-center gap-1.5 text-sm text-primary font-medium mb-4 hover:underline">
+        <Link
+          to="/"
+          className="no-min-h inline-flex items-center gap-1.5 text-sm text-primary font-medium mb-4 hover:underline"
+        >
           <ArrowLeft className="h-4 w-4" /> {t("terms.home")}
         </Link>
         <h1 className="text-3xl sm:text-4xl font-bold mb-2">{t("terms.title")}</h1>
@@ -61,7 +68,9 @@ function TermsPage() {
             <h2 className="text-2xl font-bold mb-2">{t("terms.contactTitle")}</h2>
             <p>
               {t("terms.contactPre")}{" "}
-              <a href="mailto:hello@thebronxapp.org" className="text-primary underline">hello@thebronxapp.org</a>{" "}
+              <a href="mailto:hello@thebronxapp.org" className="text-primary underline">
+                hello@thebronxapp.org
+              </a>{" "}
               {t("terms.contactPost")}
             </p>
           </section>

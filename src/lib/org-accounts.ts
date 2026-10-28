@@ -15,46 +15,123 @@ export type OrgStatus = "pending_review" | "verified" | "needs_changes" | "rejec
 export type TierInterest = "free" | "premium_interest" | "exploring";
 
 export const ACCOUNT_TYPES: { id: AccountType; label: string; blurb: string; emoji: string }[] = [
-  { id: "business", label: "Business", emoji: "🏪", blurb: "A for-profit business serving Bronx residents." },
-  { id: "nonprofit", label: "Nonprofit / Community Organization", emoji: "🤝", blurb: "A nonprofit, faith or grassroots community group — formal 501(c)(3) status is not required." },
-  { id: "government", label: "Government Worker", emoji: "🏛️", blurb: "An elected official's office, city agency or community board. Requires a .gov or .nyc.gov email." },
+  {
+    id: "business",
+    label: "Business",
+    emoji: "🏪",
+    blurb: "A for-profit business serving Bronx residents.",
+  },
+  {
+    id: "nonprofit",
+    label: "Nonprofit / Community Organization",
+    emoji: "🤝",
+    blurb:
+      "A nonprofit, faith or grassroots community group — formal 501(c)(3) status is not required.",
+  },
+  {
+    id: "government",
+    label: "Government Worker",
+    emoji: "🏛️",
+    blurb:
+      "An elected official's office, city agency or community board. Requires a .gov or .nyc.gov email.",
+  },
 ];
 
 export const ORG_CATEGORIES = [
-  "food", "health", "legal", "jobs", "housing", "youth", "education", "money",
-  "childcare", "nature", "art", "government", "events", "other",
+  "food",
+  "health",
+  "legal",
+  "jobs",
+  "housing",
+  "youth",
+  "education",
+  "money",
+  "childcare",
+  "nature",
+  "art",
+  "government",
+  "events",
+  "other",
 ] as const;
 
 export const CATEGORY_LABELS: Record<string, string> = {
-  food: "Food", health: "Health", legal: "Legal", jobs: "Jobs", housing: "Housing",
-  youth: "Youth", education: "Education", money: "Money", family: "Family",
-  childcare: "Childcare", nature: "Nature & Recreation", art: "Art",
-  government: "Government", events: "Events", other: "Other / General Business",
+  food: "Food",
+  health: "Health",
+  legal: "Legal",
+  jobs: "Jobs",
+  housing: "Housing",
+  youth: "Youth",
+  education: "Education",
+  money: "Money",
+  family: "Family",
+  childcare: "Childcare",
+  nature: "Nature & Recreation",
+  art: "Art",
+  government: "Government",
+  events: "Events",
+  other: "Other / General Business",
 };
 
 export const LANGUAGE_OPTIONS = ["English", "Spanish", "French", "Bengali", "Arabic", "Other"];
-export const ACCESSIBILITY_OPTIONS = ["ADA Compliant", "Wheelchair Accessible", "Accessible Restroom"];
-export const OWNERSHIP_OPTIONS = ["Minority-Owned", "Women-Owned", "Family-Owned", "Veteran-Owned", "Immigrant-Owned", "Fair Chance Employer"];
+export const ACCESSIBILITY_OPTIONS = [
+  "ADA Compliant",
+  "Wheelchair Accessible",
+  "Accessible Restroom",
+];
+export const OWNERSHIP_OPTIONS = [
+  "Minority-Owned",
+  "Women-Owned",
+  "Family-Owned",
+  "Veteran-Owned",
+  "Immigrant-Owned",
+  "Fair Chance Employer",
+];
 export const DIETARY_OPTIONS = ["Halal", "Kosher", "Vegetarian", "Vegan"];
 export const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"] as const;
-export const COMMUNITY_BOARDS = Array.from({ length: 12 }, (_, i) => `Bronx Community Board ${i + 1}`);
+export const COMMUNITY_BOARDS = Array.from(
+  { length: 12 },
+  (_, i) => `Bronx Community Board ${i + 1}`,
+);
 
 /** Fields an admin can confirm on their own vs. fields needing a call or a visit. */
-export const DESK_FIELDS = ["category", "accessibility", "languages", "services", "website"] as const;
+export const DESK_FIELDS = [
+  "category",
+  "accessibility",
+  "languages",
+  "services",
+  "website",
+] as const;
 export const CALL_FIELDS = ["address", "hours", "public_phone", "requirements"] as const;
 export const VERIFIABLE_FIELDS = [...DESK_FIELDS, ...CALL_FIELDS] as const;
 
 export const FIELD_LABELS: Record<string, string> = {
-  category: "Category", accessibility: "Accessibility tags", languages: "Languages",
-  services: "Services offered", website: "Website", address: "Address",
-  hours: "Hours", public_phone: "Public phone", requirements: "Requirements",
+  category: "Category",
+  accessibility: "Accessibility tags",
+  languages: "Languages",
+  services: "Services offered",
+  website: "Website",
+  address: "Address",
+  hours: "Hours",
+  public_phone: "Public phone",
+  requirements: "Requirements",
 };
 
 /** How often a category's details should be re-checked (days). */
 export const VOLATILITY_DAYS: Record<string, number> = {
-  food: 30, events: 30, jobs: 60, housing: 90, childcare: 90, family: 90, money: 90,
-  legal: 120, youth: 120, education: 120, art: 120, nature: 180,
-  health: 180, government: 180,
+  food: 30,
+  events: 30,
+  jobs: 60,
+  housing: 90,
+  childcare: 90,
+  family: 90,
+  money: 90,
+  legal: 120,
+  youth: 120,
+  education: 120,
+  art: 120,
+  nature: 180,
+  health: 180,
+  government: 180,
 };
 
 export type OrgAccount = {
@@ -143,13 +220,22 @@ export function daysSince(iso: string | null | undefined): number | null {
 
 export type VerificationBadge = { label: string; tone: "neutral" | "green" | "amber" };
 
-export function badgeFor(o: Pick<OrgAccount, "status" | "verified_at" | "verified_fields">): VerificationBadge {
+export function badgeFor(
+  o: Pick<OrgAccount, "status" | "verified_at" | "verified_fields">,
+): VerificationBadge {
   if (o.status === "verified" && o.verified_at) {
     const d = new Date(o.verified_at);
-    return { label: `Verified ${d.toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" })}`, tone: "green" };
+    return {
+      label: `Verified ${d.toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" })}`,
+      tone: "green",
+    };
   }
   const confirmed = Object.keys(o.verified_fields ?? {}).length;
-  if (confirmed > 0) return { label: `Partly verified · ${confirmed} of ${VERIFIABLE_FIELDS.length} details confirmed`, tone: "amber" };
+  if (confirmed > 0)
+    return {
+      label: `Partly verified · ${confirmed} of ${VERIFIABLE_FIELDS.length} details confirmed`,
+      tone: "amber",
+    };
   return { label: "Not yet verified", tone: "neutral" };
 }
 
@@ -195,7 +281,12 @@ export async function loadContacts(orgIds: string[]): Promise<Record<string, Org
 export type NewOrgInput = Partial<OrgAccount> & {
   account_type: AccountType;
   org_name: string;
-  contact: { contact_name: string; contact_role?: string; contact_email: string; contact_phone?: string };
+  contact: {
+    contact_name: string;
+    contact_role?: string;
+    contact_email: string;
+    contact_phone?: string;
+  };
 };
 
 export async function createOrg(userId: string, input: NewOrgInput): Promise<OrgAccount> {
@@ -213,7 +304,9 @@ export async function createOrg(userId: string, input: NewOrgInput): Promise<Org
   const { data, error } = await supabase
     .from("org_accounts")
     .insert(payload as never)
-    .select("id, user_id, account_type, org_name, status, published, premium, verified_at, created_at, updated_at")
+    .select(
+      "id, user_id, account_type, org_name, status, published, premium, verified_at, created_at, updated_at",
+    )
     .single();
   if (error) throw error;
   const org = cast(data);
@@ -231,12 +324,17 @@ export async function createOrg(userId: string, input: NewOrgInput): Promise<Org
 
 /** Owners editing their listing re-open it for review; verified details reset. */
 export async function updateOwnOrg(id: string, patch: Partial<OrgAccount>): Promise<void> {
-  const { error } = await supabase.from("org_accounts").update(patch as never).eq("id", id);
+  const { error } = await supabase
+    .from("org_accounts")
+    .update(patch as never)
+    .eq("id", id);
   if (error) throw error;
 }
 
 export async function saveContact(c: OrgContact): Promise<void> {
-  const { error } = await supabase.from("org_account_contacts").upsert(c as never, { onConflict: "org_id" });
+  const { error } = await supabase
+    .from("org_account_contacts")
+    .upsert(c as never, { onConflict: "org_id" });
   if (error) throw error;
 }
 
@@ -244,32 +342,63 @@ export async function saveContact(c: OrgContact): Promise<void> {
 
 export async function setOrgStatus(id: string, status: OrgStatus, adminId: string): Promise<void> {
   const patch: Record<string, unknown> = { status };
-  if (status === "verified") { patch.verified_at = new Date().toISOString(); patch.verified_by = adminId; }
-  if (status !== "verified") { patch.verified_at = null; patch.verified_by = null; }
-  const { error } = await supabase.from("org_accounts").update(patch as never).eq("id", id);
+  if (status === "verified") {
+    patch.verified_at = new Date().toISOString();
+    patch.verified_by = adminId;
+  }
+  if (status !== "verified") {
+    patch.verified_at = null;
+    patch.verified_by = null;
+  }
+  const { error } = await supabase
+    .from("org_accounts")
+    .update(patch as never)
+    .eq("id", id);
   if (error) throw error;
 }
 
-export async function confirmFields(org: OrgAccount, fields: readonly string[], adminId: string): Promise<Record<string, string>> {
+export async function confirmFields(
+  org: OrgAccount,
+  fields: readonly string[],
+  adminId: string,
+): Promise<Record<string, string>> {
   const now = new Date().toISOString();
   const next = { ...(org.verified_fields ?? {}) };
   for (const f of fields) next[f] = now;
   const patch: Record<string, unknown> = { verified_fields: next, verified_by: adminId };
   // Whole listing confirmed = Tier 2.
-  if (VERIFIABLE_FIELDS.every((f) => next[f])) { patch.status = "verified"; patch.verified_at = now; }
-  const { error } = await supabase.from("org_accounts").update(patch as never).eq("id", org.id);
+  if (VERIFIABLE_FIELDS.every((f) => next[f])) {
+    patch.status = "verified";
+    patch.verified_at = now;
+  }
+  const { error } = await supabase
+    .from("org_accounts")
+    .update(patch as never)
+    .eq("id", org.id);
   if (error) throw error;
   return next;
 }
 
 export async function setPremium(id: string, premium: boolean): Promise<void> {
-  const { error } = await supabase.from("org_accounts").update({ premium } as never).eq("id", id);
+  const { error } = await supabase
+    .from("org_accounts")
+    .update({ premium } as never)
+    .eq("id", id);
   if (error) throw error;
 }
 
 /* --- Official updates -------------------------------------------- */
 
-export async function loadOfficialUpdates(limit = 20): Promise<(OfficialUpdate & { org?: { org_name: string; office_name: string | null; status: OrgStatus; verified_at: string | null } })[]> {
+export async function loadOfficialUpdates(limit = 20): Promise<
+  (OfficialUpdate & {
+    org?: {
+      org_name: string;
+      office_name: string | null;
+      status: OrgStatus;
+      verified_at: string | null;
+    };
+  })[]
+> {
   const { data, error } = await supabase
     .from("official_updates")
     .select("*, org:org_accounts(org_name, office_name, status, verified_at)")
@@ -280,8 +409,14 @@ export async function loadOfficialUpdates(limit = 20): Promise<(OfficialUpdate &
   return (data ?? []) as never;
 }
 
-export async function postOfficialUpdate(orgId: string, userId: string, body: string): Promise<void> {
-  const { error } = await supabase.from("official_updates").insert({ org_id: orgId, user_id: userId, body: body.slice(0, 280) });
+export async function postOfficialUpdate(
+  orgId: string,
+  userId: string,
+  body: string,
+): Promise<void> {
+  const { error } = await supabase
+    .from("official_updates")
+    .insert({ org_id: orgId, user_id: userId, body: body.slice(0, 280) });
   if (error) throw error;
 }
 
@@ -307,9 +442,12 @@ export const FREE_TIER_EVENTS_PER_MONTH = 3;
 
 export async function eventsThisMonth(userId: string): Promise<number> {
   const start = new Date();
-  start.setDate(1); start.setHours(0, 0, 0, 0);
+  start.setDate(1);
+  start.setHours(0, 0, 0, 0);
   const { count } = await supabase
-    .from("events").select("id", { count: "exact", head: true })
-    .eq("submitted_user_id", userId).gte("created_at", start.toISOString());
+    .from("events")
+    .select("id", { count: "exact", head: true })
+    .eq("submitted_user_id", userId)
+    .gte("created_at", start.toISOString());
   return count ?? 0;
 }

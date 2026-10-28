@@ -5,10 +5,25 @@ import { AppShell } from "@/features/shell";
 import { supabase } from "@/integrations/supabase/client";
 import { buildIcs, downloadIcs } from "@/lib/civic-data";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { CalendarDays, MapPin, Share2, Plus, Check, Loader2, ArrowLeft, List, CalendarRange } from "lucide-react";
+import {
+  CalendarDays,
+  MapPin,
+  Share2,
+  Plus,
+  Check,
+  Loader2,
+  ArrowLeft,
+  List,
+  CalendarRange,
+} from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { z } from "zod";
-import { trackEventViewed, trackEventShared, trackEventSaved, trackEventRsvp } from "@/lib/track-event";
+import {
+  trackEventViewed,
+  trackEventShared,
+  trackEventSaved,
+  trackEventRsvp,
+} from "@/lib/track-event";
 import { loadDirectory } from "@/lib/bronx-resources";
 import { VerifiedPill } from "@/components/VerifiedPill";
 
@@ -16,14 +31,22 @@ export const Route = createFileRoute("/events")({
   head: () => ({
     meta: [
       { title: "Bronx Events | The Bronx App" },
-      { name: "description", content: "Find current and upcoming community events across the Bronx." },
+      {
+        name: "description",
+        content: "Find current and upcoming community events across the Bronx.",
+      },
       { property: "og:title", content: "Bronx Events | The Bronx App" },
-      { property: "og:description", content: "Find current and upcoming community events across the Bronx." },
+      {
+        property: "og:description",
+        content: "Find current and upcoming community events across the Bronx.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
   }),
-  staticData: { sitemap: true }, component: EventsPage });
+  staticData: { sitemap: true },
+  component: EventsPage,
+});
 
 type EventRow = {
   id: string;
@@ -64,16 +87,26 @@ function EventsPage() {
       const [{ data }, directory] = await Promise.all([
         supabase
           .from("events")
-          .select("id,title,description,event_type,category,event_date,event_time,location,address,is_free,cost,website,is_verified,is_community_submitted")
+          .select(
+            "id,title,description,event_type,category,event_date,event_time,location,address,is_free,cost,website,is_verified,is_community_submitted",
+          )
           .eq("approval_status", "approved")
           .gte("event_date", today)
           .order("event_date", { ascending: true })
           .limit(100),
         loadDirectory(),
       ]);
-      const submitted = ((data as Omit<EventRow, "event_end_date">[]) ?? []).map((event) => ({ ...event, event_end_date: null }));
+      const submitted = ((data as Omit<EventRow, "event_end_date">[]) ?? []).map((event) => ({
+        ...event,
+        event_end_date: null,
+      }));
       const imported = directory
-        .filter((resource) => resource.resource_category === "community_events" && resource.event_date && (resource.event_end_date ?? resource.event_date) >= today)
+        .filter(
+          (resource) =>
+            resource.resource_category === "community_events" &&
+            resource.event_date &&
+            (resource.event_end_date ?? resource.event_date) >= today,
+        )
         .map<EventRow>((resource) => ({
           id: `bx-${resource.id}`,
           title: resource.resource_name || resource.organization_name,
@@ -112,14 +145,20 @@ function EventsPage() {
   return (
     <AppShell>
       <div className="max-w-4xl mx-auto px-4 py-6">
-        <Link to="/" className="no-min-h inline-flex items-center gap-1.5 text-sm text-primary font-medium mb-4 hover:underline">
+        <Link
+          to="/"
+          className="no-min-h inline-flex items-center gap-1.5 text-sm text-primary font-medium mb-4 hover:underline"
+        >
           <ArrowLeft className="h-4 w-4" /> Home
         </Link>
         <div className="flex items-start justify-between gap-3 mb-4 flex-wrap">
           <div>
-            <h1 className="text-3xl sm:text-4xl font-bold flex items-center gap-2">🎉 Events in the Bronx</h1>
+            <h1 className="text-3xl sm:text-4xl font-bold flex items-center gap-2">
+              🎉 Events in the Bronx
+            </h1>
             <p className="text-muted-foreground mt-1">
-              Block parties, festivals, and hyper-local events — the ones only Bronx locals would know about.
+              Block parties, festivals, and hyper-local events — the ones only Bronx locals would
+              know about.
             </p>
           </div>
           <button
@@ -132,28 +171,44 @@ function EventsPage() {
 
         <div className="flex items-center gap-2 mb-4 flex-wrap">
           <div className="inline-flex rounded-full border border-border overflow-hidden">
-            <button onClick={() => setView("list")} className={`no-min-h px-4 py-2 text-sm font-medium inline-flex items-center gap-1.5 ${view === "list" ? "bg-primary text-primary-foreground" : "bg-card hover:bg-secondary"}`}>
+            <button
+              onClick={() => setView("list")}
+              className={`no-min-h px-4 py-2 text-sm font-medium inline-flex items-center gap-1.5 ${view === "list" ? "bg-primary text-primary-foreground" : "bg-card hover:bg-secondary"}`}
+            >
               <List className="h-4 w-4" /> List
             </button>
-            <button onClick={() => setView("calendar")} className={`no-min-h px-4 py-2 text-sm font-medium inline-flex items-center gap-1.5 ${view === "calendar" ? "bg-primary text-primary-foreground" : "bg-card hover:bg-secondary"}`}>
+            <button
+              onClick={() => setView("calendar")}
+              className={`no-min-h px-4 py-2 text-sm font-medium inline-flex items-center gap-1.5 ${view === "calendar" ? "bg-primary text-primary-foreground" : "bg-card hover:bg-secondary"}`}
+            >
               <CalendarRange className="h-4 w-4" /> Calendar
             </button>
           </div>
         </div>
 
         <div className="flex flex-wrap gap-2 mb-6">
-          <Chip active={!typeFilter} onClick={() => setTypeFilter(null)}>All</Chip>
+          <Chip active={!typeFilter} onClick={() => setTypeFilter(null)}>
+            All
+          </Chip>
           {EVENT_TYPES.map((t) => (
-            <Chip key={t.id} active={typeFilter === t.id} onClick={() => setTypeFilter(t.id === typeFilter ? null : t.id)}>
+            <Chip
+              key={t.id}
+              active={typeFilter === t.id}
+              onClick={() => setTypeFilter(t.id === typeFilter ? null : t.id)}
+            >
               <span className="me-1">{t.emoji}</span> {t.label}
             </Chip>
           ))}
         </div>
 
         {rows === null ? (
-          <div className="flex items-center gap-2 text-muted-foreground py-8"><Loader2 className="h-5 w-5 animate-spin" /> Loading events…</div>
+          <div className="flex items-center gap-2 text-muted-foreground py-8">
+            <Loader2 className="h-5 w-5 animate-spin" /> Loading events…
+          </div>
         ) : filtered.length === 0 ? (
-          <p className="text-muted-foreground py-8">No upcoming events match this filter yet. Be the first to submit one!</p>
+          <p className="text-muted-foreground py-8">
+            No upcoming events match this filter yet. Be the first to submit one!
+          </p>
         ) : view === "calendar" ? (
           <CalendarView items={filtered} />
         ) : (
@@ -194,17 +249,31 @@ function CalendarView({ items }: { items: EventRow[] }) {
   const todayKey = today.toISOString().slice(0, 10);
 
   const [selected, setSelected] = useState<string | null>(null);
-  const selectedEvents = selected ? byDate.get(selected) ?? [] : [];
+  const selectedEvents = selected ? (byDate.get(selected) ?? []) : [];
 
   return (
     <div>
       <div className="flex items-center justify-between mb-3">
-        <button onClick={() => setMonthOffset((v) => v - 1)} className="no-min-h px-3 py-2 rounded-full border border-border hover:bg-secondary text-sm font-medium">← Prev</button>
+        <button
+          onClick={() => setMonthOffset((v) => v - 1)}
+          className="no-min-h px-3 py-2 rounded-full border border-border hover:bg-secondary text-sm font-medium"
+        >
+          ← Prev
+        </button>
         <h2 className="text-lg font-bold">{monthLabel}</h2>
-        <button onClick={() => setMonthOffset((v) => v + 1)} className="no-min-h px-3 py-2 rounded-full border border-border hover:bg-secondary text-sm font-medium">Next →</button>
+        <button
+          onClick={() => setMonthOffset((v) => v + 1)}
+          className="no-min-h px-3 py-2 rounded-full border border-border hover:bg-secondary text-sm font-medium"
+        >
+          Next →
+        </button>
       </div>
       <div className="grid grid-cols-7 gap-1 text-center text-xs font-semibold text-muted-foreground mb-1">
-        {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((d) => <div key={d} className="py-1">{d}</div>)}
+        {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((d) => (
+          <div key={d} className="py-1">
+            {d}
+          </div>
+        ))}
       </div>
       <div className="grid grid-cols-7 gap-1">
         {cells.map((d, i) => {
@@ -218,14 +287,22 @@ function CalendarView({ items }: { items: EventRow[] }) {
               key={i}
               onClick={() => setSelected(isSelected ? null : key)}
               className={`aspect-square rounded-lg border p-1 text-left transition ${
-                isSelected ? "border-primary bg-primary/10" : isToday ? "border-accent bg-accent/10" : "border-border bg-card hover:border-primary/50"
+                isSelected
+                  ? "border-primary bg-primary/10"
+                  : isToday
+                    ? "border-accent bg-accent/10"
+                    : "border-border bg-card hover:border-primary/50"
               } ${dayEvents.length > 0 ? "font-bold" : "text-muted-foreground"}`}
             >
               <div className="text-sm">{d}</div>
               {dayEvents.length > 0 && (
                 <div className="mt-0.5 flex flex-wrap gap-0.5">
                   {dayEvents.slice(0, 3).map((e, idx) => (
-                    <span key={idx} className="inline-block h-1.5 w-1.5 rounded-full bg-primary" aria-hidden />
+                    <span
+                      key={idx}
+                      className="inline-block h-1.5 w-1.5 rounded-full bg-primary"
+                      aria-hidden
+                    />
                   ))}
                 </div>
               )}
@@ -235,11 +312,21 @@ function CalendarView({ items }: { items: EventRow[] }) {
       </div>
       {selected && (
         <div className="mt-6">
-          <h3 className="font-bold mb-3">{new Date(selected + "T12:00:00").toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric" })}</h3>
+          <h3 className="font-bold mb-3">
+            {new Date(selected + "T12:00:00").toLocaleDateString(undefined, {
+              weekday: "long",
+              month: "long",
+              day: "numeric",
+            })}
+          </h3>
           {selectedEvents.length === 0 ? (
             <p className="text-muted-foreground text-sm">No events on this day.</p>
           ) : (
-            <ul className="space-y-3">{selectedEvents.map((e) => <EventCard key={e.id} e={e} />)}</ul>
+            <ul className="space-y-3">
+              {selectedEvents.map((e) => (
+                <EventCard key={e.id} e={e} />
+              ))}
+            </ul>
           )}
         </div>
       )}
@@ -251,9 +338,13 @@ function Section({ title, items }: { title: string; items: EventRow[] }) {
   if (items.length === 0) return null;
   return (
     <section className="mb-8">
-      <h2 className="text-sm font-bold uppercase tracking-wider text-muted-foreground mb-3">── {title} ──</h2>
+      <h2 className="text-sm font-bold uppercase tracking-wider text-muted-foreground mb-3">
+        ── {title} ──
+      </h2>
       <ul className="space-y-3">
-        {items.map((e) => <EventCard key={e.id} e={e} />)}
+        {items.map((e) => (
+          <EventCard key={e.id} e={e} />
+        ))}
       </ul>
     </section>
   );
@@ -269,23 +360,37 @@ function EventCard({ e }: { e: EventRow }) {
   useEffect(() => {
     const node = cardRef.current;
     if (!node || typeof IntersectionObserver === "undefined") return;
-    const obs = new IntersectionObserver((entries) => {
-      for (const en of entries) {
-        if (en.isIntersecting && !seen.current) {
-          seen.current = true;
-          trackEventViewed({ eventId: e.id, category: e.category ?? e.event_type, date: e.event_date });
-          obs.disconnect();
+    const obs = new IntersectionObserver(
+      (entries) => {
+        for (const en of entries) {
+          if (en.isIntersecting && !seen.current) {
+            seen.current = true;
+            trackEventViewed({
+              eventId: e.id,
+              category: e.category ?? e.event_type,
+              date: e.event_date,
+            });
+            obs.disconnect();
+          }
         }
-      }
-    }, { threshold: 0.5 });
+      },
+      { threshold: 0.5 },
+    );
     obs.observe(node);
     return () => obs.disconnect();
   }, [e.id, e.category, e.event_type, e.event_date]);
 
   const d = new Date(e.event_date + "T12:00:00");
-  const startLabel = d.toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" });
+  const startLabel = d.toLocaleDateString(undefined, {
+    weekday: "short",
+    month: "short",
+    day: "numeric",
+  });
   const endLabel = e.event_end_date
-    ? new Date(e.event_end_date + "T12:00:00").toLocaleDateString(undefined, { month: "short", day: "numeric" })
+    ? new Date(e.event_end_date + "T12:00:00").toLocaleDateString(undefined, {
+        month: "short",
+        day: "numeric",
+      })
     : null;
   const dateLabel = endLabel ? `${startLabel}–${endLabel}` : startLabel;
 
@@ -305,9 +410,18 @@ function EventCard({ e }: { e: EventRow }) {
   };
 
   const onShare = async () => {
-    const shareData = { title: e.title, text: `${e.title} · ${dateLabel} · ${e.location ?? ""}`, url: window.location.href };
+    const shareData = {
+      title: e.title,
+      text: `${e.title} · ${dateLabel} · ${e.location ?? ""}`,
+      url: window.location.href,
+    };
     if (navigator.share) {
-      try { await navigator.share(shareData); trackEventShared({ eventId: e.id, method: "native" }); } catch { /* ignored */ }
+      try {
+        await navigator.share(shareData);
+        trackEventShared({ eventId: e.id, method: "native" });
+      } catch {
+        /* ignored */
+      }
     } else {
       await navigator.clipboard.writeText(`${shareData.text} — ${shareData.url}`);
       trackEventShared({ eventId: e.id, method: "copy" });
@@ -316,12 +430,16 @@ function EventCard({ e }: { e: EventRow }) {
   };
 
   return (
-    <li ref={cardRef} className="rounded-2xl border-2 border-border bg-card p-4 hover:border-primary transition">
+    <li
+      ref={cardRef}
+      className="rounded-2xl border-2 border-border bg-card p-4 hover:border-primary transition"
+    >
       <div className="flex items-start gap-3">
         <div className="text-3xl">{meta?.emoji ?? "📅"}</div>
         <div className="flex-1 min-w-0">
           <p className="text-xs uppercase tracking-wide text-accent font-semibold">
-            {dateLabel}{e.event_time ? ` · ${e.event_time}` : ""}
+            {dateLabel}
+            {e.event_time ? ` · ${e.event_time}` : ""}
           </p>
           <p className="font-bold text-foreground mt-0.5 text-lg flex items-center gap-2 flex-wrap">
             {e.title}
@@ -336,27 +454,47 @@ function EventCard({ e }: { e: EventRow }) {
               </span>
             )}
             {e.id.startsWith("bx-") && (
-              <VerifiedPill compact category="events" status="needs_verification" lastVerified={null} source={null} />
+              <VerifiedPill
+                compact
+                category="events"
+                status="needs_verification"
+                lastVerified={null}
+                source={null}
+              />
             )}
           </p>
           {e.description && <p className="text-sm text-muted-foreground mt-1">{e.description}</p>}
           {(e.location || e.address) && (
             <p className="text-sm text-muted-foreground mt-2 inline-flex items-center gap-1">
-              <MapPin className="h-4 w-4" /> {e.location}{e.address ? ` — ${e.address}` : ""}
+              <MapPin className="h-4 w-4" /> {e.location}
+              {e.address ? ` — ${e.address}` : ""}
             </p>
           )}
           <p className="text-sm mt-1 font-medium">
-            {e.is_free ? "Free" : "Paid"}{e.cost ? ` · ${e.cost}` : ""}
+            {e.is_free ? "Free" : "Paid"}
+            {e.cost ? ` · ${e.cost}` : ""}
           </p>
           <div className="flex flex-wrap gap-2 mt-3">
-            <button onClick={onAddToCal} className="no-min-h inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-sm font-medium bg-secondary hover:bg-secondary/70">
+            <button
+              onClick={onAddToCal}
+              className="no-min-h inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-sm font-medium bg-secondary hover:bg-secondary/70"
+            >
               <CalendarDays className="h-4 w-4" /> Add to Calendar
             </button>
-            <button onClick={onShare} className="no-min-h inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-sm font-medium bg-secondary hover:bg-secondary/70">
+            <button
+              onClick={onShare}
+              className="no-min-h inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-sm font-medium bg-secondary hover:bg-secondary/70"
+            >
               <Share2 className="h-4 w-4" /> Share
             </button>
             {e.website && (
-              <a href={e.website} target="_blank" rel="noreferrer" onClick={() => trackEventRsvp({ eventId: e.id, organization: e.location })} className="no-min-h inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-sm font-medium bg-primary/10 text-primary hover:bg-primary/20">
+              <a
+                href={e.website}
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => trackEventRsvp({ eventId: e.id, organization: e.location })}
+                className="no-min-h inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-sm font-medium bg-primary/10 text-primary hover:bg-primary/20"
+              >
                 RSVP / Website ↗
               </a>
             )}
@@ -379,12 +517,22 @@ function parseTime(t: string | null): string | null {
   return `${String(h).padStart(2, "0")}:${min}:00`;
 }
 
-function Chip({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) {
+function Chip({
+  active,
+  onClick,
+  children,
+}: {
+  active: boolean;
+  onClick: () => void;
+  children: React.ReactNode;
+}) {
   return (
     <button
       onClick={onClick}
       className={`no-min-h px-4 py-2 rounded-full text-sm font-medium border transition ${
-        active ? "bg-primary text-primary-foreground border-primary" : "bg-card border-border hover:bg-secondary"
+        active
+          ? "bg-primary text-primary-foreground border-primary"
+          : "bg-card border-border hover:bg-secondary"
       }`}
     >
       {children}
@@ -436,7 +584,8 @@ function SubmitEventModal({ onClose }: { onClose: () => void }) {
           location: v.location || null,
           address: v.address || null,
           is_free: v.is_free !== "paid",
-          cost: v.is_free === "free" ? "Free" : v.is_free === "donation" ? "Donation" : (v.cost || null),
+          cost:
+            v.is_free === "free" ? "Free" : v.is_free === "donation" ? "Donation" : v.cost || null,
           website: v.website || null,
           submitted_by: v.submitted_by || null,
           submitted_email: v.submitted_email || null,
@@ -452,33 +601,59 @@ function SubmitEventModal({ onClose }: { onClose: () => void }) {
 
   return (
     <div className="fixed inset-0 z-50 bg-black/60 grid place-items-center p-4" onClick={onClose}>
-      <div className="bg-card rounded-2xl shadow-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
+      <div
+        className="bg-card rounded-2xl shadow-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto"
+        onClick={(e) => e.stopPropagation()}
+      >
         <div className="p-5 sticky top-0 bg-card border-b border-border">
           <h2 className="text-xl font-bold">Submit a Local Event</h2>
-          <p className="text-sm text-muted-foreground">Reviewed within 24–48 hours. Thank you for helping your neighbors!</p>
+          <p className="text-sm text-muted-foreground">
+            Reviewed within 24–48 hours. Thank you for helping your neighbors!
+          </p>
         </div>
         {done ? (
           <div className="p-8 text-center">
             <div className="text-5xl mb-3">🎉</div>
             <p className="font-bold text-lg">Thanks — we got it!</p>
             <p className="text-sm text-muted-foreground mt-1">Your event is pending review.</p>
-            <button onClick={onClose} className="no-min-h mt-5 px-5 py-2.5 rounded-full bg-primary text-primary-foreground font-semibold">Close</button>
+            <button
+              onClick={onClose}
+              className="no-min-h mt-5 px-5 py-2.5 rounded-full bg-primary text-primary-foreground font-semibold"
+            >
+              Close
+            </button>
           </div>
         ) : (
           <form onSubmit={onSubmit} className="p-5 space-y-3">
-            <Field label="Event Name *"><input name="title" required maxLength={120} className={inp} /></Field>
+            <Field label="Event Name *">
+              <input name="title" required maxLength={120} className={inp} />
+            </Field>
             <Field label="Event Type *">
               <select name="event_type" required className={inp} defaultValue="block_party">
-                {EVENT_TYPES.map((t) => <option key={t.id} value={t.id}>{t.emoji} {t.label}</option>)}
+                {EVENT_TYPES.map((t) => (
+                  <option key={t.id} value={t.id}>
+                    {t.emoji} {t.label}
+                  </option>
+                ))}
               </select>
             </Field>
             <div className="grid grid-cols-2 gap-3">
-              <Field label="Date *"><input type="date" name="event_date" required className={inp} /></Field>
-              <Field label="Time"><input name="event_time" placeholder="e.g. 3:00 PM" className={inp} /></Field>
+              <Field label="Date *">
+                <input type="date" name="event_date" required className={inp} />
+              </Field>
+              <Field label="Time">
+                <input name="event_time" placeholder="e.g. 3:00 PM" className={inp} />
+              </Field>
             </div>
-            <Field label="Location Name"><input name="location" className={inp} placeholder="e.g. Andrew Freedman Home" /></Field>
-            <Field label="Address"><input name="address" className={inp} placeholder="Street, Bronx, NY" /></Field>
-            <Field label="Description"><textarea name="description" rows={3} maxLength={2000} className={inp} /></Field>
+            <Field label="Location Name">
+              <input name="location" className={inp} placeholder="e.g. Andrew Freedman Home" />
+            </Field>
+            <Field label="Address">
+              <input name="address" className={inp} placeholder="Street, Bronx, NY" />
+            </Field>
+            <Field label="Description">
+              <textarea name="description" rows={3} maxLength={2000} className={inp} />
+            </Field>
             <Field label="Cost">
               <select name="is_free" className={inp} defaultValue="free">
                 <option value="free">Free</option>
@@ -486,16 +661,34 @@ function SubmitEventModal({ onClose }: { onClose: () => void }) {
                 <option value="paid">Paid</option>
               </select>
             </Field>
-            <Field label="Cost detail (optional)"><input name="cost" className={inp} placeholder="$5 suggested" /></Field>
-            <Field label="Contact / Website"><input name="website" className={inp} placeholder="https://…" /></Field>
+            <Field label="Cost detail (optional)">
+              <input name="cost" className={inp} placeholder="$5 suggested" />
+            </Field>
+            <Field label="Contact / Website">
+              <input name="website" className={inp} placeholder="https://…" />
+            </Field>
             <div className="grid grid-cols-2 gap-3">
-              <Field label="Your Name"><input name="submitted_by" className={inp} /></Field>
-              <Field label="Your Email"><input name="submitted_email" type="email" className={inp} /></Field>
+              <Field label="Your Name">
+                <input name="submitted_by" className={inp} />
+              </Field>
+              <Field label="Your Email">
+                <input name="submitted_email" type="email" className={inp} />
+              </Field>
             </div>
             {err && <p className="text-sm text-destructive">{err}</p>}
             <div className="flex justify-end gap-2 pt-2">
-              <button type="button" onClick={onClose} className="no-min-h px-4 py-2.5 rounded-full border border-border font-medium hover:bg-secondary">Cancel</button>
-              <button type="submit" disabled={busy} className="no-min-h px-5 py-2.5 rounded-full bg-primary text-primary-foreground font-semibold disabled:opacity-60 inline-flex items-center gap-2">
+              <button
+                type="button"
+                onClick={onClose}
+                className="no-min-h px-4 py-2.5 rounded-full border border-border font-medium hover:bg-secondary"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                disabled={busy}
+                className="no-min-h px-5 py-2.5 rounded-full bg-primary text-primary-foreground font-semibold disabled:opacity-60 inline-flex items-center gap-2"
+              >
                 {busy && <Loader2 className="h-4 w-4 animate-spin" />} Submit Event
               </button>
             </div>
@@ -506,7 +699,13 @@ function SubmitEventModal({ onClose }: { onClose: () => void }) {
   );
 }
 
-const inp = "w-full px-3 py-2 rounded-lg border border-border bg-background focus:outline-none focus:border-primary";
+const inp =
+  "w-full px-3 py-2 rounded-lg border border-border bg-background focus:outline-none focus:border-primary";
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
-  return <label className="block"><span className="text-sm font-medium mb-1 block">{label}</span>{children}</label>;
+  return (
+    <label className="block">
+      <span className="text-sm font-medium mb-1 block">{label}</span>
+      {children}
+    </label>
+  );
 }

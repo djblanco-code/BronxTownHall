@@ -18,7 +18,11 @@ const browser = await openBrowser("chrome", {
   chromeMode: "chrome-for-testing",
 });
 
-const composition = await selectComposition({ serveUrl: bundled, id: "main", puppeteerInstance: browser });
+const composition = await selectComposition({
+  serveUrl: bundled,
+  id: "main",
+  puppeteerInstance: browser,
+});
 console.log("duration frames", composition.durationInFrames);
 
 if (stillFrame !== null) {
@@ -40,7 +44,8 @@ if (stillFrame !== null) {
     muted: true,
     concurrency: 4,
     onProgress: ({ progress }) => {
-      if (Math.round(progress * 100) % 10 === 0) console.log("progress", Math.round(progress * 100));
+      if (Math.round(progress * 100) % 10 === 0)
+        console.log("progress", Math.round(progress * 100));
     },
   });
 }

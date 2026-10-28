@@ -18,7 +18,10 @@ function startOfDay(d: Date) {
 }
 
 /** Inclusive [from, to] date range (local) for a window, as YYYY-MM-DD strings. */
-export function windowRange(win: EventWindow, now = new Date()): { from: string; to: string } | null {
+export function windowRange(
+  win: EventWindow,
+  now = new Date(),
+): { from: string; to: string } | null {
   const today = startOfDay(now);
   const iso = (d: Date) => {
     const off = d.getTimezoneOffset() * 60_000;
@@ -43,7 +46,7 @@ export function windowRange(win: EventWindow, now = new Date()): { from: string;
   }
 
   // Next week = the following Mon–Sun.
-  const daysToNextMonday = ((8 - dow) % 7) || 7;
+  const daysToNextMonday = (8 - dow) % 7 || 7;
   const mon = new Date(today.getTime() + daysToNextMonday * DAY);
   return { from: iso(mon), to: iso(new Date(mon.getTime() + 6 * DAY)) };
 }

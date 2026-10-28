@@ -5,12 +5,22 @@
 
 /** Escape a text value for an .ics field (commas, semicolons, newlines). */
 function esc(s: string): string {
-  return s.replace(/\\/g, "\\\\").replace(/;/g, "\\;").replace(/,/g, "\\,").replace(/\r?\n/g, "\\n");
+  return s
+    .replace(/\\/g, "\\\\")
+    .replace(/;/g, "\\;")
+    .replace(/,/g, "\\,")
+    .replace(/\r?\n/g, "\\n");
 }
 
 // Build an .ics file. Times are "floating" local times (no timezone suffix),
 // so the event shows at the intended local time in any calendar app.
-export function buildIcs(opts: { title: string; description: string; location: string; date: Date; durationMinutes?: number }) {
+export function buildIcs(opts: {
+  title: string;
+  description: string;
+  location: string;
+  date: Date;
+  durationMinutes?: number;
+}) {
   const pad = (n: number) => String(n).padStart(2, "0");
   const fmt = (d: Date) =>
     `${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}T${pad(d.getHours())}${pad(d.getMinutes())}00`;
@@ -33,7 +43,11 @@ export function buildIcs(opts: { title: string; description: string; location: s
 }
 
 export function downloadIcs(filename: string, content: string) {
-  const safe = filename.replace(/[^\w\- ]+/g, "").trim().slice(0, 60) || "event";
+  const safe =
+    filename
+      .replace(/[^\w\- ]+/g, "")
+      .trim()
+      .slice(0, 60) || "event";
   const blob = new Blob([content], { type: "text/calendar;charset=utf-8" });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
@@ -64,7 +78,10 @@ export function parseEventTime(t: string | null | undefined): string | null {
  * Returns null when the date isn't a real, specific calendar date — callers
  * must not offer "Add to Calendar" in that case.
  */
-export function eventStartDate(dateStr: string | null | undefined, timeStr?: string | null): Date | null {
+export function eventStartDate(
+  dateStr: string | null | undefined,
+  timeStr?: string | null,
+): Date | null {
   if (!dateStr || !/^\d{4}-\d{2}-\d{2}$/.test(dateStr.trim())) return null;
   const time = parseEventTime(timeStr) ?? "12:00:00";
   const d = new Date(`${dateStr.trim()}T${time}`);

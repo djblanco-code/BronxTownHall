@@ -17,7 +17,7 @@ export const about: Bundle = {
     who3: "Non-profit and social service staff",
     who4: "Local businesses and community organizations",
     howTitle: "How It Works",
-    how: "Browse by category, search by keyword, or tap \"Use My Location\" to see what's nearby. Every listing is checked against public sources and can be reported or updated by the community. Events are submitted by residents and reviewed before they appear.",
+    how: 'Browse by category, search by keyword, or tap "Use My Location" to see what\'s nearby. Every listing is checked against public sources and can be reported or updated by the community. Events are submitted by residents and reviewed before they appear.',
     helpTitle: "Want to help?",
     addResource: "Add a Resource",
     getInTouch: "Get in touch",

@@ -7,7 +7,9 @@ import { Lang, LANGS } from "@/lib/i18n";
 import { BRONX_ZIPS, Need, UserProfile, getProfile, saveProfile } from "@/lib/onboarding";
 
 export const Route = createFileRoute("/onboarding")({
-  staticData: { sitemap: false }, component: OnboardingPage });
+  staticData: { sitemap: false },
+  component: OnboardingPage,
+});
 
 /**
  * Onboarding is deliberately SHORT: three screens, one of them skippable.
@@ -56,11 +58,18 @@ function OnboardingPage() {
     <div className="min-h-screen bg-gradient-to-b from-primary/10 via-background to-background flex flex-col">
       <div className="flex items-center justify-between px-4 py-3">
         <div className="flex items-center gap-2">
-          <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-primary to-accent grid place-items-center text-primary-foreground shadow"><Heart className="h-5 w-5" fill="currentColor" /></div>
+          <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-primary to-accent grid place-items-center text-primary-foreground shadow">
+            <Heart className="h-5 w-5" fill="currentColor" />
+          </div>
           <span className="font-bold text-lg">The Bronx App</span>
         </div>
         {step !== "welcome" && (
-          <button onClick={() => finish(profile, true)} className="no-min-h text-sm font-medium text-muted-foreground hover:text-foreground px-3 py-2 min-h-[44px]">Skip</button>
+          <button
+            onClick={() => finish(profile, true)}
+            className="no-min-h text-sm font-medium text-muted-foreground hover:text-foreground px-3 py-2 min-h-[44px]"
+          >
+            Skip
+          </button>
         )}
       </div>
 
@@ -73,8 +82,15 @@ function OnboardingPage() {
                   <Heart className="h-10 w-10" fill="currentColor" />
                 </div>
                 <h1 className="text-3xl font-bold">The Bronx App</h1>
-                <p className="text-lg text-muted-foreground">Connecting 1.4 Million Neighbors to One Heartbeat</p>
-                <button onClick={() => setStep("language")} className="no-min-h w-full py-4 rounded-2xl bg-primary text-primary-foreground font-bold text-lg shadow min-h-[56px]">Get Started</button>
+                <p className="text-lg text-muted-foreground">
+                  Connecting 1.4 Million Neighbors to One Heartbeat
+                </p>
+                <button
+                  onClick={() => setStep("language")}
+                  className="no-min-h w-full py-4 rounded-2xl bg-primary text-primary-foreground font-bold text-lg shadow min-h-[56px]"
+                >
+                  Get Started
+                </button>
               </div>
             </Card>
           )}
@@ -110,7 +126,9 @@ function OnboardingPage() {
                 <Dots step={3} total={3} />
                 <div>
                   <h2 className="text-xl font-bold">What do you need help finding most?</h2>
-                  <p className="text-sm text-muted-foreground mt-1">Choose up to 3 — this decides what we show first.</p>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    Choose up to 3 — this decides what we show first.
+                  </p>
                 </div>
                 <div className="grid grid-cols-2 gap-2">
                   {NEEDS.map((n) => {
@@ -122,7 +140,9 @@ function OnboardingPage() {
                         aria-pressed={on}
                         className={`no-min-h text-left p-3 rounded-xl border-2 min-h-[64px] flex items-center gap-2 ${on ? "border-primary bg-primary/10" : "border-border bg-card"}`}
                       >
-                        <span className="text-2xl" aria-hidden>{n.emoji}</span>
+                        <span className="text-2xl" aria-hidden>
+                          {n.emoji}
+                        </span>
                         <span className="font-medium text-sm flex-1">{n.label}</span>
                         {on && <Check className="h-5 w-5 text-primary" />}
                       </button>
@@ -131,8 +151,12 @@ function OnboardingPage() {
                 </div>
 
                 <div className="pt-1">
-                  <label htmlFor="ob-zip" className="block font-bold">Your Bronx zip code</label>
-                  <p className="text-sm text-muted-foreground mb-2">Optional — it lets us sort results by what's closest.</p>
+                  <label htmlFor="ob-zip" className="block font-bold">
+                    Your Bronx zip code
+                  </label>
+                  <p className="text-sm text-muted-foreground mb-2">
+                    Optional — it lets us sort results by what's closest.
+                  </p>
                   <select
                     id="ob-zip"
                     value={profile.userZipCode}
@@ -140,7 +164,11 @@ function OnboardingPage() {
                     className="w-full px-4 py-3 rounded-xl border-2 border-border bg-card text-base min-h-[52px]"
                   >
                     <option value="">Select a zip code…</option>
-                    {BRONX_ZIPS.map((z) => <option key={z} value={z}>{z}</option>)}
+                    {BRONX_ZIPS.map((z) => (
+                      <option key={z} value={z}>
+                        {z}
+                      </option>
+                    ))}
                   </select>
                 </div>
 
@@ -166,12 +194,27 @@ function OnboardingPage() {
 }
 
 function Card({ children }: { children: React.ReactNode }) {
-  return <div className="rounded-3xl border-2 border-border bg-card shadow-xl p-6 sm:p-8">{children}</div>;
+  return (
+    <div className="rounded-3xl border-2 border-border bg-card shadow-xl p-6 sm:p-8">
+      {children}
+    </div>
+  );
 }
 
-function Pick({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) {
+function Pick({
+  active,
+  onClick,
+  children,
+}: {
+  active: boolean;
+  onClick: () => void;
+  children: React.ReactNode;
+}) {
   return (
-    <button onClick={onClick} className={`no-min-h w-full text-left p-4 rounded-xl border-2 min-h-[56px] flex items-center justify-between ${active ? "border-primary bg-primary/10" : "border-border bg-card"}`}>
+    <button
+      onClick={onClick}
+      className={`no-min-h w-full text-left p-4 rounded-xl border-2 min-h-[56px] flex items-center justify-between ${active ? "border-primary bg-primary/10" : "border-border bg-card"}`}
+    >
       <span className="font-medium">{children}</span>
       {active && <Check className="h-5 w-5 text-primary" />}
     </button>
@@ -182,7 +225,10 @@ function Dots({ step, total }: { step: number; total: number }) {
   return (
     <div className="flex gap-1.5 justify-center">
       {Array.from({ length: total }, (_, i) => (
-        <div key={i} className={`h-2 rounded-full ${i + 1 === step ? "w-8 bg-primary" : i + 1 < step ? "w-2 bg-primary/60" : "w-2 bg-border"}`} />
+        <div
+          key={i}
+          className={`h-2 rounded-full ${i + 1 === step ? "w-8 bg-primary" : i + 1 < step ? "w-2 bg-primary/60" : "w-2 bg-border"}`}
+        />
       ))}
     </div>
   );

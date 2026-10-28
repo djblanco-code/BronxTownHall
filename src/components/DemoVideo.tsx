@@ -41,8 +41,8 @@ export function DemoVideo() {
           Watch the product, no clicking required
         </h2>
         <p className="text-muted-foreground mt-2 max-w-2xl">
-          Home → search → resource detail → call, directions, share, report → map, civic, crisis, events.
-          Recorded from the live prototype.
+          Home → search → resource detail → call, directions, share, report → map, civic, crisis,
+          events. Recorded from the live prototype.
         </p>
       </div>
 

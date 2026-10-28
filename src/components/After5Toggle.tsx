@@ -36,7 +36,9 @@ export function After5Toggle({ active, onToggle, count, className = "" }: Props)
         <span>{t("interface.after5")}</span>
         <span
           className={`inline-flex items-center justify-center min-w-[1.5rem] h-5 px-1.5 rounded-full text-xs font-bold ${
-            active ? "bg-primary-foreground/20 text-primary-foreground" : "bg-secondary text-secondary-foreground"
+            active
+              ? "bg-primary-foreground/20 text-primary-foreground"
+              : "bg-secondary text-secondary-foreground"
           }`}
           aria-label={t("interface.matches", { count })}
         >

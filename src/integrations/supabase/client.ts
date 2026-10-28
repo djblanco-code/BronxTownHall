@@ -1,14 +1,14 @@
-import { createClient } from '@supabase/supabase-js';
-import type { Database } from './types';
-import { missingSupabaseEnv, supabasePublicEnv } from './env';
+import { createClient } from "@supabase/supabase-js";
+import type { Database } from "./types";
+import { missingSupabaseEnv, supabasePublicEnv } from "./env";
 
 function createSupabaseClient() {
   const { url: SUPABASE_URL, publishableKey: SUPABASE_PUBLISHABLE_KEY } = supabasePublicEnv();
 
   if (!SUPABASE_URL || !SUPABASE_PUBLISHABLE_KEY) {
     throw missingSupabaseEnv([
-      ...(!SUPABASE_URL ? ['VITE_SUPABASE_URL'] : []),
-      ...(!SUPABASE_PUBLISHABLE_KEY ? ['VITE_SUPABASE_PUBLISHABLE_KEY'] : []),
+      ...(!SUPABASE_URL ? ["VITE_SUPABASE_URL"] : []),
+      ...(!SUPABASE_PUBLISHABLE_KEY ? ["VITE_SUPABASE_PUBLISHABLE_KEY"] : []),
     ]);
   }
 
@@ -16,7 +16,7 @@ function createSupabaseClient() {
     auth: {
       persistSession: true,
       autoRefreshToken: true,
-    }
+    },
   });
 }
 
@@ -30,4 +30,3 @@ export const supabase = new Proxy({} as ReturnType<typeof createSupabaseClient>,
     return Reflect.get(_supabase, prop, receiver);
   },
 });
-

@@ -23,7 +23,7 @@ export const privacy: Bundle = {
       "a random device code, not your name, email, or IP address. Phone numbers and websites are redacted before they are stored.",
     noAccount4Label: "Location",
     noAccount4:
-      "only when you tap \"Use My Location\" — used to find nearby resources; not stored on our servers.",
+      'only when you tap "Use My Location" — used to find nearby resources; not stored on our servers.',
     accountTitle: "If you create an account",
     account1Label: "Account info",
     account1: "email and profile fields you provide.",
@@ -250,8 +250,7 @@ export const privacy: Bundle = {
       "نستخدم خرائط جوجل لعرض الخرائط وتقدير أوقات التنقل، ومزوّد خدمة خلفية للمصادقة وتخزين البيانات. تعالج هذه الخدمات البيانات نيابة عنا وفق شروطها الخاصة.",
     choicesTitle: "خياراتك",
     choice1: "سجّل الخروج في أي وقت من الإعدادات.",
-    choice2:
-      "احذف حسابك بمراسلة hello@thebronxapp.org — نزيل بياناتك خلال 30 يومًا.",
+    choice2: "احذف حسابك بمراسلة hello@thebronxapp.org — نزيل بياناتك خلال 30 يومًا.",
     choice3: "ألغِ اشتراك النشرة البريدية بنقرة واحدة.",
     contactTitle: "اتصل بنا",
     contactPre: "أسئلة؟ راسلنا على",

@@ -2,7 +2,14 @@ import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { RESOURCES, CATEGORIES } from "@/lib/data";
 import { invalidateResourceMeta, loadResourceMeta, type ResourceMeta } from "@/lib/resource-meta";
-import { freshnessOf, isVerified, verifyEveryDaysFor, verifiedAgoLabel, VERIFICATION_SHORT, type VerificationStatus } from "@/lib/verification";
+import {
+  freshnessOf,
+  isVerified,
+  verifyEveryDaysFor,
+  verifiedAgoLabel,
+  VERIFICATION_SHORT,
+  type VerificationStatus,
+} from "@/lib/verification";
 import { Check, Loader2, Save, Search, ShieldCheck, AlertTriangle } from "lucide-react";
 import { toast } from "sonner";
 
@@ -10,7 +17,9 @@ import { toast } from "sonner";
 function isCurrent(m: ResourceMeta | undefined, category: string): boolean {
   if (!m) return false;
   if (!isVerified(m.verification_status)) return false;
-  return freshnessOf(m.last_verified, m.verify_every_days ?? verifyEveryDaysFor(category)) !== "overdue";
+  return (
+    freshnessOf(m.last_verified, m.verify_every_days ?? verifyEveryDaysFor(category)) !== "overdue"
+  );
 }
 
 type Draft = { phone?: string; hours?: string; source?: string; source_url?: string };
@@ -93,7 +102,8 @@ export function AdminResourcePanel() {
           <ShieldCheck className="h-5 w-5 text-primary" /> Resources & verification
         </h2>
         <span className="text-xs font-semibold text-warning inline-flex items-center gap-1">
-          <AlertTriangle className="h-3.5 w-3.5" /> {staleCount} of {RESOURCES.length} need verification
+          <AlertTriangle className="h-3.5 w-3.5" /> {staleCount} of {RESOURCES.length} need
+          verification
         </span>
       </div>
 
@@ -108,14 +118,26 @@ export function AdminResourcePanel() {
             className="w-full ps-9 pe-3 py-2 rounded-lg border-2 border-border bg-background text-sm"
           />
         </div>
-        <select value={cat} onChange={(e) => setCat(e.target.value)} aria-label="Filter by category" className="rounded-lg border-2 border-border bg-background text-sm px-3 py-2">
+        <select
+          value={cat}
+          onChange={(e) => setCat(e.target.value)}
+          aria-label="Filter by category"
+          className="rounded-lg border-2 border-border bg-background text-sm px-3 py-2"
+        >
           <option value="">All categories</option>
           {CATEGORIES.map((c) => (
-            <option key={c.id} value={c.id}>{c.id}</option>
+            <option key={c.id} value={c.id}>
+              {c.id}
+            </option>
           ))}
         </select>
         <label className="inline-flex items-center gap-2 text-sm font-medium">
-          <input type="checkbox" checked={onlyStale} onChange={(e) => setOnlyStale(e.target.checked)} className="h-4 w-4" />
+          <input
+            type="checkbox"
+            checked={onlyStale}
+            onChange={(e) => setOnlyStale(e.target.checked)}
+            className="h-4 w-4"
+          />
           Needs verification only
         </label>
       </div>
@@ -129,7 +151,10 @@ export function AdminResourcePanel() {
           {rows.map((r) => {
             const m = meta[r.id];
             const status = (m?.verification_status as VerificationStatus) ?? "needs_verification";
-            const fresh = freshnessOf(m?.last_verified ?? null, m?.verify_every_days ?? verifyEveryDaysFor(r.category));
+            const fresh = freshnessOf(
+              m?.last_verified ?? null,
+              m?.verify_every_days ?? verifyEveryDaysFor(r.category),
+            );
             const current = isCurrent(m, r.category);
             const d = drafts[r.id] ?? {};
             return (
@@ -137,9 +162,13 @@ export function AdminResourcePanel() {
                 <div className="flex items-start justify-between gap-2 flex-wrap">
                   <div className="min-w-0">
                     <p className="font-semibold text-sm truncate">{r.name.en}</p>
-                    <p className="text-xs text-muted-foreground truncate">{r.category} · {r.address}</p>
+                    <p className="text-xs text-muted-foreground truncate">
+                      {r.category} · {r.address}
+                    </p>
                   </div>
-                  <span className={`text-xs font-bold ${current ? "text-success" : fresh === "never" ? "text-muted-foreground" : "text-warning"}`}>
+                  <span
+                    className={`text-xs font-bold ${current ? "text-success" : fresh === "never" ? "text-muted-foreground" : "text-warning"}`}
+                  >
                     {VERIFICATION_SHORT[status]}
                     {m?.last_verified ? ` · ${verifiedAgoLabel(m.last_verified)}` : ""}
                   </span>
@@ -147,20 +176,26 @@ export function AdminResourcePanel() {
                 <div className="grid sm:grid-cols-4 gap-2 mt-2">
                   <input
                     value={d.phone ?? m?.phone ?? r.phone}
-                    onChange={(e) => setDrafts((x) => ({ ...x, [r.id]: { ...d, phone: e.target.value } }))}
+                    onChange={(e) =>
+                      setDrafts((x) => ({ ...x, [r.id]: { ...d, phone: e.target.value } }))
+                    }
                     aria-label={`Phone for ${r.name.en}`}
                     className="rounded-lg border border-border bg-background text-xs px-2 py-1.5"
                   />
                   <input
                     value={d.hours ?? m?.hours ?? r.hours.en}
-                    onChange={(e) => setDrafts((x) => ({ ...x, [r.id]: { ...d, hours: e.target.value } }))}
+                    onChange={(e) =>
+                      setDrafts((x) => ({ ...x, [r.id]: { ...d, hours: e.target.value } }))
+                    }
                     aria-label={`Hours for ${r.name.en}`}
                     className="rounded-lg border border-border bg-background text-xs px-2 py-1.5 sm:col-span-2"
                   />
                   <input
                     value={d.source ?? m?.source ?? ""}
                     placeholder="Source (e.g. called site)"
-                    onChange={(e) => setDrafts((x) => ({ ...x, [r.id]: { ...d, source: e.target.value } }))}
+                    onChange={(e) =>
+                      setDrafts((x) => ({ ...x, [r.id]: { ...d, source: e.target.value } }))
+                    }
                     aria-label={`Source for ${r.name.en}`}
                     className="rounded-lg border border-border bg-background text-xs px-2 py-1.5"
                   />
@@ -174,17 +209,30 @@ export function AdminResourcePanel() {
                     <Check className="h-3.5 w-3.5" /> Verified today
                   </button>
                   <button
-                    onClick={() => upsert(r.id, { phone: d.phone ?? m?.phone ?? r.phone, hours: d.hours ?? m?.hours ?? r.hours.en, source: d.source ?? m?.source ?? null })}
+                    onClick={() =>
+                      upsert(r.id, {
+                        phone: d.phone ?? m?.phone ?? r.phone,
+                        hours: d.hours ?? m?.hours ?? r.hours.en,
+                        source: d.source ?? m?.source ?? null,
+                      })
+                    }
                     disabled={busy === r.id}
                     className="no-min-h inline-flex items-center gap-1.5 rounded-lg bg-primary text-primary-foreground px-3 py-1.5 text-xs font-bold disabled:opacity-50"
                   >
-                    {busy === r.id ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Save className="h-3.5 w-3.5" />} Save
+                    {busy === r.id ? (
+                      <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                    ) : (
+                      <Save className="h-3.5 w-3.5" />
+                    )}{" "}
+                    Save
                   </button>
                 </div>
               </div>
             );
           })}
-          {rows.length === 0 && <p className="text-sm text-muted-foreground text-center py-6">No listings match.</p>}
+          {rows.length === 0 && (
+            <p className="text-sm text-muted-foreground text-center py-6">No listings match.</p>
+          )}
         </div>
       )}
     </section>

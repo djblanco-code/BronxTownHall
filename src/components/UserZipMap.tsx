@@ -16,8 +16,10 @@ export function UserZipMap({ data }: { data: ZipCount[] }) {
 
   const lats = Object.values(ZIP_LATLNG).map((c) => c[0]);
   const lngs = Object.values(ZIP_LATLNG).map((c) => c[1]);
-  const minLat = Math.min(...lats), maxLat = Math.max(...lats);
-  const minLng = Math.min(...lngs), maxLng = Math.max(...lngs);
+  const minLat = Math.min(...lats),
+    maxLat = Math.max(...lats);
+  const minLng = Math.min(...lngs),
+    maxLng = Math.max(...lngs);
   const max = Math.max(...points.map((p) => p.count));
 
   const project = (lat: number, lng: number) => ({
@@ -34,7 +36,9 @@ export function UserZipMap({ data }: { data: ZipCount[] }) {
     >
       {Object.entries(ZIP_LATLNG).map(([zip, c]) => {
         const { x, y } = project(c[0], c[1]);
-        return <circle key={`bg-${zip}`} cx={x} cy={y} r={2} className="fill-muted-foreground/30" />;
+        return (
+          <circle key={`bg-${zip}`} cx={x} cy={y} r={2} className="fill-muted-foreground/30" />
+        );
       })}
       {points
         .slice()
@@ -46,8 +50,19 @@ export function UserZipMap({ data }: { data: ZipCount[] }) {
           return (
             <g key={p.zip}>
               <title>{`${p.zip}: ${p.count} visitors`}</title>
-              <circle cx={x} cy={y} r={r} className="fill-primary/25 stroke-primary" strokeWidth={1.5} />
-              <text x={x} y={y + 3} textAnchor="middle" className="fill-foreground text-[9px] font-semibold">
+              <circle
+                cx={x}
+                cy={y}
+                r={r}
+                className="fill-primary/25 stroke-primary"
+                strokeWidth={1.5}
+              />
+              <text
+                x={x}
+                y={y + 3}
+                textAnchor="middle"
+                className="fill-foreground text-[9px] font-semibold"
+              >
                 {p.zip}
               </text>
             </g>

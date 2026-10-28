@@ -39,24 +39,59 @@ export function SpreadsheetView({ rows }: { rows: SheetRow[] }) {
                   {r.isBiz ? (
                     <span className="font-medium">{r.name}</span>
                   ) : (
-                    <Link to="/resource/$id" params={{ id: r.id }} className="no-min-h font-medium text-primary hover:underline">{r.name}</Link>
+                    <Link
+                      to="/resource/$id"
+                      params={{ id: r.id }}
+                      className="no-min-h font-medium text-primary hover:underline"
+                    >
+                      {r.name}
+                    </Link>
                   )}
                 </td>
                 <td className="px-3 py-2">
-                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold text-white" style={{ backgroundColor: cat?.color ?? "#475569" }}>
+                  <span
+                    className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold text-white"
+                    style={{ backgroundColor: cat?.color ?? "#475569" }}
+                  >
                     {cat?.emoji} {cat?.label ?? r.category}
                   </span>
                 </td>
-                <td className="px-3 py-2 max-w-[18ch] truncate" title={r.address}>{r.address}</td>
-                <td className="px-3 py-2 whitespace-nowrap">
-                  <a href={`tel:${r.phone}`} onClick={() => trackCallClicked({ resourceId: r.id, category: r.category, phone: r.phone })} className="no-min-h text-primary hover:underline">{r.phone}</a>
+                <td className="px-3 py-2 max-w-[18ch] truncate" title={r.address}>
+                  {r.address}
                 </td>
-                <td className="px-3 py-2 whitespace-nowrap">{isNonSpecificAddress(r.address) ? "Varies" : `${r.distance} mi`}</td>
+                <td className="px-3 py-2 whitespace-nowrap">
+                  <a
+                    href={`tel:${r.phone}`}
+                    onClick={() =>
+                      trackCallClicked({ resourceId: r.id, category: r.category, phone: r.phone })
+                    }
+                    className="no-min-h text-primary hover:underline"
+                  >
+                    {r.phone}
+                  </a>
+                </td>
+                <td className="px-3 py-2 whitespace-nowrap">
+                  {isNonSpecificAddress(r.address) ? "Varies" : `${r.distance} mi`}
+                </td>
                 <td className="px-3 py-2 whitespace-nowrap">
                   <div className="flex items-center gap-1.5">
-                    <a href={`tel:${r.phone}`} onClick={() => trackCallClicked({ resourceId: r.id, category: r.category, phone: r.phone })} aria-label={`Call ${r.name}`} className="no-min-h inline-flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground"><Phone className="h-3.5 w-3.5" /></a>
+                    <a
+                      href={`tel:${r.phone}`}
+                      onClick={() =>
+                        trackCallClicked({ resourceId: r.id, category: r.category, phone: r.phone })
+                      }
+                      aria-label={`Call ${r.name}`}
+                      className="no-min-h inline-flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground"
+                    >
+                      <Phone className="h-3.5 w-3.5" />
+                    </a>
                     {!isNonSpecificAddress(r.address) && (
-                      <DirectionsLink address={r.address} label={`Get directions to ${r.name}`} iconOnly className="no-min-h h-8 w-8 justify-center rounded-full bg-accent text-accent-foreground hover:no-underline" />
+                      <DirectionsLink
+                        address={r.address}
+                        label={`Get directions to ${r.name}`}
+                        iconOnly
+                        className="no-min-h h-8 w-8 justify-center rounded-full bg-accent text-accent-foreground hover:no-underline"
+                      />
                     )}
                     {!r.isBiz && <FavoriteStar id={r.id} />}
                   </div>
@@ -65,7 +100,11 @@ export function SpreadsheetView({ rows }: { rows: SheetRow[] }) {
             );
           })}
           {rows.length === 0 && (
-            <tr><td colSpan={6} className="px-3 py-8 text-center text-muted-foreground">No resources to show.</td></tr>
+            <tr>
+              <td colSpan={6} className="px-3 py-8 text-center text-muted-foreground">
+                No resources to show.
+              </td>
+            </tr>
           )}
         </tbody>
       </table>

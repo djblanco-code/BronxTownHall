@@ -117,17 +117,32 @@ function CreatorPage() {
             {creator.bio && <p className="text-muted-foreground mt-1">{creator.bio}</p>}
             <div className="flex flex-wrap items-center gap-3 mt-2 text-sm">
               {socials.instagram && (
-                <a className="inline-flex items-center gap-1 text-primary hover:underline" href={`https://instagram.com/${socials.instagram.replace("@", "")}`} target="_blank" rel="noreferrer">
+                <a
+                  className="inline-flex items-center gap-1 text-primary hover:underline"
+                  href={`https://instagram.com/${socials.instagram.replace("@", "")}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <Instagram className="h-4 w-4" /> {socials.instagram}
                 </a>
               )}
               {socials.tiktok && (
-                <a className="inline-flex items-center gap-1 text-primary hover:underline" href={`https://tiktok.com/@${socials.tiktok.replace("@", "")}`} target="_blank" rel="noreferrer">
+                <a
+                  className="inline-flex items-center gap-1 text-primary hover:underline"
+                  href={`https://tiktok.com/@${socials.tiktok.replace("@", "")}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <Music2 className="h-4 w-4" /> {socials.tiktok}
                 </a>
               )}
               {socials.youtube && (
-                <a className="inline-flex items-center gap-1 text-primary hover:underline" href={`https://youtube.com/${socials.youtube.replace("@", "@")}`} target="_blank" rel="noreferrer">
+                <a
+                  className="inline-flex items-center gap-1 text-primary hover:underline"
+                  href={`https://youtube.com/${socials.youtube.replace("@", "@")}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <Youtube className="h-4 w-4" /> {socials.youtube}
                 </a>
               )}
@@ -139,9 +154,15 @@ function CreatorPage() {
           <section className="mt-6 rounded-2xl border-2 border-border bg-card p-4">
             <h2 className="font-bold">Your page (only you see this)</h2>
             <p className="text-sm text-muted-foreground">
-              {stats ? `${stats.views} page views · ${stats.clicks} taps on your picks` : "Loading your counts…"}
+              {stats
+                ? `${stats.views} page views · ${stats.clicks} taps on your picks`
+                : "Loading your counts…"}
             </p>
-            <PickAdder creatorId={creator.id} onAdded={() => refreshPicks(creator.id)} count={picks.length} />
+            <PickAdder
+              creatorId={creator.id}
+              onAdded={() => refreshPicks(creator.id)}
+              count={picks.length}
+            />
           </section>
         )}
 
@@ -159,16 +180,23 @@ function CreatorPage() {
                 <div className="min-w-0">
                   <p className="font-semibold">{p.target_name}</p>
                   {p.target_category && (
-                    <p className="text-xs font-semibold text-primary capitalize">{p.target_category}</p>
+                    <p className="text-xs font-semibold text-primary capitalize">
+                      {p.target_category}
+                    </p>
                   )}
                 </div>
-                <VerifiedPill status="needs_verification" category={p.target_category ?? undefined} compact />
+                <VerifiedPill
+                  status="needs_verification"
+                  category={p.target_category ?? undefined}
+                  compact
+                />
               </div>
 
               {p.note && (
                 <p className="mt-2 rounded-xl bg-secondary/60 p-3 text-sm">
                   <span className="inline-flex items-center gap-1 font-semibold">
-                    <Quote className="h-3.5 w-3.5" /> Why {creator.display_name.split(" ")[0]} picked this
+                    <Quote className="h-3.5 w-3.5" /> Why {creator.display_name.split(" ")[0]}{" "}
+                    picked this
                   </span>
                   <span className="block mt-1">{p.note}</span>
                 </p>
@@ -212,16 +240,22 @@ function CreatorPage() {
               </div>
             </li>
           ))}
-          {picks.length === 0 && (
-            <li className="text-muted-foreground">No picks yet.</li>
-          )}
+          {picks.length === 0 && <li className="text-muted-foreground">No picks yet.</li>}
         </ul>
       </div>
     </AppShell>
   );
 }
 
-function PickAdder({ creatorId, onAdded, count }: { creatorId: string; onAdded: () => void; count: number }) {
+function PickAdder({
+  creatorId,
+  onAdded,
+  count,
+}: {
+  creatorId: string;
+  onAdded: () => void;
+  count: number;
+}) {
   const [q, setQ] = useState("");
   const [results, setResults] = useState<PickCandidate[]>([]);
   const [busy, setBusy] = useState(false);
@@ -251,7 +285,10 @@ function PickAdder({ creatorId, onAdded, count }: { creatorId: string; onAdded: 
       </label>
       <ul className="mt-2 space-y-1">
         {results.map((r) => (
-          <li key={`${r.target_type}-${r.target_id}`} className="flex items-center justify-between gap-2 text-sm">
+          <li
+            key={`${r.target_type}-${r.target_id}`}
+            className="flex items-center justify-between gap-2 text-sm"
+          >
             <span className="min-w-0 truncate">
               {r.name} <span className="text-muted-foreground">· {r.address}</span>
             </span>
@@ -259,7 +296,8 @@ function PickAdder({ creatorId, onAdded, count }: { creatorId: string; onAdded: 
               disabled={busy}
               onClick={async () => {
                 setBusy(true);
-                const note = window.prompt(`Why do you recommend ${r.name}? (150 characters max)`) ?? "";
+                const note =
+                  window.prompt(`Why do you recommend ${r.name}? (150 characters max)`) ?? "";
                 await addPick({
                   creatorId,
                   targetType: r.target_type,

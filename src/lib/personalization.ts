@@ -13,27 +13,44 @@ type Settings = { trackingEnabled: boolean };
 // ---- helpers ----
 function read<T>(key: string, fallback: T): T {
   if (typeof window === "undefined") return fallback;
-  try { const v = localStorage.getItem(key); return v ? (JSON.parse(v) as T) : fallback; } catch { return fallback; }
+  try {
+    const v = localStorage.getItem(key);
+    return v ? (JSON.parse(v) as T) : fallback;
+  } catch {
+    return fallback;
+  }
 }
 function write(key: string, value: unknown) {
   if (typeof window === "undefined") return;
-  try { localStorage.setItem(key, JSON.stringify(value)); } catch { /* ignore */ }
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+  } catch {
+    /* ignore */
+  }
   window.dispatchEvent(new CustomEvent("bronx:storage", { detail: key }));
 }
 
 // ---- settings ----
-export function getSettings(): Settings { return read<Settings>(SETTINGS_KEY, { trackingEnabled: true }); }
-export function setSettings(s: Settings) { write(SETTINGS_KEY, s); }
+export function getSettings(): Settings {
+  return read<Settings>(SETTINGS_KEY, { trackingEnabled: true });
+}
+export function setSettings(s: Settings) {
+  write(SETTINGS_KEY, s);
+}
 
 // ---- favorites ----
-export function getFavorites(): string[] { return read<string[]>(FAV_KEY, []); }
+export function getFavorites(): string[] {
+  return read<string[]>(FAV_KEY, []);
+}
 export function toggleFavorite(id: string) {
   const cur = getFavorites();
   const next = cur.includes(id) ? cur.filter((x) => x !== id) : [...cur, id];
   write(FAV_KEY, next);
   return next;
 }
-export function isFavorite(id: string) { return getFavorites().includes(id); }
+export function isFavorite(id: string) {
+  return getFavorites().includes(id);
+}
 
 // ---- usage tracking ----
 const POINTS = {
@@ -57,8 +74,12 @@ export function trackUsage(resourceId: string, action: UsageAction) {
   write(USAGE_KEY, state);
 }
 
-export function clearUsage() { write(USAGE_KEY, {}); }
-export function getUsage(): UsageState { return read<UsageState>(USAGE_KEY, {}); }
+export function clearUsage() {
+  write(USAGE_KEY, {});
+}
+export function getUsage(): UsageState {
+  return read<UsageState>(USAGE_KEY, {});
+}
 
 // Decayed score: interactions >30d old lose 50% value
 function decayed(entry: { points: number; lastAt: number }) {
@@ -66,7 +87,10 @@ function decayed(entry: { points: number; lastAt: number }) {
   return ageDays > 30 ? entry.points * 0.5 : entry.points;
 }
 
-export function getTopUsed(limit = 3, excludeIds: string[] = []): { id: string; count: number; score: number }[] {
+export function getTopUsed(
+  limit = 3,
+  excludeIds: string[] = [],
+): { id: string; count: number; score: number }[] {
   const state = read<UsageState>(USAGE_KEY, {});
   return Object.entries(state)
     .filter(([id, v]) => v.points > 0 && !excludeIds.includes(id))
@@ -120,7 +144,8 @@ export function usePersonalization() {
       favorites: [] as string[],
       isFavorite: (_id: string) => false,
       toggleFavorite,
-      topUsed: (_limit?: number, _exclude?: string[]) => [] as { id: string; count: number; score: number }[],
+      topUsed: (_limit?: number, _exclude?: string[]) =>
+        [] as { id: string; count: number; score: number }[],
       interactionCount: 0,
       topCategories: [] as Category[],
       settings: { trackingEnabled: true },

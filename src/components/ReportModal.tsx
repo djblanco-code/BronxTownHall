@@ -15,7 +15,7 @@ const ISSUE_TYPES = [
   { id: "other", key: "issueOther" },
 ] as const;
 
-type IssueId = typeof ISSUE_TYPES[number]["id"];
+type IssueId = (typeof ISSUE_TYPES)[number]["id"];
 
 export function ReportModal({
   onClose,
@@ -41,7 +41,11 @@ export function ReportModal({
     e.preventDefault();
     if (!issue) return;
     setSubmitting(true);
-    trackResourceReported({ resourceId: resourceId || resourceName || "unknown", category: category || resourceType, issueType: issue });
+    trackResourceReported({
+      resourceId: resourceId || resourceName || "unknown",
+      category: category || resourceType,
+      issueType: issue,
+    });
     try {
       const { error } = await supabase.from("resource_reports").insert({
         resource_id: resourceId || resourceName || "unknown",
@@ -67,8 +71,16 @@ export function ReportModal({
       {submitted ? (
         <div role="status" aria-live="polite" className="py-6 text-center space-y-3">
           <p className="text-success font-semibold">✓ {t("interface.reportThanks")}</p>
-          <p className="text-sm text-muted-foreground">A Community Liaison will verify this within 48 hours. If this resource gets 3 reports, it's automatically hidden for review.</p>
-          <button onClick={onClose} className="no-min-h mt-2 px-5 py-2.5 rounded-lg bg-primary text-primary-foreground font-semibold min-h-[44px]">{t("interface.close")}</button>
+          <p className="text-sm text-muted-foreground">
+            A Community Liaison will verify this within 48 hours. If this resource gets 3 reports,
+            it's automatically hidden for review.
+          </p>
+          <button
+            onClick={onClose}
+            className="no-min-h mt-2 px-5 py-2.5 rounded-lg bg-primary text-primary-foreground font-semibold min-h-[44px]"
+          >
+            {t("interface.close")}
+          </button>
         </div>
       ) : (
         <form onSubmit={onSubmit} className="space-y-4">
@@ -76,8 +88,17 @@ export function ReportModal({
             <legend className="text-sm font-semibold mb-2">{t("interface.whatsWrong")}</legend>
             <div className="space-y-2">
               {ISSUE_TYPES.map((it) => (
-                <label key={it.id} className="no-min-h flex items-start gap-2 p-2.5 rounded-lg border border-border hover:bg-secondary cursor-pointer min-h-[44px]">
-                  <input type="radio" name="issue" required onChange={() => setIssue(it.id)} className="mt-1 accent-primary h-5 w-5" />
+                <label
+                  key={it.id}
+                  className="no-min-h flex items-start gap-2 p-2.5 rounded-lg border border-border hover:bg-secondary cursor-pointer min-h-[44px]"
+                >
+                  <input
+                    type="radio"
+                    name="issue"
+                    required
+                    onChange={() => setIssue(it.id)}
+                    className="mt-1 accent-primary h-5 w-5"
+                  />
                   <span className="text-sm">{t(`interface.${it.key}`)}</span>
                 </label>
               ))}
@@ -86,22 +107,46 @@ export function ReportModal({
 
           {resourceName && (
             <Field label="Resource" id="rm-resource">
-              <input id="rm-resource" defaultValue={resourceName} readOnly className="w-full px-3 py-2 rounded-lg border border-border bg-secondary min-h-[44px]" />
+              <input
+                id="rm-resource"
+                defaultValue={resourceName}
+                readOnly
+                className="w-full px-3 py-2 rounded-lg border border-border bg-secondary min-h-[44px]"
+              />
             </Field>
           )}
 
           <Field label={t("interface.additionalDetails")} id="rm-details">
-            <textarea id="rm-details" rows={3} value={details} onChange={(e) => setDetails(e.target.value)} className="w-full px-3 py-2 rounded-lg border border-border bg-background" placeholder={t("interface.detailsPlaceholder")} />
+            <textarea
+              id="rm-details"
+              rows={3}
+              value={details}
+              onChange={(e) => setDetails(e.target.value)}
+              className="w-full px-3 py-2 rounded-lg border border-border bg-background"
+              placeholder={t("interface.detailsPlaceholder")}
+            />
           </Field>
 
           <Field label={t("interface.emailFollowup")} id="rm-contact">
-            <input id="rm-contact" type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full px-3 py-2 rounded-lg border border-border bg-background min-h-[44px]" />
+            <input
+              id="rm-contact"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full px-3 py-2 rounded-lg border border-border bg-background min-h-[44px]"
+            />
           </Field>
 
-          <button type="submit" disabled={submitting || !issue} className="no-min-h w-full py-3 rounded-lg bg-primary text-primary-foreground font-semibold hover:bg-primary/90 disabled:opacity-60 min-h-[44px]">
+          <button
+            type="submit"
+            disabled={submitting || !issue}
+            className="no-min-h w-full py-3 rounded-lg bg-primary text-primary-foreground font-semibold hover:bg-primary/90 disabled:opacity-60 min-h-[44px]"
+          >
             {submitting ? t("interface.sending") : t("interface.submitReport")}
           </button>
-          <p className="text-xs text-muted-foreground text-center">{t("interface.reportPrivate")}</p>
+          <p className="text-xs text-muted-foreground text-center">
+            {t("interface.reportPrivate")}
+          </p>
         </form>
       )}
     </A11yDialog>
@@ -111,7 +156,9 @@ export function ReportModal({
 function Field({ label, id, children }: { label: string; id: string; children: React.ReactNode }) {
   return (
     <div>
-      <label htmlFor={id} className="block text-xs font-semibold text-foreground mb-1">{label}</label>
+      <label htmlFor={id} className="block text-xs font-semibold text-foreground mb-1">
+        {label}
+      </label>
       {children}
     </div>
   );

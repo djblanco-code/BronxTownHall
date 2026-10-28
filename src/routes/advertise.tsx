@@ -65,7 +65,9 @@ function AdvertisePage() {
           <p className="mt-3 text-xs text-muted-foreground flex items-center gap-1.5">
             <Lock className="h-3.5 w-3.5" aria-hidden />
             {t("advertise.readPrivacyPre")}{" "}
-            <Link to="/privacy" className="font-semibold text-primary hover:underline">{t("advertise.readPrivacyLink")}</Link>
+            <Link to="/privacy" className="font-semibold text-primary hover:underline">
+              {t("advertise.readPrivacyLink")}
+            </Link>
           </p>
         </section>
 

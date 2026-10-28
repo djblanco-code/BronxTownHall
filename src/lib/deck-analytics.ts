@@ -29,7 +29,11 @@ function load(): Store {
 
 function save(s: Store) {
   if (typeof window === "undefined") return;
-  try { localStorage.setItem(KEY, JSON.stringify(s)); } catch { /* noop */ }
+  try {
+    localStorage.setItem(KEY, JSON.stringify(s));
+  } catch {
+    /* noop */
+  }
 }
 
 export function startSession(): PitchSession {
@@ -52,7 +56,7 @@ export function startSession(): PitchSession {
 
 export function recordSlide(sessionId: string, slide: number, ms: number) {
   const store = load();
-  const s = store.sessions.find(x => x.id === sessionId);
+  const s = store.sessions.find((x) => x.id === sessionId);
   if (!s) return;
   s.slideTimes[slide] = (s.slideTimes[slide] || 0) + ms;
   save(store);
@@ -60,7 +64,7 @@ export function recordSlide(sessionId: string, slide: number, ms: number) {
 
 export function endSession(sessionId: string, completed: boolean) {
   const store = load();
-  const s = store.sessions.find(x => x.id === sessionId);
+  const s = store.sessions.find((x) => x.id === sessionId);
   if (!s) return;
   s.endedAt = Date.now();
   s.completed = completed;
@@ -69,7 +73,7 @@ export function endSession(sessionId: string, completed: boolean) {
 
 export function recordShare(sessionId: string) {
   const store = load();
-  const s = store.sessions.find(x => x.id === sessionId);
+  const s = store.sessions.find((x) => x.id === sessionId);
   if (!s) return;
   s.shares += 1;
   save(store);
@@ -78,9 +82,13 @@ export function recordShare(sessionId: string) {
 export function getSummary() {
   const store = load();
   const total = store.sessions.length;
-  const completed = store.sessions.filter(s => s.completed).length;
+  const completed = store.sessions.filter((s) => s.completed).length;
   const avgTime = total
-    ? Math.round(store.sessions.reduce((a, s) => a + ((s.endedAt || Date.now()) - s.startedAt), 0) / total / 1000)
+    ? Math.round(
+        store.sessions.reduce((a, s) => a + ((s.endedAt || Date.now()) - s.startedAt), 0) /
+          total /
+          1000,
+      )
     : 0;
   return { total, completed, avgTimeSec: avgTime, sessions: store.sessions };
 }

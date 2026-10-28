@@ -1,18 +1,16 @@
 import { useEffect, useState } from "react";
 import { ShieldCheck, Trash2, Loader2, BarChart3 } from "lucide-react";
 import { toast } from "sonner";
-import {
-  analyticsOptedOut,
-  setAnalyticsOptOut,
-  deleteAllMyData,
-} from "@/lib/privacy";
+import { analyticsOptedOut, setAnalyticsOptOut, deleteAllMyData } from "@/lib/privacy";
 
 export function DataControls() {
   const [optOut, setOptOut] = useState(false);
   const [busy, setBusy] = useState(false);
   const [confirming, setConfirming] = useState(false);
 
-  useEffect(() => { setOptOut(analyticsOptedOut()); }, []);
+  useEffect(() => {
+    setOptOut(analyticsOptedOut());
+  }, []);
 
   function toggle() {
     const next = !optOut;
@@ -49,7 +47,8 @@ export function DataControls() {
         <div className="flex-1">
           <p className="font-bold text-sm">Anonymous usage counting</p>
           <p className="text-xs text-muted-foreground">
-            Counts which resources people open, so we can fix gaps. No names, no accounts, no IP tracking.
+            Counts which resources people open, so we can fix gaps. No names, no accounts, no IP
+            tracking.
           </p>
         </div>
         <button
@@ -60,7 +59,9 @@ export function DataControls() {
           aria-label="Anonymous usage counting"
           className={`h-7 w-12 shrink-0 rounded-full transition ${optOut ? "bg-muted" : "bg-primary"}`}
         >
-          <span className={`block h-6 w-6 rounded-full bg-card shadow transition-transform ${optOut ? "translate-x-0.5" : "translate-x-[22px]"}`} />
+          <span
+            className={`block h-6 w-6 rounded-full bg-card shadow transition-transform ${optOut ? "translate-x-0.5" : "translate-x-[22px]"}`}
+          />
         </button>
       </div>
 
@@ -77,7 +78,8 @@ export function DataControls() {
           <div className="rounded-xl border-2 border-destructive/50 bg-destructive/5 p-4">
             <p className="text-sm font-bold">Delete everything?</p>
             <p className="mt-1 text-sm text-muted-foreground">
-              This erases your saved resources, preferences, and anonymous usage rows — on this device and on our servers. It cannot be undone.
+              This erases your saved resources, preferences, and anonymous usage rows — on this
+              device and on our servers. It cannot be undone.
             </p>
             <div className="mt-3 flex gap-2">
               <button
@@ -86,10 +88,18 @@ export function DataControls() {
                 disabled={busy}
                 className="inline-flex items-center gap-2 rounded-xl bg-destructive px-4 py-2 text-sm font-bold text-destructive-foreground disabled:opacity-60"
               >
-                {busy ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> : <Trash2 className="h-4 w-4" aria-hidden="true" />}
+                {busy ? (
+                  <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
+                ) : (
+                  <Trash2 className="h-4 w-4" aria-hidden="true" />
+                )}
                 Yes, delete it all
               </button>
-              <button type="button" onClick={() => setConfirming(false)} className="rounded-xl border border-border px-4 py-2 text-sm font-bold">
+              <button
+                type="button"
+                onClick={() => setConfirming(false)}
+                className="rounded-xl border border-border px-4 py-2 text-sm font-bold"
+              >
                 Cancel
               </button>
             </div>

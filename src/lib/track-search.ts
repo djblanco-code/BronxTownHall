@@ -81,7 +81,13 @@ export function trackSearchClicked({
 }
 
 /** Smart/AI-assisted interpretation of a query (intent detection). */
-export function trackSearchAiUsed({ query, responseTimeMs }: { query: string; responseTimeMs: number }) {
+export function trackSearchAiUsed({
+  query,
+  responseTimeMs,
+}: {
+  query: string;
+  responseTimeMs: number;
+}) {
   const search_query = normalizeQuery(query);
   if (!search_query) return;
   trackEvent("search_ai_used", { search_query, response_time_ms: Math.round(responseTimeMs) });

@@ -11,7 +11,14 @@ type Props = {
 };
 
 /** Reusable Listen button — pairs with the persistent TtsPlayer. */
-export function ListenButton({ text, title, style, label = "Listen", variant = "icon", className = "" }: Props) {
+export function ListenButton({
+  text,
+  title,
+  style,
+  label = "Listen",
+  variant = "icon",
+  className = "",
+}: Props) {
   const { speak, stop, isPlaying, isLoading, nowPlaying } = useTts();
   const active = (isPlaying || isLoading) && nowPlaying === (title ?? text.slice(0, 80));
 
@@ -36,9 +43,13 @@ export function ListenButton({ text, title, style, label = "Listen", variant = "
         title={aria}
         className={`no-min-h h-9 w-9 shrink-0 inline-flex items-center justify-center rounded-full bg-accent text-accent-foreground shadow-sm hover:scale-105 active:scale-95 transition ${className}`}
       >
-        {isLoading && active ? <Loader2 className="h-4 w-4 animate-spin" /> :
-         active ? <Square className="h-4 w-4" fill="currentColor" /> :
-         <Volume2 className="h-4 w-4" />}
+        {isLoading && active ? (
+          <Loader2 className="h-4 w-4 animate-spin" />
+        ) : active ? (
+          <Square className="h-4 w-4" fill="currentColor" />
+        ) : (
+          <Volume2 className="h-4 w-4" />
+        )}
       </button>
     );
   }
@@ -50,9 +61,13 @@ export function ListenButton({ text, title, style, label = "Listen", variant = "
         aria-label={aria}
         className={`no-min-h inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border border-border bg-card hover:bg-secondary transition ${active ? "bg-primary text-primary-foreground border-primary" : ""} ${className}`}
       >
-        {isLoading && active ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> :
-         active ? <Square className="h-3.5 w-3.5" fill="currentColor" /> :
-         <Volume2 className="h-3.5 w-3.5" />}
+        {isLoading && active ? (
+          <Loader2 className="h-3.5 w-3.5 animate-spin" />
+        ) : active ? (
+          <Square className="h-3.5 w-3.5" fill="currentColor" />
+        ) : (
+          <Volume2 className="h-3.5 w-3.5" />
+        )}
         {active ? "Stop" : label}
       </button>
     );
@@ -65,9 +80,13 @@ export function ListenButton({ text, title, style, label = "Listen", variant = "
       aria-label={aria}
       className={`no-min-h inline-flex items-center justify-center gap-2 py-3 px-4 rounded-2xl bg-accent text-accent-foreground font-semibold shadow-md hover:bg-accent/90 transition min-h-[48px] ${className}`}
     >
-      {isLoading && active ? <Loader2 className="h-5 w-5 animate-spin" /> :
-       active ? <Square className="h-5 w-5" fill="currentColor" /> :
-       <Volume2 className="h-5 w-5" />}
+      {isLoading && active ? (
+        <Loader2 className="h-5 w-5 animate-spin" />
+      ) : active ? (
+        <Square className="h-5 w-5" fill="currentColor" />
+      ) : (
+        <Volume2 className="h-5 w-5" />
+      )}
       {active ? "Stop" : label}
     </button>
   );

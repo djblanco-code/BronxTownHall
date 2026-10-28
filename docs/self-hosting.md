@@ -79,20 +79,20 @@ effect after a new deployment.
 If the database came from Vercel's Supabase integration, the first three rows
 are already covered by the variables it added.
 
-| Variable | Required | What it is |
-|---|---|---|
-| `VITE_SUPABASE_URL` | Yes | Supabase Project URL |
-| `VITE_SUPABASE_PUBLISHABLE_KEY` | Yes | Supabase publishable (`anon`) key |
-| `SUPABASE_SERVICE_ROLE_KEY` | Yes | Supabase secret (`service_role`) key. Server only: never give it a `VITE_` prefix |
-| `VITE_SITE_URL` | If you use a custom domain | e.g. `https://bronxtownhall.org`. Defaults to your Vercel production domain |
-| `OPENAI_API_KEY` | Optional | Turns on Ask a question, smart search and the natural voice. Without it, listening uses the browser's built-in voice |
-| `AI_MODEL` | Optional | Chat model (default `gpt-4.1-mini`). Must support JSON-schema output |
-| `AI_TTS_MODEL` | Optional | Voice model (default `gpt-4o-mini-tts`) |
-| `OPENAI_BASE_URL` | Optional | Any OpenAI-compatible API instead of OpenAI |
-| `VITE_GOOGLE_MAPS_BROWSER_KEY` | Optional | Shows the map. Restrict it to your domain in Google Cloud |
-| `GOOGLE_MAPS_API_KEY` | Optional | Server-side address checks (Geocoding + Places APIs) |
-| `FIRECRAWL_API_KEY` | Optional | Weekly event scraping into the admin review queue |
-| `VITE_SMS_NUMBER` | Optional | The "Text FOOD to…" number, once the text line exists |
+| Variable                        | Required                   | What it is                                                                                                           |
+| ------------------------------- | -------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| `VITE_SUPABASE_URL`             | Yes                        | Supabase Project URL                                                                                                 |
+| `VITE_SUPABASE_PUBLISHABLE_KEY` | Yes                        | Supabase publishable (`anon`) key                                                                                    |
+| `SUPABASE_SERVICE_ROLE_KEY`     | Yes                        | Supabase secret (`service_role`) key. Server only: never give it a `VITE_` prefix                                    |
+| `VITE_SITE_URL`                 | If you use a custom domain | e.g. `https://bronxtownhall.org`. Defaults to your Vercel production domain                                          |
+| `OPENAI_API_KEY`                | Optional                   | Turns on Ask a question, smart search and the natural voice. Without it, listening uses the browser's built-in voice |
+| `AI_MODEL`                      | Optional                   | Chat model (default `gpt-4.1-mini`). Must support JSON-schema output                                                 |
+| `AI_TTS_MODEL`                  | Optional                   | Voice model (default `gpt-4o-mini-tts`)                                                                              |
+| `OPENAI_BASE_URL`               | Optional                   | Any OpenAI-compatible API instead of OpenAI                                                                          |
+| `VITE_GOOGLE_MAPS_BROWSER_KEY`  | Optional                   | Shows the map. Restrict it to your domain in Google Cloud                                                            |
+| `GOOGLE_MAPS_API_KEY`           | Optional                   | Server-side address checks (Geocoding + Places APIs)                                                                 |
+| `FIRECRAWL_API_KEY`             | Optional                   | Weekly event scraping into the admin review queue                                                                    |
+| `VITE_SMS_NUMBER`               | Optional                   | The "Text FOOD to…" number, once the text line exists                                                                |
 
 Vercel detects the build on its own (`npm run build`, Node 22). Nothing else
 needs configuring.

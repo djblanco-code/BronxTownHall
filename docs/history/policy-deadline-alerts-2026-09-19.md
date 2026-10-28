@@ -49,7 +49,7 @@ whether residents can get a resource — kept apart from "Latest from Your Offic
   `source_url`, `source_label`, `deadline_date`, `kind` ('policy' | 'deadline'),
   `published`, `published_at`, `created_by`, `expires_at`, timestamps. Public
   `SELECT TO anon, authenticated` limited to `published = true AND (expires_at IS NULL
-  OR expires_at > now())`; insert/update/delete gated on `has_role(auth.uid(),'admin')`.
+OR expires_at > now())`; insert/update/delete gated on `has_role(auth.uid(),'admin')`.
   Explicit GRANTs in the same migration.
 - New table `alert_subscriptions`: `id`, `phone`, `email`, `categories text[]`,
   `channel` ('sms' | 'email'), `language`, `confirmed`, `unsubscribed_at`, timestamps.

@@ -106,9 +106,12 @@ function eventFromRow(r: {
 
 /** Fire-and-forget upsert of one business to the cloud. */
 export function pushBusiness(b: Business) {
-  void supabase.from("businesses").upsert(toRow(b) as never).then(({ error }) => {
-    if (error) console.warn("[business-sync] push failed", error.message);
-  });
+  void supabase
+    .from("businesses")
+    .upsert(toRow(b) as never)
+    .then(({ error }) => {
+      if (error) console.warn("[business-sync] push failed", error.message);
+    });
 }
 
 export function pushBusinesses(list: Business[]) {
@@ -122,15 +125,22 @@ export function pushBusinesses(list: Business[]) {
 }
 
 export function removeBusinessRemote(id: string) {
-  void supabase.from("businesses").delete().eq("id", id).then(({ error }) => {
-    if (error) console.warn("[business-sync] delete failed", error.message);
-  });
+  void supabase
+    .from("businesses")
+    .delete()
+    .eq("id", id)
+    .then(({ error }) => {
+      if (error) console.warn("[business-sync] delete failed", error.message);
+    });
 }
 
 export function pushBusinessEvent(e: BusinessEvent) {
-  void supabase.from("business_events").upsert(eventToRow(e) as never).then(({ error }) => {
-    if (error) console.warn("[business-sync] event push failed", error.message);
-  });
+  void supabase
+    .from("business_events")
+    .upsert(eventToRow(e) as never)
+    .then(({ error }) => {
+      if (error) console.warn("[business-sync] event push failed", error.message);
+    });
 }
 
 /** One-time migration of anything still sitting in this browser. */

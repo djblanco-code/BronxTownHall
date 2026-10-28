@@ -41,8 +41,12 @@ export function PackShareBar() {
     <div ref={dockRef} className="fixed inset-x-0 app-dock-bottom z-40 px-3">
       <div className="mx-auto mb-3 max-w-2xl rounded-2xl border border-border bg-card shadow-lg p-3 flex items-center gap-2">
         <div className="flex-1 min-w-0">
-          <p className="text-sm font-bold">{count} resource{count === 1 ? "" : "s"} selected</p>
-          <p className="text-xs text-muted-foreground truncate">Share this pack with someone who needs it</p>
+          <p className="text-sm font-bold">
+            {count} resource{count === 1 ? "" : "s"} selected
+          </p>
+          <p className="text-xs text-muted-foreground truncate">
+            Share this pack with someone who needs it
+          </p>
         </div>
         <button
           type="button"
@@ -50,7 +54,11 @@ export function PackShareBar() {
           disabled={busy !== null}
           className="inline-flex items-center gap-1.5 rounded-xl bg-primary px-3 py-2 text-sm font-bold text-primary-foreground disabled:opacity-60"
         >
-          {busy === "sms" ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> : <MessageSquare className="h-4 w-4" aria-hidden="true" />}
+          {busy === "sms" ? (
+            <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
+          ) : (
+            <MessageSquare className="h-4 w-4" aria-hidden="true" />
+          )}
           Share via SMS
         </button>
         <button
@@ -60,7 +68,11 @@ export function PackShareBar() {
           aria-label="Copy share link"
           className="rounded-xl border border-border p-2 text-muted-foreground hover:text-foreground disabled:opacity-60"
         >
-          {busy === "copy" ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> : <Link2 className="h-4 w-4" aria-hidden="true" />}
+          {busy === "copy" ? (
+            <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
+          ) : (
+            <Link2 className="h-4 w-4" aria-hidden="true" />
+          )}
         </button>
         <button
           type="button"

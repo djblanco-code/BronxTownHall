@@ -9,7 +9,10 @@ export const Route = createFileRoute("/privacy")({
   head: () => ({
     meta: [
       { title: "Privacy Policy — The Bronx App" },
-      { name: "description", content: "How The Bronx App handles your personal information, location, and data." },
+      {
+        name: "description",
+        content: "How The Bronx App handles your personal information, location, and data.",
+      },
       { name: "robots", content: "index,follow" },
     ],
   }),
@@ -21,7 +24,10 @@ function PrivacyPage() {
   return (
     <AppShell>
       <div className="max-w-3xl mx-auto px-4 py-8 prose-like">
-        <Link to="/" className="no-min-h inline-flex items-center gap-1.5 text-sm text-primary font-medium mb-4 hover:underline">
+        <Link
+          to="/"
+          className="no-min-h inline-flex items-center gap-1.5 text-sm text-primary font-medium mb-4 hover:underline"
+        >
           <ArrowLeft className="h-4 w-4" /> {t("privacy.home")}
         </Link>
         <h1 className="text-3xl sm:text-4xl font-bold mb-2">{t("privacy.title")}</h1>
@@ -41,17 +47,31 @@ function PrivacyPage() {
 
             <h3 className="text-lg font-semibold mb-2">{t("privacy.noAccountTitle")}</h3>
             <ul className="list-disc ps-6 space-y-1 mb-4">
-              <li><strong>{t("privacy.noAccount1Label")}</strong> — {t("privacy.noAccount1")}</li>
-              <li><strong>{t("privacy.noAccount2Label")}</strong> — {t("privacy.noAccount2")}</li>
-              <li><strong>{t("privacy.noAccount3Label")}</strong> — {t("privacy.noAccount3")}</li>
-              <li><strong>{t("privacy.noAccount4Label")}</strong> — {t("privacy.noAccount4")}</li>
+              <li>
+                <strong>{t("privacy.noAccount1Label")}</strong> — {t("privacy.noAccount1")}
+              </li>
+              <li>
+                <strong>{t("privacy.noAccount2Label")}</strong> — {t("privacy.noAccount2")}
+              </li>
+              <li>
+                <strong>{t("privacy.noAccount3Label")}</strong> — {t("privacy.noAccount3")}
+              </li>
+              <li>
+                <strong>{t("privacy.noAccount4Label")}</strong> — {t("privacy.noAccount4")}
+              </li>
             </ul>
 
             <h3 className="text-lg font-semibold mb-2">{t("privacy.accountTitle")}</h3>
             <ul className="list-disc ps-6 space-y-1">
-              <li><strong>{t("privacy.account1Label")}</strong> — {t("privacy.account1")}</li>
-              <li><strong>{t("privacy.account2Label")}</strong> — {t("privacy.account2")}</li>
-              <li><strong>{t("privacy.account3Label")}</strong> — {t("privacy.account3")}</li>
+              <li>
+                <strong>{t("privacy.account1Label")}</strong> — {t("privacy.account1")}
+              </li>
+              <li>
+                <strong>{t("privacy.account2Label")}</strong> — {t("privacy.account2")}
+              </li>
+              <li>
+                <strong>{t("privacy.account3Label")}</strong> — {t("privacy.account3")}
+              </li>
             </ul>
           </section>
 
@@ -59,8 +79,10 @@ function PrivacyPage() {
             <h2 className="text-2xl font-bold mb-2">{t("privacy.deletionTitle")}</h2>
             <p>
               {t("privacy.deletionPre")}{" "}
-              <a href="mailto:hello@thebronxapp.org" className="text-primary underline">hello@thebronxapp.org</a>.{" "}
-              {t("privacy.deletionPost")}
+              <a href="mailto:hello@thebronxapp.org" className="text-primary underline">
+                hello@thebronxapp.org
+              </a>
+              . {t("privacy.deletionPost")}
             </p>
           </section>
 
@@ -93,9 +115,14 @@ function PrivacyPage() {
             <h2 className="text-2xl font-bold mb-2">{t("privacy.contactTitle")}</h2>
             <p>
               {t("privacy.contactPre")}{" "}
-              <a href="mailto:hello@thebronxapp.org" className="text-primary underline">hello@thebronxapp.org</a>{" "}
+              <a href="mailto:hello@thebronxapp.org" className="text-primary underline">
+                hello@thebronxapp.org
+              </a>{" "}
               {t("privacy.contactMid")}{" "}
-              <Link to="/contact" className="text-primary underline">{t("privacy.contactLink")}</Link>.
+              <Link to="/contact" className="text-primary underline">
+                {t("privacy.contactLink")}
+              </Link>
+              .
             </p>
           </section>
         </div>

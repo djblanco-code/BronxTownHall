@@ -19,7 +19,8 @@ const PHONE_RE = /^[\d\s().+-]{7,22}$/;
 export function parseActionLink(raw?: string | null): ActionLink | null {
   const v = (raw ?? "").trim();
   if (!v) return null;
-  if (/^https?:\/\//i.test(v)) return { kind: "url", href: v, display: v.replace(/^https?:\/\//i, "") };
+  if (/^https?:\/\//i.test(v))
+    return { kind: "url", href: v, display: v.replace(/^https?:\/\//i, "") };
   if (/^tel:/i.test(v)) {
     const digits = v.slice(4).trim();
     return { kind: "phone", href: `tel:${digits.replace(/[^\d+]/g, "")}`, display: digits };

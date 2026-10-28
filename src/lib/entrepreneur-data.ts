@@ -315,4 +315,4 @@ export const SEED_BUSINESSES: SeedBusiness[] = [
 ];
 
 export const BIZ_CATEGORIES = ["All", "Food", "Retail", "Health", "Services"] as const;
-export type BizCategoryFilter = typeof BIZ_CATEGORIES[number];
+export type BizCategoryFilter = (typeof BIZ_CATEGORIES)[number];

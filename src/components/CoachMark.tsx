@@ -47,11 +47,12 @@ export function CoachMark({
   }, [delay, storageKey]);
 
   const close = () => setVisible(false);
-  const position = placement === "below-end"
-    ? "top-[calc(100%+0.75rem)] end-0"
-    : placement === "above"
-      ? "bottom-[calc(100%+0.75rem)] start-1/2 -translate-x-1/2"
-      : "top-[calc(100%+0.75rem)] start-0";
+  const position =
+    placement === "below-end"
+      ? "top-[calc(100%+0.75rem)] end-0"
+      : placement === "above"
+        ? "bottom-[calc(100%+0.75rem)] start-1/2 -translate-x-1/2"
+        : "top-[calc(100%+0.75rem)] start-0";
 
   return (
     <div ref={anchorRef} className="relative" data-coach-mark-active={visible ? "true" : undefined}>
@@ -68,7 +69,10 @@ export function CoachMark({
             role="status"
             className={`absolute ${position} z-50 w-[min(18rem,calc(100vw-2rem))] rounded-lg border-2 border-primary bg-card p-3 text-start text-sm font-semibold text-card-foreground shadow-xl`}
           >
-            <span className="absolute -top-2 start-6 h-3.5 w-3.5 rotate-45 border-s-2 border-t-2 border-primary bg-card" aria-hidden="true" />
+            <span
+              className="absolute -top-2 start-6 h-3.5 w-3.5 rotate-45 border-s-2 border-t-2 border-primary bg-card"
+              aria-hidden="true"
+            />
             <div className="flex items-start gap-2">
               <p className="flex-1 leading-snug">{message}</p>
               <button

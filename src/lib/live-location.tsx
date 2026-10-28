@@ -1,4 +1,13 @@
-import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type ReactNode,
+} from "react";
 import { useProfile } from "@/lib/onboarding";
 import { distanceFromCoords, haversineMiles, ZIP_LATLNG } from "@/lib/zip-distance";
 import { trackEvent } from "@/lib/analytics";
@@ -116,8 +125,16 @@ export function LiveLocationProvider({ children }: { children: ReactNode }) {
         clearWatch();
         setMode("zip");
         setCoords(null);
-        setStatus(err.code === err.PERMISSION_DENIED ? "denied" : err.code === err.TIMEOUT ? "error" : "unavailable");
-        trackEvent("location_live_failed", { reason: err.code === err.PERMISSION_DENIED ? "denied" : "unavailable" });
+        setStatus(
+          err.code === err.PERMISSION_DENIED
+            ? "denied"
+            : err.code === err.TIMEOUT
+              ? "error"
+              : "unavailable",
+        );
+        trackEvent("location_live_failed", {
+          reason: err.code === err.PERMISSION_DENIED ? "denied" : "unavailable",
+        });
       },
       { enableHighAccuracy: true, timeout: 15_000, maximumAge: 30_000 },
     );
@@ -143,8 +160,30 @@ export function LiveLocationProvider({ children }: { children: ReactNode }) {
   );
 
   const value = useMemo<LocationContextValue>(
-    () => ({ mode, status, coords, accuracyMeters, supported, zip, updates, enableLive, useZipOnly, distanceFor }),
-    [mode, status, coords, accuracyMeters, supported, zip, updates, enableLive, useZipOnly, distanceFor],
+    () => ({
+      mode,
+      status,
+      coords,
+      accuracyMeters,
+      supported,
+      zip,
+      updates,
+      enableLive,
+      useZipOnly,
+      distanceFor,
+    }),
+    [
+      mode,
+      status,
+      coords,
+      accuracyMeters,
+      supported,
+      zip,
+      updates,
+      enableLive,
+      useZipOnly,
+      distanceFor,
+    ],
   );
 
   return <LocationCtx.Provider value={value}>{children}</LocationCtx.Provider>;

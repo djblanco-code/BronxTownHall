@@ -31,7 +31,10 @@ export const End: React.FC<{ display: string; body: string }> = ({ display, body
             fontFamily: body,
             fontSize: 34,
             color: C.gold,
-            opacity: interpolate(frame, [20, 44], [0, 1], { extrapolateRight: "clamp", extrapolateLeft: "clamp" }),
+            opacity: interpolate(frame, [20, 44], [0, 1], {
+              extrapolateRight: "clamp",
+              extrapolateLeft: "clamp",
+            }),
           }}
         >
           Ready for operator handoff.

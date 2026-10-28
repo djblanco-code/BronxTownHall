@@ -29,7 +29,11 @@ export function ZipPrompt({ className = "" }: { className?: string }) {
 
   const dismiss = () => {
     setDismissed(true);
-    try { localStorage.setItem(DISMISS_KEY, "1"); } catch { /* ignore */ }
+    try {
+      localStorage.setItem(DISMISS_KEY, "1");
+    } catch {
+      /* ignore */
+    }
   };
 
   return (
@@ -41,7 +45,9 @@ export function ZipPrompt({ className = "" }: { className?: string }) {
         Add your zip code and we'll sort by distance. We keep it on your device only.
       </p>
       <div className="mt-3 flex flex-wrap items-center gap-2">
-        <label htmlFor="zip-prompt" className="sr-only">Your Bronx zip code</label>
+        <label htmlFor="zip-prompt" className="sr-only">
+          Your Bronx zip code
+        </label>
         <select
           id="zip-prompt"
           value={zip}
@@ -49,7 +55,11 @@ export function ZipPrompt({ className = "" }: { className?: string }) {
           className="px-4 py-3 rounded-xl border-2 border-border bg-card text-base min-h-[48px]"
         >
           <option value="">{t("zip")}</option>
-          {BRONX_ZIPS.map((z) => <option key={z} value={z}>{z}</option>)}
+          {BRONX_ZIPS.map((z) => (
+            <option key={z} value={z}>
+              {z}
+            </option>
+          ))}
         </select>
         <button
           onClick={dismiss}

@@ -13,7 +13,10 @@ export function SelectionListenButton() {
       const sel = window.getSelection();
       const text = sel ? sel.toString().trim() : "";
       // Don't show for tiny selections or selections inside form fields
-      if (!text || text.length < 8) { setSelectedText(""); return; }
+      if (!text || text.length < 8) {
+        setSelectedText("");
+        return;
+      }
       const node = sel?.anchorNode;
       const el = (node && node.nodeType === 1 ? node : node?.parentElement) as HTMLElement | null;
       if (el?.closest("input, textarea, [contenteditable='true'], [data-tts-ignore]")) {

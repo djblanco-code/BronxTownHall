@@ -57,23 +57,38 @@ export function AdminConductFlagPanel() {
       .order("created_at", { ascending: false })
       .limit(200);
     setLoading(false);
-    if (error) { toast.error(error.message); return; }
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
     setRows((data ?? []) as Flag[]);
   };
 
-  useEffect(() => { void load(); }, []);
+  useEffect(() => {
+    void load();
+  }, []);
 
   const update = async (id: string, patch: Partial<Flag>) => {
     setBusy(id);
-    const { error } = await supabase.from("conduct_flags").update(patch as never).eq("id", id);
+    const { error } = await supabase
+      .from("conduct_flags")
+      .update(patch as never)
+      .eq("id", id);
     setBusy(null);
-    if (error) { toast.error(error.message); return; }
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
     toast.success("Flag updated.");
     void load();
   };
 
   const visible = rows.filter((r) =>
-    filter === "all" ? true : filter === "open" ? r.status === "new" || r.status === "reviewing" : r.status === filter,
+    filter === "all"
+      ? true
+      : filter === "open"
+        ? r.status === "new" || r.status === "reviewing"
+        : r.status === filter,
   );
   const openCount = rows.filter((r) => r.status === "new" || r.status === "reviewing").length;
 
@@ -84,22 +99,35 @@ export function AdminConductFlagPanel() {
           <ShieldAlert className="h-5 w-5 text-destructive" aria-hidden="true" />
           Conduct flags
           {openCount > 0 && (
-            <span className="rounded-full bg-destructive px-2 py-0.5 text-xs font-bold text-destructive-foreground">{openCount} open</span>
+            <span className="rounded-full bg-destructive px-2 py-0.5 text-xs font-bold text-destructive-foreground">
+              {openCount} open
+            </span>
           )}
         </h2>
         <label className="text-xs font-semibold flex items-center gap-2">
           Show
-          <select value={filter} onChange={(e) => setFilter(e.target.value)} aria-label="Filter conduct flags" className="rounded-lg border border-border bg-background px-2 py-1.5 text-xs">
+          <select
+            value={filter}
+            onChange={(e) => setFilter(e.target.value)}
+            aria-label="Filter conduct flags"
+            className="rounded-lg border border-border bg-background px-2 py-1.5 text-xs"
+          >
             <option value="open">Open</option>
-            {STATUSES.map((s) => <option key={s.id} value={s.id}>{s.label}</option>)}
+            {STATUSES.map((s) => (
+              <option key={s.id} value={s.id}>
+                {s.label}
+              </option>
+            ))}
             <option value="all">All</option>
           </select>
         </label>
       </div>
 
       <p className="text-xs text-muted-foreground">
-        Serious concerns about a business misleading or exploiting people. Separate from incorrect-info reports and edit suggestions. These never
-        change a listing or its verification badge automatically, and are never shown publicly. Review each one deliberately before taking action.
+        Serious concerns about a business misleading or exploiting people. Separate from
+        incorrect-info reports and edit suggestions. These never change a listing or its
+        verification badge automatically, and are never shown publicly. Review each one deliberately
+        before taking action.
       </p>
 
       {loading ? (
@@ -113,11 +141,20 @@ export function AdminConductFlagPanel() {
           {visible.map((r) => (
             <li key={r.id} className="rounded-xl border border-border p-3 space-y-2">
               <div className="flex flex-wrap items-center gap-2">
-                <span className="rounded-full bg-destructive/10 px-2 py-0.5 text-xs font-bold text-destructive">{CONCERN_LABELS[r.concern] ?? r.concern}</span>
+                <span className="rounded-full bg-destructive/10 px-2 py-0.5 text-xs font-bold text-destructive">
+                  {CONCERN_LABELS[r.concern] ?? r.concern}
+                </span>
                 <span className="text-sm font-bold">{r.resource_name || r.resource_id}</span>
-                <span className="text-xs text-muted-foreground">{r.resource_type}{r.category ? ` · ${r.category}` : ""}</span>
-                <span className="ml-auto text-xs text-muted-foreground">{new Date(r.created_at).toLocaleDateString()}</span>
-                <span className="rounded-full border border-border px-2 py-0.5 text-xs font-semibold">{STATUSES.find((s) => s.id === r.status)?.label ?? r.status}</span>
+                <span className="text-xs text-muted-foreground">
+                  {r.resource_type}
+                  {r.category ? ` · ${r.category}` : ""}
+                </span>
+                <span className="ml-auto text-xs text-muted-foreground">
+                  {new Date(r.created_at).toLocaleDateString()}
+                </span>
+                <span className="rounded-full border border-border px-2 py-0.5 text-xs font-semibold">
+                  {STATUSES.find((s) => s.id === r.status)?.label ?? r.status}
+                </span>
               </div>
 
               <p className="whitespace-pre-wrap text-sm">{r.details}</p>
@@ -141,7 +178,9 @@ export function AdminConductFlagPanel() {
 
               <div className="flex flex-wrap gap-2">
                 <button
-                  onClick={() => update(r.id, { admin_notes: notes[r.id] ?? r.admin_notes ?? null })}
+                  onClick={() =>
+                    update(r.id, { admin_notes: notes[r.id] ?? r.admin_notes ?? null })
+                  }
                   disabled={busy === r.id}
                   className="no-min-h rounded-lg border-2 border-border px-3 py-1.5 text-xs font-bold hover:bg-muted disabled:opacity-50"
                 >
@@ -150,11 +189,13 @@ export function AdminConductFlagPanel() {
                 {STATUSES.filter((s) => s.id !== r.status).map((s) => (
                   <button
                     key={s.id}
-                    onClick={() => update(r.id, {
-                      status: s.id,
-                      admin_notes: notes[r.id] ?? r.admin_notes ?? null,
-                      reviewed_at: new Date().toISOString(),
-                    })}
+                    onClick={() =>
+                      update(r.id, {
+                        status: s.id,
+                        admin_notes: notes[r.id] ?? r.admin_notes ?? null,
+                        reviewed_at: new Date().toISOString(),
+                      })
+                    }
                     disabled={busy === r.id}
                     className="no-min-h rounded-lg border-2 border-border px-3 py-1.5 text-xs font-bold hover:bg-muted disabled:opacity-50"
                   >

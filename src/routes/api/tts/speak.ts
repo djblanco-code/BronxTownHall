@@ -45,8 +45,16 @@ export const Route = createFileRoute("/api/tts/speak")({
         }
 
         const ALLOWED_VOICES = new Set([
-          "alloy", "ash", "ballad", "coral", "echo",
-          "sage", "shimmer", "verse", "marin", "cedar",
+          "alloy",
+          "ash",
+          "ballad",
+          "coral",
+          "echo",
+          "sage",
+          "shimmer",
+          "verse",
+          "marin",
+          "cedar",
         ]);
         const voice = ALLOWED_VOICES.has(body.voice ?? "") ? body.voice! : "alloy";
         const speed = Math.min(Math.max(Number(body.speed) || 1, 0.5), 2);
@@ -55,12 +63,14 @@ export const Route = createFileRoute("/api/tts/speak")({
         // Style → natural instructions to humanize the voice.
         const STYLE_INSTRUCTIONS: Record<string, string> = {
           calm: "Speak in a warm, calm, friendly tone. Use natural pauses between sections, especially after section labels like 'Address', 'Phone', and 'Hours'. Pronounce phone numbers clearly digit by digit. Read addresses naturally, like a helpful neighbor giving directions.",
-          empathetic: "Speak in a warm, empathetic, reassuring tone — this is sensitive crisis information. Slow slightly. Pause meaningfully between sections. Pronounce phone numbers clearly digit by digit so the listener can write them down.",
-          cheerful: "Speak in an upbeat, friendly, encouraging tone. Use natural rhythm and pauses between sections. Sound like a community organizer sharing good news.",
-          directions: "Speak like a helpful neighbor giving walking directions — clear, calm, and unhurried. Pause briefly between landmarks. Read street names naturally.",
+          empathetic:
+            "Speak in a warm, empathetic, reassuring tone — this is sensitive crisis information. Slow slightly. Pause meaningfully between sections. Pronounce phone numbers clearly digit by digit so the listener can write them down.",
+          cheerful:
+            "Speak in an upbeat, friendly, encouraging tone. Use natural rhythm and pauses between sections. Sound like a community organizer sharing good news.",
+          directions:
+            "Speak like a helpful neighbor giving walking directions — clear, calm, and unhurried. Pause briefly between landmarks. Read street names naturally.",
         };
-        const instructions =
-          STYLE_INSTRUCTIONS[body.style ?? "calm"] ?? STYLE_INSTRUCTIONS.calm;
+        const instructions = STYLE_INSTRUCTIONS[body.style ?? "calm"] ?? STYLE_INSTRUCTIONS.calm;
 
         const upstream = await fetch(`${baseURL}/audio/speech`, {
           method: "POST",
@@ -81,17 +91,24 @@ export const Route = createFileRoute("/api/tts/speak")({
         if (!upstream.ok) {
           const errText = await upstream.text().catch(() => "");
           return new Response(
-            JSON.stringify({ error: `TTS failed: ${upstream.status}`, detail: errText.slice(0, 500) }),
+            JSON.stringify({
+              error: `TTS failed: ${upstream.status}`,
+              detail: errText.slice(0, 500),
+            }),
             { status: upstream.status, headers: { "content-type": "application/json" } },
           );
         }
 
         const mime =
-          format === "mp3" ? "audio/mpeg" :
-          format === "opus" ? "audio/ogg" :
-          format === "aac" ? "audio/aac" :
-          format === "flac" ? "audio/flac" :
-          "audio/wav";
+          format === "mp3"
+            ? "audio/mpeg"
+            : format === "opus"
+              ? "audio/ogg"
+              : format === "aac"
+                ? "audio/aac"
+                : format === "flac"
+                  ? "audio/flac"
+                  : "audio/wav";
 
         return new Response(upstream.body, {
           headers: {

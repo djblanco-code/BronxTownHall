@@ -4,7 +4,17 @@ import { toast } from "sonner";
 import { trackResourceSaved } from "@/lib/track-resource";
 import { useI18n } from "@/lib/i18n-context";
 
-export function FavoriteStar({ id, size = "md", onClick, category }: { id: string; size?: "sm" | "md" | "lg"; onClick?: (e: React.MouseEvent) => void; category?: string }) {
+export function FavoriteStar({
+  id,
+  size = "md",
+  onClick,
+  category,
+}: {
+  id: string;
+  size?: "sm" | "md" | "lg";
+  onClick?: (e: React.MouseEvent) => void;
+  category?: string;
+}) {
   const { isFavorite, toggleFavorite } = usePersonalization();
   const { t } = useI18n();
   const fav = isFavorite(id);
@@ -26,7 +36,11 @@ export function FavoriteStar({ id, size = "md", onClick, category }: { id: strin
       aria-pressed={fav}
       className={`no-min-h ${px} grid place-items-center rounded-full hover:bg-secondary transition shrink-0`}
     >
-      <Star className={`${iconSize} ${fav ? "fill-warning text-warning" : "text-foreground/70"}`} strokeWidth={2.25} aria-hidden="true" />
+      <Star
+        className={`${iconSize} ${fav ? "fill-warning text-warning" : "text-foreground/70"}`}
+        strokeWidth={2.25}
+        aria-hidden="true"
+      />
     </button>
   );
 }

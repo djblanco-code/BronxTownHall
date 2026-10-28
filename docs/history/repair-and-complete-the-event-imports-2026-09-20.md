@@ -1,6 +1,7 @@
 # Repair and complete the event imports
 
 ## Database corrections
+
 - Add an optional event end-date field so fixed date ranges can remain visible through their actual final day.
 - Correct the five existing dated/ranged listings, retaining times in Hours and using clean date values.
 - Keep the five existing recurring listings as ongoing, undated resource listings.
@@ -11,12 +12,14 @@
 - Delete the ten old calendar rows confirmed as sample seed data in the original table-creation migration.
 
 ## Display fixes
+
 - Make the Events page and homepage event section read active dated events from the unified resource database, while still including future approved community submissions.
 - Treat an event as current through its end date when a range exists, and show the range on its card.
 - Keep recurring resources undated and available through the normal Events category listing.
 - Hide expired dated events from both Events and category browsing while retaining them in the database for audit/history.
 
 ## Verification and reporting
+
 - Confirm there are no active dated imports with missing or malformed dates.
 - Confirm current/upcoming cards render on the Events page and expired rows do not.
 - Report live dated events, live recurring listings, held items, and the corrected original-list total.

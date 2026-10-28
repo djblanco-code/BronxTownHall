@@ -76,7 +76,9 @@ export async function listPicks(creatorId: string): Promise<CreatorPick[]> {
 }
 
 /** All creators who have featured a given listing (for the "Featured by" line). */
-export async function featuredBy(targetId: string): Promise<{ creator: Creator; note: string | null }[]> {
+export async function featuredBy(
+  targetId: string,
+): Promise<{ creator: Creator; note: string | null }[]> {
   const { data } = await supabase
     .from("creator_picks")
     .select("note,creators!inner(" + CREATOR_COLS + ")")
@@ -106,7 +108,10 @@ export async function addPick(input: {
 }
 
 export async function updatePickNote(pickId: string, note: string) {
-  return supabase.from("creator_picks").update({ note: note.slice(0, 150) || null }).eq("id", pickId);
+  return supabase
+    .from("creator_picks")
+    .update({ note: note.slice(0, 150) || null })
+    .eq("id", pickId);
 }
 
 export async function removePick(pickId: string) {
@@ -209,7 +214,13 @@ export async function searchListings(query: string, limit = 20): Promise<PickCan
 
   for (const r of RESOURCES) {
     if (r.name.en.toLowerCase().includes(q) || r.address.toLowerCase().includes(q)) {
-      out.push({ target_type: "resource", target_id: r.id, name: r.name.en, category: r.category, address: r.address });
+      out.push({
+        target_type: "resource",
+        target_id: r.id,
+        name: r.name.en,
+        category: r.category,
+        address: r.address,
+      });
     }
   }
 
@@ -232,8 +243,19 @@ export async function searchListings(query: string, limit = 20): Promise<PickCan
     .select("id,title,category,location")
     .ilike("title", `%${q}%`)
     .limit(10);
-  for (const e of (events ?? []) as unknown as { id: string; title: string; category: string | null; location: string | null }[]) {
-    out.push({ target_type: "event", target_id: e.id, name: e.title, category: e.category ?? "events", address: e.location ?? "" });
+  for (const e of (events ?? []) as unknown as {
+    id: string;
+    title: string;
+    category: string | null;
+    location: string | null;
+  }[]) {
+    out.push({
+      target_type: "event",
+      target_id: e.id,
+      name: e.title,
+      category: e.category ?? "events",
+      address: e.location ?? "",
+    });
   }
 
   const { data: biz } = await supabase
@@ -241,8 +263,19 @@ export async function searchListings(query: string, limit = 20): Promise<PickCan
     .select("id,name,category,address")
     .ilike("name", `%${q}%`)
     .limit(10);
-  for (const b of (biz ?? []) as unknown as { id: string; name: string; category: string | null; address: string | null }[]) {
-    out.push({ target_type: "business", target_id: b.id, name: b.name, category: b.category, address: b.address ?? "" });
+  for (const b of (biz ?? []) as unknown as {
+    id: string;
+    name: string;
+    category: string | null;
+    address: string | null;
+  }[]) {
+    out.push({
+      target_type: "business",
+      target_id: b.id,
+      name: b.name,
+      category: b.category,
+      address: b.address ?? "",
+    });
   }
 
   return out.slice(0, limit);

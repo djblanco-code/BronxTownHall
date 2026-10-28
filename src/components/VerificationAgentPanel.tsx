@@ -83,14 +83,18 @@ export function VerificationAgentPanel() {
           disabled={running}
           className="px-3 py-1.5 rounded-lg bg-primary text-primary-foreground text-sm font-semibold inline-flex items-center gap-1.5 disabled:opacity-60"
         >
-          {running ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden /> : <RefreshCw className="h-4 w-4" aria-hidden />}
+          {running ? (
+            <Loader2 className="h-4 w-4 animate-spin" aria-hidden />
+          ) : (
+            <RefreshCw className="h-4 w-4" aria-hidden />
+          )}
           {running ? "Checking…" : "Run check now"}
         </button>
       </div>
 
       <p className="text-sm text-muted-foreground">
-        Weekly agent re-checks each resource older than 30 days: phone number format, address on the map, and a Google
-        listing cross-check. Runs in bounded batches of 10.
+        Weekly agent re-checks each resource older than 30 days: phone number format, address on the
+        map, and a Google listing cross-check. Runs in bounded batches of 10.
       </p>
 
       <div className="grid grid-cols-3 gap-2">
@@ -101,7 +105,13 @@ export function VerificationAgentPanel() {
 
       <p className="text-xs text-muted-foreground">
         Status: <span className="font-semibold">{job?.status ?? "idle"}</span>
-        {job?.last_run_at && <> · Last run {new Date(job.last_run_at).toLocaleString()} ({job.processed_last_run} checked)</>}
+        {job?.last_run_at && (
+          <>
+            {" "}
+            · Last run {new Date(job.last_run_at).toLocaleString()} ({job.processed_last_run}{" "}
+            checked)
+          </>
+        )}
         {job?.last_error && <span className="text-destructive"> · {job.last_error}</span>}
       </p>
       {message && <p className="text-xs font-medium">{message}</p>}
@@ -113,9 +123,13 @@ export function VerificationAgentPanel() {
               <p className="text-sm font-semibold inline-flex items-center gap-1.5">
                 <AlertTriangle className="h-4 w-4 text-destructive" aria-hidden />
                 {r.resource_name ?? r.resource_id}
-                {r.category && <span className="text-xs text-muted-foreground font-normal">· {r.category}</span>}
+                {r.category && (
+                  <span className="text-xs text-muted-foreground font-normal">· {r.category}</span>
+                )}
               </p>
-              <p className="text-xs text-muted-foreground">{(r.verification_issues ?? []).join(" · ") || "Unknown issue"}</p>
+              <p className="text-xs text-muted-foreground">
+                {(r.verification_issues ?? []).join(" · ") || "Unknown issue"}
+              </p>
             </li>
           ))}
         </ul>

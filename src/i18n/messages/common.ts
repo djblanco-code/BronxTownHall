@@ -190,8 +190,10 @@ export const common: Bundle = {
     btnLoading: "Chargement…",
     btnRetry: "Réessayer",
     coachLanguage: "Appuyez ici pour changer de langue",
-    coachCategories: "Appuyez sur Nourriture, Santé ou Juridique pour trouver de l’aide près de chez vous",
-    coachTts: "Appuyez sur l’icône du haut-parleur : l’application lit tout à voix haute dans votre langue",
+    coachCategories:
+      "Appuyez sur Nourriture, Santé ou Juridique pour trouver de l’aide près de chez vous",
+    coachTts:
+      "Appuyez sur l’icône du haut-parleur : l’application lit tout à voix haute dans votre langue",
     catFood: "Nourriture",
     catHealth: "Santé",
     catLegal: "Juridique",
@@ -257,7 +259,8 @@ export const common: Bundle = {
     btnLoading: "লোড হচ্ছে…",
     btnRetry: "আবার চেষ্টা করুন",
     coachLanguage: "ভাষা পরিবর্তন করতে এখানে ট্যাপ করুন",
-    coachCategories: "কাছাকাছি আপনার প্রয়োজনীয় সহায়তা পেতে খাবার, স্বাস্থ্য বা আইনি বিভাগে ট্যাপ করুন",
+    coachCategories:
+      "কাছাকাছি আপনার প্রয়োজনীয় সহায়তা পেতে খাবার, স্বাস্থ্য বা আইনি বিভাগে ট্যাপ করুন",
     coachTts: "স্পিকার আইকনে ট্যাপ করুন — অ্যাপটি আপনার ভাষায় সবকিছু পড়ে শোনাবে",
     catFood: "খাবার",
     catHealth: "স্বাস্থ্য",
@@ -324,7 +327,8 @@ export const common: Bundle = {
     btnLoading: "جارٍ التحميل…",
     btnRetry: "حاول مرة أخرى",
     coachLanguage: "اضغط هنا لتغيير اللغة",
-    coachCategories: "اضغط على الطعام أو الصحة أو المساعدة القانونية للعثور على ما تحتاج إليه بالقرب منك",
+    coachCategories:
+      "اضغط على الطعام أو الصحة أو المساعدة القانونية للعثور على ما تحتاج إليه بالقرب منك",
     coachTts: "اضغط على رمز مكبر الصوت — سيقرأ التطبيق كل شيء بصوت عالٍ بلغتك",
     catFood: "الطعام",
     catHealth: "الصحة",

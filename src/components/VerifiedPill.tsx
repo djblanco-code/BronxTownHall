@@ -43,22 +43,55 @@ export function VerifiedPill({
 
   if (verified) {
     Icon = CalendarCheck;
-    const short = status === "verified_by_org" ? t("interface.confirmedOrg") : status === "verified_public_source" ? t("interface.publicSource") : t("interface.verified");
-    const days = Math.max(0, Math.floor((Date.now() - new Date(lastVerified).getTime()) / 86_400_000));
-    const ago = days === 0 ? t("interface.today") : days === 1 ? t("interface.yesterday") : days < 7 ? t("interface.daysAgo", { count: days }) : days < 30 ? t("interface.weeksAgo", { count: Math.floor(days / 7) }) : days < 365 ? t("interface.monthsAgo", { count: Math.floor(days / 30) }) : t("interface.yearsAgo", { count: Math.floor(days / 365) });
+    const short =
+      status === "verified_by_org"
+        ? t("interface.confirmedOrg")
+        : status === "verified_public_source"
+          ? t("interface.publicSource")
+          : t("interface.verified");
+    const days = Math.max(
+      0,
+      Math.floor((Date.now() - new Date(lastVerified).getTime()) / 86_400_000),
+    );
+    const ago =
+      days === 0
+        ? t("interface.today")
+        : days === 1
+          ? t("interface.yesterday")
+          : days < 7
+            ? t("interface.daysAgo", { count: days })
+            : days < 30
+              ? t("interface.weeksAgo", { count: Math.floor(days / 7) })
+              : days < 365
+                ? t("interface.monthsAgo", { count: Math.floor(days / 30) })
+                : t("interface.yearsAgo", { count: Math.floor(days / 365) });
     label = `${short} · ${ago}`;
-    cls = fresh === "fresh" ? "bg-success/15 text-foreground" : "bg-warning/20 text-warning-foreground";
+    cls =
+      fresh === "fresh" ? "bg-success/15 text-foreground" : "bg-warning/20 text-warning-foreground";
   } else if (!stale && status === "community_submitted") {
     Icon = Users;
     label = t("interface.communitySubmitted");
     cls = "bg-accent/20 text-accent-foreground";
   }
 
-  const fullLabel = status === "verified_by_org" ? t("interface.confirmedOrg") : status === "verified_public_source" ? t("interface.publicSource") : t("interface.verified");
+  const fullLabel =
+    status === "verified_by_org"
+      ? t("interface.confirmedOrg")
+      : status === "verified_public_source"
+        ? t("interface.publicSource")
+        : t("interface.verified");
   const title = verified
-    ? t("interface.verifiedTitle", { label: fullLabel, source: source ? ` · ${t("interface.source")}: ${source}` : "", date: new Date(lastVerified).toLocaleDateString(lang), days: cadence })
+    ? t("interface.verifiedTitle", {
+        label: fullLabel,
+        source: source ? ` · ${t("interface.source")}: ${source}` : "",
+        date: new Date(lastVerified).toLocaleDateString(lang),
+        days: cadence,
+      })
     : stale && lastVerified
-      ? t("interface.lastCheckedStale", { date: new Date(lastVerified).toLocaleDateString(lang), days: cadence })
+      ? t("interface.lastCheckedStale", {
+          date: new Date(lastVerified).toLocaleDateString(lang),
+          days: cadence,
+        })
       : status === "community_submitted"
         ? t("interface.verificationCommunity")
         : t("interface.verificationUnknown");

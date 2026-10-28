@@ -5,15 +5,29 @@ import { useDockHeight } from "@/hooks/use-dock-height";
 function fmt(sec: number): string {
   if (!isFinite(sec) || sec <= 0) return "0:00";
   const m = Math.floor(sec / 60);
-  const s = Math.floor(sec % 60).toString().padStart(2, "0");
+  const s = Math.floor(sec % 60)
+    .toString()
+    .padStart(2, "0");
   return `${m}:${s}`;
 }
 
 export function TtsPlayer() {
   const {
-    playerVisible, isPlaying, isLoading, nowPlaying,
-    currentTime, duration, voice, setVoice, speed, setSpeed,
-    pause, resume, stop, seek, hidePlayer,
+    playerVisible,
+    isPlaying,
+    isLoading,
+    nowPlaying,
+    currentTime,
+    duration,
+    voice,
+    setVoice,
+    speed,
+    setSpeed,
+    pause,
+    resume,
+    stop,
+    seek,
+    hidePlayer,
   } = useTts();
   const dockRef = useDockHeight();
 
@@ -30,7 +44,9 @@ export function TtsPlayer() {
         <div className="flex items-center gap-2">
           <Volume2 className="h-4 w-4 text-primary shrink-0" aria-hidden />
           <div className="min-w-0 flex-1">
-            <p className="text-[11px] uppercase tracking-wide text-muted-foreground font-semibold leading-none">Now listening</p>
+            <p className="text-[11px] uppercase tracking-wide text-muted-foreground font-semibold leading-none">
+              Now listening
+            </p>
             <p className="text-sm font-medium truncate">{nowPlaying || "—"}</p>
           </div>
           <button
@@ -44,23 +60,41 @@ export function TtsPlayer() {
 
         <div className="flex items-center gap-2">
           {isLoading ? (
-            <button disabled aria-label="Loading audio" className="no-min-h h-10 w-10 rounded-full grid place-items-center bg-primary text-primary-foreground opacity-80">
+            <button
+              disabled
+              aria-label="Loading audio"
+              className="no-min-h h-10 w-10 rounded-full grid place-items-center bg-primary text-primary-foreground opacity-80"
+            >
               <Loader2 className="h-5 w-5 animate-spin" />
             </button>
           ) : isPlaying ? (
-            <button onClick={pause} aria-label="Pause" className="no-min-h h-10 w-10 rounded-full grid place-items-center bg-primary text-primary-foreground hover:bg-primary/90">
+            <button
+              onClick={pause}
+              aria-label="Pause"
+              className="no-min-h h-10 w-10 rounded-full grid place-items-center bg-primary text-primary-foreground hover:bg-primary/90"
+            >
               <Pause className="h-5 w-5" />
             </button>
           ) : (
-            <button onClick={resume} aria-label="Play" className="no-min-h h-10 w-10 rounded-full grid place-items-center bg-primary text-primary-foreground hover:bg-primary/90">
+            <button
+              onClick={resume}
+              aria-label="Play"
+              className="no-min-h h-10 w-10 rounded-full grid place-items-center bg-primary text-primary-foreground hover:bg-primary/90"
+            >
               <Play className="h-5 w-5" />
             </button>
           )}
-          <button onClick={stop} aria-label="Stop" className="no-min-h h-10 w-10 rounded-full grid place-items-center bg-secondary text-secondary-foreground hover:bg-secondary/80">
+          <button
+            onClick={stop}
+            aria-label="Stop"
+            className="no-min-h h-10 w-10 rounded-full grid place-items-center bg-secondary text-secondary-foreground hover:bg-secondary/80"
+          >
             <Square className="h-4 w-4" fill="currentColor" />
           </button>
 
-          <span className="text-xs tabular-nums text-muted-foreground w-10 text-right">{fmt(currentTime)}</span>
+          <span className="text-xs tabular-nums text-muted-foreground w-10 text-right">
+            {fmt(currentTime)}
+          </span>
           <input
             type="range"
             min={0}
@@ -85,7 +119,9 @@ export function TtsPlayer() {
               aria-label="Playback speed"
             >
               {[0.5, 0.75, 1, 1.25, 1.5, 1.75, 2].map((s) => (
-                <option key={s} value={s}>{s}x</option>
+                <option key={s} value={s}>
+                  {s}x
+                </option>
               ))}
             </select>
           </label>
@@ -98,7 +134,9 @@ export function TtsPlayer() {
               aria-label="Voice"
             >
               {TTS_VOICES.map((v) => (
-                <option key={v.id} value={v.id}>{v.label}</option>
+                <option key={v.id} value={v.id}>
+                  {v.label}
+                </option>
               ))}
             </select>
           </label>

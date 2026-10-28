@@ -6,7 +6,9 @@ export const Backdrop: React.FC = () => {
   const frame = useCurrentFrame();
   const drift = Math.sin(frame / 160) * 60;
   return (
-    <AbsoluteFill style={{ background: `linear-gradient(140deg, ${C.bg} 0%, ${C.bg2} 60%, #0A1724 100%)` }}>
+    <AbsoluteFill
+      style={{ background: `linear-gradient(140deg, ${C.bg} 0%, ${C.bg2} 60%, #0A1724 100%)` }}
+    >
       <AbsoluteFill
         style={{
           background: `radial-gradient(700px 500px at ${420 + drift}px 220px, rgba(30,91,198,0.30), transparent 70%),
