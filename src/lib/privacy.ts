@@ -2,6 +2,7 @@
 // Design principle: this app serves immigrant and mixed-status households.
 // We keep the minimum data needed to work, and every person can wipe it.
 import { supabase } from "@/integrations/supabase/client";
+import { deleteMyServerData } from "./privacy.functions";
 import { getVisitorId } from "./visit-log";
 
 const OPT_OUT_KEY = "bronx.analyticsOptOut";
@@ -32,41 +33,22 @@ export const LOCAL_DATA_ITEMS = [
   "A random device code used for anonymous usage counts",
 ];
 
-/** Deletes the anonymous usage rows tied to this device's random code. */
-export async function deleteAnalyticsForThisDevice(): Promise<void> {
-  const visitorId = getVisitorId();
-  if (!visitorId) return;
-  await Promise.allSettled([
-    supabase.from("analytics_events").delete().eq("visitor_id", visitorId),
-    supabase.from("analytics_sessions").delete().eq("visitor_id", visitorId),
-  ]);
-}
-
-/** Deletes signed-in account data this user owns (no-op when signed out). */
-export async function deleteAccountData(): Promise<void> {
-  const { data } = await supabase.auth.getUser();
-  const userId = data.user?.id;
-  if (!userId) return;
-  await Promise.allSettled([
-    supabase.from("saved_resources").delete().eq("user_id", userId),
-    supabase.from("resource_notes").delete().eq("user_id", userId),
-    supabase.from("lists").delete().eq("user_id", userId),
-    supabase.from("reviews").delete().eq("user_id", userId),
-    supabase.from("referrals").delete().eq("pro_user_id", userId),
-    supabase.from("newsletter_subscriptions").delete().eq("user_id", userId),
-    supabase.from("pro_profiles").delete().eq("user_id", userId),
-  ]);
-  await supabase.auth.signOut();
-}
-
-/** Wipes every app key stored in this browser. */
+/**
+ * Wipes every app key stored in this browser, except the analytics opt-out:
+ * someone deleting their data has not asked to be counted again.
+ */
 export function eraseLocalData() {
   if (typeof window === "undefined") return;
   try {
     const keys: string[] = [];
     for (let i = 0; i < localStorage.length; i++) {
       const k = localStorage.key(i);
-      if (k && (k.startsWith("bronx") || k.startsWith("bx-") || k.startsWith("bx_"))) keys.push(k);
+      if (
+        k &&
+        k !== OPT_OUT_KEY &&
+        (k.startsWith("bronx") || k.startsWith("bx-") || k.startsWith("bx_"))
+      )
+        keys.push(k);
     }
     keys.forEach((k) => localStorage.removeItem(k));
     sessionStorage.clear();
@@ -75,9 +57,14 @@ export function eraseLocalData() {
   }
 }
 
-/** Full erase: cloud analytics + account rows + everything on this device. */
+/**
+ * Full erase: this device's usage rows and the signed-in account's data on
+ * the server, then everything on this device. Throws if the server couldn't
+ * delete everything; the device is only wiped once the server succeeded.
+ */
 export async function deleteAllMyData() {
-  await deleteAnalyticsForThisDevice();
-  await deleteAccountData();
+  const visitorId = getVisitorId() || null;
+  const { signedIn } = await deleteMyServerData({ data: { visitorId } });
+  if (signedIn) await supabase.auth.signOut();
   eraseLocalData();
 }
