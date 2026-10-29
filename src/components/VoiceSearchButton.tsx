@@ -1,6 +1,7 @@
 import { Mic, MicOff } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useI18n } from "@/lib/i18n-context";
+import { cn } from "@/lib/utils";
 
 // Web Speech API types (not in lib.dom by default)
 type SR = { new (): SRInstance };
@@ -91,11 +92,15 @@ export function VoiceSearchButton({
       onClick={toggle}
       aria-label={listening ? t("stop") : t("listen")}
       title={listening ? t("stop") : t("listen")}
-      className={`no-min-h relative inline-flex items-center justify-center h-11 w-11 rounded-full transition shrink-0 ${
+      className={cn(
+        "no-min-h relative inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full transition",
         listening
           ? "bg-destructive text-destructive-foreground"
-          : "bg-primary text-primary-foreground hover:bg-primary/90"
-      } ${className}`}
+          : "bg-primary text-primary-foreground hover:bg-primary/90",
+        // Callers restyle the idle button; while listening it always reads as "stop".
+        className,
+        listening && "bg-destructive text-destructive-foreground hover:bg-destructive",
+      )}
     >
       {listening ? <MicOff className="h-5 w-5" /> : <Mic className="h-5 w-5" />}
       {listening && (

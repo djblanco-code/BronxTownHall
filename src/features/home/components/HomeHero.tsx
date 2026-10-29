@@ -1,13 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
-import {
-  ChevronDown,
-  Lock,
-  MapPin,
-  MessageCircleQuestion,
-  Search,
-  ShieldCheck,
-} from "lucide-react";
+import { ChevronDown, Lock, MapPin, Search, ShieldCheck } from "lucide-react";
 import type { CategoryMeta } from "@/lib/data";
 import { useI18n } from "@/lib/i18n-context";
 import { BRONX_NEIGHBORHOODS } from "@/lib/neighborhoods";
@@ -17,9 +10,6 @@ import { VoiceSearchButton } from "@/components/VoiceSearchButton";
 import { LANGS } from "@/lib/i18n";
 import { useNycTime } from "@/lib/opening-hours";
 import { cn } from "@/lib/utils";
-import { greetingKey } from "../lib/today";
-
-const LATIN = new Set(["en", "es", "fr"]);
 
 const PLACEHOLDERS = [
   "Free events this weekend",
@@ -32,8 +22,9 @@ const PLACEHOLDERS = [
 ];
 
 /**
- * Top of Home: the date and greeting, one search field (voice inside it),
- * a row of one-tap needs led by "Ask a question", and two short trust links.
+ * Top of Home, set like a newspaper nameplate: the dateline and area, the
+ * title, one search field (voice inside it), a section menu of needs led by
+ * "Ask a question", and two short trust links, closed off by a double rule.
  */
 export function HomeHero({
   neighborhood,
@@ -68,26 +59,20 @@ export function HomeHero({
   const search = (q: string) => nav({ to: "/help", search: { q } });
 
   return (
-    <section className="relative isolate overflow-hidden bg-masthead text-masthead-foreground">
-      {/* Oversized borough mark, like a newspaper nameplate. Decorative only. */}
-      <span
-        aria-hidden="true"
-        className="pointer-events-none absolute -end-6 -bottom-10 -z-10 select-none font-display text-[11rem] leading-none text-white/[0.06] sm:text-[16rem] lg:-end-2 lg:text-[22rem]"
-      >
-        BX
-      </span>
-      <div className="mx-auto max-w-5xl px-4 pt-3 pb-5 lg:pt-8 lg:pb-10">
-        <div className="flex items-center justify-between gap-3">
+    <section className="border-b-[3px] border-double border-foreground bg-background">
+      <div className="mx-auto max-w-5xl px-4 pt-3 pb-4 lg:pt-8 lg:pb-6">
+        <div className="flex flex-wrap items-center justify-between gap-x-3 border-b border-foreground">
+          <Dateline />
           <label className="relative inline-flex min-w-0 items-center">
             <span className="sr-only">{t("interface.neighborhood")}</span>
             <MapPin
-              className="pointer-events-none absolute start-3 h-4 w-4 text-white/80"
+              className="pointer-events-none absolute start-0 h-3.5 w-3.5 text-muted-foreground"
               aria-hidden="true"
             />
             <select
               value={neighborhood}
               onChange={(e) => onNeighborhoodChange(e.target.value)}
-              className="no-min-h h-10 min-w-0 max-w-[16rem] appearance-none truncate rounded-full border border-white/20 bg-white/10 ps-9 pe-9 text-sm font-semibold text-white hover:bg-white/15 [&>option]:text-foreground"
+              className="label-caps no-min-h h-11 max-w-[11rem] min-w-0 appearance-none truncate bg-transparent ps-5 pe-5 text-foreground hover:underline"
             >
               <option value="">{t("interface.allBronx")}</option>
               {BRONX_NEIGHBORHOODS.map((n) => (
@@ -97,17 +82,20 @@ export function HomeHero({
               ))}
             </select>
             <ChevronDown
-              className="pointer-events-none absolute end-3 h-4 w-4 text-white/70"
+              className="pointer-events-none absolute end-0 h-3.5 w-3.5 text-muted-foreground"
               aria-hidden="true"
             />
           </label>
-          <SpeakButton text={`${t("appName")}. ${t("interface.homeHero")}`} label={t("listen")} />
         </div>
 
-        <Greeting neighborhood={neighborhood} />
-        <h1 className="mt-1 text-[2.6rem] leading-[0.95] tracking-tight text-white sm:text-6xl lg:text-7xl">
-          {t("home.todayTitle")}
-        </h1>
+        <div className="mt-3 flex items-start justify-between gap-3">
+          <h1 className="text-[2.75rem] leading-[0.95] text-foreground sm:text-6xl lg:text-7xl">
+            {t("home.todayLead")} <span className="text-primary">{t("home.todayAccent")}</span>
+          </h1>
+          <div className="mt-1 shrink-0">
+            <SpeakButton text={`${t("appName")}. ${t("interface.homeHero")}`} label={t("listen")} />
+          </div>
+        </div>
 
         <form
           role="search"
@@ -115,13 +103,13 @@ export function HomeHero({
             e.preventDefault();
             search(query);
           }}
-          className="mt-4 lg:mt-7 lg:max-w-3xl"
+          className="mt-4 lg:mt-6 lg:max-w-3xl"
         >
           <div
             id="search-bar"
-            className="flex h-14 items-center gap-2 rounded-full bg-card ps-4 pe-1.5 shadow-lg shadow-black/20 ring-2 ring-transparent transition focus-within:ring-white/60"
+            className="flex h-14 items-center gap-2 rounded-md border-2 border-foreground bg-card ps-4 pe-1.5 focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-ring"
           >
-            <Search className="h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
+            <Search className="h-5 w-5 shrink-0 text-foreground" aria-hidden="true" />
             <input
               type="search"
               enterKeyHint="search"
@@ -134,6 +122,7 @@ export function HomeHero({
               className="h-full min-w-0 flex-1 bg-transparent text-base text-foreground placeholder:text-muted-foreground focus-visible:outline-none"
             />
             <VoiceSearchButton
+              className="rounded-md bg-bronx-orange text-bronx-orange-foreground hover:bg-bronx-orange/90"
               onResult={(text) => {
                 setQuery(text);
                 search(text);
@@ -142,14 +131,13 @@ export function HomeHero({
           </div>
         </form>
 
-        {/* One tap to a need, Google Maps–style; asking in your own words comes first. */}
+        {/* A section menu, like a paper's: asking in your own words comes first. */}
         <ul
           aria-label={t("interface.browseCategory")}
-          className="-mx-4 mt-3 flex gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] lg:mx-0 lg:flex-wrap lg:overflow-visible lg:px-0"
+          className="-mx-4 mt-2 flex gap-5 overflow-x-auto px-4 [scrollbar-width:none] lg:mx-0 lg:flex-wrap lg:overflow-visible lg:px-0"
         >
           <li className="shrink-0">
-            <Link to="/ask" className={GHOST_CHIP}>
-              <MessageCircleQuestion className="h-4 w-4" aria-hidden="true" />
+            <Link to="/ask" className={cn(TAB, "border-primary text-primary")}>
               {t("home.askQuestion")}
             </Link>
           </li>
@@ -159,81 +147,56 @@ export function HomeHero({
                 {...(c.id === "government"
                   ? { to: "/civic" as const }
                   : { to: "/category/$cat" as const, params: { cat: c.id } })}
-                className={GHOST_CHIP}
+                className={cn(TAB, "border-transparent hover:border-foreground")}
               >
-                <span aria-hidden="true">{c.emoji}</span>
                 {t(c.labelKey)}
               </Link>
             </li>
           ))}
         </ul>
 
-        <p className="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-xs text-white/75">
+        <p className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted-foreground">
           <Link
             to="/data-quality"
-            className="inline-flex items-center gap-1.5 underline-offset-2 hover:text-white hover:underline"
+            className="inline-flex items-center gap-1.5 underline-offset-2 hover:text-foreground hover:underline"
           >
-            <ShieldCheck className="h-3.5 w-3.5 shrink-0 text-[#4ade80]" aria-hidden="true" />
+            <ShieldCheck className="h-3.5 w-3.5 shrink-0 text-success" aria-hidden="true" />
             {verifiedThisWeek > 0
               ? t("interface.verifiedWeek", { count: verifiedThisWeek })
               : t("interface.howVerifyListings")}
           </Link>
           <Link
             to="/privacy"
-            className="inline-flex items-center gap-1.5 underline-offset-2 hover:text-white hover:underline"
+            className="inline-flex items-center gap-1.5 underline-offset-2 hover:text-foreground hover:underline"
           >
             <Lock className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
             {t("interface.privacyLink")}
           </Link>
         </p>
       </div>
-      <FlagStripe />
     </section>
   );
 }
 
-const GHOST_CHIP =
-  "no-min-h inline-flex h-10 items-center gap-1.5 rounded-full border border-white/25 bg-white/10 px-4 text-sm font-semibold text-white transition hover:bg-white/20";
+const TAB = "no-min-h inline-flex h-11 items-center border-b-2 text-sm font-bold text-foreground";
 
-/** A Bronx-flag stripe under the masthead: orange, with a white band. */
-function FlagStripe() {
-  return (
-    <div aria-hidden="true" className="flex h-1.5">
-      <span className="flex-[5] bg-bronx-orange" />
-      <span className="flex-1 bg-white" />
-      <span className="flex-[5] bg-bronx-orange" />
-    </div>
-  );
-}
-
-function Greeting({ neighborhood }: { neighborhood: string }) {
-  const { t, lang } = useI18n();
+/** "Wednesday, October 28", in New York time, like the dateline of a paper. */
+function Dateline() {
+  const { lang } = useI18n();
   const now = useNycTime();
   const locale = LANGS.find((l) => l.code === lang)?.bcp47;
-  if (!now) return <p className="mt-4 h-4 lg:mt-8" aria-hidden="true" />;
-  const greeting = t(`home.${greetingKey(now.minutes)}`);
-  const date = new Date().toLocaleDateString(locale, {
-    weekday: "short",
-    month: "short",
-    day: "numeric",
-    timeZone: "America/New_York",
-  });
+  if (!now) return <p className="h-4" aria-hidden="true" />;
+  const format = (style: "long" | "short") =>
+    new Date().toLocaleDateString(locale, {
+      weekday: style,
+      month: style,
+      day: "numeric",
+      timeZone: "America/New_York",
+    });
   return (
-    <p
-      className={cn(
-        "mt-4 flex min-h-4 items-start gap-2 text-xs font-bold text-white/75 uppercase lg:mt-8",
-        // Letter-spacing breaks joined scripts (Arabic) and Bengali conjuncts.
-        LATIN.has(lang) && "tracking-[0.12em]",
-      )}
-    >
-      <span
-        aria-hidden="true"
-        className="mt-[0.3em] h-2 w-2 shrink-0 self-start rounded-full bg-bronx-orange"
-      />
-      <span className="line-clamp-2">
-        {date} ·{" "}
-        {neighborhood ? t("home.greetingPlace", { greeting, place: neighborhood }) : greeting}
-      </span>
+    <p className="label-caps py-1 text-muted-foreground">
+      <span className="sm:hidden">{format("short")}</span>
+      <span className="hidden sm:inline">{format("long")}</span>
     </p>
   );
 }

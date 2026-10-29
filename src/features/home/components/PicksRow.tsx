@@ -4,9 +4,8 @@ import { useNycTime } from "@/lib/opening-hours";
 import { usePersonalization } from "@/lib/personalization";
 import { rankedInterests } from "@/lib/interest-history";
 import { Section } from "@/components/ui/section";
-import { ResourceTile } from "@/features/resources";
+import { ResourceRow } from "@/features/resources";
 import { pickedFor } from "../lib/today";
-import { CardRow, CardRowItem } from "./CardRow";
 
 /**
  * Listings from the categories this phone has browsed most. Everything it
@@ -27,15 +26,13 @@ export function PicksRow() {
   if (picks.length === 0) return null;
 
   return (
-    <Section id="home-picks-title" title={t("home.picksTitle")}>
-      <p className="-mt-2 mb-3 text-sm text-muted-foreground">{t("home.picksSub")}</p>
-      <CardRow>
-        {picks.map((r) => (
-          <CardRowItem key={r.id}>
-            <ResourceTile resource={r} />
-          </CardRowItem>
+    <Section id="home-picks-title" title={t("home.picksTitle")} ruled>
+      <p className="mb-1 text-sm text-muted-foreground">{t("home.picksSub")}</p>
+      <ul className="divide-y divide-border border-b border-border">
+        {picks.slice(0, 3).map((r) => (
+          <ResourceRow key={r.id} resource={r} />
         ))}
-      </CardRow>
+      </ul>
     </Section>
   );
 }

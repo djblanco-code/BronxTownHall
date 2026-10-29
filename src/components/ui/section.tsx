@@ -17,6 +17,7 @@ function Section({
   title,
   titleAside,
   action,
+  ruled = false,
   className,
   children,
 }: {
@@ -25,12 +26,19 @@ function Section({
   /** Small text after the title, e.g. the chosen neighborhood. */
   titleAside?: React.ReactNode;
   action?: React.ReactNode;
+  /** Newspaper-style heading: a heavy rule above, the title and action on one line. */
+  ruled?: boolean;
   className?: string;
   children: React.ReactNode;
 }) {
   return (
     <section aria-labelledby={id} className={cn("mx-auto mt-8 max-w-5xl px-4", className)}>
-      <div className="mb-3 flex items-end justify-between gap-3">
+      <div
+        className={cn(
+          "mb-3 flex items-end justify-between gap-3",
+          ruled && "mb-1 items-baseline border-t-[3px] border-foreground pt-2",
+        )}
+      >
         <h2 id={id} className="text-lg font-bold text-foreground sm:text-2xl">
           {title}
           {titleAside && (
@@ -57,7 +65,7 @@ const SectionAction = React.forwardRef<
       ref={ref}
       type={asChild ? undefined : (type ?? "button")}
       className={cn(
-        "no-min-h simplified-exempt shrink-0 text-sm font-semibold text-primary hover:underline",
+        "no-min-h simplified-exempt shrink-0 text-sm font-bold text-primary underline underline-offset-4 hover:decoration-2",
         className,
       )}
       {...props}

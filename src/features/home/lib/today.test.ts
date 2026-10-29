@@ -2,14 +2,7 @@ import { describe, expect, it } from "vitest";
 import type { Resource } from "@/lib/data";
 import type { EventSummary } from "@/features/events";
 import type { PolicyAlert } from "@/lib/policy-alerts";
-import {
-  activeDeadlines,
-  eventsIn,
-  greetingKey,
-  nycIsoDate,
-  openTonight,
-  pickedFor,
-} from "./today";
+import { activeDeadlines, eventsIn, nycIsoDate, openTonight, pickedFor } from "./today";
 
 const listing = (id: string, hours: string, extra: Partial<Resource> = {}) =>
   ({
@@ -30,15 +23,6 @@ const event = (id: string, start: string, end: string | null = null) =>
     is_free: true,
     verification_status: "needs_verification",
   }) as EventSummary;
-
-describe("greetingKey", () => {
-  it("follows the time of day", () => {
-    expect(greetingKey(8 * 60)).toBe("greetingMorning");
-    expect(greetingKey(13 * 60)).toBe("greetingAfternoon");
-    expect(greetingKey(19 * 60)).toBe("greetingEvening");
-    expect(greetingKey(2 * 60)).toBe("greetingEvening");
-  });
-});
 
 describe("openTonight", () => {
   const monNoon = { day: 1, minutes: 12 * 60, month: 10 };
