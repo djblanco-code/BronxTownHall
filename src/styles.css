@@ -33,6 +33,11 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  --color-masthead: var(--masthead);
+  --color-masthead-foreground: var(--masthead-foreground);
+  --color-mta-red: var(--mta-red);
+  --color-mta-green: var(--mta-green);
+  --color-mta-orange: var(--mta-orange);
   --color-cat-food: var(--cat-food);
   --color-cat-health: var(--cat-health);
   --color-cat-legal: var(--cat-legal);
@@ -90,6 +95,14 @@
   --cat-recreation: oklch(0.6 0.18 50);
   --cat-retail: oklch(0.52 0.17 25);
   --cat-services: oklch(0.48 0.1 265);
+
+  /* Home masthead: deep Bronx navy, with the subway lines that run through
+     the borough (2/5 red, 4/6 green, B/D orange) as a stripe under it. */
+  --masthead: oklch(0.27 0.09 262);
+  --masthead-foreground: oklch(0.99 0 0);
+  --mta-red: #ee352e;
+  --mta-green: #00933c;
+  --mta-orange: #ff6319;
 }
 
 .dark {
