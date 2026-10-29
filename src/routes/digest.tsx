@@ -218,7 +218,7 @@ function DigestPage() {
 
   return (
     <AppShell>
-      <div className="max-w-3xl mx-auto px-4 pb-16">
+      <div className="max-w-5xl mx-auto px-4 pb-16">
         {/* masthead */}
         <header className="pt-5 pb-4 border-b-2 border-foreground/10">
           <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-primary">

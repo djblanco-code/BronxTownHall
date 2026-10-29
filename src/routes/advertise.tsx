@@ -31,7 +31,7 @@ function AdvertisePage() {
   const { t } = useI18n();
   return (
     <AppShell>
-      <div className="mx-auto max-w-3xl space-y-8 px-4 py-6">
+      <div className="mx-auto max-w-5xl space-y-8 px-4 py-6">
         <header>
           <h1 className="text-3xl font-bold text-foreground sm:text-4xl">{t("advertise.title")}</h1>
           <p className="mt-2 text-muted-foreground">{t("advertise.intro")}</p>

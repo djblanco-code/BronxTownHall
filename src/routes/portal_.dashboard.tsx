@@ -72,7 +72,7 @@ function DashboardPage() {
   if (loading) {
     return (
       <AppShell>
-        <p className="mx-auto flex max-w-3xl items-center gap-2 px-4 py-10 text-muted-foreground">
+        <p className="mx-auto flex max-w-5xl items-center gap-2 px-4 py-10 text-muted-foreground">
           <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> Loading…
         </p>
       </AppShell>
@@ -82,7 +82,7 @@ function DashboardPage() {
   if (!user) {
     return (
       <AppShell>
-        <div className="mx-auto max-w-3xl space-y-3 px-4 py-6">
+        <div className="mx-auto max-w-5xl space-y-3 px-4 py-6">
           <h1 className="text-3xl font-bold text-foreground sm:text-4xl">
             Sign in to manage your listing
           </h1>
@@ -145,7 +145,7 @@ function DashboardPage() {
 
   return (
     <AppShell>
-      <div className="mx-auto max-w-3xl space-y-5 px-4 py-6">
+      <div className="mx-auto max-w-5xl space-y-5 px-4 py-6">
         <Link
           to="/"
           className="no-min-h inline-flex min-h-11 items-center gap-1.5 text-sm font-bold text-primary hover:underline"

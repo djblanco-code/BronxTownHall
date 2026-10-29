@@ -60,7 +60,7 @@ function UpdatePage() {
 
   return (
     <AppShell>
-      <div className="max-w-xl mx-auto px-4 py-6">
+      <div className="max-w-5xl mx-auto px-4 py-6">
         <button
           onClick={() => nav({ to: "/business-dashboard" })}
           className="no-min-h inline-flex items-center gap-1.5 text-sm text-primary font-medium mb-4 hover:underline"
