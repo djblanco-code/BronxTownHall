@@ -1,7 +1,9 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { Lock } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { AppShell } from "@/features/shell";
 import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/hooks/use-auth";
 
 export const Route = createFileRoute("/admin_/questions")({
   staticData: { sitemap: false },
@@ -32,15 +34,17 @@ type Row = {
 };
 
 function QuestionsPage() {
+  const { user, isAdmin, loading } = useAuth();
   const [rows, setRows] = useState<Row[] | null>(null);
   useEffect(() => {
+    if (!isAdmin) return;
     supabase
       .from("ask_questions")
       .select("id,question,category,outcome,match_count,created_at")
       .order("created_at", { ascending: false })
       .limit(500)
       .then(({ data }) => setRows((data as Row[]) ?? []));
-  }, []);
+  }, [isAdmin]);
   const gaps = useMemo(() => {
     const m = new Map<string, number>();
     for (const r of rows ?? [])
@@ -49,17 +53,42 @@ function QuestionsPage() {
     return [...m.entries()].sort((a, b) => b[1] - a[1]);
   }, [rows]);
 
+  if (loading || !isAdmin) {
+    return (
+      <AppShell>
+        <div className="mx-auto max-w-sm space-y-4 px-4 py-12 text-center">
+          <Lock className="mx-auto h-10 w-10 text-muted-foreground" aria-hidden="true" />
+          <h1 className="text-2xl">Resident questions</h1>
+          <p className="text-sm text-muted-foreground">
+            {loading
+              ? "Loading…"
+              : "This page is for Bronx Town Hall staff. Sign in with a staff account."}
+          </p>
+          {!loading && !user && (
+            <Link
+              to="/auth"
+              className="inline-block rounded-md bg-primary-fill px-4 py-2.5 font-semibold text-primary-fill-foreground"
+            >
+              Sign in
+            </Link>
+          )}
+        </div>
+      </AppShell>
+    );
+  }
+
   return (
     <AppShell>
       <div className="max-w-4xl mx-auto px-4 py-6">
         <h1 className="text-2xl">Resident questions</h1>
         <p className="text-sm text-muted-foreground">
-          Anonymized. Emails and phone numbers are removed before saving. Admins only.
+          Anonymized. Emails and phone numbers are removed before saving, and questions are kept for
+          90 days.
         </p>
         {rows === null ? (
           <p className="mt-4">Loading…</p>
         ) : rows.length === 0 ? (
-          <p className="mt-4">No questions yet (or you don't have admin access).</p>
+          <p className="mt-4">No questions in the last 90 days.</p>
         ) : (
           <>
             <h2 className="font-semibold mt-6">Unanswered by category (gaps)</h2>

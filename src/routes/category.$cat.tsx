@@ -43,6 +43,7 @@ import { useResourceMeta } from "@/lib/resource-meta";
 import { SponsoredCard } from "@/components/SponsoredCard";
 import { PolicyAlerts } from "@/components/PolicyAlerts";
 import { HiringBoard } from "@/components/HiringBoard";
+import { SuggestEditModal } from "@/components/SuggestEditModal";
 import { SHOW_BUSINESS_FEATURES } from "@/lib/first-version";
 
 type CategorySearch = { after5?: boolean };
@@ -622,73 +623,5 @@ function SuggestModal({
   onClose: () => void;
   defaultCategory: Category;
 }) {
-  const { t } = useI18n();
-  const [submitted, setSubmitted] = useState(false);
-  return (
-    <div className="fixed inset-0 z-50 bg-black/50 grid place-items-center p-4" onClick={onClose}>
-      <div
-        className="bg-card rounded-md border border-border shadow-xl max-w-md w-full p-6"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-bold">{t("interface.suggestResource")}</h2>
-          <button
-            onClick={onClose}
-            aria-label={t("interface.close")}
-            className="no-min-h h-11 w-11 rounded-md grid place-items-center hover:bg-secondary"
-          >
-            <X className="h-5 w-5" aria-hidden />
-          </button>
-        </div>
-        {submitted ? (
-          <p className="flex items-center justify-center gap-2 py-6 text-center font-medium text-success">
-            <Check className="h-5 w-5 shrink-0" aria-hidden /> {t("interface.thankYouReview")}
-          </p>
-        ) : (
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              setSubmitted(true);
-              setTimeout(onClose, 1500);
-            }}
-            className="space-y-3"
-          >
-            <label className="block">
-              <span className="text-sm font-medium mb-1 block">{t("interface.name")}</span>
-              <input
-                required
-                className="h-11 w-full rounded-md border border-border bg-background px-3"
-              />
-            </label>
-            <label className="block">
-              <span className="text-sm font-medium mb-1 block">{t("interface.address")}</span>
-              <input
-                required
-                className="h-11 w-full rounded-md border border-border bg-background px-3"
-              />
-            </label>
-            <label className="block">
-              <span className="text-sm font-medium mb-1 block">{t("interface.category")}</span>
-              <select
-                defaultValue={defaultCategory}
-                className="h-11 w-full rounded-md border border-border bg-background px-3"
-              >
-                {CATEGORIES.map((c) => (
-                  <option key={c.id} value={c.id}>
-                    {c.id}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <button
-              type="submit"
-              className="no-min-h w-full min-h-[44px] py-3 rounded-md bg-primary-fill text-primary-fill-foreground font-bold hover:bg-primary-fill-hover"
-            >
-              {t("interface.submit")}
-            </button>
-          </form>
-        )}
-      </div>
-    </div>
-  );
+  return <SuggestEditModal mode="new" onClose={onClose} defaultCategory={defaultCategory} />;
 }

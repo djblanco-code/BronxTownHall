@@ -1,6 +1,7 @@
 import { useState, useId } from "react";
 import { Send, CheckCircle2 } from "lucide-react";
-import { addSuggestion } from "@/lib/suggestions";
+import { toast } from "sonner";
+import { submitSuggestion } from "@/lib/suggestions";
 import { A11yDialog } from "./A11yDialog";
 import { useI18n } from "@/lib/i18n-context";
 
@@ -9,28 +10,39 @@ export function SuggestEditModal({
   resourceId,
   resourceName,
   mode,
+  defaultCategory = "",
 }: {
   onClose: () => void;
   resourceId?: string;
   resourceName?: string;
   mode: "edit" | "new";
+  defaultCategory?: string;
 }) {
   const { t } = useI18n();
   const [submitted, setSubmitted] = useState(false);
+  const [busy, setBusy] = useState(false);
   const [fields, setFields] = useState({
     name: resourceName ?? "",
     address: "",
     phone: "",
-    category: "",
+    category: defaultCategory,
     description: "",
     note: "",
   });
   const descId = useId();
-  const submit = (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    addSuggestion({ kind: mode, resourceId, fields });
-    setSubmitted(true);
-    setTimeout(onClose, 1500);
+    setBusy(true);
+    try {
+      await submitSuggestion({ kind: mode, resourceId, fields });
+      setSubmitted(true);
+      setTimeout(onClose, 1500);
+    } catch {
+      // Say so instead of thanking them for something that wasn't saved.
+      toast.error(t("saved.error"));
+    } finally {
+      setBusy(false);
+    }
   };
   return (
     <A11yDialog
@@ -87,7 +99,8 @@ export function SuggestEditModal({
           </div>
           <button
             type="submit"
-            className="no-min-h w-full inline-flex items-center justify-center gap-2 py-3 rounded-lg bg-primary-fill text-primary-fill-foreground font-semibold min-h-[44px]"
+            disabled={busy}
+            className="no-min-h w-full disabled:opacity-60 inline-flex items-center justify-center gap-2 py-3 rounded-lg bg-primary-fill text-primary-fill-foreground font-semibold min-h-[44px]"
           >
             <Send className="h-4 w-4" aria-hidden="true" /> {t("interface.submit")}
           </button>
