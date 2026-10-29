@@ -365,9 +365,7 @@ function CategoryPage() {
           <ArrowLeft className="h-4 w-4" /> {t("back")}
         </button>
 
-        <h1 className="mb-3 text-3xl font-bold leading-tight text-foreground sm:text-4xl">
-          {t(meta.titleKey)}
-        </h1>
+        <h1 className="mb-3 text-3xl text-foreground sm:text-4xl">{t(meta.titleKey)}</h1>
         {(() => {
           const catLabel = t(meta.titleKey);
           const totalInCat = RESOURCES.filter((r) => r.category === cat).length;

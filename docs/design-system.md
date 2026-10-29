@@ -10,6 +10,8 @@ The reference implementation is Home (`src/features/home`).
 ## Type
 
 - Headings (`h1`, `h2`, `.font-display`): Bricolage Grotesque.
+- Page titles (`h1`) match Home's: regular weight, never `font-bold`,
+  `font-extrabold` or `font-black`. Section titles (`h2`) are bold.
 - Everything else: Atkinson Hyperlegible Next. Arabic and Bengali fall back
   to Noto Sans Arabic and Noto Sans Bengali (set in `src/styles.css`).
 - Small labels above a name (`Health · 1.2 mi`) use the `label-caps`

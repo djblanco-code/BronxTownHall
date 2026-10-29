@@ -52,7 +52,7 @@ function QuestionsPage() {
   return (
     <AppShell>
       <div className="max-w-4xl mx-auto px-4 py-6">
-        <h1 className="text-2xl font-bold">Resident questions</h1>
+        <h1 className="text-2xl">Resident questions</h1>
         <p className="text-sm text-muted-foreground">
           Anonymized. Emails and phone numbers are removed before saving. Admins only.
         </p>

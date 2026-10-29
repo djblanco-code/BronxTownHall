@@ -177,7 +177,7 @@ function BusinessesPage() {
               <Briefcase className="h-7 w-7" aria-hidden />
             </div>
             <div className="min-w-0">
-              <h1 className="text-3xl sm:text-4xl font-bold">Bronx Businesses</h1>
+              <h1 className="text-3xl sm:text-4xl">Bronx Businesses</h1>
               <p className="mt-1 text-sm sm:text-base opacity-95 max-w-2xl">
                 Find and support local Bronx businesses — from Arthur Avenue to Morrisania. Every
                 listing here also appears in its main category.

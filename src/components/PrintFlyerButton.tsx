@@ -97,7 +97,7 @@ function FlyerModal({ data, onClose }: { data: FlyerData; onClose: () => void })
             The Bronx App · Community Resource{data.category ? ` · ${data.category}` : ""}
           </p>
 
-          <h1 className="mt-6 text-4xl font-black leading-tight">{data.name}</h1>
+          <h1 className="mt-6 text-4xl">{data.name}</h1>
           {data.description && <p className="mt-3 text-lg leading-snug">{data.description}</p>}
 
           <dl className="mt-8 space-y-4 text-xl">

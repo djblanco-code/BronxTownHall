@@ -118,9 +118,7 @@ function SearchPage() {
         >
           <ArrowLeft className="h-4 w-4" /> {t("back")}
         </button>
-        <h1 className="text-3xl font-bold leading-tight text-foreground mb-3 sm:text-4xl">
-          Search Bronx resources
-        </h1>
+        <h1 className="text-3xl text-foreground mb-3 sm:text-4xl">Search Bronx resources</h1>
         <div className="flex h-14 items-center gap-2 rounded-md border border-border bg-card ps-4 pe-1.5 focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-ring">
           <label htmlFor="search-input" className="sr-only">
             Search resources

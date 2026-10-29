@@ -17,6 +17,8 @@
 }
 
 @theme inline {
+  /* `font-sans` is our body font too, never the phone's system font. */
+  --font-sans: var(--font-body);
   /* Soft, friendly corners (docs/design-system.md). */
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);

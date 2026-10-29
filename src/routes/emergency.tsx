@@ -129,7 +129,7 @@ function EmergencyPage() {
           <ArrowLeft className="h-4 w-4 rtl:rotate-180" aria-hidden="true" /> {t("back")}
         </button>
 
-        <h1 className="text-3xl font-bold text-destructive sm:text-4xl">Emergency Contacts</h1>
+        <h1 className="text-3xl text-destructive sm:text-4xl">Emergency Contacts</h1>
         <p className="mt-1 text-muted-foreground">
           Immediate help and essential Bronx services available 24/7.
         </p>

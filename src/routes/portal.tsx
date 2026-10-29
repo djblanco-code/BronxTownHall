@@ -90,7 +90,7 @@ function PortalPage() {
         </Link>
 
         <header className="space-y-2">
-          <h1 className="text-3xl font-bold text-foreground sm:text-4xl">List your organization</h1>
+          <h1 className="text-3xl text-foreground sm:text-4xl">List your organization</h1>
           <p className="text-muted-foreground">
             Add your business, community organization or government office to The Bronx App, then
             keep your own details up to date. Free — there is no payment anywhere in the app.

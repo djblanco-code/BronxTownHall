@@ -75,7 +75,7 @@ function AdminPage() {
       <AppShell>
         <div className="max-w-sm mx-auto px-4 py-12 text-center space-y-4">
           <Lock className="h-10 w-10 mx-auto text-muted-foreground" />
-          <h1 className="text-2xl font-bold">Admin Dashboard</h1>
+          <h1 className="text-2xl">Admin Dashboard</h1>
           <p className="text-sm text-muted-foreground">
             Sign in with an admin account to continue.
           </p>
@@ -95,7 +95,7 @@ function AdminPage() {
       <AppShell>
         <div className="max-w-md mx-auto px-4 py-12 text-center space-y-3">
           <Lock className="h-10 w-10 mx-auto text-muted-foreground" />
-          <h1 className="text-2xl font-bold">Admins only</h1>
+          <h1 className="text-2xl">Admins only</h1>
           <p className="text-sm text-muted-foreground">
             Your account doesn't have the admin role. Ask an existing admin to grant you access via
             the user_roles table.
@@ -215,7 +215,7 @@ function AdminPage() {
           <ArrowLeft className="h-4 w-4" /> Home
         </button>
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <h1 className="text-3xl font-bold">Admin Dashboard</h1>
+          <h1 className="text-3xl">Admin Dashboard</h1>
           <div className="flex flex-wrap items-center gap-2">
             <button
               onClick={exportCSV}

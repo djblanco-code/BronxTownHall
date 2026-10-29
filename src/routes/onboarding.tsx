@@ -81,7 +81,7 @@ function OnboardingPage() {
                 <div className="h-20 w-20 mx-auto rounded-3xl bg-gradient-to-br from-primary to-accent grid place-items-center text-primary-fill-foreground shadow-lg">
                   <Heart className="h-10 w-10" fill="currentColor" />
                 </div>
-                <h1 className="text-3xl font-bold">The Bronx App</h1>
+                <h1 className="text-3xl">The Bronx App</h1>
                 <p className="text-lg text-muted-foreground">
                   Connecting 1.4 Million Neighbors to One Heartbeat
                 </p>

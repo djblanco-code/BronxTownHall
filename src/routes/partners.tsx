@@ -27,7 +27,7 @@ function PartnersPage() {
   return (
     <AppShell>
       <div className="max-w-5xl mx-auto px-4 py-8">
-        <h1 className="text-3xl font-extrabold mb-2">For Partners, Acquirers &amp; Investors</h1>
+        <h1 className="text-3xl mb-2">For Partners, Acquirers &amp; Investors</h1>
         <p className="text-sm text-muted-foreground mb-6">
           Private overview — shared by invitation. Not linked from the public site.
         </p>

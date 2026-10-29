@@ -73,9 +73,7 @@ function GlobalMapPage() {
         </button>
 
         <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
-          <h1 className="text-3xl font-bold leading-tight text-foreground sm:text-4xl">
-            Bronx Resource Map
-          </h1>
+          <h1 className="text-3xl text-foreground sm:text-4xl">Bronx Resource Map</h1>
           <ViewToggle value={view} onChange={setView} />
         </div>
 

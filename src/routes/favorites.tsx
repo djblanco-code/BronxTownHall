@@ -42,7 +42,7 @@ function FavoritesPage() {
         >
           <ArrowLeft className="h-4 w-4 rtl:rotate-180" aria-hidden="true" /> {t("back")}
         </button>
-        <h1 className="text-3xl font-bold text-foreground sm:text-4xl">My Favorites</h1>
+        <h1 className="text-3xl text-foreground sm:text-4xl">My Favorites</h1>
         <p className="mt-1 mb-6 text-muted-foreground">
           {items.length} saved {items.length === 1 ? "resource" : "resources"}
         </p>

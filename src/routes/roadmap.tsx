@@ -176,7 +176,7 @@ function RoadmapPage() {
               <p className="text-xs uppercase tracking-wider font-semibold opacity-80">
                 Product Roadmap
               </p>
-              <h1 className="text-3xl sm:text-4xl font-bold mt-1">What's Coming to Hyperlocal</h1>
+              <h1 className="text-3xl sm:text-4xl mt-1">What's Coming to Hyperlocal</h1>
               <p className="mt-2 text-sm sm:text-base opacity-95 max-w-2xl">
                 Features that are designed but not yet live. Each one is a candidate for a pilot
                 with a future borough or government partner and local partners.

@@ -51,7 +51,7 @@ function UrgentPage() {
         >
           <ArrowLeft className="h-4 w-4 rtl:rotate-180" aria-hidden="true" /> {t("urgent.home")}
         </button>
-        <h1 className="text-3xl font-bold text-destructive sm:text-4xl">{t("urgent.title")}</h1>
+        <h1 className="text-3xl text-destructive sm:text-4xl">{t("urgent.title")}</h1>
         <p className="mt-1 text-foreground sm:text-lg">{t("urgent.subtitle")}</p>
         <div className="mt-4 grid grid-cols-2 gap-3">
           <a

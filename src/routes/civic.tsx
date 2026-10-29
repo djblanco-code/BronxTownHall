@@ -480,9 +480,7 @@ export function CivicPage() {
 
         <header className="mt-1 flex items-start gap-3 pb-4">
           <div className="min-w-0 flex-1">
-            <h1 className="text-3xl font-extrabold text-foreground sm:text-4xl">
-              Your Voice in the Bronx
-            </h1>
+            <h1 className="text-3xl text-foreground sm:text-4xl">Your Voice in the Bronx</h1>
             <p dir="auto" className="mt-1 text-muted-foreground">
               Find your local officials, Community Board, and Police Precinct.
             </p>

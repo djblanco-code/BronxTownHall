@@ -83,7 +83,7 @@ function CreatorPage() {
     return (
       <AppShell>
         <div className="max-w-5xl mx-auto px-4 py-10">
-          <h1 className="text-2xl font-bold">Creator page not found</h1>
+          <h1 className="text-2xl">Creator page not found</h1>
           <Link to="/creators" className="text-primary underline">
             ← All Bronx creators
           </Link>
@@ -114,7 +114,7 @@ function CreatorPage() {
             </span>
           )}
           <div className="min-w-0">
-            <h1 className="text-2xl font-bold">{creator.display_name}</h1>
+            <h1 className="text-2xl">{creator.display_name}</h1>
             {creator.bio && <p className="text-muted-foreground mt-1">{creator.bio}</p>}
             <div className="flex flex-wrap items-center gap-3 mt-2 text-sm">
               {socials.instagram && (

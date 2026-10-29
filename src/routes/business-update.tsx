@@ -67,7 +67,7 @@ function UpdatePage() {
         >
           <ArrowLeft className="h-4 w-4" /> Dashboard
         </button>
-        <h1 className="text-3xl font-bold mb-1 flex items-center gap-2">
+        <h1 className="text-3xl mb-1 flex items-center gap-2">
           <Send className="h-6 w-6" /> Post Update
         </h1>
         <p className="text-muted-foreground mb-6">Quick text updates that aren't full events.</p>

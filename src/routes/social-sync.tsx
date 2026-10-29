@@ -52,7 +52,7 @@ function SocialSyncPage() {
         </button>
 
         <div className="flex items-center justify-between gap-3 flex-wrap">
-          <h1 className="text-3xl font-bold text-foreground">Create New Event</h1>
+          <h1 className="text-3xl text-foreground">Create New Event</h1>
           <button
             onClick={post}
             className="no-min-h px-5 py-2.5 rounded-lg bg-primary-fill text-primary-fill-foreground font-semibold hover:bg-primary-fill-hover"

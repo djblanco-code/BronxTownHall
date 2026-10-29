@@ -83,9 +83,7 @@ function DashboardPage() {
     return (
       <AppShell>
         <div className="mx-auto max-w-5xl space-y-3 px-4 py-6">
-          <h1 className="text-3xl font-bold text-foreground sm:text-4xl">
-            Sign in to manage your listing
-          </h1>
+          <h1 className="text-3xl text-foreground sm:text-4xl">Sign in to manage your listing</h1>
           <p className="text-muted-foreground">Organization accounts sign in here.</p>
           <Link
             to="/portal"
@@ -155,7 +153,7 @@ function DashboardPage() {
 
         <header className="flex flex-wrap items-start justify-between gap-3">
           <div className="min-w-0">
-            <h1 className="text-3xl font-bold text-foreground sm:text-4xl">Your listings</h1>
+            <h1 className="text-3xl text-foreground sm:text-4xl">Your listings</h1>
             <p className="text-sm break-all text-muted-foreground">Signed in as {user.email}</p>
           </div>
           <div className="flex gap-2">
