@@ -61,11 +61,11 @@ import { Route as AdminAnalyticsRouteImport } from './routes/admin_.analytics'
 import { Route as AdminQuestionsRouteImport } from './routes/admin_.questions'
 import { Route as ApiHelpRouteImport } from './routes/api/help'
 import { Route as CategoryCatRouteImport } from './routes/category.$cat'
-import { Route as CivicAllRouteImport } from './routes/civic.all'
+import { Route as CivicAllRouteImport } from './routes/civic_.all'
 import { Route as CreatorsIndexRouteImport } from './routes/creators.index'
 import { Route as CreatorsHandleRouteImport } from './routes/creators.$handle'
 import { Route as LSlugRouteImport } from './routes/l.$slug'
-import { Route as ListsIdRouteImport } from './routes/lists.$id'
+import { Route as ListsIdRouteImport } from './routes/lists_.$id'
 import { Route as PackSlugRouteImport } from './routes/pack.$slug'
 import { Route as PortalDashboardRouteImport } from './routes/portal_.dashboard'
 import { Route as ResourceIdRouteImport } from './routes/resource.$id'
@@ -335,9 +335,9 @@ const CategoryCatRoute = CategoryCatRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const CivicAllRoute = CivicAllRouteImport.update({
-  id: '/all',
-  path: '/all',
-  getParentRoute: () => CivicRoute,
+  id: '/civic_/all',
+  path: '/civic/all',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const CreatorsIndexRoute = CreatorsIndexRouteImport.update({
   id: '/creators/',
@@ -355,9 +355,9 @@ const LSlugRoute = LSlugRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const ListsIdRoute = ListsIdRouteImport.update({
-  id: '/$id',
-  path: '/$id',
-  getParentRoute: () => ListsRoute,
+  id: '/lists_/$id',
+  path: '/lists/$id',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const PackSlugRoute = PackSlugRouteImport.update({
   id: '/pack/$slug',
@@ -412,7 +412,7 @@ export interface FileRoutesByFullPath {
   '/business-update': typeof BusinessUpdateRoute
   '/businesses': typeof BusinessesRoute
   '/buzz': typeof BuzzRoute
-  '/civic': typeof CivicRouteWithChildren
+  '/civic': typeof CivicRoute
   '/contact': typeof ContactRoute
   '/data-quality': typeof DataQualityRoute
   '/deck': typeof DeckRoute
@@ -426,7 +426,7 @@ export interface FileRoutesByFullPath {
   '/food': typeof FoodRoute
   '/help': typeof HelpRoute
   '/how-to-add': typeof HowToAddRoute
-  '/lists': typeof ListsRouteWithChildren
+  '/lists': typeof ListsRoute
   '/map': typeof MapRoute
   '/onboarding': typeof OnboardingRoute
   '/one-pager': typeof OnePagerRoute
@@ -478,7 +478,7 @@ export interface FileRoutesByTo {
   '/business-update': typeof BusinessUpdateRoute
   '/businesses': typeof BusinessesRoute
   '/buzz': typeof BuzzRoute
-  '/civic': typeof CivicRouteWithChildren
+  '/civic': typeof CivicRoute
   '/contact': typeof ContactRoute
   '/data-quality': typeof DataQualityRoute
   '/deck': typeof DeckRoute
@@ -492,7 +492,7 @@ export interface FileRoutesByTo {
   '/food': typeof FoodRoute
   '/help': typeof HelpRoute
   '/how-to-add': typeof HowToAddRoute
-  '/lists': typeof ListsRouteWithChildren
+  '/lists': typeof ListsRoute
   '/map': typeof MapRoute
   '/onboarding': typeof OnboardingRoute
   '/one-pager': typeof OnePagerRoute
@@ -545,7 +545,7 @@ export interface FileRoutesById {
   '/business-update': typeof BusinessUpdateRoute
   '/businesses': typeof BusinessesRoute
   '/buzz': typeof BuzzRoute
-  '/civic': typeof CivicRouteWithChildren
+  '/civic': typeof CivicRoute
   '/contact': typeof ContactRoute
   '/data-quality': typeof DataQualityRoute
   '/deck': typeof DeckRoute
@@ -559,7 +559,7 @@ export interface FileRoutesById {
   '/food': typeof FoodRoute
   '/help': typeof HelpRoute
   '/how-to-add': typeof HowToAddRoute
-  '/lists': typeof ListsRouteWithChildren
+  '/lists': typeof ListsRoute
   '/map': typeof MapRoute
   '/onboarding': typeof OnboardingRoute
   '/one-pager': typeof OnePagerRoute
@@ -583,10 +583,10 @@ export interface FileRoutesById {
   '/admin_/questions': typeof AdminQuestionsRoute
   '/api/help': typeof ApiHelpRoute
   '/category/$cat': typeof CategoryCatRoute
-  '/civic/all': typeof CivicAllRoute
+  '/civic_/all': typeof CivicAllRoute
   '/creators/$handle': typeof CreatorsHandleRoute
   '/l/$slug': typeof LSlugRoute
-  '/lists/$id': typeof ListsIdRoute
+  '/lists_/$id': typeof ListsIdRoute
   '/pack/$slug': typeof PackSlugRoute
   '/portal_/dashboard': typeof PortalDashboardRoute
   '/resource/$id': typeof ResourceIdRoute
@@ -783,10 +783,10 @@ export interface FileRouteTypes {
     | '/admin_/questions'
     | '/api/help'
     | '/category/$cat'
-    | '/civic/all'
+    | '/civic_/all'
     | '/creators/$handle'
     | '/l/$slug'
-    | '/lists/$id'
+    | '/lists_/$id'
     | '/pack/$slug'
     | '/portal_/dashboard'
     | '/resource/$id'
@@ -812,7 +812,7 @@ export interface RootRouteChildren {
   BusinessUpdateRoute: typeof BusinessUpdateRoute
   BusinessesRoute: typeof BusinessesRoute
   BuzzRoute: typeof BuzzRoute
-  CivicRoute: typeof CivicRouteWithChildren
+  CivicRoute: typeof CivicRoute
   ContactRoute: typeof ContactRoute
   DataQualityRoute: typeof DataQualityRoute
   DeckRoute: typeof DeckRoute
@@ -826,7 +826,7 @@ export interface RootRouteChildren {
   FoodRoute: typeof FoodRoute
   HelpRoute: typeof HelpRoute
   HowToAddRoute: typeof HowToAddRoute
-  ListsRoute: typeof ListsRouteWithChildren
+  ListsRoute: typeof ListsRoute
   MapRoute: typeof MapRoute
   OnboardingRoute: typeof OnboardingRoute
   OnePagerRoute: typeof OnePagerRoute
@@ -850,8 +850,10 @@ export interface RootRouteChildren {
   AdminQuestionsRoute: typeof AdminQuestionsRoute
   ApiHelpRoute: typeof ApiHelpRoute
   CategoryCatRoute: typeof CategoryCatRoute
+  CivicAllRoute: typeof CivicAllRoute
   CreatorsHandleRoute: typeof CreatorsHandleRoute
   LSlugRoute: typeof LSlugRoute
+  ListsIdRoute: typeof ListsIdRoute
   PackSlugRoute: typeof PackSlugRoute
   PortalDashboardRoute: typeof PortalDashboardRoute
   ResourceIdRoute: typeof ResourceIdRoute
@@ -1228,12 +1230,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CategoryCatRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/civic/all': {
-      id: '/civic/all'
-      path: '/all'
+    '/civic_/all': {
+      id: '/civic_/all'
+      path: '/civic/all'
       fullPath: '/civic/all'
       preLoaderRoute: typeof CivicAllRouteImport
-      parentRoute: typeof CivicRoute
+      parentRoute: typeof rootRouteImport
     }
     '/creators/': {
       id: '/creators/'
@@ -1256,12 +1258,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/lists/$id': {
-      id: '/lists/$id'
-      path: '/$id'
+    '/lists_/$id': {
+      id: '/lists_/$id'
+      path: '/lists/$id'
       fullPath: '/lists/$id'
       preLoaderRoute: typeof ListsIdRouteImport
-      parentRoute: typeof ListsRoute
+      parentRoute: typeof rootRouteImport
     }
     '/pack/$slug': {
       id: '/pack/$slug'
@@ -1315,26 +1317,6 @@ declare module '@tanstack/react-router' {
   }
 }
 
-interface CivicRouteChildren {
-  CivicAllRoute: typeof CivicAllRoute
-}
-
-const CivicRouteChildren: CivicRouteChildren = {
-  CivicAllRoute: CivicAllRoute,
-}
-
-const CivicRouteWithChildren = CivicRoute._addFileChildren(CivicRouteChildren)
-
-interface ListsRouteChildren {
-  ListsIdRoute: typeof ListsIdRoute
-}
-
-const ListsRouteChildren: ListsRouteChildren = {
-  ListsIdRoute: ListsIdRoute,
-}
-
-const ListsRouteWithChildren = ListsRoute._addFileChildren(ListsRouteChildren)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   A11yRoute: A11yRoute,
@@ -1350,7 +1332,7 @@ const rootRouteChildren: RootRouteChildren = {
   BusinessUpdateRoute: BusinessUpdateRoute,
   BusinessesRoute: BusinessesRoute,
   BuzzRoute: BuzzRoute,
-  CivicRoute: CivicRouteWithChildren,
+  CivicRoute: CivicRoute,
   ContactRoute: ContactRoute,
   DataQualityRoute: DataQualityRoute,
   DeckRoute: DeckRoute,
@@ -1364,7 +1346,7 @@ const rootRouteChildren: RootRouteChildren = {
   FoodRoute: FoodRoute,
   HelpRoute: HelpRoute,
   HowToAddRoute: HowToAddRoute,
-  ListsRoute: ListsRouteWithChildren,
+  ListsRoute: ListsRoute,
   MapRoute: MapRoute,
   OnboardingRoute: OnboardingRoute,
   OnePagerRoute: OnePagerRoute,
@@ -1388,8 +1370,10 @@ const rootRouteChildren: RootRouteChildren = {
   AdminQuestionsRoute: AdminQuestionsRoute,
   ApiHelpRoute: ApiHelpRoute,
   CategoryCatRoute: CategoryCatRoute,
+  CivicAllRoute: CivicAllRoute,
   CreatorsHandleRoute: CreatorsHandleRoute,
   LSlugRoute: LSlugRoute,
+  ListsIdRoute: ListsIdRoute,
   PackSlugRoute: PackSlugRoute,
   PortalDashboardRoute: PortalDashboardRoute,
   ResourceIdRoute: ResourceIdRoute,
