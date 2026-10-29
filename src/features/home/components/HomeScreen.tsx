@@ -8,10 +8,10 @@ import { SponsoredBanner } from "@/components/SponsoredBanner";
 import { useNeighborhood } from "../hooks/use-neighborhood";
 import { BROWSABLE_CATEGORIES, featuredCategoryIds } from "../lib/featured-categories";
 import { HomeHero } from "./HomeHero";
-import { SimplerViewPrompt } from "./SimplerViewPrompt";
 import { DeadlineAlerts } from "./DeadlineAlerts";
 import { TodayLists } from "./TodayLists";
-import { HomeExtras } from "./HomeExtras";
+import { FactOfTheDay } from "./FactOfTheDay";
+import { HomeFooter } from "./HomeFooter";
 import { TownHallCard } from "./TownHallCard";
 import { PicksRow } from "./PicksRow";
 import { HelpNowList } from "./HelpNowList";
@@ -19,8 +19,8 @@ import { HelpNowList } from "./HelpNowList";
 /**
  * Home is "Today in the Bronx", ordered act now → what's on → extras:
  * search and one-tap needs, any deadline coming up, places open tonight and
- * events this week, who represents you, picks from what this phone has browsed, crisis lines,
- * then the daily fact and feedback. Nothing opens on top of the page when it
+ * events this week, the daily fact, who represents you, picks from what this phone has browsed, crisis lines,
+ * then feedback, trust links and the Simplified View offer. Nothing opens on top of the page when it
  * loads.
  */
 export function HomeScreen() {
@@ -56,14 +56,14 @@ export function HomeScreen() {
         onNeighborhoodChange={setNeighborhood}
         needs={featured}
       />
-      <SimplerViewPrompt />
       <DeadlineAlerts />
       <TodayLists neighborhood={neighborhood || null} />
+      <FactOfTheDay />
       <TownHallCard />
       <PicksRow />
       <HelpNowList />
       <SponsoredBanner />
-      <HomeExtras onFeedback={() => setShowReport(true)} />
+      <HomeFooter onFeedback={() => setShowReport(true)} />
 
       {showReport && <ReportModal onClose={() => setShowReport(false)} />}
       {tourOpen && <DemoTour onClose={() => setTourOpen(false)} />}
