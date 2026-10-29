@@ -50,7 +50,7 @@ export const settingsMessages: Bundle = {
     deleteAll: "Delete all my data",
     deleteConfirmTitle: "Delete everything?",
     deleteConfirmBody:
-      "This deletes everything we have from you: your account if you have one, saved places, lists, preferences, alerts and questions you asked, on this phone and on our servers. It can't be undone.",
+      "This deletes everything we have from you: your account if you have one, saved places, lists, preferences and alerts, on this phone and on our servers. It can't be undone.",
     deleteYes: "Yes, delete it all",
     cancel: "Cancel",
     deleted: "Done. Your data has been deleted from this phone and our servers.",
@@ -104,7 +104,7 @@ export const settingsMessages: Bundle = {
     deleteAll: "Borrar todos mis datos",
     deleteConfirmTitle: "¿Borrar todo?",
     deleteConfirmBody:
-      "Esto borra todo lo que tenemos de usted: su cuenta si tiene una, lugares guardados, listas, preferencias, alertas y preguntas que hizo, en este teléfono y en nuestros servidores. No se puede deshacer.",
+      "Esto borra todo lo que tenemos de usted: su cuenta si tiene una, lugares guardados, listas, preferencias y alertas, en este teléfono y en nuestros servidores. No se puede deshacer.",
     deleteYes: "Sí, borrar todo",
     cancel: "Cancelar",
     deleted: "Listo. Sus datos se borraron de este teléfono y de nuestros servidores.",
@@ -159,7 +159,7 @@ export const settingsMessages: Bundle = {
     deleteAll: "Supprimer toutes mes données",
     deleteConfirmTitle: "Tout supprimer ?",
     deleteConfirmBody:
-      "Cela supprime tout ce que nous avons de vous : votre compte si vous en avez un, vos lieux enregistrés, listes, préférences, alertes et questions posées, sur ce téléphone et sur nos serveurs. C'est définitif.",
+      "Cela supprime tout ce que nous avons de vous : votre compte si vous en avez un, vos lieux enregistrés, listes, préférences et alertes, sur ce téléphone et sur nos serveurs. C'est définitif.",
     deleteYes: "Oui, tout supprimer",
     cancel: "Annuler",
     deleted: "C'est fait. Vos données ont été supprimées de ce téléphone et de nos serveurs.",
@@ -212,7 +212,7 @@ export const settingsMessages: Bundle = {
     deleteAll: "আমার সব তথ্য মুছুন",
     deleteConfirmTitle: "সবকিছু মুছবেন?",
     deleteConfirmBody:
-      "এতে আপনার কাছ থেকে পাওয়া সবকিছু মুছে যাবে: অ্যাকাউন্ট থাকলে সেটি, সংরক্ষিত জায়গা, তালিকা, পছন্দ, সতর্কবার্তা ও আপনার প্রশ্ন, এই ফোনে ও আমাদের সার্ভারে। এটি আর ফেরানো যাবে না।",
+      "এতে আপনার কাছ থেকে পাওয়া সবকিছু মুছে যাবে: অ্যাকাউন্ট থাকলে সেটি, সংরক্ষিত জায়গা, তালিকা, পছন্দ ও সতর্কবার্তা, এই ফোনে ও আমাদের সার্ভারে। এটি আর ফেরানো যাবে না।",
     deleteYes: "হ্যাঁ, সব মুছুন",
     cancel: "বাতিল",
     deleted: "হয়ে গেছে। আপনার তথ্য এই ফোন ও আমাদের সার্ভার থেকে মুছে ফেলা হয়েছে।",
@@ -264,7 +264,7 @@ export const settingsMessages: Bundle = {
     deleteAll: "حذف كل بياناتي",
     deleteConfirmTitle: "حذف كل شيء؟",
     deleteConfirmBody:
-      "يحذف هذا كل ما لدينا منك: حسابك إن كان لديك حساب، والأماكن المحفوظة والقوائم والتفضيلات والتنبيهات والأسئلة التي طرحتها، على هذا الهاتف وعلى خوادمنا. لا يمكن التراجع عن ذلك.",
+      "يحذف هذا كل ما لدينا منك: حسابك إن كان لديك حساب، والأماكن المحفوظة والقوائم والتفضيلات والتنبيهات، على هذا الهاتف وعلى خوادمنا. لا يمكن التراجع عن ذلك.",
     deleteYes: "نعم، احذف كل شيء",
     cancel: "إلغاء",
     deleted: "تم. حُذفت بياناتك من هذا الهاتف ومن خوادمنا.",

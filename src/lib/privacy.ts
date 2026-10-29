@@ -58,13 +58,14 @@ export function eraseLocalData() {
 }
 
 /**
- * Full erase: this device's usage rows and the signed-in account's data on
- * the server, then everything on this device. Throws if the server couldn't
+ * Full erase: this device's usage rows and the signed-in account (with its
+ * data) on the server, then everything on this device. Throws if the server couldn't
  * delete everything; the device is only wiped once the server succeeded.
  */
 export async function deleteAllMyData() {
   const visitorId = getVisitorId() || null;
   const { signedIn } = await deleteMyServerData({ data: { visitorId } });
-  if (signedIn) await supabase.auth.signOut();
+  // The account no longer exists, so only forget the session on this device.
+  if (signedIn) await supabase.auth.signOut({ scope: "local" }).catch(() => undefined);
   eraseLocalData();
 }

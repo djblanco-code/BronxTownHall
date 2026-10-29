@@ -4,7 +4,7 @@ export const privacy: Bundle = {
   en: {
     home: "Home",
     title: "Privacy Policy",
-    updated: "Last updated: July 2026",
+    updated: "Last updated: October 2026",
     intro:
       "This page is maintained by The Bronx App team to answer common privacy questions about The Bronx App. It is not a certification and not legal advice.",
     protectTitle: "We protect your data",
@@ -33,7 +33,8 @@ export const privacy: Bundle = {
     account3: "resource suggestions, event submissions, and reports you send us.",
     deletionTitle: "Data deletion",
     deletionPre: "You can delete your data at any time with the button below, or by emailing",
-    deletionPost: "Deletion is immediate on this device and on our servers.",
+    deletionPost:
+      "Deletion is immediate, on this device and on our servers, and includes your account if you have one.",
     dontTitle: "What we don't do",
     dont1: "We do not sell your data.",
     dont2:
@@ -41,11 +42,11 @@ export const privacy: Bundle = {
     dont3: "We do not track your location in the background.",
     thirdTitle: "Third parties",
     third:
-      "We use Google Maps to display maps and estimate transit times, and a backend provider for authentication and data storage. These services process data on our behalf under their own terms.",
+      "To run the app we use: Supabase to store accounts and data; Google Maps for maps and travel times; Google Fonts for the app's lettering (your browser loads them from Google); Plausible for anonymous page counts, with no cookies; OpenAI to understand what you type into Help and Ask a question, and to read text aloud; and OpenStreetMap to turn your location into a ZIP code when you tap “Use my location”. Questions typed into Ask are kept for 90 days with phone numbers and emails removed, and are not linked to you. These services process data on our behalf under their own terms.",
     choicesTitle: "Your choices",
-    choice1: "Sign out any time from Settings.",
+    choice1: "Sign out any time from the account menu (the person icon at the top).",
     choice2:
-      "Delete your account by emailing hello@thebronxapp.org — we remove your data within 30 days.",
+      "Delete your account and data any time with the button above, or email hello@thebronxapp.org and we'll do it for you.",
     choice3: "Unsubscribe from the newsletter with one click.",
     contactTitle: "Contact",
     contactPre: "Questions? Email",
@@ -55,7 +56,7 @@ export const privacy: Bundle = {
   es: {
     home: "Inicio",
     title: "Política de privacidad",
-    updated: "Última actualización: julio de 2026",
+    updated: "Última actualización: octubre de 2026",
     intro:
       "Esta página la mantiene el equipo de La App del Bronx para responder preguntas comunes de privacidad. No es una certificación ni asesoría legal.",
     protectTitle: "Protegemos sus datos",
@@ -85,7 +86,8 @@ export const privacy: Bundle = {
     deletionTitle: "Eliminación de datos",
     deletionPre:
       "Puede eliminar sus datos en cualquier momento con el botón de abajo o escribiendo a",
-    deletionPost: "La eliminación es inmediata en este dispositivo y en nuestros servidores.",
+    deletionPost:
+      "La eliminación es inmediata, en este dispositivo y en nuestros servidores, e incluye su cuenta si tiene una.",
     dontTitle: "Lo que no hacemos",
     dont1: "No vendemos sus datos.",
     dont2:
@@ -93,11 +95,11 @@ export const privacy: Bundle = {
     dont3: "No rastreamos su ubicación en segundo plano.",
     thirdTitle: "Terceros",
     third:
-      "Usamos Google Maps para mostrar mapas y estimar tiempos de transporte, y un proveedor de backend para la autenticación y el almacenamiento de datos. Estos servicios procesan datos en nuestro nombre bajo sus propios términos.",
+      "Para que la aplicación funcione usamos: Supabase para guardar cuentas y datos; Google Maps para mapas y tiempos de viaje; Google Fonts para las letras de la aplicación (su navegador las carga desde Google); Plausible para contar visitas de forma anónima, sin cookies; OpenAI para entender lo que escribe en Ayuda y en Haga una pregunta, y para leer texto en voz alta; y OpenStreetMap para convertir su ubicación en un código postal cuando toca “Usar mi ubicación”. Las preguntas escritas en Haga una pregunta se guardan 90 días, sin números de teléfono ni correos, y no se vinculan con usted. Estos servicios procesan datos en nuestro nombre según sus propios términos.",
     choicesTitle: "Sus opciones",
-    choice1: "Cierre sesión cuando quiera desde Ajustes.",
+    choice1: "Cierre sesión cuando quiera desde el menú de su cuenta (el ícono de persona arriba).",
     choice2:
-      "Elimine su cuenta escribiendo a hello@thebronxapp.org — borramos sus datos en un plazo de 30 días.",
+      "Elimine su cuenta y sus datos cuando quiera con el botón de arriba, o escriba a hello@thebronxapp.org y lo haremos por usted.",
     choice3: "Cancele la suscripción al boletín con un clic.",
     contactTitle: "Contacto",
     contactPre: "¿Preguntas? Escriba a",
@@ -107,7 +109,7 @@ export const privacy: Bundle = {
   fr: {
     home: "Accueil",
     title: "Politique de confidentialité",
-    updated: "Dernière mise à jour : juillet 2026",
+    updated: "Dernière mise à jour : octobre 2026",
     intro:
       "Cette page est tenue à jour par l'équipe de L'App du Bronx pour répondre aux questions courantes sur la confidentialité. Ce n'est ni une certification ni un avis juridique.",
     protectTitle: "Nous protégeons vos données",
@@ -137,7 +139,8 @@ export const privacy: Bundle = {
     deletionTitle: "Suppression des données",
     deletionPre:
       "Vous pouvez supprimer vos données à tout moment avec le bouton ci-dessous ou en écrivant à",
-    deletionPost: "La suppression est immédiate sur cet appareil et sur nos serveurs.",
+    deletionPost:
+      "La suppression est immédiate, sur cet appareil et sur nos serveurs, et inclut votre compte si vous en avez un.",
     dontTitle: "Ce que nous ne faisons pas",
     dont1: "Nous ne vendons pas vos données.",
     dont2:
@@ -145,11 +148,12 @@ export const privacy: Bundle = {
     dont3: "Nous ne suivons pas votre position en arrière-plan.",
     thirdTitle: "Tiers",
     third:
-      "Nous utilisons Google Maps pour afficher les cartes et estimer les temps de trajet, et un prestataire d'infrastructure pour l'authentification et le stockage des données. Ces services traitent les données pour notre compte, selon leurs propres conditions.",
+      "Pour faire fonctionner l'application, nous utilisons : Supabase pour stocker les comptes et les données ; Google Maps pour les cartes et les temps de trajet ; Google Fonts pour les polices de l'application (votre navigateur les charge depuis Google) ; Plausible pour compter les visites de façon anonyme, sans cookies ; OpenAI pour comprendre ce que vous tapez dans Aide et Poser une question, et pour lire le texte à voix haute ; et OpenStreetMap pour convertir votre position en code postal quand vous touchez « Utiliser ma position ». Les questions posées dans Poser une question sont conservées 90 jours, sans numéros de téléphone ni e-mails, et ne sont pas liées à vous. Ces services traitent les données pour notre compte selon leurs propres conditions.",
     choicesTitle: "Vos choix",
-    choice1: "Déconnectez-vous à tout moment depuis les Paramètres.",
+    choice1:
+      "Déconnectez-vous à tout moment depuis le menu du compte (l'icône de personne en haut).",
     choice2:
-      "Supprimez votre compte en écrivant à hello@thebronxapp.org — nous effaçons vos données sous 30 jours.",
+      "Supprimez votre compte et vos données à tout moment avec le bouton ci-dessus, ou écrivez à hello@thebronxapp.org et nous le ferons pour vous.",
     choice3: "Désabonnez-vous de la newsletter en un clic.",
     contactTitle: "Contact",
     contactPre: "Des questions ? Écrivez à",
@@ -159,7 +163,7 @@ export const privacy: Bundle = {
   bn: {
     home: "হোম",
     title: "গোপনীয়তা নীতি",
-    updated: "সর্বশেষ হালনাগাদ: জুলাই ২০২৬",
+    updated: "সর্বশেষ হালনাগাদ: অক্টোবর ২০২৬",
     intro:
       "এই পৃষ্ঠাটি দ্য ব্রঙ্কস অ্যাপ দল রক্ষণাবেক্ষণ করে, সাধারণ গোপনীয়তা প্রশ্নের উত্তর দিতে। এটি কোনো সনদ নয় এবং আইনি পরামর্শও নয়।",
     protectTitle: "আমরা আপনার তথ্য সুরক্ষিত রাখি",
@@ -188,7 +192,8 @@ export const privacy: Bundle = {
     account3: "আপনার পাঠানো সম্পদের প্রস্তাব, ইভেন্ট ও রিপোর্ট।",
     deletionTitle: "তথ্য মুছে ফেলা",
     deletionPre: "নিচের বোতাম দিয়ে অথবা ইমেইল করে যেকোনো সময় আপনার তথ্য মুছে ফেলতে পারেন",
-    deletionPost: "এই ডিভাইসে ও আমাদের সার্ভারে মুছে ফেলা তাৎক্ষণিক।",
+    deletionPost:
+      "মুছে ফেলা সঙ্গে সঙ্গে হয়, এই ডিভাইসে ও আমাদের সার্ভারে, আর অ্যাকাউন্ট থাকলে সেটিও মুছে যায়।",
     dontTitle: "আমরা যা করি না",
     dont1: "আমরা আপনার তথ্য বিক্রি করি না।",
     dont2:
@@ -196,11 +201,11 @@ export const privacy: Bundle = {
     dont3: "আমরা পটভূমিতে আপনার অবস্থান ট্র্যাক করি না।",
     thirdTitle: "তৃতীয় পক্ষ",
     third:
-      "মানচিত্র দেখাতে ও যাতায়াতের সময় অনুমান করতে আমরা গুগল ম্যাপস ব্যবহার করি, এবং প্রমাণীকরণ ও তথ্য সংরক্ষণের জন্য একটি ব্যাকএন্ড সেবা ব্যবহার করি। এই সেবাগুলো তাদের নিজস্ব শর্তে আমাদের পক্ষে তথ্য প্রক্রিয়া করে।",
+      "অ্যাপ চালাতে আমরা ব্যবহার করি: অ্যাকাউন্ট ও তথ্য রাখতে Supabase; মানচিত্র ও যাতায়াতের সময়ের জন্য Google Maps; অ্যাপের অক্ষরের জন্য Google Fonts (আপনার ব্রাউজার এগুলো Google থেকে লোড করে); কুকি ছাড়া বেনামি পেজ গণনার জন্য Plausible; সাহায্য ও প্রশ্ন করুন-এ আপনি যা লেখেন তা বুঝতে এবং লেখা জোরে পড়তে OpenAI; আর “আমার অবস্থান ব্যবহার করুন” চাপলে আপনার অবস্থানকে জিপ কোডে রূপান্তর করতে OpenStreetMap। প্রশ্ন করুন-এ লেখা প্রশ্ন ফোন নম্বর ও ইমেইল সরিয়ে ৯০ দিন রাখা হয়, এবং আপনার সঙ্গে যুক্ত থাকে না। এই সেবাগুলো তাদের নিজস্ব শর্তে আমাদের পক্ষে তথ্য প্রক্রিয়া করে।",
     choicesTitle: "আপনার পছন্দ",
-    choice1: "সেটিংস থেকে যেকোনো সময় সাইন আউট করুন।",
+    choice1: "অ্যাকাউন্ট মেনু (উপরের ব্যক্তি আইকন) থেকে যেকোনো সময় সাইন আউট করুন।",
     choice2:
-      "hello@thebronxapp.org-এ ইমেইল করে অ্যাকাউন্ট মুছুন — ৩০ দিনের মধ্যে আমরা আপনার তথ্য সরিয়ে ফেলি।",
+      "উপরের বোতাম দিয়ে যেকোনো সময় আপনার অ্যাকাউন্ট ও তথ্য মুছুন, অথবা hello@thebronxapp.org-এ ইমেইল করলে আমরা করে দেব।",
     choice3: "এক ক্লিকে নিউজলেটার থেকে সাবস্ক্রিপশন বাতিল করুন।",
     contactTitle: "যোগাযোগ",
     contactPre: "প্রশ্ন আছে? ইমেইল করুন",
@@ -210,7 +215,7 @@ export const privacy: Bundle = {
   ar: {
     home: "الرئيسية",
     title: "سياسة الخصوصية",
-    updated: "آخر تحديث: يوليو 2026",
+    updated: "آخر تحديث: أكتوبر 2026",
     intro:
       "يحتفظ فريق تطبيق برونكس بهذه الصفحة للإجابة عن أسئلة الخصوصية الشائعة. وهي ليست شهادة اعتماد ولا استشارة قانونية.",
     protectTitle: "نحن نحمي بياناتك",
@@ -239,7 +244,7 @@ export const privacy: Bundle = {
     account3: "اقتراحات الموارد والفعاليات والبلاغات التي ترسلها إلينا.",
     deletionTitle: "حذف البيانات",
     deletionPre: "يمكنك حذف بياناتك في أي وقت بالزر أدناه أو بمراسلتنا على",
-    deletionPost: "الحذف فوري على هذا الجهاز وعلى خوادمنا.",
+    deletionPost: "الحذف فوري، على هذا الجهاز وعلى خوادمنا، ويشمل حسابك إن كان لديك حساب.",
     dontTitle: "ما لا نفعله",
     dont1: "لا نبيع بياناتك.",
     dont2:
@@ -247,10 +252,11 @@ export const privacy: Bundle = {
     dont3: "لا نتتبع موقعك في الخلفية.",
     thirdTitle: "أطراف ثالثة",
     third:
-      "نستخدم خرائط جوجل لعرض الخرائط وتقدير أوقات التنقل، ومزوّد خدمة خلفية للمصادقة وتخزين البيانات. تعالج هذه الخدمات البيانات نيابة عنا وفق شروطها الخاصة.",
+      "لتشغيل التطبيق نستخدم: Supabase لتخزين الحسابات والبيانات؛ وGoogle Maps للخرائط وأوقات التنقّل؛ وGoogle Fonts لخطوط التطبيق (يحمّلها متصفحك من Google)؛ وPlausible لعدّ الزيارات دون هوية ودون ملفات تعريف الارتباط؛ وOpenAI لفهم ما تكتبه في المساعدة واطرح سؤالًا، ولقراءة النص بصوت عالٍ؛ وOpenStreetMap لتحويل موقعك إلى رمز بريدي عندما تضغط “استخدم موقعي”. تُحفظ الأسئلة المكتوبة في اطرح سؤالًا لمدة 90 يومًا بعد إزالة أرقام الهواتف والبريد الإلكتروني، ولا ترتبط بك. تعالج هذه الخدمات البيانات نيابة عنا وفق شروطها الخاصة.",
     choicesTitle: "خياراتك",
-    choice1: "سجّل الخروج في أي وقت من الإعدادات.",
-    choice2: "احذف حسابك بمراسلة hello@thebronxapp.org — نزيل بياناتك خلال 30 يومًا.",
+    choice1: "سجّل الخروج في أي وقت من قائمة الحساب (أيقونة الشخص في الأعلى).",
+    choice2:
+      "احذف حسابك وبياناتك في أي وقت بالزر أعلاه، أو راسل hello@thebronxapp.org وسنقوم بذلك نيابة عنك.",
     choice3: "ألغِ اشتراك النشرة البريدية بنقرة واحدة.",
     contactTitle: "اتصل بنا",
     contactPre: "أسئلة؟ راسلنا على",
