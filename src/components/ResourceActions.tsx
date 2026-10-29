@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "@/hooks/use-auth";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { ListPlus, MessageSquare, Printer, ClipboardCheck } from "lucide-react";
-import { fetchMyLists, addToList, createList, type List } from "@/lib/cloud-lists";
+import { fetchMyLists, addToList, createList, type List } from "@/features/saved";
 import { logReferral } from "@/lib/cloud-pro";
 import { SHOW_CASEWORKER_TOOLS } from "@/lib/first-version";
 import { toast } from "sonner";
@@ -47,10 +47,10 @@ export function ResourceActions({
     setLoading(true);
     try {
       await addToList(listId, resourceId);
-      toast.success("Added to list");
+      toast.success(t("saved.addedTo", { name: lists.find((l) => l.id === listId)?.name ?? "" }));
       setShowLists(false);
-    } catch (e) {
-      toast.error((e as Error).message);
+    } catch {
+      toast.error(t("saved.error"));
     } finally {
       setLoading(false);
     }
@@ -62,11 +62,11 @@ export function ResourceActions({
     try {
       const list = await createList({ name: newName.trim() });
       await addToList(list.id, resourceId);
-      toast.success(`Created "${list.name}" and added resource`);
+      toast.success(t("saved.createdAndAdded", { name: list.name }));
       setShowLists(false);
       setNewName("");
-    } catch (e) {
-      toast.error((e as Error).message);
+    } catch {
+      toast.error(t("saved.error"));
     } finally {
       setLoading(false);
     }
@@ -143,16 +143,18 @@ export function ResourceActions({
         <div
           role="dialog"
           aria-modal
+          aria-label={t("saved.addToList")}
           className="fixed inset-0 z-50 grid place-items-center bg-black/50 p-4"
           onClick={() => setShowLists(false)}
+          onKeyDown={(e) => e.key === "Escape" && setShowLists(false)}
         >
           <div
             className="bg-card rounded-md border border-border shadow-xl w-full max-w-md p-5"
             onClick={(e) => e.stopPropagation()}
           >
-            <h3 className="font-bold text-lg mb-3">Add to a list</h3>
+            <h3 className="font-bold text-lg mb-3">{t("saved.addToList")}</h3>
             {lists.length === 0 ? (
-              <p className="text-sm text-muted-foreground mb-3">You don't have any lists yet.</p>
+              <p className="text-sm text-muted-foreground mb-3">{t("saved.noLists")}</p>
             ) : (
               <ul className="space-y-1 mb-4 max-h-60 overflow-auto">
                 {lists.map((l) => (
@@ -164,7 +166,7 @@ export function ResourceActions({
                     >
                       {l.name}{" "}
                       {l.is_public && (
-                        <span className="text-xs text-muted-foreground">· public</span>
+                        <span className="text-xs text-muted-foreground">· {t("saved.shared")}</span>
                       )}
                     </button>
                   </li>
@@ -175,7 +177,9 @@ export function ResourceActions({
               <input
                 value={newName}
                 onChange={(e) => setNewName(e.target.value)}
-                placeholder="New list name"
+                placeholder={t("saved.listName")}
+                aria-label={t("saved.listName")}
+                dir="auto"
                 className="flex-1 px-3 py-2 rounded-md border border-border bg-background text-sm"
               />
               <button
@@ -183,12 +187,12 @@ export function ResourceActions({
                 onClick={handleCreateList}
                 className="no-min-h px-4 py-2 rounded-md bg-primary-fill text-primary-fill-foreground text-sm font-semibold disabled:opacity-50"
               >
-                Create
+                {t("saved.create")}
               </button>
             </div>
             <div className="mt-4 text-right">
               <Link to="/lists" className="text-sm text-primary underline">
-                Manage all lists →
+                {t("saved.manageLists")}
               </Link>
             </div>
           </div>
