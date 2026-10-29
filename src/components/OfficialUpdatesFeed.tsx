@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { loadOfficialUpdates, type OfficialUpdate } from "@/lib/org-accounts";
 import { BadgeCheck, Megaphone } from "lucide-react";
 import { Section } from "@/components/ui/section";
+import { isDemoMode, SAMPLE_UPDATES } from "@/features/demo";
 
 type Item = OfficialUpdate & {
   org?: {
@@ -15,8 +16,25 @@ type Item = OfficialUpdate & {
 /** Posts from verified offices, as a ruled section of rows on the Town Hall page. */
 export function OfficialUpdatesFeed() {
   const [items, setItems] = useState<Item[]>([]);
+  const [sample, setSample] = useState(false);
 
   useEffect(() => {
+    // Demo mode (labeled by a banner) shows sample announcements, never as verified posts.
+    if (isDemoMode()) {
+      setSample(true);
+      setItems(
+        SAMPLE_UPDATES.map((u) => ({
+          id: u.id,
+          org_id: "demo",
+          user_id: "demo",
+          body: u.body,
+          status: "published" as const,
+          created_at: u.created_at,
+          org: { org_name: u.office, office_name: u.office, status: "sample", verified_at: null },
+        })),
+      );
+      return;
+    }
     void loadOfficialUpdates(10).then((r) => setItems(r as Item[]));
   }, []);
 
@@ -55,9 +73,11 @@ export function OfficialUpdatesFeed() {
               </li>
             ))}
           </ul>
-          <p dir="auto" className="mt-2 text-xs text-muted-foreground">
-            Posted directly by the offices themselves through their Bronx App account.
-          </p>
+          {!sample && (
+            <p dir="auto" className="mt-2 text-xs text-muted-foreground">
+              Posted directly by the offices themselves through their Bronx App account.
+            </p>
+          )}
         </>
       )}
     </Section>

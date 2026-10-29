@@ -93,6 +93,7 @@ are already covered by the variables it added.
 | `GOOGLE_MAPS_API_KEY`           | Optional                   | Server-side address checks (Geocoding + Places APIs)                                                                 |
 | `FIRECRAWL_API_KEY`             | Optional                   | Weekly event scraping into the admin review queue                                                                    |
 | `VITE_SMS_NUMBER`               | Optional                   | The "Text FOOD to…" number, once the text line exists                                                                |
+| `VITE_DEMO_CONTENT`             | Optional (Preview only)    | `true` fills events, updates and deadlines with labeled sample content for previews. Never set it on Production      |
 
 Vercel detects the build on its own (`npm run build`, Node 22). Nothing else
 needs configuring.

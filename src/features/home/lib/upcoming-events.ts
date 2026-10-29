@@ -3,6 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { loadDirectory } from "@/lib/bronx-resources";
 import type { VerificationStatus } from "@/lib/verification";
 import type { EventSummary } from "@/features/events";
+import { isDemoMode, SAMPLE_EVENTS } from "@/features/demo";
 
 export type UpcomingEvent = EventSummary;
 
@@ -64,6 +65,27 @@ export function useUpcomingEvents(): { events: UpcomingEvent[] | null; failed: b
   const [failed, setFailed] = useState(false);
 
   useEffect(() => {
+    // Demo mode (labeled by a banner) shows sample events instead of live ones.
+    if (isDemoMode()) {
+      const today = new Date().toISOString().slice(0, 10);
+      setEvents(
+        SAMPLE_EVENTS.filter((e) => (e.event_end_date ?? e.event_date) >= today).map((e) => ({
+          id: e.id,
+          title: e.title,
+          category: e.category,
+          event_date: e.event_date,
+          event_end_date: e.event_end_date,
+          event_time: e.event_time,
+          location: e.location,
+          neighborhood: e.neighborhood,
+          is_free: e.is_free,
+          source: null,
+          verification_status: "needs_verification",
+          last_verified: null,
+        })),
+      );
+      return;
+    }
     let alive = true;
     const timeout = new Promise<never>((_, reject) =>
       setTimeout(() => reject(new Error("timed out")), TIMEOUT_MS),

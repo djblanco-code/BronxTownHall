@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import type { EventSummary } from "@/features/events";
 import { useI18n } from "@/lib/i18n-context";
 import { LANGS } from "@/lib/i18n";
+import { nycIsoDate } from "../lib/today";
 
 /**
  * An event as one row on Home, like a listings column in a paper: weekday
@@ -11,7 +12,11 @@ import { LANGS } from "@/lib/i18n";
 export function EventRow({ event: e }: { event: EventSummary }) {
   const { t, lang } = useI18n();
   const locale = LANGS.find((l) => l.code === lang)?.bcp47;
-  const [y, m, d] = e.event_date.split("-").map(Number);
+  // An event that is already running (multi-day) shows today, not its start.
+  const today = nycIsoDate();
+  const shown =
+    e.event_date < today && (e.event_end_date ?? e.event_date) >= today ? today : e.event_date;
+  const [y, m, d] = shown.split("-").map(Number);
   const day = new Date(y!, (m ?? 1) - 1, d ?? 1);
   const meta = [e.event_time, e.location || e.neighborhood, e.is_free ? t("interface.free") : null]
     .filter(Boolean)
