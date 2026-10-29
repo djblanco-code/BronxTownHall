@@ -58,7 +58,7 @@ function OnboardingPage() {
     <div className="min-h-screen bg-gradient-to-b from-primary/10 via-background to-background flex flex-col">
       <div className="flex items-center justify-between px-4 py-3">
         <div className="flex items-center gap-2">
-          <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-primary to-accent grid place-items-center text-primary-foreground shadow">
+          <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-primary to-accent grid place-items-center text-primary-fill-foreground shadow">
             <Heart className="h-5 w-5" fill="currentColor" />
           </div>
           <span className="font-bold text-lg">The Bronx App</span>
@@ -78,7 +78,7 @@ function OnboardingPage() {
           {step === "welcome" && (
             <Card>
               <div className="text-center space-y-4">
-                <div className="h-20 w-20 mx-auto rounded-3xl bg-gradient-to-br from-primary to-accent grid place-items-center text-primary-foreground shadow-lg">
+                <div className="h-20 w-20 mx-auto rounded-3xl bg-gradient-to-br from-primary to-accent grid place-items-center text-primary-fill-foreground shadow-lg">
                   <Heart className="h-10 w-10" fill="currentColor" />
                 </div>
                 <h1 className="text-3xl font-bold">The Bronx App</h1>
@@ -87,7 +87,7 @@ function OnboardingPage() {
                 </p>
                 <button
                   onClick={() => setStep("language")}
-                  className="no-min-h w-full py-4 rounded-2xl bg-primary text-primary-foreground font-bold text-lg shadow min-h-[56px]"
+                  className="no-min-h w-full py-4 rounded-2xl bg-primary-fill text-primary-fill-foreground font-bold text-lg shadow min-h-[56px]"
                 >
                   Get Started
                 </button>
@@ -174,7 +174,7 @@ function OnboardingPage() {
 
                 <button
                   onClick={() => finish(profile)}
-                  className="no-min-h w-full py-4 rounded-2xl bg-primary text-primary-foreground font-bold min-h-[56px] inline-flex items-center justify-center gap-2"
+                  className="no-min-h w-full py-4 rounded-2xl bg-primary-fill text-primary-fill-foreground font-bold min-h-[56px] inline-flex items-center justify-center gap-2"
                 >
                   Go to the app <ChevronRight className="h-5 w-5" />
                 </button>
@@ -227,7 +227,7 @@ function Dots({ step, total }: { step: number; total: number }) {
       {Array.from({ length: total }, (_, i) => (
         <div
           key={i}
-          className={`h-2 rounded-full ${i + 1 === step ? "w-8 bg-primary" : i + 1 < step ? "w-2 bg-primary/60" : "w-2 bg-border"}`}
+          className={`h-2 rounded-full ${i + 1 === step ? "w-8 bg-primary-fill" : i + 1 < step ? "w-2 bg-primary/60" : "w-2 bg-border"}`}
         />
       ))}
     </div>

@@ -133,7 +133,7 @@ function CheckGroup({
             key={o}
             aria-pressed={on}
             onClick={() => onChange(on ? value.filter((v) => v !== o) : [...value, o])}
-            className={`no-min-h min-h-11 rounded-md border-2 px-3 py-1.5 text-sm font-semibold ${on ? "border-primary bg-primary text-primary-foreground" : "border-border bg-background hover:bg-secondary"}`}
+            className={`no-min-h min-h-11 rounded-md border-2 px-3 py-1.5 text-sm font-semibold ${on ? "border-primary bg-primary-fill text-primary-fill-foreground" : "border-border bg-background hover:bg-secondary"}`}
           >
             {o}
           </button>
@@ -297,7 +297,7 @@ export function OrgListingForm({
               type="button"
               aria-pressed={value.hours_mode === id}
               onClick={() => set("hours_mode", id)}
-              className={`no-min-h min-h-11 rounded-md border-2 px-3 py-1.5 text-sm font-semibold ${value.hours_mode === id ? "border-primary bg-primary text-primary-foreground" : "border-border bg-background hover:bg-secondary"}`}
+              className={`no-min-h min-h-11 rounded-md border-2 px-3 py-1.5 text-sm font-semibold ${value.hours_mode === id ? "border-primary bg-primary-fill text-primary-fill-foreground" : "border-border bg-background hover:bg-secondary"}`}
             >
               {label}
             </button>
@@ -595,7 +595,7 @@ export function OrgListingForm({
       <button
         type="submit"
         disabled={busy}
-        className="no-min-h min-h-12 w-full rounded-md bg-primary py-3 font-bold text-primary-foreground hover:bg-primary/90 disabled:opacity-50"
+        className="no-min-h min-h-12 w-full rounded-md bg-primary-fill py-3 font-bold text-primary-fill-foreground hover:bg-primary-fill-hover disabled:opacity-50"
       >
         {busy ? "Saving…" : submitLabel}
       </button>

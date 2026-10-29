@@ -568,7 +568,7 @@ function SpotlightCard({ row }: { row: BronxResource }) {
         <Link
           to="/resource/$id"
           params={{ id: view.id }}
-          className="no-min-h inline-flex items-center gap-1 rounded-full bg-primary px-3.5 py-1.5 text-xs font-bold text-primary-foreground hover:opacity-90"
+          className="no-min-h inline-flex items-center gap-1 rounded-full bg-primary-fill px-3.5 py-1.5 text-xs font-bold text-primary-fill-foreground hover:opacity-90"
         >
           See full details <ArrowRight className="h-3.5 w-3.5" aria-hidden />
         </Link>

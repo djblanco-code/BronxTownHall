@@ -28,7 +28,7 @@ export function After5Toggle({ active, onToggle, count, className = "" }: Props)
         onBlur={() => setHover(false)}
         className={`no-min-h simplified-exempt inline-flex h-9 items-center gap-1.5 rounded-md border px-3 text-sm font-semibold transition-colors ${
           active
-            ? "border-primary bg-primary text-primary-foreground hover:bg-primary/90"
+            ? "border-primary bg-primary-fill text-primary-fill-foreground hover:bg-primary-fill-hover"
             : "border-border bg-card text-foreground hover:bg-secondary"
         }`}
       >
@@ -37,7 +37,7 @@ export function After5Toggle({ active, onToggle, count, className = "" }: Props)
         <span
           className={`inline-flex items-center justify-center min-w-[1.5rem] h-5 px-1.5 rounded-sm text-xs font-bold ${
             active
-              ? "bg-primary-foreground/20 text-primary-foreground"
+              ? "bg-primary-foreground/20 text-primary-fill-foreground"
               : "bg-secondary text-secondary-foreground"
           }`}
           aria-label={t("interface.matches", { count })}

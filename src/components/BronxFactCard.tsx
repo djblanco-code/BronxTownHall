@@ -74,7 +74,7 @@ export function BronxFactCard({
       <div className="mt-4 flex flex-wrap items-center gap-2">
         <Link
           to="/facts"
-          className="no-min-h inline-flex items-center gap-1.5 px-3 py-2 rounded-full bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition min-h-[40px]"
+          className="no-min-h inline-flex items-center gap-1.5 px-3 py-2 rounded-full bg-primary-fill text-primary-fill-foreground text-sm font-semibold hover:opacity-90 transition min-h-[40px]"
         >
           <BookOpen className="h-4 w-4" /> See more facts
         </Link>

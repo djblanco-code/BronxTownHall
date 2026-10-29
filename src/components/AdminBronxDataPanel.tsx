@@ -427,7 +427,7 @@ export function AdminBronxDataPanel() {
               )
             }
             disabled={busy === "import"}
-            className="no-min-h inline-flex items-center gap-1.5 rounded-lg bg-primary text-primary-foreground px-3 py-1.5 text-xs font-bold disabled:opacity-50"
+            className="no-min-h inline-flex items-center gap-1.5 rounded-lg bg-primary-fill text-primary-fill-foreground px-3 py-1.5 text-xs font-bold disabled:opacity-50"
           >
             {busy === "import" ? (
               <Loader2 className="h-3.5 w-3.5 animate-spin" />
@@ -494,7 +494,7 @@ export function AdminBronxDataPanel() {
               <span className="text-muted-foreground">{b.address ?? "no address"}</span>
               <button
                 onClick={() => doMerge(b.id, a.id)}
-                className="no-min-h rounded-lg bg-primary text-primary-foreground px-2 py-1 font-bold"
+                className="no-min-h rounded-lg bg-primary-fill text-primary-fill-foreground px-2 py-1 font-bold"
               >
                 Keep first
               </button>
@@ -609,7 +609,7 @@ export function AdminBronxDataPanel() {
           <button
             onClick={addManual}
             disabled={busy === "add"}
-            className="no-min-h rounded-lg bg-primary text-primary-foreground px-3 py-1.5 text-xs font-bold disabled:opacity-50"
+            className="no-min-h rounded-lg bg-primary-fill text-primary-fill-foreground px-3 py-1.5 text-xs font-bold disabled:opacity-50"
           >
             Save listing
           </button>
@@ -809,7 +809,7 @@ export function AdminBronxDataPanel() {
                   <button
                     onClick={() => saveRow(r.id)}
                     disabled={busy === r.id}
-                    className="no-min-h inline-flex items-center gap-1.5 rounded-lg bg-primary text-primary-foreground px-3 py-1.5 text-xs font-bold disabled:opacity-50"
+                    className="no-min-h inline-flex items-center gap-1.5 rounded-lg bg-primary-fill text-primary-fill-foreground px-3 py-1.5 text-xs font-bold disabled:opacity-50"
                   >
                     {busy === r.id ? (
                       <Loader2 className="h-3.5 w-3.5 animate-spin" />

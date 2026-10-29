@@ -17,7 +17,7 @@ export function LanguageSelector({ compact = false }: { compact?: boolean }) {
               onClick={() => setLang(l.code as Lang)}
               className={`no-min-h inline-flex min-h-11 items-center rounded-md border px-3 text-sm font-semibold transition-colors ${
                 lang === l.code
-                  ? "border-primary bg-primary text-primary-foreground"
+                  ? "border-primary bg-primary-fill text-primary-fill-foreground"
                   : "border-border bg-card text-foreground hover:bg-secondary"
               }`}
               aria-pressed={lang === l.code}

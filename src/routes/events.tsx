@@ -88,7 +88,7 @@ const TAB =
 
 /** The page's one solid button. */
 const PRIMARY =
-  "no-min-h inline-flex h-11 items-center justify-center gap-2 rounded-md bg-primary px-5 font-bold text-primary-foreground transition-colors hover:bg-primary/90 disabled:opacity-60";
+  "no-min-h inline-flex h-11 items-center justify-center gap-2 rounded-md bg-primary-fill px-5 font-bold text-primary-fill-foreground transition-colors hover:bg-primary-fill-hover disabled:opacity-60";
 
 /** Secondary: a 2px ink outline that fills on hover. */
 const OUTLINE =
@@ -339,7 +339,7 @@ function CalendarView({ items }: { items: EventRow[] }) {
                 className={cn(
                   "simplified-exempt flex aspect-square min-w-0 flex-col items-start border-e border-b border-border p-1 text-start transition-colors sm:aspect-auto sm:h-20",
                   isSelected
-                    ? "bg-primary text-primary-foreground"
+                    ? "bg-primary-fill text-primary-fill-foreground"
                     : isToday
                       ? "bg-secondary text-foreground hover:bg-secondary/70"
                       : "hover:bg-secondary",
@@ -356,7 +356,7 @@ function CalendarView({ items }: { items: EventRow[] }) {
                         key={idx}
                         className={cn(
                           "inline-block h-1.5 w-1.5 rounded-full",
-                          isSelected ? "bg-current" : "bg-primary",
+                          isSelected ? "bg-current" : "bg-primary-fill",
                         )}
                         aria-hidden
                       />

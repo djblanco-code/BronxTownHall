@@ -70,7 +70,7 @@ export function DataControls() {
           <span
             aria-hidden="true"
             dir="ltr"
-            className={`flex h-5 w-9 items-center rounded-full border-2 border-transparent transition-colors ${optOut ? "bg-input" : "bg-primary"}`}
+            className={`flex h-5 w-9 items-center rounded-full border-2 border-transparent transition-colors ${optOut ? "bg-input" : "bg-primary-fill"}`}
           >
             <span
               className={`block h-4 w-4 rounded-full bg-background transition-transform ${optOut ? "translate-x-0" : "translate-x-4"}`}

@@ -32,6 +32,9 @@
   --color-popover-foreground: var(--popover-foreground);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
+  --color-primary-fill: var(--primary-fill);
+  --color-primary-fill-hover: var(--primary-fill-hover);
+  --color-primary-fill-foreground: var(--primary-fill-foreground);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
   --color-muted: var(--muted);
@@ -63,7 +66,7 @@
 :root {
   --radius: 0.75rem;
   /* Bronx-rooted palette: plain white page, deep Bronx navy foreground,
-     subway-cobalt primary, brownstone-terracotta accent, park-green success.
+     calm subway-blue primary, brownstone-terracotta accent, park-green success.
      Grays are cool and nearly neutral (no warm "paper" tint). */
   --background: oklch(1 0 0);
   --foreground: oklch(0.2 0.04 255);
@@ -72,8 +75,14 @@
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.2 0.04 255);
   /* Subway-map cobalt — recognizable NYC transit blue */
-  --primary: oklch(0.45 0.19 255);
+  --primary: oklch(0.47 0.13 252);
   --primary-foreground: oklch(0.99 0 0);
+  /* Soft pastel blue for filled buttons, chips and the active state, with
+     navy text on it. Links and blue text keep the deeper --primary so they
+     stay readable on white. */
+  --primary-fill: oklch(0.88 0.055 245);
+  --primary-fill-hover: oklch(0.84 0.065 245);
+  --primary-fill-foreground: oklch(0.24 0.06 258);
   --secondary: oklch(0.965 0.005 255);
   --secondary-foreground: oklch(0.22 0.04 255);
   --muted: oklch(0.965 0.005 255);
@@ -128,6 +137,9 @@
   --popover-foreground: oklch(0.98 0 0);
   --primary: oklch(0.75 0.15 230);
   --primary-foreground: oklch(0.15 0.02 250);
+  --primary-fill: oklch(0.4 0.08 250);
+  --primary-fill-hover: oklch(0.45 0.09 250);
+  --primary-fill-foreground: oklch(0.97 0 0);
   --secondary: oklch(0.28 0.03 250);
   --secondary-foreground: oklch(0.98 0 0);
   --muted: oklch(0.28 0.03 250);
@@ -163,6 +175,7 @@
   /* Keep the focus ring readable on colored buttons */
   .bg-destructive :focus-visible,
   .bg-primary :focus-visible,
+  .bg-primary-fill :focus-visible,
   .bg-warning :focus-visible {
     outline-color: white;
     outline-offset: 3px;

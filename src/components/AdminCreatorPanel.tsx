@@ -137,7 +137,7 @@ export function AdminCreatorPanel() {
             className="mt-1 w-full px-3 py-2 rounded-xl border-2 border-border bg-background"
           />
         </label>
-        <button className="sm:col-span-2 px-4 py-2.5 rounded-xl bg-primary text-primary-foreground font-semibold">
+        <button className="sm:col-span-2 px-4 py-2.5 rounded-xl bg-primary-fill text-primary-fill-foreground font-semibold">
           Create creator page
         </button>
       </form>

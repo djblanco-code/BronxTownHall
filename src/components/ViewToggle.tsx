@@ -31,7 +31,7 @@ export function ViewToggle({
             role="tab"
             aria-selected={active}
             onClick={() => onChange(o.id)}
-            className={`no-min-h simplified-exempt inline-flex min-h-[40px] items-center gap-1.5 rounded-sm px-3 text-xs font-bold ${active ? "bg-primary text-primary-foreground" : "text-foreground hover:bg-secondary"}`}
+            className={`no-min-h simplified-exempt inline-flex min-h-[40px] items-center gap-1.5 rounded-sm px-3 text-xs font-bold ${active ? "bg-primary-fill text-primary-fill-foreground" : "text-foreground hover:bg-secondary"}`}
           >
             <Icon className="h-3.5 w-3.5" aria-hidden="true" /> {o.label}
           </button>

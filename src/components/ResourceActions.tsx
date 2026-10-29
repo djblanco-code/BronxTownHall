@@ -166,7 +166,7 @@ export function ResourceActions({
               <button
                 disabled={loading || !newName.trim()}
                 onClick={handleCreateList}
-                className="no-min-h px-4 py-2 rounded-md bg-primary text-primary-foreground text-sm font-semibold disabled:opacity-50"
+                className="no-min-h px-4 py-2 rounded-md bg-primary-fill text-primary-fill-foreground text-sm font-semibold disabled:opacity-50"
               >
                 Create
               </button>
@@ -219,7 +219,7 @@ export function ResourceActions({
               <button
                 disabled={loading}
                 onClick={handleLogReferral}
-                className="no-min-h px-4 py-2 rounded-md bg-primary text-primary-foreground text-sm font-semibold disabled:opacity-50"
+                className="no-min-h px-4 py-2 rounded-md bg-primary-fill text-primary-fill-foreground text-sm font-semibold disabled:opacity-50"
               >
                 Log referral
               </button>

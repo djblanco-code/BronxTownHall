@@ -265,7 +265,7 @@ function AnalyticsPage() {
           {!user && (
             <Link
               to="/auth"
-              className="inline-block py-2.5 px-4 rounded-lg bg-primary text-primary-foreground font-semibold"
+              className="inline-block py-2.5 px-4 rounded-lg bg-primary-fill text-primary-fill-foreground font-semibold"
             >
               Sign in
             </Link>
@@ -360,7 +360,7 @@ function AnalyticsPage() {
                   title={`${d.day}: ${d.visits} visits, ${d.visitors} visitors`}
                 >
                   <div
-                    className="rounded-t bg-primary"
+                    className="rounded-t bg-primary-fill"
                     style={{ height: `${(d.visits / maxVisits) * 100}%`, minHeight: 3 }}
                   />
                 </div>
@@ -484,7 +484,7 @@ function AnalyticsPage() {
                             aria-hidden="true"
                           >
                             <div
-                              className="bg-primary"
+                              className="bg-primary-fill"
                               style={{ width: `${(sms / total) * 100}%` }}
                             />
                             <div

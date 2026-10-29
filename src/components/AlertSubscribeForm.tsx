@@ -176,7 +176,7 @@ export function AlertSubscribeForm({
         <button
           type="submit"
           disabled={status === "loading"}
-          className="no-min-h inline-flex items-center gap-2 px-5 py-3 rounded-md bg-primary text-primary-foreground font-bold transition-colors hover:bg-primary/90 disabled:opacity-60 min-h-[48px]"
+          className="no-min-h inline-flex items-center gap-2 px-5 py-3 rounded-md bg-primary-fill text-primary-fill-foreground font-bold transition-colors hover:bg-primary-fill-hover disabled:opacity-60 min-h-[48px]"
         >
           {status === "loading" ? (
             <Loader2 className="h-5 w-5 animate-spin" />

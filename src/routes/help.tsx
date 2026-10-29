@@ -198,7 +198,7 @@ function HelpPage() {
             <button
               type="submit"
               disabled={!input.trim()}
-              className="no-min-h inline-flex min-h-[44px] items-center gap-2 rounded-md bg-primary px-5 py-2.5 font-bold text-primary-foreground transition-colors hover:bg-primary/90 disabled:opacity-40"
+              className="no-min-h inline-flex min-h-[44px] items-center gap-2 rounded-md bg-primary-fill px-5 py-2.5 font-bold text-primary-fill-foreground transition-colors hover:bg-primary-fill-hover disabled:opacity-40"
             >
               <Send className="h-4 w-4 rtl:-scale-x-100" aria-hidden /> Get my help pack
             </button>

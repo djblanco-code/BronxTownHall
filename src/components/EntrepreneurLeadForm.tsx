@@ -110,7 +110,7 @@ export function EntrepreneurLeadForm() {
                 aria-pressed={active}
                 className={`no-min-h text-sm px-3 py-2 rounded-full border-2 transition ${
                   active
-                    ? "border-primary bg-primary text-primary-foreground"
+                    ? "border-primary bg-primary-fill text-primary-fill-foreground"
                     : "border-border bg-card hover:border-primary"
                 }`}
               >
@@ -156,7 +156,7 @@ export function EntrepreneurLeadForm() {
       <button
         type="submit"
         disabled={status === "loading"}
-        className="no-min-h w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-primary text-primary-foreground font-semibold shadow hover:opacity-90 disabled:opacity-60 min-h-[48px]"
+        className="no-min-h w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-primary-fill text-primary-fill-foreground font-semibold shadow hover:opacity-90 disabled:opacity-60 min-h-[48px]"
       >
         {status === "loading" ? (
           <Loader2 className="h-5 w-5 animate-spin" />

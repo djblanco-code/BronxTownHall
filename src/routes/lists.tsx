@@ -80,7 +80,7 @@ function ListsPage() {
               <p className="text-muted-foreground">Sign in to create and share resource lists.</p>
               <Link
                 to="/auth"
-                className="no-min-h mt-4 inline-flex h-11 items-center rounded-md bg-primary px-5 font-semibold text-primary-foreground hover:bg-primary/90"
+                className="no-min-h mt-4 inline-flex h-11 items-center rounded-md bg-primary-fill px-5 font-semibold text-primary-fill-foreground hover:bg-primary-fill-hover"
               >
                 Sign in
               </Link>
@@ -123,7 +123,7 @@ function ListsPage() {
           </label>
           <button
             type="submit"
-            className="no-min-h h-11 rounded-md bg-primary px-5 font-semibold text-primary-foreground hover:bg-primary/90"
+            className="no-min-h h-11 rounded-md bg-primary-fill px-5 font-semibold text-primary-fill-foreground hover:bg-primary-fill-hover"
           >
             Create list
           </button>

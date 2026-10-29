@@ -117,7 +117,7 @@ function ContactPage() {
             )}
             <button
               type="submit"
-              className="no-min-h inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-md bg-primary px-5 py-3 font-bold text-primary-foreground hover:bg-primary/90"
+              className="no-min-h inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-md bg-primary-fill px-5 py-3 font-bold text-primary-fill-foreground hover:bg-primary-fill-hover"
             >
               <Send className="h-4 w-4" aria-hidden="true" /> {t("contact.send")}
             </button>

@@ -55,7 +55,7 @@ function SocialSyncPage() {
           <h1 className="text-3xl font-bold text-foreground">Create New Event</h1>
           <button
             onClick={post}
-            className="no-min-h px-5 py-2.5 rounded-lg bg-primary text-primary-foreground font-semibold hover:bg-primary/90"
+            className="no-min-h px-5 py-2.5 rounded-lg bg-primary-fill text-primary-fill-foreground font-semibold hover:bg-primary-fill-hover"
           >
             Publish
           </button>
@@ -153,7 +153,7 @@ function SocialSyncPage() {
           </button>
           <button
             onClick={post}
-            className="no-min-h py-4 rounded-2xl bg-primary text-primary-foreground font-bold shadow-md hover:bg-primary/90"
+            className="no-min-h py-4 rounded-2xl bg-primary-fill text-primary-fill-foreground font-bold shadow-md hover:bg-primary-fill-hover"
           >
             Post to All Platforms
           </button>

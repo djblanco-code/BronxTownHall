@@ -167,7 +167,7 @@ function RoadmapPage() {
         </Link>
 
         {/* Hero */}
-        <section className="rounded-3xl bg-gradient-to-br from-primary to-accent text-primary-foreground p-6 sm:p-10 shadow-lg">
+        <section className="rounded-3xl bg-gradient-to-br from-primary to-accent text-primary-fill-foreground p-6 sm:p-10 shadow-lg">
           <div className="flex items-start gap-3">
             <div className="h-12 w-12 rounded-2xl bg-white/20 grid place-items-center shrink-0">
               <Clock className="h-7 w-7" aria-hidden />
@@ -233,7 +233,7 @@ function RoadmapPage() {
             </div>
             <Link
               to="/contact"
-              className="no-min-h inline-flex items-center gap-2 px-5 py-3 rounded-full bg-primary text-primary-foreground font-bold text-sm shadow hover:opacity-90 shrink-0"
+              className="no-min-h inline-flex items-center gap-2 px-5 py-3 rounded-full bg-primary-fill text-primary-fill-foreground font-bold text-sm shadow hover:opacity-90 shrink-0"
             >
               <Mail className="h-4 w-4" /> Contact us
             </Link>

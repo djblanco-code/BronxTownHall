@@ -192,7 +192,7 @@ function EmergencyPage() {
                 <p className="mt-0.5 text-sm text-muted-foreground">{h.description}</p>
                 <a
                   href={`sms:${h.number}${h.textBody ? `?&body=${encodeURIComponent(h.textBody)}` : ""}`}
-                  className={`${CALL_BUTTON} bg-primary text-primary-foreground hover:bg-primary/90`}
+                  className={`${CALL_BUTTON} bg-primary-fill text-primary-fill-foreground hover:bg-primary-fill-hover`}
                 >
                   <MessageSquare className="h-5 w-5 shrink-0" aria-hidden="true" /> Text{" "}
                   {h.textBody} to {h.number}
@@ -246,7 +246,7 @@ function ContactRow({ c, tone }: { c: Contact; tone: "destructive" | "primary" }
   const btn =
     tone === "destructive"
       ? "bg-destructive text-destructive-foreground hover:bg-destructive/90"
-      : "bg-primary text-primary-foreground hover:bg-primary/90";
+      : "bg-primary-fill text-primary-fill-foreground hover:bg-primary-fill-hover";
   return (
     <li className="py-4">
       <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5">

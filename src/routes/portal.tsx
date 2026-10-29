@@ -261,7 +261,7 @@ function AccountStep({ type }: { type: AccountType }) {
       <button
         type="submit"
         disabled={busy || govBlocked}
-        className="no-min-h min-h-12 w-full rounded-md bg-primary py-3 font-bold text-primary-foreground hover:bg-primary/90 disabled:opacity-50"
+        className="no-min-h min-h-12 w-full rounded-md bg-primary-fill py-3 font-bold text-primary-fill-foreground hover:bg-primary-fill-hover disabled:opacity-50"
       >
         {busy ? "Working…" : mode === "sign-up" ? "Create account" : "Sign in"}
       </button>

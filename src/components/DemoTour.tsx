@@ -162,21 +162,21 @@ export function DemoTour({
             {steps.map((_, n) => (
               <span
                 key={n}
-                className={`h-1.5 w-1.5 rounded-full ${n === i ? "bg-primary" : "bg-border"}`}
+                className={`h-1.5 w-1.5 rounded-full ${n === i ? "bg-primary-fill" : "bg-border"}`}
               />
             ))}
           </div>
           {i < steps.length - 1 ? (
             <button
               onClick={() => setI((v) => v + 1)}
-              className="no-min-h inline-flex items-center gap-1.5 rounded-lg bg-primary px-3 py-2 text-sm font-semibold text-primary-foreground"
+              className="no-min-h inline-flex items-center gap-1.5 rounded-lg bg-primary-fill px-3 py-2 text-sm font-semibold text-primary-fill-foreground"
             >
               Next <ArrowRight className="h-4 w-4" />
             </button>
           ) : (
             <button
               onClick={onClose}
-              className="no-min-h inline-flex items-center gap-1.5 rounded-lg bg-primary px-3 py-2 text-sm font-semibold text-primary-foreground"
+              className="no-min-h inline-flex items-center gap-1.5 rounded-lg bg-primary-fill px-3 py-2 text-sm font-semibold text-primary-fill-foreground"
             >
               Done
             </button>

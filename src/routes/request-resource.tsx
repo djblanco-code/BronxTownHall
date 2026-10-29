@@ -61,7 +61,7 @@ function RequestResource() {
               </p>
               <Link
                 to="/"
-                className="no-min-h mt-4 inline-flex h-11 items-center rounded-md bg-primary px-5 font-semibold text-primary-foreground hover:bg-primary/90"
+                className="no-min-h mt-4 inline-flex h-11 items-center rounded-md bg-primary-fill px-5 font-semibold text-primary-fill-foreground hover:bg-primary-fill-hover"
               >
                 Back to home
               </Link>
@@ -130,7 +130,7 @@ function RequestResource() {
           </label>
           <button
             disabled={loading}
-            className="no-min-h h-11 rounded-md bg-primary px-5 font-semibold text-primary-foreground hover:bg-primary/90 disabled:opacity-50"
+            className="no-min-h h-11 rounded-md bg-primary-fill px-5 font-semibold text-primary-fill-foreground hover:bg-primary-fill-hover disabled:opacity-50"
           >
             {loading ? "Submitting…" : "Submit request"}
           </button>

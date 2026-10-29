@@ -217,7 +217,7 @@ export function AdminResourcePanel() {
                       })
                     }
                     disabled={busy === r.id}
-                    className="no-min-h inline-flex items-center gap-1.5 rounded-lg bg-primary text-primary-foreground px-3 py-1.5 text-xs font-bold disabled:opacity-50"
+                    className="no-min-h inline-flex items-center gap-1.5 rounded-lg bg-primary-fill text-primary-fill-foreground px-3 py-1.5 text-xs font-bold disabled:opacity-50"
                   >
                     {busy === r.id ? (
                       <Loader2 className="h-3.5 w-3.5 animate-spin" />

@@ -87,7 +87,7 @@ export function SuggestEditModal({
           </div>
           <button
             type="submit"
-            className="no-min-h w-full inline-flex items-center justify-center gap-2 py-3 rounded-lg bg-primary text-primary-foreground font-semibold min-h-[44px]"
+            className="no-min-h w-full inline-flex items-center justify-center gap-2 py-3 rounded-lg bg-primary-fill text-primary-fill-foreground font-semibold min-h-[44px]"
           >
             <Send className="h-4 w-4" aria-hidden="true" /> {t("interface.submit")}
           </button>

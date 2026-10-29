@@ -28,7 +28,7 @@ export function SimplerViewPrompt() {
           saveProfile({ ...getProfile(), simplifiedMode: true });
           toast.success(t("home.simplerToast"));
         }}
-        className="no-min-h h-10 shrink-0 rounded-md bg-primary px-4 text-sm font-semibold text-primary-foreground hover:bg-primary/90"
+        className="no-min-h h-10 shrink-0 rounded-md bg-primary-fill px-4 text-sm font-semibold text-primary-fill-foreground hover:bg-primary-fill-hover"
       >
         {t("home.simplerOn")}
       </button>

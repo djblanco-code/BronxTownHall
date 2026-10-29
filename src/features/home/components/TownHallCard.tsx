@@ -186,7 +186,7 @@ function ZipForm({ initial, onSave }: { initial: string; onSave: (zip: string) =
         </label>
         <button
           type="submit"
-          className="no-min-h h-11 shrink-0 rounded-md bg-primary px-5 text-sm font-semibold text-primary-foreground hover:bg-primary/90"
+          className="no-min-h h-11 shrink-0 rounded-md bg-primary-fill px-5 text-sm font-semibold text-primary-fill-foreground hover:bg-primary-fill-hover"
         >
           {t("home.zipShow")}
         </button>

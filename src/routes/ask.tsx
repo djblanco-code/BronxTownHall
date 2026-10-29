@@ -87,7 +87,7 @@ function AskPage() {
           <button
             type="submit"
             disabled={busy}
-            className="h-12 shrink-0 rounded-md bg-primary px-5 font-bold text-primary-foreground transition-colors hover:bg-primary/90 disabled:opacity-60"
+            className="h-12 shrink-0 rounded-md bg-primary-fill px-5 font-bold text-primary-fill-foreground transition-colors hover:bg-primary-fill-hover disabled:opacity-60"
           >
             {busy ? <Loader2 className="h-5 w-5 animate-spin" aria-label="Searching" /> : "Ask"}
           </button>

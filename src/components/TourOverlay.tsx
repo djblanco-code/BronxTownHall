@@ -102,7 +102,7 @@ export function TourOverlay() {
         className="fixed left-1/2 -translate-x-1/2 app-float-bottom lg:bottom-8 z-[80] w-[min(560px,calc(100vw-1.5rem))]"
       >
         <div className="rounded-2xl bg-card border-2 border-primary shadow-2xl overflow-hidden">
-          <div className="flex items-center justify-between gap-3 px-4 py-2.5 bg-primary text-primary-foreground">
+          <div className="flex items-center justify-between gap-3 px-4 py-2.5 bg-primary-fill text-primary-fill-foreground">
             <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wide">
               <Sparkles className="h-3.5 w-3.5" />
               Guided Tour — Step {step + 1} / {steps.length}
@@ -126,7 +126,7 @@ export function TourOverlay() {
               {steps.map((_, i) => (
                 <div
                   key={i}
-                  className={`h-1 flex-1 rounded-full transition ${i <= step ? "bg-primary" : "bg-border"}`}
+                  className={`h-1 flex-1 rounded-full transition ${i <= step ? "bg-primary-fill" : "bg-border"}`}
                 />
               ))}
             </div>
@@ -142,7 +142,7 @@ export function TourOverlay() {
               {step < steps.length - 1 ? (
                 <button
                   onClick={() => go(step + 1)}
-                  className="no-min-h inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-primary text-primary-foreground text-sm font-bold shadow hover:opacity-90"
+                  className="no-min-h inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-primary-fill text-primary-fill-foreground text-sm font-bold shadow hover:opacity-90"
                 >
                   Next <ArrowRight className="h-4 w-4" />
                 </button>
@@ -150,7 +150,7 @@ export function TourOverlay() {
                 <Link
                   to="/pitch"
                   onClick={exit}
-                  className="no-min-h inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-primary text-primary-foreground text-sm font-bold shadow hover:opacity-90"
+                  className="no-min-h inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-primary-fill text-primary-fill-foreground text-sm font-bold shadow hover:opacity-90"
                 >
                   {current.cta ?? "Finish"} <ArrowRight className="h-4 w-4" />
                 </Link>

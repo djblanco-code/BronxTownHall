@@ -106,7 +106,7 @@ function PackPage() {
                     {r.phone && (
                       <a
                         href={`tel:${r.phone.replace(/[^\d+]/g, "")}`}
-                        className="inline-flex items-center gap-1.5 rounded-xl bg-primary px-3 py-2 text-sm font-bold text-primary-foreground"
+                        className="inline-flex items-center gap-1.5 rounded-xl bg-primary-fill px-3 py-2 text-sm font-bold text-primary-fill-foreground"
                       >
                         <Phone className="h-4 w-4" aria-hidden="true" /> Call
                       </a>

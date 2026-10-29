@@ -351,7 +351,7 @@ function CategoryPage() {
       fab={
         <button
           onClick={() => setShowSuggest(true)}
-          className="no-min-h inline-flex min-h-[48px] items-center gap-2 rounded-md bg-primary px-5 py-3 font-bold text-primary-foreground shadow-lg transition-colors hover:bg-primary/90"
+          className="no-min-h inline-flex min-h-[48px] items-center gap-2 rounded-md bg-primary-fill px-5 py-3 font-bold text-primary-fill-foreground shadow-lg transition-colors hover:bg-primary-fill-hover"
         >
           <Plus className="h-5 w-5" aria-hidden /> {t("interface.suggestResource")}
         </button>
@@ -683,7 +683,7 @@ function SuggestModal({
             </label>
             <button
               type="submit"
-              className="no-min-h w-full min-h-[44px] py-3 rounded-md bg-primary text-primary-foreground font-bold hover:bg-primary/90"
+              className="no-min-h w-full min-h-[44px] py-3 rounded-md bg-primary-fill text-primary-fill-foreground font-bold hover:bg-primary-fill-hover"
             >
               {t("interface.submit")}
             </button>
