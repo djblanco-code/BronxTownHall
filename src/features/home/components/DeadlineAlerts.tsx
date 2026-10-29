@@ -5,6 +5,7 @@ import { useI18n } from "@/lib/i18n-context";
 import { LANGS } from "@/lib/i18n";
 import { CATEGORIES } from "@/lib/data";
 import { loadRecentPublishedAlerts, type PolicyAlert } from "@/lib/policy-alerts";
+import { isDemoMode, SAMPLE_DEADLINES } from "@/features/demo";
 import { activeDeadlines, nycIsoDate } from "../lib/today";
 
 /**
@@ -16,6 +17,11 @@ export function DeadlineAlerts() {
   const [alerts, setAlerts] = useState<PolicyAlert[]>([]);
 
   useEffect(() => {
+    // Demo mode (labeled by a banner) shows a sample deadline.
+    if (isDemoMode()) {
+      setAlerts(activeDeadlines(SAMPLE_DEADLINES, nycIsoDate()));
+      return;
+    }
     let alive = true;
     loadRecentPublishedAlerts(50).then((all) => {
       if (alive) setAlerts(activeDeadlines(all, nycIsoDate()));

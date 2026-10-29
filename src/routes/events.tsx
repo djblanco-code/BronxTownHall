@@ -4,6 +4,7 @@ import { submitCommunityEvent } from "@/lib/events.functions";
 import { AppShell } from "@/features/shell";
 import { EventCard, type EventSummary } from "@/features/events";
 import { supabase } from "@/integrations/supabase/client";
+import { isDemoMode, SAMPLE_EVENTS } from "@/features/demo";
 import { useEffect, useMemo, useState } from "react";
 import {
   Plus,
@@ -101,6 +102,30 @@ function EventsPage() {
   const [view, setView] = useState<"list" | "calendar">("list");
 
   useEffect(() => {
+    // Demo mode (labeled by a banner) shows sample events instead of live ones.
+    if (isDemoMode()) {
+      const today = new Date().toISOString().slice(0, 10);
+      setRows(
+        SAMPLE_EVENTS.filter((e) => (e.event_end_date ?? e.event_date) >= today).map((e) => ({
+          id: e.id,
+          title: e.title,
+          description: e.description,
+          event_type: e.event_type,
+          category: e.category,
+          event_date: e.event_date,
+          event_end_date: e.event_end_date,
+          event_time: e.event_time,
+          location: e.location,
+          address: e.address,
+          is_free: e.is_free,
+          cost: null,
+          website: e.website,
+          is_verified: false,
+          is_community_submitted: false,
+        })),
+      );
+      return;
+    }
     (async () => {
       const today = new Date().toISOString().slice(0, 10);
       const [{ data }, directory] = await Promise.all([
