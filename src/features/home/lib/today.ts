@@ -39,10 +39,10 @@ export function openTonight(
   return open.slice(0, limit);
 }
 
-/** Events that overlap "today" or "this weekend" (multi-day events count on every day they run). */
+/** Events that overlap "today", "this weekend" or the next 7 days (multi-day events count on every day they run). */
 export function eventsIn(
   events: EventSummary[],
-  win: "today" | "weekend",
+  win: "today" | "weekend" | "week",
   now: Date = new Date(),
 ): EventSummary[] {
   const range = windowRange(win, now);

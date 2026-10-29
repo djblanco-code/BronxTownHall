@@ -105,6 +105,20 @@ describe("eventsIn", () => {
     );
     expect(list.map((e) => e.id)).toEqual(["fri", "sun"]);
   });
+
+  it("finds the next 7 days of events, today included", () => {
+    const list = eventsIn(
+      [
+        event("today", "2026-10-28"),
+        event("tue", "2026-11-03"),
+        event("wed-next", "2026-11-04"),
+        event("ended", "2026-10-20", "2026-10-27"),
+      ],
+      "week",
+      wed,
+    );
+    expect(list.map((e) => e.id)).toEqual(["today", "tue"]);
+  });
 });
 
 describe("pickedFor", () => {

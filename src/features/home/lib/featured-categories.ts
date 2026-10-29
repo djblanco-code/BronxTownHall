@@ -1,34 +1,38 @@
 import { CATEGORIES, RESOURCES, type Category } from "@/lib/data";
 
-/** Retail and general services remain valid listing types, but are not public browse categories. */
+/**
+ * Needs Home offers as one-tap chips. Retail and general services remain
+ * valid listing types but aren't browse categories, and events have their
+ * own tab.
+ */
 export const BROWSABLE_CATEGORIES = CATEGORIES.filter(
-  (category) => category.id !== "retail" && category.id !== "services",
+  (category) => !["retail", "services", "events"].includes(category.id),
 );
 
-/** Two full rows of four on a phone. */
-export const FEATURED_COUNT = 8;
+/** How many need chips Home shows after "Ask a question". */
+export const FEATURED_COUNT = 7;
 
 /** Fallback order when we know nothing about the visitor yet. */
 const DEFAULT_FEATURED: Category[] = [
   "food",
-  "events",
   "health",
-  "jobs",
   "housing",
+  "jobs",
+  "legal",
+  "money",
   "youth",
   "education",
-  "money",
 ];
 
 /**
- * Sensitive categories never influence the featured tiles. Someone browsing
+ * Sensitive categories never influence the featured needs. Someone browsing
  * legal or health help should not have that surfaced back at them on a shared
  * or borrowed phone.
  */
 const SENSITIVE_CATEGORIES: Category[] = ["legal", "health"];
 
 /**
- * Featured tiles: favorited first, then behavioural signals, then stated
+ * Featured needs: favorited first, then behavioural signals, then stated
  * needs, then defaults. Always FEATURED_COUNT, all browsable.
  */
 export function featuredCategoryIds(signals: {

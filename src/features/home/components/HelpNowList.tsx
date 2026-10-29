@@ -5,7 +5,7 @@ import { SMS_CONFIGURED, SMS_NUMBER, formatSmsNumber } from "@/lib/sms";
 import { Section } from "@/components/ui/section";
 import { ListGroup, ListRow } from "@/components/ui/list-group";
 
-/** Grouped list rows, like a settings screen: urgent help first, then the text line. */
+/** Crisis lines (and the text line once it is live) as grouped list rows. */
 export function HelpNowList() {
   const { t } = useI18n();
   return (
@@ -24,20 +24,17 @@ export function HelpNowList() {
         >
           <Link to="/emergency" />
         </ListRow>
-        <ListRow
-          id="sms-callout"
-          icon={MessageSquare}
-          title={
-            SMS_CONFIGURED
-              ? t("home.textLine", { number: formatSmsNumber(SMS_NUMBER) })
-              : t("home.textLineSoon")
-          }
-          description={
-            t("interface.noSmartphone") + (SMS_CONFIGURED ? "" : ` · ${t("interface.lineSoon")}`)
-          }
-        >
-          <Link to="/sms" />
-        </ListRow>
+        {/* The text line shows once it exists; a "coming soon" row would be a dead end. */}
+        {SMS_CONFIGURED && (
+          <ListRow
+            id="sms-callout"
+            icon={MessageSquare}
+            title={t("home.textLine", { number: formatSmsNumber(SMS_NUMBER) })}
+            description={t("interface.noSmartphone")}
+          >
+            <Link to="/sms" />
+          </ListRow>
+        )}
       </ListGroup>
     </Section>
   );
