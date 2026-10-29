@@ -1,4 +1,4 @@
-# The Bronx App
+# Bronx Town Hall
 
 A free, multilingual community resource finder for Bronx residents: food,
 health care, legal help, jobs, housing, events and local businesses, in

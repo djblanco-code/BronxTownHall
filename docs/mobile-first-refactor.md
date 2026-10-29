@@ -1,6 +1,6 @@
 # Mobile-first refactor
 
-Goal: rebuild The Bronx App one workflow at a time. Each piece is designed for
+Goal: rebuild Bronx Town Hall one workflow at a time. Each piece is designed for
 phones first (using [Mobbin](https://mobbin.com) references from strong mobile
 apps), moved into its own feature folder, and verified on real screen sizes
 before the next one starts. Once the mobile pieces are done, a web pass gives

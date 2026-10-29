@@ -12,7 +12,7 @@ type Step = {
 const steps: Step[] = [
   {
     title: "Welcome to the tour",
-    body: "You're looking at a functional prototype of The Bronx App. This 60-second walkthrough hits the highlights. Use ← / → or the buttons.",
+    body: "You're looking at a functional prototype of Bronx Town Hall. This 60-second walkthrough hits the highlights. Use ← / → or the buttons.",
     path: "/",
   },
   {

@@ -8,7 +8,7 @@ export const Route = createFileRoute("/how-to-add")({
   staticData: { sitemap: true },
   head: () => ({
     meta: [
-      { title: "How to Add Information — The Bronx App" },
+      { title: "How to Add Information — Bronx Town Hall" },
       {
         name: "description",
         content:

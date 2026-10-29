@@ -1,5 +1,5 @@
 /**
- * The Bronx App master resource database.
+ * Bronx Town Hall master resource database.
  *
  * Architecture:
  *   SOURCE DATA -> NORMALIZATION -> DEDUPLICATION -> BRONX FILTER
@@ -60,10 +60,10 @@ export const SOURCES: Record<SourceId, SourceDef> = {
   },
   bronx_app_manual: {
     id: "bronx_app_manual",
-    label: "Bronx App verification",
+    label: "Bronx Town Hall verification",
     url: "",
     priority: 100,
-    access: "Manual entry / phone + email verification by Bronx App staff",
+    access: "Manual entry / phone + email verification by Bronx Town Hall staff",
     covers: ["Manually confirmed corrections"],
   },
   other: {

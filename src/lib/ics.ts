@@ -28,7 +28,7 @@ export function buildIcs(opts: {
   return [
     "BEGIN:VCALENDAR",
     "VERSION:2.0",
-    "PRODID:-//The Bronx App//EN",
+    "PRODID:-//Bronx Town Hall//EN",
     "BEGIN:VEVENT",
     `UID:${Date.now()}@the-bronx-app`,
     `DTSTAMP:${fmt(new Date())}`,

@@ -9,7 +9,7 @@ const TONE: Record<string, string> = {
 
 /**
  * Tier 1 = "Not yet verified" (self-reported, live immediately).
- * Tier 2 = "Verified [date]" — only after a Bronx App reviewer confirms by hand.
+ * Tier 2 = "Verified [date]" — only after a Bronx Town Hall reviewer confirms by hand.
  */
 export function StatusBadge({
   org,
@@ -31,8 +31,8 @@ export function StatusBadge({
 export function SelfReportedNote() {
   return (
     <p className="text-xs text-muted-foreground">
-      Details on this page were provided by the organization itself. A green badge means a Bronx App
-      reviewer confirmed them by phone or in person.
+      Details on this page were provided by the organization itself. A green badge means a Bronx
+      Town Hall reviewer confirmed them by phone or in person.
     </p>
   );
 }

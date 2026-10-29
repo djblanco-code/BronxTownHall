@@ -9,13 +9,13 @@ export const Route = createFileRoute("/admin_/questions")({
   staticData: { sitemap: false },
   head: () => ({
     meta: [
-      { title: "Resident Questions — The Bronx App Admin" },
+      { title: "Resident Questions — Bronx Town Hall Admin" },
       {
         name: "description",
         content: "Anonymized questions residents asked, to find gaps in listings.",
       },
       { name: "robots", content: "noindex" },
-      { property: "og:title", content: "Resident Questions — The Bronx App Admin" },
+      { property: "og:title", content: "Resident Questions — Bronx Town Hall Admin" },
       { property: "og:description", content: "Anonymized resident questions report." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },

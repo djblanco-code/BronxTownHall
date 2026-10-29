@@ -9,10 +9,10 @@ export const Route = createFileRoute("/privacy")({
   staticData: { sitemap: true },
   head: () => ({
     meta: [
-      { title: "Privacy Policy — The Bronx App" },
+      { title: "Privacy Policy — Bronx Town Hall" },
       {
         name: "description",
-        content: "How The Bronx App handles your personal information, location, and data.",
+        content: "How Bronx Town Hall handles your personal information, location, and data.",
       },
       { name: "robots", content: "index,follow" },
     ],

@@ -27,14 +27,14 @@ export const Route = createFileRoute("/pitch")({
   staticData: { sitemap: false },
   head: () => ({
     meta: [
-      { title: "The Bronx App — Investor & Buyer Overview" },
+      { title: "Bronx Town Hall — Investor & Buyer Overview" },
       {
         name: "description",
         content:
           "A functional prototype: a Bronx-first civic + resource + commerce platform. 48 modules, five languages, cloud backend, ready for operator handoff.",
       },
       { name: "robots", content: "noindex" },
-      { property: "og:title", content: "The Bronx App — Overview" },
+      { property: "og:title", content: "Bronx Town Hall — Overview" },
       {
         property: "og:description",
         content: "A functional prototype of a Bronx-first community platform.",
@@ -172,7 +172,7 @@ function PitchPage() {
               <Sparkles className="h-3.5 w-3.5" /> Functional Prototype · For Acquirer / Operator
               Review
             </div>
-            <h1 className="text-4xl sm:text-6xl font-black leading-[1.05] mb-4">The Bronx App</h1>
+            <h1 className="text-4xl sm:text-6xl font-black leading-[1.05] mb-4">Bronx Town Hall</h1>
             <p className="text-xl sm:text-2xl font-medium opacity-95 mb-8">
               A borough-first civic, resource, and commerce platform — built as a working product,
               not a slide deck.
@@ -247,7 +247,7 @@ function PitchPage() {
               actually open, the clinic that takes their insurance, the community board meeting they
               didn't know about, and the local business they'd love to support.{" "}
               <strong className="text-foreground">
-                The Bronx App is the first product that puts all of it in one place — in five
+                Bronx Town Hall is the first product that puts all of it in one place — in five
                 languages, on one map, with one tap to help.
               </strong>
             </p>

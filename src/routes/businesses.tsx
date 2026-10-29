@@ -30,7 +30,7 @@ export const Route = createFileRoute("/businesses")({
   head: () => ({
     meta: [
       { name: "robots", content: "noindex" },
-      { title: "Bronx Businesses — The Bronx App" },
+      { title: "Bronx Businesses — Bronx Town Hall" },
       {
         name: "description",
         content:

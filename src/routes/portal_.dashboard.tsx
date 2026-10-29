@@ -27,9 +27,9 @@ import { toast } from "sonner";
 import { SHOW_BUSINESS_FEATURES } from "@/lib/first-version";
 import { BusinessSupportPanel } from "@/components/BusinessSupportPanel";
 
-const TITLE = "Your organization dashboard | The Bronx App";
+const TITLE = "Your organization dashboard | Bronx Town Hall";
 const DESC =
-  "Manage the listings your business, community organization or government office has submitted to The Bronx App.";
+  "Manage the listings your business, community organization or government office has submitted to Bronx Town Hall.";
 
 export const Route = createFileRoute("/portal_/dashboard")({
   staticData: { sitemap: false },

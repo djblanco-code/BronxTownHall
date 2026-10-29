@@ -6,7 +6,7 @@ export const terms: Bundle = {
     title: "Terms of Use",
     updated: "Last updated: July 2026",
     intro:
-      "By using The Bronx App you agree to these terms. This is a community information service — not a substitute for professional advice, and not a crisis service. If you're in danger, call 911; for mental-health support call 988; for domestic violence call 1-800-621-HOPE.",
+      "By using Bronx Town Hall you agree to these terms. This is a community information service — not a substitute for professional advice, and not a crisis service. If you're in danger, call 911; for mental-health support call 988; for domestic violence call 1-800-621-HOPE.",
     accuracyTitle: "Information accuracy",
     accuracy:
       'We work hard to keep resources current, but hours, eligibility, and programs change frequently. Please call ahead. Every listing has a "Report" button — use it to help us fix mistakes.',
@@ -32,7 +32,7 @@ export const terms: Bundle = {
     title: "Términos de uso",
     updated: "Última actualización: julio de 2026",
     intro:
-      "Al usar La App del Bronx usted acepta estos términos. Este es un servicio de información comunitaria — no sustituye el consejo profesional y no es un servicio de crisis. Si está en peligro, llame al 911; para apoyo de salud mental llame al 988; para violencia doméstica llame al 1-800-621-HOPE.",
+      "Al usar Bronx Town Hall usted acepta estos términos. Este es un servicio de información comunitaria — no sustituye el consejo profesional y no es un servicio de crisis. Si está en peligro, llame al 911; para apoyo de salud mental llame al 988; para violencia doméstica llame al 1-800-621-HOPE.",
     accuracyTitle: "Exactitud de la información",
     accuracy:
       "Trabajamos para mantener los recursos actualizados, pero los horarios, requisitos y programas cambian con frecuencia. Llame antes de ir. Cada listado tiene un botón «Reportar» — úselo para ayudarnos a corregir errores.",
@@ -58,7 +58,7 @@ export const terms: Bundle = {
     title: "Conditions d'utilisation",
     updated: "Dernière mise à jour : juillet 2026",
     intro:
-      "En utilisant L'App du Bronx, vous acceptez ces conditions. Il s'agit d'un service d'information communautaire — ni un substitut à un avis professionnel, ni un service de crise. En cas de danger, appelez le 911 ; pour un soutien en santé mentale, le 988 ; pour la violence conjugale, le 1-800-621-HOPE.",
+      "En utilisant Bronx Town Hall, vous acceptez ces conditions. Il s'agit d'un service d'information communautaire — ni un substitut à un avis professionnel, ni un service de crise. En cas de danger, appelez le 911 ; pour un soutien en santé mentale, le 988 ; pour la violence conjugale, le 1-800-621-HOPE.",
     accuracyTitle: "Exactitude des informations",
     accuracy:
       "Nous faisons de notre mieux pour tenir les ressources à jour, mais les horaires, conditions et programmes changent souvent. Appelez avant de vous déplacer. Chaque fiche a un bouton « Signaler » — utilisez-le pour nous aider à corriger les erreurs.",
@@ -84,7 +84,7 @@ export const terms: Bundle = {
     title: "ব্যবহারের শর্তাবলী",
     updated: "সর্বশেষ হালনাগাদ: জুলাই ২০২৬",
     intro:
-      "দ্য ব্রঙ্কস অ্যাপ ব্যবহার করে আপনি এই শর্তগুলোতে সম্মত হচ্ছেন। এটি একটি কমিউনিটি তথ্যসেবা — পেশাদার পরামর্শের বিকল্প নয় এবং সংকটকালীন সেবা নয়। বিপদে থাকলে 911-এ কল করুন; মানসিক স্বাস্থ্য সহায়তার জন্য 988; পারিবারিক সহিংসতার জন্য 1-800-621-HOPE।",
+      "ব্রঙ্কস টাউন হল ব্যবহার করে আপনি এই শর্তগুলোতে সম্মত হচ্ছেন। এটি একটি কমিউনিটি তথ্যসেবা — পেশাদার পরামর্শের বিকল্প নয় এবং সংকটকালীন সেবা নয়। বিপদে থাকলে 911-এ কল করুন; মানসিক স্বাস্থ্য সহায়তার জন্য 988; পারিবারিক সহিংসতার জন্য 1-800-621-HOPE।",
     accuracyTitle: "তথ্যের নির্ভুলতা",
     accuracy:
       "আমরা তথ্য হালনাগাদ রাখার চেষ্টা করি, তবে সময়সূচি, যোগ্যতা ও কর্মসূচি প্রায়ই বদলায়। যাওয়ার আগে ফোন করুন। প্রতিটি তালিকায় একটি “রিপোর্ট” বোতাম আছে — ভুল সংশোধনে আমাদের সাহায্য করতে সেটি ব্যবহার করুন।",
@@ -110,7 +110,7 @@ export const terms: Bundle = {
     title: "شروط الاستخدام",
     updated: "آخر تحديث: يوليو 2026",
     intro:
-      "باستخدامك تطبيق برونكس فإنك توافق على هذه الشروط. هذه خدمة معلومات مجتمعية — وليست بديلًا عن المشورة المهنية ولا خدمة أزمات. إذا كنت في خطر فاتصل بالرقم 911؛ وللدعم النفسي اتصل بالرقم 988؛ وللعنف الأسري اتصل بالرقم 1-800-621-HOPE.",
+      "باستخدامك برونكس تاون هول فإنك توافق على هذه الشروط. هذه خدمة معلومات مجتمعية — وليست بديلًا عن المشورة المهنية ولا خدمة أزمات. إذا كنت في خطر فاتصل بالرقم 911؛ وللدعم النفسي اتصل بالرقم 988؛ وللعنف الأسري اتصل بالرقم 1-800-621-HOPE.",
     accuracyTitle: "دقة المعلومات",
     accuracy:
       "نجتهد في تحديث الموارد، لكن ساعات العمل وشروط الأهلية والبرامج تتغير كثيرًا. يُرجى الاتصال قبل الذهاب. لكل إدراج زر «إبلاغ» — استخدمه لمساعدتنا في تصحيح الأخطاء.",

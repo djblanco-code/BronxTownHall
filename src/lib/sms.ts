@@ -70,7 +70,7 @@ export function buildEventsReply(
 export function buildSmsReply(body: string): string {
   const word = body.trim().toUpperCase().split(/\s+/)[0] ?? "";
   if (word === "STOP") {
-    return "You are unsubscribed from The Bronx App. Text START to rejoin.";
+    return "You are unsubscribed from Bronx Town Hall. Text START to rejoin.";
   }
   if (word === "HELP" || word === "911" || word === "CRISIS") {
     return `Emergency & crisis hotlines:\n\n${SMS_HOTLINES.join("\n")}\n\nOther keywords: ${SMS_KEYWORDS.map((k) => k.keyword).join(", ")}, EVENTS. Msg&data rates may apply.`;

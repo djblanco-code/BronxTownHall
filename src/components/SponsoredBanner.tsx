@@ -31,7 +31,7 @@ export function SponsoredBanner() {
   // House ad shown until a real sponsor is active. Same container and the
   // same "Sponsored" label, so swapping in a paid sponsor is a content swap.
   const isHouse = !ad;
-  const sponsorName = ad?.sponsor_name ?? "The Bronx App";
+  const sponsorName = ad?.sponsor_name ?? "Bronx Town Hall";
   const headline = ad?.headline ?? "Your business could be here";
   const body = ad?.body ?? "Reach Bronx residents looking for food, jobs, health care, and more.";
   const ctaLabel = ad?.cta_label ?? "Advertise with us";

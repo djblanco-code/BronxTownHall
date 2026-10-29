@@ -10,11 +10,11 @@ export const Route = createFileRoute("/contact")({
   staticData: { sitemap: true },
   head: () => ({
     meta: [
-      { title: "Contact — The Bronx App" },
+      { title: "Contact — Bronx Town Hall" },
       {
         name: "description",
         content:
-          "Get in touch with The Bronx App team. Report a resource, suggest a feature, or partner with us.",
+          "Get in touch with Bronx Town Hall team. Report a resource, suggest a feature, or partner with us.",
       },
     ],
   }),

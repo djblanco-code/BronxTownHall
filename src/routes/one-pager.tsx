@@ -5,11 +5,11 @@ export const Route = createFileRoute("/one-pager")({
   staticData: { sitemap: false },
   head: () => ({
     meta: [
-      { title: "The Bronx App — One-Pager" },
+      { title: "Bronx Town Hall — One-Pager" },
       {
         name: "description",
         content:
-          "One-page overview of The Bronx App: problem, solution, differentiator, market, business model, traction, team, and ask.",
+          "One-page overview of Bronx Town Hall: problem, solution, differentiator, market, business model, traction, team, and ask.",
       },
       { name: "robots", content: "noindex" },
     ],
@@ -45,7 +45,7 @@ function OnePager() {
   const share = async () => {
     try {
       const url = window.location.href;
-      if (navigator.share) await navigator.share({ title: "The Bronx App — One-Pager", url });
+      if (navigator.share) await navigator.share({ title: "Bronx Town Hall — One-Pager", url });
       else {
         await navigator.clipboard.writeText(url);
         alert("Link copied");
@@ -110,7 +110,7 @@ function OnePager() {
                   className="text-2xl font-black leading-tight"
                   style={{ fontFamily: "'Archivo Black'" }}
                 >
-                  The Bronx App
+                  Bronx Town Hall
                 </div>
                 <div className="text-sm opacity-90">Your Bronx. Your Resources. Your Voice.</div>
               </div>
@@ -212,7 +212,7 @@ function OnePager() {
             Google & Yelp don't know your block. Nextdoor is chat, not resources. FindHelp / One
             Degree are national and English-first. NYC.gov isn't hyper-local.{" "}
             <b>
-              The Bronx App wins on hyper-local depth, multilingual reach, and community-driven
+              Bronx Town Hall wins on hyper-local depth, multilingual reach, and community-driven
               data.
             </b>
           </Section>
@@ -252,7 +252,7 @@ function OnePager() {
         </footer>
 
         <div className="border-t px-8 py-3 text-[10px] text-slate-500">
-          © 2026 The Bronx App · Prototype for partnership & investment discussions · Confidential
+          © 2026 Bronx Town Hall · Prototype for partnership & investment discussions · Confidential
         </div>
       </div>
 

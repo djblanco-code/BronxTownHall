@@ -94,7 +94,7 @@ function FlyerModal({ data, onClose }: { data: FlyerData; onClose: () => void })
 
         <div id="flyer-sheet" className="px-10 py-10">
           <p className="text-[11px] uppercase tracking-[0.2em] border-b-2 border-black pb-2">
-            The Bronx App · Community Resource{data.category ? ` · ${data.category}` : ""}
+            Bronx Town Hall · Community Resource{data.category ? ` · ${data.category}` : ""}
           </p>
 
           <h1 className="mt-6 text-4xl">{data.name}</h1>
@@ -138,7 +138,7 @@ function FlyerModal({ data, onClose }: { data: FlyerData; onClose: () => void })
             {qr ? (
               <img
                 src={qr}
-                alt="QR code linking to this resource in The Bronx App"
+                alt="QR code linking to this resource in Bronx Town Hall"
                 width={150}
                 height={150}
               />
@@ -148,8 +148,8 @@ function FlyerModal({ data, onClose }: { data: FlyerData; onClose: () => void })
           </div>
 
           <p className="mt-6 text-[10px]">
-            Printed from The Bronx App on {new Date().toLocaleDateString()}. Information may change
-            — call ahead to confirm.
+            Printed from Bronx Town Hall on {new Date().toLocaleDateString()}. Information may
+            change — call ahead to confirm.
           </p>
         </div>
       </div>

@@ -27,15 +27,15 @@ export const Route = createFileRoute("/admin_/analytics")({
   staticData: { sitemap: false },
   head: () => ({
     meta: [
-      { title: "Analytics Dashboard — The Bronx App" },
+      { title: "Analytics Dashboard — Bronx Town Hall" },
       {
         name: "description",
         content:
-          "Audience metrics for The Bronx App: total users, new users, weekly and monthly active users, and 7-day retention.",
+          "Audience metrics for Bronx Town Hall: total users, new users, weekly and monthly active users, and 7-day retention.",
       },
       { name: "robots", content: "noindex" },
-      { property: "og:title", content: "Analytics Dashboard — The Bronx App" },
-      { property: "og:description", content: "Audience metrics for The Bronx App." },
+      { property: "og:title", content: "Analytics Dashboard — Bronx Town Hall" },
+      { property: "og:description", content: "Audience metrics for Bronx Town Hall." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],

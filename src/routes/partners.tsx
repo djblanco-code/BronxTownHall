@@ -6,16 +6,16 @@ export const Route = createFileRoute("/partners")({
   component: PartnersPage,
   head: () => ({
     meta: [
-      { title: "Partner & Investor Overview — The Bronx App" },
+      { title: "Partner & Investor Overview — Bronx Town Hall" },
       { name: "robots", content: "noindex, nofollow" },
       {
         name: "description",
-        content: "Private overview of The Bronx App for partners, acquirers, and investors.",
+        content: "Private overview of Bronx Town Hall for partners, acquirers, and investors.",
       },
-      { property: "og:title", content: "Partner & Investor Overview — The Bronx App" },
+      { property: "og:title", content: "Partner & Investor Overview — Bronx Town Hall" },
       {
         property: "og:description",
-        content: "Private overview of The Bronx App for partners, acquirers, and investors.",
+        content: "Private overview of Bronx Town Hall for partners, acquirers, and investors.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },

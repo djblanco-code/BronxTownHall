@@ -33,11 +33,11 @@ export const Route = createFileRoute("/deck")({
   staticData: { sitemap: false },
   head: () => ({
     meta: [
-      { title: "The Bronx App — Investor Pitch Deck" },
+      { title: "Bronx Town Hall — Investor Pitch Deck" },
       {
         name: "description",
         content:
-          "12-slide interactive pitch deck for The Bronx App. Connecting 1.4M Bronx neighbors to free resources.",
+          "12-slide interactive pitch deck for Bronx Town Hall. Connecting 1.4M Bronx neighbors to free resources.",
       },
       { name: "robots", content: "noindex" },
     ],
@@ -79,7 +79,7 @@ function Logo({ className = "" }: { className?: string }) {
         className="font-bold tracking-tight"
         style={{ fontFamily: "'Archivo Black', Inter, sans-serif" }}
       >
-        The Bronx App
+        Bronx Town Hall
       </span>
     </div>
   );
@@ -130,7 +130,7 @@ const SLIDES: Slide[] = [
   {
     id: 1,
     eyebrow: "01 · Title",
-    title: "The Bronx App",
+    title: "Bronx Town Hall",
     render: () => (
       <SlideFrame bg="grad">
         <div className="max-w-3xl">
@@ -410,7 +410,7 @@ const SLIDES: Slide[] = [
                 ["One Degree / FindHelp", "Partial", "Partial", "✗", "✗"],
                 ["NYC.gov", "✗", "Partial", "Partial", "✗"],
                 [
-                  "The Bronx App",
+                  "Bronx Town Hall",
                   "✓",
                   "✓ 5 langs",
                   "✓ Boards + officials",
@@ -692,7 +692,7 @@ function DeckPage() {
     const url = window.location.href;
     try {
       if (navigator.share) {
-        await navigator.share({ title: "The Bronx App — Pitch Deck", url });
+        await navigator.share({ title: "Bronx Town Hall — Pitch Deck", url });
       } else {
         await navigator.clipboard.writeText(url);
         alert("Link copied to clipboard");

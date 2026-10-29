@@ -18,7 +18,7 @@ export const Route = createFileRoute("/creators/")({
       {
         name: "description",
         content:
-          "Bronx creators share the food, businesses and events they personally recommend, alongside The Bronx App's own verification badges.",
+          "Bronx creators share the food, businesses and events they personally recommend, alongside Bronx Town Hall's own verification badges.",
       },
       { property: "og:title", content: "Bronx Community Picks" },
       {

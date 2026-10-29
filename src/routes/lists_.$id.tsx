@@ -3,7 +3,7 @@ import { ListDetailScreen } from "@/features/saved";
 
 export const Route = createFileRoute("/lists_/$id")({
   staticData: { sitemap: false },
-  head: () => ({ meta: [{ title: "My list — The Bronx App" }] }),
+  head: () => ({ meta: [{ title: "My list — Bronx Town Hall" }] }),
   component: ListDetailRoute,
 });
 

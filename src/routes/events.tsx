@@ -36,12 +36,12 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/events")({
   head: () => ({
     meta: [
-      { title: "Bronx Events | The Bronx App" },
+      { title: "Bronx Events | Bronx Town Hall" },
       {
         name: "description",
         content: "Find current and upcoming community events across the Bronx.",
       },
-      { property: "og:title", content: "Bronx Events | The Bronx App" },
+      { property: "og:title", content: "Bronx Events | Bronx Town Hall" },
       {
         property: "og:description",
         content: "Find current and upcoming community events across the Bronx.",

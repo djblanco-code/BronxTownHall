@@ -20,13 +20,13 @@ export const Route = createFileRoute("/pack/$slug")({
   }),
   head: () => ({
     meta: [
-      { title: "Shared resource pack | The Bronx App" },
+      { title: "Shared resource pack | Bronx Town Hall" },
       {
         name: "description",
         content:
           "A hand-picked set of Bronx resources — food, legal help, health, jobs and more — shared with you.",
       },
-      { property: "og:title", content: "Shared resource pack | The Bronx App" },
+      { property: "og:title", content: "Shared resource pack | Bronx Town Hall" },
       {
         property: "og:description",
         content: "A hand-picked set of Bronx resources shared with you.",
@@ -77,7 +77,7 @@ function PackPage() {
       <div className="max-w-5xl mx-auto px-4 py-8">
         <h1 className="text-2xl">Resources shared with you</h1>
         <p className="mt-1 text-sm text-muted-foreground">
-          Someone put this pack together for you on The Bronx App.
+          Someone put this pack together for you on Bronx Town Hall.
         </p>
 
         {ids === null && (

@@ -59,7 +59,7 @@ export const Route = createFileRoute("/category/$cat")({
   }),
   head: ({ params }) => {
     const label = params.cat.charAt(0).toUpperCase() + params.cat.slice(1);
-    const title = `${label} Resources in the Bronx — The Bronx App`;
+    const title = `${label} Resources in the Bronx — Bronx Town Hall`;
     const desc = `Find ${label.toLowerCase()} resources across the Bronx: addresses, hours, phone numbers and directions, updated by the community.`;
     const url = `${SITE}/category/${params.cat}`;
     return {

@@ -44,7 +44,7 @@ export function OfficialUpdatesFeed() {
           <Megaphone className="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
           <span dir="auto">
             Nothing posted yet — check back soon. Only posts made by a verified government office
-            through its own Bronx App account appear here.
+            through its own Bronx Town Hall account appear here.
           </span>
         </p>
       ) : (
@@ -74,7 +74,7 @@ export function OfficialUpdatesFeed() {
           </ul>
           <p dir="auto" className="mt-2 text-xs text-muted-foreground">
             {live.length > 0
-              ? "Verified posts come directly from the offices through their Bronx App account. "
+              ? "Verified posts come directly from the offices through their Bronx Town Hall account. "
               : ""}
             Other items are from {POST_SOURCE}.
           </p>

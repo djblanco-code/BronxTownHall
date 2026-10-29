@@ -13,16 +13,16 @@ export const Route = createFileRoute("/ask")({
   staticData: { sitemap: true },
   head: () => ({
     meta: [
-      { title: "Ask a Question — The Bronx App" },
+      { title: "Ask a Question — Bronx Town Hall" },
       {
         name: "description",
         content:
-          "Ask in plain words and get answers drawn only from The Bronx App's own listings, with each listing's verification status.",
+          "Ask in plain words and get answers drawn only from Bronx Town Hall's own listings, with each listing's verification status.",
       },
-      { property: "og:title", content: "Ask a Question — The Bronx App" },
+      { property: "og:title", content: "Ask a Question — Bronx Town Hall" },
       {
         property: "og:description",
-        content: "Answers come only from Bronx App listings — never guesses.",
+        content: "Answers come only from Bronx Town Hall listings — never guesses.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -64,7 +64,7 @@ function AskPage() {
         <PagePhoto slug={"hostos"} />
         <h1 className="text-3xl text-foreground sm:text-4xl">Ask a question</h1>
         <p className="text-sm text-muted-foreground mt-1">
-          Answers come only from listings in The Bronx App. If we don't have it, we'll tell you.
+          Answers come only from listings in Bronx Town Hall. If we don't have it, we'll tell you.
         </p>
         <form
           className="mt-4 flex gap-2"
@@ -111,7 +111,9 @@ function AskPage() {
           </ul>
         )}
         <div id="ask-answer" aria-live="polite" className="mt-6">
-          {busy && <p className="text-sm text-muted-foreground">Searching Bronx App listings…</p>}
+          {busy && (
+            <p className="text-sm text-muted-foreground">Searching Bronx Town Hall listings…</p>
+          )}
           {res?.kind === "error" && <p className="text-sm text-destructive">{res.message}</p>}
           {res?.kind === "out_of_scope" && (
             <p className="border-y border-border py-4">
@@ -122,8 +124,8 @@ function AskPage() {
           {res?.kind === "no_match" && (
             <div className="border-y border-border py-4">
               <p>
-                I couldn't find a verified match for that in the Bronx App yet. Here's how to search
-                manually:
+                I couldn't find a verified match for that in Bronx Town Hall yet. Here's how to
+                search manually:
               </p>
               <p className="mt-2 flex gap-3 flex-wrap">
                 {res.category && (
@@ -146,7 +148,7 @@ function AskPage() {
               <p className="pt-2 font-bold">
                 Here{" "}
                 {res.matches.length === 1 ? "is 1 listing" : `are ${res.matches.length} listings`}{" "}
-                from The Bronx App that may match:
+                from Bronx Town Hall that may match:
               </p>
               <ul className="mt-2 divide-y divide-border border-y border-border">
                 {res.matches.map((m) => (

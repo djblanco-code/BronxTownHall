@@ -6,10 +6,10 @@ export const privacy: Bundle = {
     title: "Privacy Policy",
     updated: "Last updated: October 2026",
     intro:
-      "This page is maintained by The Bronx App team to answer common privacy questions about The Bronx App. It is not a certification and not legal advice.",
+      "This page is maintained by Bronx Town Hall team to answer common privacy questions about Bronx Town Hall. It is not a certification and not legal advice.",
     protectTitle: "We protect your data",
     protect:
-      "The Bronx App does not share your personal information with any government agency, law enforcement, or third party without your explicit consent. We never ask for your immigration status, Social Security number, or date of birth — and you never need an account to find help, call a hotline, or get directions.",
+      "Bronx Town Hall does not share your personal information with any government agency, law enforcement, or third party without your explicit consent. We never ask for your immigration status, Social Security number, or date of birth — and you never need an account to find help, call a hotline, or get directions.",
     collectTitle: "What we collect",
     collectIntro:
       "We only collect what the service needs to work. What we store depends on whether you create an account.",
@@ -58,10 +58,10 @@ export const privacy: Bundle = {
     title: "Política de privacidad",
     updated: "Última actualización: octubre de 2026",
     intro:
-      "Esta página la mantiene el equipo de La App del Bronx para responder preguntas comunes de privacidad. No es una certificación ni asesoría legal.",
+      "Esta página la mantiene el equipo de Bronx Town Hall para responder preguntas comunes de privacidad. No es una certificación ni asesoría legal.",
     protectTitle: "Protegemos sus datos",
     protect:
-      "La App del Bronx no comparte su información personal con ninguna agencia gubernamental, autoridad policial ni tercero sin su consentimiento explícito. Nunca preguntamos su estatus migratorio, número de Seguro Social ni fecha de nacimiento — y nunca necesita una cuenta para buscar ayuda, llamar a una línea de crisis u obtener direcciones.",
+      "Bronx Town Hall no comparte su información personal con ninguna agencia gubernamental, autoridad policial ni tercero sin su consentimiento explícito. Nunca preguntamos su estatus migratorio, número de Seguro Social ni fecha de nacimiento — y nunca necesita una cuenta para buscar ayuda, llamar a una línea de crisis u obtener direcciones.",
     collectTitle: "Qué recopilamos",
     collectIntro:
       "Solo recopilamos lo que el servicio necesita para funcionar. Lo que guardamos depende de si crea una cuenta.",
@@ -111,10 +111,10 @@ export const privacy: Bundle = {
     title: "Politique de confidentialité",
     updated: "Dernière mise à jour : octobre 2026",
     intro:
-      "Cette page est tenue à jour par l'équipe de L'App du Bronx pour répondre aux questions courantes sur la confidentialité. Ce n'est ni une certification ni un avis juridique.",
+      "Cette page est tenue à jour par l'équipe de Bronx Town Hall pour répondre aux questions courantes sur la confidentialité. Ce n'est ni une certification ni un avis juridique.",
     protectTitle: "Nous protégeons vos données",
     protect:
-      "L'App du Bronx ne partage vos informations personnelles avec aucune administration, force de l'ordre ou tiers sans votre consentement explicite. Nous ne demandons jamais votre statut migratoire, votre numéro de sécurité sociale ni votre date de naissance — et vous n'avez jamais besoin d'un compte pour trouver de l'aide, appeler une ligne d'écoute ou obtenir un itinéraire.",
+      "Bronx Town Hall ne partage vos informations personnelles avec aucune administration, force de l'ordre ou tiers sans votre consentement explicite. Nous ne demandons jamais votre statut migratoire, votre numéro de sécurité sociale ni votre date de naissance — et vous n'avez jamais besoin d'un compte pour trouver de l'aide, appeler une ligne d'écoute ou obtenir un itinéraire.",
     collectTitle: "Ce que nous collectons",
     collectIntro:
       "Nous ne collectons que ce qui est nécessaire au service. Ce que nous conservons dépend de la création ou non d'un compte.",
@@ -165,10 +165,10 @@ export const privacy: Bundle = {
     title: "গোপনীয়তা নীতি",
     updated: "সর্বশেষ হালনাগাদ: অক্টোবর ২০২৬",
     intro:
-      "এই পৃষ্ঠাটি দ্য ব্রঙ্কস অ্যাপ দল রক্ষণাবেক্ষণ করে, সাধারণ গোপনীয়তা প্রশ্নের উত্তর দিতে। এটি কোনো সনদ নয় এবং আইনি পরামর্শও নয়।",
+      "এই পৃষ্ঠাটি ব্রঙ্কস টাউন হল দল রক্ষণাবেক্ষণ করে, সাধারণ গোপনীয়তা প্রশ্নের উত্তর দিতে। এটি কোনো সনদ নয় এবং আইনি পরামর্শও নয়।",
     protectTitle: "আমরা আপনার তথ্য সুরক্ষিত রাখি",
     protect:
-      "আপনার স্পষ্ট সম্মতি ছাড়া দ্য ব্রঙ্কস অ্যাপ কোনো সরকারি সংস্থা, আইন প্রয়োগকারী সংস্থা বা তৃতীয় পক্ষের সাথে আপনার ব্যক্তিগত তথ্য ভাগ করে না। আমরা কখনোই আপনার অভিবাসন অবস্থা, সোশ্যাল সিকিউরিটি নম্বর বা জন্মতারিখ জিজ্ঞাসা করি না — এবং সাহায্য খুঁজতে, হটলাইনে কল করতে বা দিকনির্দেশ পেতে কোনো অ্যাকাউন্ট লাগে না।",
+      "আপনার স্পষ্ট সম্মতি ছাড়া ব্রঙ্কস টাউন হল কোনো সরকারি সংস্থা, আইন প্রয়োগকারী সংস্থা বা তৃতীয় পক্ষের সাথে আপনার ব্যক্তিগত তথ্য ভাগ করে না। আমরা কখনোই আপনার অভিবাসন অবস্থা, সোশ্যাল সিকিউরিটি নম্বর বা জন্মতারিখ জিজ্ঞাসা করি না — এবং সাহায্য খুঁজতে, হটলাইনে কল করতে বা দিকনির্দেশ পেতে কোনো অ্যাকাউন্ট লাগে না।",
     collectTitle: "আমরা কী সংগ্রহ করি",
     collectIntro:
       "সেবাটি চালাতে যা প্রয়োজন কেবল তাই সংগ্রহ করি। আপনি অ্যাকাউন্ট খুলছেন কি না তার উপর সংরক্ষিত তথ্য নির্ভর করে।",
@@ -217,10 +217,10 @@ export const privacy: Bundle = {
     title: "سياسة الخصوصية",
     updated: "آخر تحديث: أكتوبر 2026",
     intro:
-      "يحتفظ فريق تطبيق برونكس بهذه الصفحة للإجابة عن أسئلة الخصوصية الشائعة. وهي ليست شهادة اعتماد ولا استشارة قانونية.",
+      "يحتفظ فريق برونكس تاون هول بهذه الصفحة للإجابة عن أسئلة الخصوصية الشائعة. وهي ليست شهادة اعتماد ولا استشارة قانونية.",
     protectTitle: "نحن نحمي بياناتك",
     protect:
-      "لا يشارك تطبيق برونكس معلوماتك الشخصية مع أي جهة حكومية أو جهة إنفاذ قانون أو طرف ثالث دون موافقتك الصريحة. لا نسألك أبدًا عن وضعك في الهجرة أو رقم الضمان الاجتماعي أو تاريخ ميلادك — ولا تحتاج إلى حساب للعثور على المساعدة أو الاتصال بخط مساعدة أو الحصول على الاتجاهات.",
+      "لا يشارك برونكس تاون هول معلوماتك الشخصية مع أي جهة حكومية أو جهة إنفاذ قانون أو طرف ثالث دون موافقتك الصريحة. لا نسألك أبدًا عن وضعك في الهجرة أو رقم الضمان الاجتماعي أو تاريخ ميلادك — ولا تحتاج إلى حساب للعثور على المساعدة أو الاتصال بخط مساعدة أو الحصول على الاتجاهات.",
     collectTitle: "ما الذي نجمعه",
     collectIntro:
       "نجمع فقط ما تحتاجه الخدمة للعمل. وما نحفظه يعتمد على ما إذا كنت قد أنشأت حسابًا.",

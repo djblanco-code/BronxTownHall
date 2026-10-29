@@ -4,7 +4,7 @@ export const advertise: Bundle = {
   en: {
     title: "Advertise with us",
     intro:
-      "The Bronx App is used by neighbors looking for food, health care, jobs, events and local businesses. If you want to reach them, we offer two small, clearly-labeled sponsored placements.",
+      "Bronx Town Hall is used by neighbors looking for food, health care, jobs, events and local businesses. If you want to reach them, we offer two small, clearly-labeled sponsored placements.",
     bannerTitle: "Homepage banner",
     bannerBody:
       'One modest banner on the home screen — no carousels, no pop-ups. Always labeled "Sponsored."',
@@ -25,7 +25,7 @@ export const advertise: Bundle = {
   es: {
     title: "Anúnciese con nosotros",
     intro:
-      "Los vecinos usan La App del Bronx para buscar comida, atención médica, trabajos, eventos y negocios locales. Si quiere llegar a ellos, ofrecemos dos espacios patrocinados pequeños y claramente identificados.",
+      "Los vecinos usan Bronx Town Hall para buscar comida, atención médica, trabajos, eventos y negocios locales. Si quiere llegar a ellos, ofrecemos dos espacios patrocinados pequeños y claramente identificados.",
     bannerTitle: "Banner en la página de inicio",
     bannerBody:
       "Un banner modesto en la pantalla de inicio — sin carruseles ni ventanas emergentes. Siempre marcado como «Patrocinado».",
@@ -48,7 +48,7 @@ export const advertise: Bundle = {
   fr: {
     title: "Annoncez avec nous",
     intro:
-      "L'App du Bronx est utilisée par des habitants qui cherchent de la nourriture, des soins, un emploi, des événements et des commerces locaux. Pour les toucher, nous proposons deux emplacements sponsorisés discrets et clairement identifiés.",
+      "Bronx Town Hall est utilisée par des habitants qui cherchent de la nourriture, des soins, un emploi, des événements et des commerces locaux. Pour les toucher, nous proposons deux emplacements sponsorisés discrets et clairement identifiés.",
     bannerTitle: "Bannière en page d'accueil",
     bannerBody:
       "Une bannière discrète sur l'écran d'accueil — sans carrousel ni fenêtre surgissante. Toujours marquée « Sponsorisé ».",
@@ -71,7 +71,7 @@ export const advertise: Bundle = {
   bn: {
     title: "আমাদের সাথে বিজ্ঞাপন দিন",
     intro:
-      "প্রতিবেশীরা খাবার, স্বাস্থ্যসেবা, চাকরি, ইভেন্ট ও স্থানীয় ব্যবসা খুঁজতে দ্য ব্রঙ্কস অ্যাপ ব্যবহার করেন। তাদের কাছে পৌঁছাতে আমরা দুটি ছোট, স্পষ্টভাবে চিহ্নিত স্পনসরড স্থান দিই।",
+      "প্রতিবেশীরা খাবার, স্বাস্থ্যসেবা, চাকরি, ইভেন্ট ও স্থানীয় ব্যবসা খুঁজতে ব্রঙ্কস টাউন হল ব্যবহার করেন। তাদের কাছে পৌঁছাতে আমরা দুটি ছোট, স্পষ্টভাবে চিহ্নিত স্পনসরড স্থান দিই।",
     bannerTitle: "হোমপেজ ব্যানার",
     bannerBody:
       "হোম স্ক্রিনে একটি পরিমিত ব্যানার — কোনো ক্যারোসেল বা পপ-আপ নয়। সবসময় “স্পনসরড” লেখা থাকে।",
@@ -93,7 +93,7 @@ export const advertise: Bundle = {
   ar: {
     title: "أعلن معنا",
     intro:
-      "يستخدم الجيران تطبيق برونكس للبحث عن الطعام والرعاية الصحية والوظائف والفعاليات والأعمال المحلية. إن أردت الوصول إليهم، نوفّر موضعين إعلانيين صغيرين وواضحي التسمية.",
+      "يستخدم الجيران برونكس تاون هول للبحث عن الطعام والرعاية الصحية والوظائف والفعاليات والأعمال المحلية. إن أردت الوصول إليهم، نوفّر موضعين إعلانيين صغيرين وواضحي التسمية.",
     bannerTitle: "لافتة الصفحة الرئيسية",
     bannerBody:
       "لافتة واحدة بسيطة في الشاشة الرئيسية — بلا شرائح متحركة ولا نوافذ منبثقة. ومُعلَّمة دائمًا بكلمة «مموّل».",

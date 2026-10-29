@@ -1,4 +1,4 @@
-# The Bronx App — Pilot-Readiness Pass
+# Bronx Town Hall — Pilot-Readiness Pass
 
 ## What the audit found
 
@@ -22,7 +22,7 @@ New `resources` table mirroring the existing `Resource` type plus the missing tr
 ### 2. Verification becomes real (Priorities 5 + 11)
 
 - Delete `lastVerifiedFor()`. `VerifiedPill` reads the actual `last_verified` and `verification_status` columns.
-- Five statuses: verified by organization, verified by Bronx App, verified via public source, community submitted, needs verification.
+- Five statuses: verified by organization, verified by Bronx Town Hall, verified via public source, community submitted, needs verification.
 - `verify_every_days` per record (defaulting per category, editable) drives freshness — a pantry at 90 days, a hospital at 365.
 - Records with no verification say **"Not yet verified"**, honestly, rather than showing a green pill.
 - `/data-quality` counters recompute from real columns.

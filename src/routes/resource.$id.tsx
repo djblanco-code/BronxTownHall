@@ -66,9 +66,9 @@ export const Route = createFileRoute("/resource/$id")({
     const url = `${SITE}/resource/${params.id}`;
     return {
       meta: [
-        { title: `${name} — The Bronx App` },
+        { title: `${name} — Bronx Town Hall` },
         { name: "description", content: desc },
-        { property: "og:title", content: `${name} — The Bronx App` },
+        { property: "og:title", content: `${name} — Bronx Town Hall` },
         { property: "og:description", content: desc },
         { property: "og:type", content: "article" },
         { property: "og:url", content: url },
@@ -192,7 +192,7 @@ function ResourcePage() {
 
   const handleShare = async () => {
     trackUsage(res.id, "share");
-    const text = `${res.name[lang]}\n${res.address}\nPhone: ${res.phone}\nHours: ${res.hours[lang]}\n\nShared from The Bronx App`;
+    const text = `${res.name[lang]}\n${res.address}\nPhone: ${res.phone}\nHours: ${res.hours[lang]}\n\nShared from Bronx Town Hall`;
     const url = typeof window !== "undefined" ? window.location.href : "";
     if (
       typeof navigator !== "undefined" &&

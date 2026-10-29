@@ -588,8 +588,8 @@ export function OrgListingForm({
       <div className="rounded-md border border-border p-3 text-sm">
         Everything here is what your organization tells us about itself. Your listing goes live
         right away marked
-        <strong> “Not yet verified.”</strong> A Bronx App reviewer confirms details by phone or in
-        person before it shows a green Verified badge.
+        <strong> “Not yet verified.”</strong> A Bronx Town Hall reviewer confirms details by phone
+        or in person before it shows a green Verified badge.
       </div>
 
       <button

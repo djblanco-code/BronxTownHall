@@ -14,7 +14,7 @@ export const Route = createFileRoute("/data-quality")({
   component: DataQualityPage,
   head: () => ({
     meta: [
-      { title: "Data Quality — The Bronx App" },
+      { title: "Data Quality — Bronx Town Hall" },
       {
         name: "description",
         content:

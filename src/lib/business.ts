@@ -1,4 +1,4 @@
-// Local-storage-backed business / event store for the Bronx App prototype.
+// Local-storage-backed business / event store for Bronx Town Hall prototype.
 // All data is client-side only — for demonstration to partners and funders.
 
 import { Category, MinorEligibility, YouthSubcategory } from "./data";
@@ -218,5 +218,5 @@ export function whatsappShareLink(message: string) {
 }
 
 export function buildShareMessage(businessName: string, title: string, body: string, link: string) {
-  return `${businessName} — ${title}\n\n${body}\n\nView full details in The Bronx App: ${link}\n\nDownload The Bronx App for free: https://thebronxapp.example`;
+  return `${businessName} — ${title}\n\n${body}\n\nView full details in Bronx Town Hall: ${link}\n\nDownload Bronx Town Hall for free: https://thebronxapp.example`;
 }

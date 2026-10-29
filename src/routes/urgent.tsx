@@ -8,7 +8,7 @@ export const Route = createFileRoute("/urgent")({
   staticData: { sitemap: true },
   head: () => ({
     meta: [
-      { title: "Urgent Help — The Bronx App" },
+      { title: "Urgent Help — Bronx Town Hall" },
       {
         name: "description",
         content:

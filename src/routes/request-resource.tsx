@@ -13,7 +13,7 @@ export const Route = createFileRoute("/request-resource")({
   component: RequestResource,
   head: () => ({
     meta: [
-      { title: "Request a resource — The Bronx App" },
+      { title: "Request a resource — Bronx Town Hall" },
       { name: "description", content: "Can't find what you need? Tell us and we'll add it." },
     ],
   }),

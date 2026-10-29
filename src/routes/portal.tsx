@@ -24,9 +24,9 @@ import {
 import { toast } from "sonner";
 import { SHOW_BUSINESS_FEATURES } from "@/lib/first-version";
 
-const TITLE = "List your organization on The Bronx App | Nonprofit & government accounts";
+const TITLE = "List your organization on Bronx Town Hall | Nonprofit & government accounts";
 const DESC =
-  "Nonprofits, community organizations and government offices can create a free account on The Bronx App and manage their own Bronx listing.";
+  "Nonprofits, community organizations and government offices can create a free account on Bronx Town Hall and manage their own Bronx listing.";
 
 /** Line icons for the account types (their data carries emoji, which the design system doesn't use). */
 const ACCOUNT_ICONS: Record<AccountType, LucideIcon> = {
@@ -97,7 +97,7 @@ function PortalPage() {
         <header className="space-y-2">
           <h1 className="text-3xl text-foreground sm:text-4xl">List your organization</h1>
           <p className="text-muted-foreground">
-            Add your community organization or government office to The Bronx App, then keep your
+            Add your community organization or government office to Bronx Town Hall, then keep your
             own details up to date. Free — there is no payment anywhere in the app.
           </p>
         </header>

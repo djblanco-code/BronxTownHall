@@ -9,11 +9,11 @@ export const Route = createFileRoute("/faq")({
   staticData: { sitemap: true },
   head: () => ({
     meta: [
-      { title: "FAQ — The Bronx App" },
+      { title: "FAQ — Bronx Town Hall" },
       {
         name: "description",
         content:
-          "Frequently asked questions about The Bronx App: pricing, adding resources, elected officials, events, and more.",
+          "Frequently asked questions about Bronx Town Hall: pricing, adding resources, elected officials, events, and more.",
       },
     ],
   }),

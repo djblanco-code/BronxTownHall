@@ -18,13 +18,13 @@ export const Route = createFileRoute("/sms")({
   component: SmsPage,
   head: () => ({
     meta: [
-      { title: "Text FOOD for Help — The Bronx App by Text Message" },
+      { title: "Text FOOD for Help — Bronx Town Hall by Text Message" },
       {
         name: "description",
         content:
           "No smartphone? No data? Text a keyword like FOOD to get the nearest open Bronx food pantry, clinic, or legal aid by SMS.",
       },
-      { property: "og:title", content: "Text FOOD for Help — The Bronx App" },
+      { property: "og:title", content: "Text FOOD for Help — Bronx Town Hall" },
       {
         property: "og:description",
         content:

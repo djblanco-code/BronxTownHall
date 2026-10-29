@@ -4,7 +4,7 @@
  *
  * Everything an organization types about itself is SELF-REPORTED. It goes live
  * immediately at Tier 1 ("Not yet verified") and only becomes Tier 2
- * ("Verified") after a Bronx App admin confirms it by hand. Paying for Premium
+ * ("Verified") after a Bronx Town Hall admin confirms it by hand. Paying for Premium
  * never grants the badge.
  */
 

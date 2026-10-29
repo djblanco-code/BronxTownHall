@@ -28,7 +28,7 @@ export const Route = createFileRoute("/digest")({
   head: () => ({
     meta: [
       { name: "robots", content: "noindex" },
-      { title: "This Week in the Bronx — Weekly Digest | The Bronx App" },
+      { title: "This Week in the Bronx — Weekly Digest | Bronx Town Hall" },
       {
         name: "description",
         content:

@@ -35,7 +35,7 @@ export function BronxFactCard({
     setLiked(next.includes(fact.id));
   };
   const onShare = async () => {
-    const text = `Did you know? ${fact.fact} — via The Bronx App`;
+    const text = `Did you know? ${fact.fact} — via Bronx Town Hall`;
     try {
       if (typeof navigator !== "undefined" && navigator.share) {
         await navigator.share({ title: "Bronx Fact of the Day", text });

@@ -24,16 +24,16 @@ export const Route = createFileRoute("/roadmap")({
   head: () => ({
     meta: [
       { name: "robots", content: "noindex" },
-      { title: "What's Coming — The Bronx App" },
+      { title: "What's Coming — Bronx Town Hall" },
       {
         name: "description",
         content:
-          "Upcoming features for The Bronx App, from business tools and community picks to messaging, advertising, and kiosk access.",
+          "Upcoming features for Bronx Town Hall, from business tools and community picks to messaging, advertising, and kiosk access.",
       },
-      { property: "og:title", content: "What's Coming to The Bronx App" },
+      { property: "og:title", content: "What's Coming to Bronx Town Hall" },
       {
         property: "og:description",
-        content: "See the roadmap for upcoming Bronx App features and pilot opportunities.",
+        content: "See the roadmap for upcoming Bronx Town Hall features and pilot opportunities.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -93,7 +93,7 @@ const ROADMAP_ITEMS = [
     id: "sms-business-messaging",
     title: "SMS Reminders & Business Messaging",
     description:
-      "Text updates directly to residents who've opted into your category — sent under a recognizable 'The Bronx App' sender name, not a random number.",
+      "Text updates directly to residents who've opted into your category — sent under a recognizable 'Bronx Town Hall' sender name, not a random number.",
     status: "Coming Soon",
     icon: MessageSquareText,
     partnerNote: "Premium feature — pilot opportunity with a future borough or government partner",
@@ -121,7 +121,7 @@ const ROADMAP_ITEMS = [
     id: "linknyc-kiosk-integration",
     title: "LinkNYC Kiosk Integration",
     description:
-      "Access The Bronx App directly from LinkNYC kiosks across the borough — no smartphone required.",
+      "Access Bronx Town Hall directly from LinkNYC kiosks across the borough — no smartphone required.",
     status: "Coming Soon",
     icon: MonitorSmartphone,
     partnerNote:

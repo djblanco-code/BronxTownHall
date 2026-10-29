@@ -23,7 +23,7 @@ export const VERIFICATION_STATUSES: VerificationStatus[] = [
 
 export const VERIFICATION_LABELS: Record<VerificationStatus, string> = {
   verified_by_org: "Confirmed by the organization",
-  verified_by_bronx_app: "Verified by The Bronx App",
+  verified_by_bronx_app: "Verified by Bronx Town Hall",
   verified_public_source: "Verified from a public source",
   community_submitted: "Submitted by a community member",
   needs_verification: "Not yet verified",

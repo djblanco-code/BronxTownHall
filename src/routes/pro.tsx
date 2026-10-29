@@ -26,7 +26,7 @@ export const Route = createFileRoute("/pro")({
   head: () => ({
     meta: [
       { name: "robots", content: "noindex" },
-      { title: "Professional Portal — The Bronx App" },
+      { title: "Professional Portal — Bronx Town Hall" },
       {
         name: "description",
         content: "Caseworker dashboard for non-profit and government agency staff.",
@@ -152,7 +152,7 @@ function ProPortal() {
           </p>
           {profile?.verified && (
             <p className="mt-1 text-sm inline-flex items-center gap-1 text-success">
-              <BadgeCheck className="h-4 w-4" /> Verified by The Bronx App
+              <BadgeCheck className="h-4 w-4" /> Verified by Bronx Town Hall
             </p>
           )}
         </header>

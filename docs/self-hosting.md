@@ -1,4 +1,4 @@
-# Hosting The Bronx App yourself (Vercel + Supabase)
+# Hosting Bronx Town Hall yourself (Vercel + Supabase)
 
 The app no longer depends on Lovable. You need:
 

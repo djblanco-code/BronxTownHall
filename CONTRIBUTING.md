@@ -1,6 +1,6 @@
 # Contributing
 
-Thanks for helping build The Bronx App. This guide covers how work moves from
+Thanks for helping build Bronx Town Hall. This guide covers how work moves from
 an idea to `main`. For running the app locally and hosting it, see
 [`README.md`](README.md) and [`docs/self-hosting.md`](docs/self-hosting.md).
 

@@ -18,7 +18,7 @@ type Dict = Record<string, string>;
 
 export const T: Record<Lang, Dict> = {
   en: {
-    appName: "The Bronx App",
+    appName: "Bronx Town Hall",
     tagline: "Connecting 1.4 Million Neighbors to One Heartbeat",
     searchPlaceholder: "What are you looking for? (e.g., food pantry, legal aid, job near me)",
     nearYou: "Near You",
@@ -62,7 +62,7 @@ export const T: Record<Lang, Dict> = {
     latestUpdates: "Latest from Your Officials",
     a11yTitle: "Accessibility First: Listen, Don't Just Read",
     a11yBlurb:
-      "The Bronx App reads every resource aloud in 5 languages. For seniors, low-literacy users, and anyone who prefers listening.",
+      "Bronx Town Hall reads every resource aloud in 5 languages. For seniors, low-literacy users, and anyone who prefers listening.",
     listenAll: "Listen to Full Listing",
     name: "Name",
     category: "Category",
@@ -106,7 +106,7 @@ export const T: Record<Lang, Dict> = {
     servicesTitle: "Local Services in the Bronx",
   },
   es: {
-    appName: "La App del Bronx",
+    appName: "Bronx Town Hall",
     tagline: "Conectando a 1.4 millones de vecinos en un solo latido",
     searchPlaceholder:
       "¿Qué estás buscando? (ej., despensa de alimentos, ayuda legal, trabajo cerca)",
@@ -151,7 +151,7 @@ export const T: Record<Lang, Dict> = {
     latestUpdates: "Lo Último de tus Oficiales",
     a11yTitle: "Accesibilidad Primero: Escucha, No Solo Leas",
     a11yBlurb:
-      "La App del Bronx lee cada recurso en voz alta en 5 idiomas. Para adultos mayores, usuarios con baja alfabetización y cualquiera que prefiera escuchar.",
+      "Bronx Town Hall lee cada recurso en voz alta en 5 idiomas. Para adultos mayores, usuarios con baja alfabetización y cualquiera que prefiera escuchar.",
     listenAll: "Escuchar Listado Completo",
     name: "Nombre",
     category: "Categoría",
@@ -195,7 +195,7 @@ export const T: Record<Lang, Dict> = {
     localEvents: "Eventos locales",
   },
   fr: {
-    appName: "L'App du Bronx",
+    appName: "Bronx Town Hall",
     tagline: "Connecter 1,4 million de voisins en un seul battement de cœur",
     searchPlaceholder: "Que cherchez-vous ? (ex., banque alimentaire, aide juridique, emploi)",
     nearYou: "Près de Vous",
@@ -239,7 +239,7 @@ export const T: Record<Lang, Dict> = {
     latestUpdates: "Dernières Nouvelles de vos Élus",
     a11yTitle: "L'Accessibilité d'Abord : Écoutez, Ne Lisez Pas Seulement",
     a11yBlurb:
-      "L'App du Bronx lit chaque ressource à voix haute en 5 langues. Pour les seniors, les utilisateurs à faible alphabétisation et quiconque préfère écouter.",
+      "Bronx Town Hall lit chaque ressource à voix haute en 5 langues. Pour les seniors, les utilisateurs à faible alphabétisation et quiconque préfère écouter.",
     listenAll: "Écouter la Fiche Complète",
     name: "Nom",
     category: "Catégorie",
@@ -283,7 +283,7 @@ export const T: Record<Lang, Dict> = {
     localEvents: "Événements locaux",
   },
   bn: {
-    appName: "দ্য ব্রঙ্কস অ্যাপ",
+    appName: "ব্রঙ্কস টাউন হল",
     tagline: "১৪ লক্ষ প্রতিবেশীকে এক হৃদস্পন্দনে সংযুক্ত করছে",
     searchPlaceholder: "আপনি কী খুঁজছেন? (যেমন, খাদ্য প্যান্ট্রি, আইনি সহায়তা, কাছের কাজ)",
     nearYou: "আপনার কাছে",
@@ -371,7 +371,7 @@ export const T: Record<Lang, Dict> = {
     localEvents: "স্থানীয় অনুষ্ঠান",
   },
   ar: {
-    appName: "تطبيق برونكس",
+    appName: "برونكس تاون هول",
     tagline: "ربط 1.4 مليون جار بنبضة واحدة",
     searchPlaceholder: "عمّ تبحث؟ (مثل مخزن الطعام، مساعدة قانونية، وظيفة قريبة)",
     nearYou: "بالقرب منك",
@@ -415,7 +415,7 @@ export const T: Record<Lang, Dict> = {
     latestUpdates: "آخر الأخبار من المسؤولين",
     a11yTitle: "إمكانية الوصول أولاً: استمع، لا تقرأ فقط",
     a11yBlurb:
-      "يقرأ تطبيق برونكس كل مورد بصوت عالٍ بـ 5 لغات. للمسنين والمستخدمين ذوي القراءة المحدودة وكل من يفضل الاستماع.",
+      "يقرأ برونكس تاون هول كل مورد بصوت عالٍ بـ 5 لغات. للمسنين والمستخدمين ذوي القراءة المحدودة وكل من يفضل الاستماع.",
     listenAll: "استمع للقائمة الكاملة",
     name: "الاسم",
     category: "الفئة",
@@ -471,7 +471,7 @@ const ALERT_STRINGS: Record<Lang, Dict> = {
     alertsReadLess: "Show less",
     alertsSource: "Official source",
     alertsDeadline: "Deadline",
-    alertsStaffNote: "Posted and fact-checked by Bronx App staff.",
+    alertsStaffNote: "Posted and fact-checked by Bronx Town Hall staff.",
     alertsGetAlerts: "Get alerts for this category",
     alertsSubTitle: "Get alerts",
     alertsSubIntro:
@@ -500,7 +500,7 @@ const ALERT_STRINGS: Record<Lang, Dict> = {
     alertsReadLess: "Mostrar menos",
     alertsSource: "Fuente oficial",
     alertsDeadline: "Fecha límite",
-    alertsStaffNote: "Publicado y verificado por el equipo de The Bronx App.",
+    alertsStaffNote: "Publicado y verificado por el equipo de Bronx Town Hall.",
     alertsGetAlerts: "Recibir alertas de esta categoría",
     alertsSubTitle: "Recibir alertas",
     alertsSubIntro:
@@ -530,7 +530,7 @@ const ALERT_STRINGS: Record<Lang, Dict> = {
     alertsReadLess: "Réduire",
     alertsSource: "Source officielle",
     alertsDeadline: "Date limite",
-    alertsStaffNote: "Publié et vérifié par l'équipe de The Bronx App.",
+    alertsStaffNote: "Publié et vérifié par l'équipe de Bronx Town Hall.",
     alertsGetAlerts: "Recevoir les alertes de cette catégorie",
     alertsSubTitle: "Recevoir les alertes",
     alertsSubIntro:
@@ -560,7 +560,7 @@ const ALERT_STRINGS: Record<Lang, Dict> = {
     alertsReadLess: "কম দেখান",
     alertsSource: "সরকারি সূত্র",
     alertsDeadline: "শেষ তারিখ",
-    alertsStaffNote: "The Bronx App কর্মীদের দ্বারা প্রকাশিত ও যাচাই করা।",
+    alertsStaffNote: "Bronx Town Hall কর্মীদের দ্বারা প্রকাশিত ও যাচাই করা।",
     alertsGetAlerts: "এই বিভাগের সতর্কতা পান",
     alertsSubTitle: "সতর্কতা পান",
     alertsSubIntro:
@@ -589,7 +589,7 @@ const ALERT_STRINGS: Record<Lang, Dict> = {
     alertsReadLess: "إظهار أقل",
     alertsSource: "المصدر الرسمي",
     alertsDeadline: "الموعد النهائي",
-    alertsStaffNote: "نُشر وتم التحقق منه بواسطة فريق The Bronx App.",
+    alertsStaffNote: "نُشر وتم التحقق منه بواسطة فريق Bronx Town Hall.",
     alertsGetAlerts: "احصل على تنبيهات هذه الفئة",
     alertsSubTitle: "احصل على التنبيهات",
     alertsSubIntro: "اختر المواضيع التي تهمك فقط. رسالة قصيرة لكل تغيير، وليست أخباراً يومية.",

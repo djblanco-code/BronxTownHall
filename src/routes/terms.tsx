@@ -8,11 +8,11 @@ export const Route = createFileRoute("/terms")({
   staticData: { sitemap: true },
   head: () => ({
     meta: [
-      { title: "Terms of Use — The Bronx App" },
+      { title: "Terms of Use — Bronx Town Hall" },
       {
         name: "description",
         content:
-          "The Bronx App terms of use for residents, contributors, and listed organizations.",
+          "Bronx Town Hall terms of use for residents, contributors, and listed organizations.",
       },
     ],
   }),

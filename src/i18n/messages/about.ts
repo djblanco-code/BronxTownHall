@@ -3,11 +3,11 @@ import type { Bundle } from "../types";
 export const about: Bundle = {
   en: {
     home: "Home",
-    title: "About The Bronx App",
+    title: "About Bronx Town Hall",
     tagline: "Your Bronx. Your Resources. Your Voice.",
     missionTitle: "Our Mission",
     mission:
-      "The Bronx App helps residents find free, life-improving resources and hyper-local events — food, housing, health, legal aid, jobs, childcare, nature, arts, and more — in one place, in five languages, for free.",
+      "Bronx Town Hall helps residents find free, life-improving resources and hyper-local events — food, housing, health, legal aid, jobs, childcare, nature, arts, and more — in one place, in five languages, for free.",
     storyTitle: "Our Story",
     story:
       "Founded by Fatmata, a lifelong Bronx resident, this app grew out of a simple problem: people in our borough spend hours calling around trying to find a food pantry that's open, a clinic that accepts Medicaid, or an after-school program that's still enrolling. Google doesn't know which pantry has Halal meals this week. A city portal can't tell you your Community Board meets Tuesday. Locals do — and now, so does this app.",
@@ -24,11 +24,11 @@ export const about: Bundle = {
   },
   es: {
     home: "Inicio",
-    title: "Sobre La App del Bronx",
+    title: "Sobre Bronx Town Hall",
     tagline: "Tu Bronx. Tus recursos. Tu voz.",
     missionTitle: "Nuestra misión",
     mission:
-      "La App del Bronx ayuda a los residentes a encontrar recursos gratuitos que mejoran la vida y eventos hiperlocales — comida, vivienda, salud, ayuda legal, trabajos, cuidado infantil, naturaleza, arte y más — en un solo lugar, en cinco idiomas y gratis.",
+      "Bronx Town Hall ayuda a los residentes a encontrar recursos gratuitos que mejoran la vida y eventos hiperlocales — comida, vivienda, salud, ayuda legal, trabajos, cuidado infantil, naturaleza, arte y más — en un solo lugar, en cinco idiomas y gratis.",
     storyTitle: "Nuestra historia",
     story:
       "Fundada por Fatmata, residente de toda la vida del Bronx, esta app nació de un problema simple: la gente de nuestro condado pasa horas llamando para encontrar una despensa abierta, una clínica que acepte Medicaid o un programa extraescolar con cupos. Google no sabe qué despensa tiene comidas halal esta semana. Un portal municipal no te dice que tu Junta Comunitaria se reúne el martes. Los vecinos sí — y ahora, esta app también.",
@@ -45,11 +45,11 @@ export const about: Bundle = {
   },
   fr: {
     home: "Accueil",
-    title: "À propos de L'App du Bronx",
+    title: "À propos de Bronx Town Hall",
     tagline: "Votre Bronx. Vos ressources. Votre voix.",
     missionTitle: "Notre mission",
     mission:
-      "L'App du Bronx aide les habitants à trouver des ressources gratuites et des événements hyperlocaux — alimentation, logement, santé, aide juridique, emplois, garde d'enfants, nature, arts et plus — au même endroit, en cinq langues, gratuitement.",
+      "Bronx Town Hall aide les habitants à trouver des ressources gratuites et des événements hyperlocaux — alimentation, logement, santé, aide juridique, emplois, garde d'enfants, nature, arts et plus — au même endroit, en cinq langues, gratuitement.",
     storyTitle: "Notre histoire",
     story:
       "Fondée par Fatmata, habitante du Bronx depuis toujours, cette application est née d'un problème simple : les gens passent des heures au téléphone pour trouver une banque alimentaire ouverte, une clinique qui accepte Medicaid ou un programme périscolaire qui accepte encore des inscriptions. Google ne sait pas quelle banque alimentaire propose des repas halal cette semaine. Un portail municipal ne vous dira pas que votre conseil communautaire se réunit mardi. Les habitants, si — et maintenant cette application aussi.",
@@ -66,11 +66,11 @@ export const about: Bundle = {
   },
   bn: {
     home: "হোম",
-    title: "দ্য ব্রঙ্কস অ্যাপ সম্পর্কে",
+    title: "ব্রঙ্কস টাউন হল সম্পর্কে",
     tagline: "আপনার ব্রঙ্কস। আপনার সম্পদ। আপনার কণ্ঠস্বর।",
     missionTitle: "আমাদের লক্ষ্য",
     mission:
-      "দ্য ব্রঙ্কস অ্যাপ বাসিন্দাদের বিনামূল্যে জীবনমান উন্নয়নকারী সম্পদ ও স্থানীয় ইভেন্ট খুঁজে পেতে সাহায্য করে — খাবার, বাসস্থান, স্বাস্থ্য, আইনি সহায়তা, চাকরি, শিশু পরিচর্যা, প্রকৃতি, শিল্প ও আরও অনেক কিছু — এক জায়গায়, পাঁচটি ভাষায়, বিনামূল্যে।",
+      "ব্রঙ্কস টাউন হল বাসিন্দাদের বিনামূল্যে জীবনমান উন্নয়নকারী সম্পদ ও স্থানীয় ইভেন্ট খুঁজে পেতে সাহায্য করে — খাবার, বাসস্থান, স্বাস্থ্য, আইনি সহায়তা, চাকরি, শিশু পরিচর্যা, প্রকৃতি, শিল্প ও আরও অনেক কিছু — এক জায়গায়, পাঁচটি ভাষায়, বিনামূল্যে।",
     storyTitle: "আমাদের গল্প",
     story:
       "আজীবন ব্রঙ্কসের বাসিন্দা ফাতমাতা এই অ্যাপটি শুরু করেন একটি সাধারণ সমস্যা থেকে: আমাদের এলাকায় মানুষ খোলা ফুড প্যান্ট্রি, মেডিকেইড গ্রহণকারী ক্লিনিক বা ভর্তি চলমান আফটার-স্কুল প্রোগ্রাম খুঁজতে ঘণ্টার পর ঘণ্টা ফোন করেন। এই সপ্তাহে কোন প্যান্ট্রিতে হালাল খাবার আছে গুগল তা জানে না। সিটি পোর্টাল বলবে না যে আপনার কমিউনিটি বোর্ড মঙ্গলবার বসছে। স্থানীয়রা জানেন — এখন এই অ্যাপও জানে।",
@@ -87,11 +87,11 @@ export const about: Bundle = {
   },
   ar: {
     home: "الرئيسية",
-    title: "عن تطبيق برونكس",
+    title: "عن برونكس تاون هول",
     tagline: "برونكس خاصتك. مواردك. صوتك.",
     missionTitle: "مهمتنا",
     mission:
-      "يساعد تطبيق برونكس السكان على إيجاد موارد مجانية تحسّن حياتهم وفعاليات محلية — الطعام والسكن والصحة والمساعدة القانونية والوظائف ورعاية الأطفال والطبيعة والفنون وغيرها — في مكان واحد، بخمس لغات، مجانًا.",
+      "يساعد برونكس تاون هول السكان على إيجاد موارد مجانية تحسّن حياتهم وفعاليات محلية — الطعام والسكن والصحة والمساعدة القانونية والوظائف ورعاية الأطفال والطبيعة والفنون وغيرها — في مكان واحد، بخمس لغات، مجانًا.",
     storyTitle: "قصتنا",
     story:
       "أسّست فاطمة، وهي من سكان برونكس مدى الحياة، هذا التطبيق انطلاقًا من مشكلة بسيطة: يقضي الناس ساعات في الاتصال بحثًا عن بنك طعام مفتوح، أو عيادة تقبل Medicaid، أو برنامج بعد المدرسة ما زال يقبل التسجيل. لا تعرف جوجل أي بنك طعام يقدّم وجبات حلال هذا الأسبوع، ولا يخبرك موقع المدينة أن مجلس حيّك يجتمع يوم الثلاثاء. السكان يعرفون ذلك — والآن يعرفه هذا التطبيق أيضًا.",

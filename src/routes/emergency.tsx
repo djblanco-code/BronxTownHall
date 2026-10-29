@@ -9,13 +9,13 @@ export const Route = createFileRoute("/emergency")({
   staticData: { sitemap: true },
   head: () => ({
     meta: [
-      { title: "Emergency & Crisis Help — The Bronx App" },
+      { title: "Emergency & Crisis Help — Bronx Town Hall" },
       {
         name: "description",
         content:
           "911, 311, 988 and every Bronx crisis hotline in one tap-to-call page that keeps working offline.",
       },
-      { property: "og:title", content: "Emergency & Crisis Help — The Bronx App" },
+      { property: "og:title", content: "Emergency & Crisis Help — Bronx Town Hall" },
       {
         property: "og:description",
         content: "Tap-to-call emergency and crisis numbers for the Bronx. Works offline.",

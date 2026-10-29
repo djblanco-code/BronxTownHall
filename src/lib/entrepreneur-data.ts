@@ -54,7 +54,7 @@ export const ROADMAP: RoadmapStep[] = [
       "Get required NYC permits & licenses (SBS can help)",
       "Buy general liability insurance",
       "Set up POS / online payments",
-      "Announce your opening — list yourself on The Bronx App!",
+      "Announce your opening — list yourself on Bronx Town Hall!",
     ],
   },
   {
@@ -63,7 +63,7 @@ export const ROADMAP: RoadmapStep[] = [
     title: "Grow",
     summary: "Bring in customers, hire Bronx residents, keep the books.",
     checklist: [
-      "Claim your listing on The Bronx App to reach neighbors",
+      "Claim your listing on Bronx Town Hall to reach neighbors",
       "Post your first job to hire locally",
       "Ask 5 happy customers for reviews this month",
       "Set aside 15 min/week to check your numbers",

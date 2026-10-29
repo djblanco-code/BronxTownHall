@@ -23,8 +23,15 @@ export function TopBar() {
           aria-label={`${t("appName")} — ${t("common.navHome")}`}
           className="no-min-h group flex min-w-0 items-center gap-2 lg:shrink-0"
         >
-          {/* A text wordmark, like a paper's nameplate; no icon. */}
-          <span className="font-display truncate text-lg font-extrabold text-foreground group-hover:underline">
+          {/* The same mark as the app icon, then the name. */}
+          <img
+            src="/icon-192.png?v=3"
+            alt=""
+            width={28}
+            height={28}
+            className="h-7 w-7 shrink-0 rounded-lg"
+          />
+          <span className="font-display truncate text-base font-extrabold text-foreground group-hover:underline sm:text-lg">
             {t("appName")}
             <span aria-hidden="true" className="text-bronx-orange">
               .

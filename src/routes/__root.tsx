@@ -81,13 +81,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "The Bronx App — Connecting 1.4 Million Neighbors" },
+      { title: "Bronx Town Hall — Connecting 1.4 Million Neighbors" },
       {
         name: "description",
         content:
           "Free multilingual community resource finder for Bronx residents: food pantries, health clinics, legal aid, jobs, and events.",
       },
-      { property: "og:title", content: "The Bronx App" },
+      { property: "og:title", content: "Bronx Town Hall" },
       {
         property: "og:description",
         content: "Free multilingual community resource finder for the Bronx.",
@@ -98,16 +98,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "mobile-web-app-capable", content: "yes" },
       { name: "apple-mobile-web-app-capable", content: "yes" },
       { name: "apple-mobile-web-app-status-bar-style", content: "default" },
-      { name: "apple-mobile-web-app-title", content: "Bronx App" },
-      { name: "application-name", content: "The Bronx App" },
+      { name: "apple-mobile-web-app-title", content: "Bronx Town Hall" },
+      { name: "application-name", content: "Bronx Town Hall" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
       { rel: "manifest", href: "/manifest.webmanifest" },
-      { rel: "icon", type: "image/png", href: "/favicon.png" },
-      { rel: "icon", type: "image/png", sizes: "192x192", href: "/icon-192.png" },
-      { rel: "icon", type: "image/png", sizes: "512x512", href: "/icon-512.png" },
-      { rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon.png" },
+      { rel: "icon", type: "image/png", href: "/favicon.png?v=3" },
+      { rel: "icon", type: "image/png", sizes: "192x192", href: "/icon-192.png?v=3" },
+      { rel: "icon", type: "image/png", sizes: "512x512", href: "/icon-512.png?v=3" },
+      { rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon.png?v=3" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {

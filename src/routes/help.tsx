@@ -34,13 +34,13 @@ export const Route = createFileRoute("/help")({
   component: HelpPage,
   head: () => ({
     meta: [
-      { title: "Tell us what you need — The Bronx App" },
+      { title: "Tell us what you need — Bronx Town Hall" },
       {
         name: "description",
         content:
           "Describe your situation in your own words and get 5 Bronx resources, read aloud in your language, ready to share by text.",
       },
-      { property: "og:title", content: "Tell us what you need — The Bronx App" },
+      { property: "og:title", content: "Tell us what you need — Bronx Town Hall" },
       {
         property: "og:description",
         content: "One sentence. Five real Bronx resources. Spoken in your language.",

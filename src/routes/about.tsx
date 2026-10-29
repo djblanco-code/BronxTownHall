@@ -8,13 +8,13 @@ export const Route = createFileRoute("/about")({
   staticData: { sitemap: true },
   head: () => ({
     meta: [
-      { title: "About — The Bronx App" },
+      { title: "About — Bronx Town Hall" },
       {
         name: "description",
         content:
-          "The Bronx App helps residents find free, life-improving resources and hyper-local events in one place.",
+          "Bronx Town Hall helps residents find free, life-improving resources and hyper-local events in one place.",
       },
-      { property: "og:title", content: "About — The Bronx App" },
+      { property: "og:title", content: "About — Bronx Town Hall" },
       {
         property: "og:description",
         content: "Our mission: help Bronx residents find resources and events, in one free app.",

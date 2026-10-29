@@ -29,15 +29,15 @@ export const Route = createFileRoute("/creators/$handle")({
   head: ({ params }) => ({
     meta: [
       { name: "robots", content: "noindex" },
-      { title: `${params.handle}'s Bronx Picks — The Bronx App` },
+      { title: `${params.handle}'s Bronx Picks — Bronx Town Hall` },
       {
         name: "description",
-        content: `Favorite Bronx food, businesses and events picked by @${params.handle}, with The Bronx App's own verification status on every listing.`,
+        content: `Favorite Bronx food, businesses and events picked by @${params.handle}, with Bronx Town Hall's own verification status on every listing.`,
       },
       { property: "og:title", content: `${params.handle}'s Bronx Picks` },
       {
         property: "og:description",
-        content: "A Bronx creator's personal picks from listings already in The Bronx App.",
+        content: "A Bronx creator's personal picks from listings already in Bronx Town Hall.",
       },
       { property: "og:type", content: "profile" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -175,7 +175,8 @@ function CreatorPage() {
           {creator.display_name.split(" ")[0]}&apos;s picks ({picks.length})
         </h2>
         <p className="text-sm text-muted-foreground">
-          Personal recommendations. Accuracy badges below come from The Bronx App, not the creator.
+          Personal recommendations. Accuracy badges below come from Bronx Town Hall, not the
+          creator.
         </p>
 
         <ul className="mt-4 space-y-3">

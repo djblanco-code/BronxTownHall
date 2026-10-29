@@ -6,7 +6,7 @@ export const Route = createFileRoute("/l/$slug")({
   component: SharedListRoute,
   head: () => ({
     meta: [
-      { title: "Shared list — The Bronx App" },
+      { title: "Shared list — Bronx Town Hall" },
       { name: "description", content: "A list of Bronx places someone shared with you." },
     ],
   }),

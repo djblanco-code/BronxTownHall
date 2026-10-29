@@ -6,7 +6,7 @@ export const Route = createFileRoute("/lists")({
   component: ListsScreen,
   head: () => ({
     meta: [
-      { title: "My lists — The Bronx App" },
+      { title: "My lists — Bronx Town Hall" },
       { name: "description", content: "Group Bronx places to keep or share." },
     ],
   }),

@@ -10,13 +10,13 @@ export const Route = createFileRoute("/advertise")({
   component: AdvertisePage,
   head: () => ({
     meta: [
-      { title: "Advertise with The Bronx App — Sponsored Placements" },
+      { title: "Advertise with Bronx Town Hall — Sponsored Placements" },
       {
         name: "description",
         content:
           "Reach Bronx residents with a clearly-labeled homepage banner or sponsored listing card. Contextual only — no user data, no tracking. Tell us what you need and we'll follow up.",
       },
-      { property: "og:title", content: "Advertise with The Bronx App" },
+      { property: "og:title", content: "Advertise with Bronx Town Hall" },
       {
         property: "og:description",
         content:
