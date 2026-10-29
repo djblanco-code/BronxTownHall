@@ -22,36 +22,44 @@ function TermsPage() {
   const { t } = useI18n();
   return (
     <AppShell>
-      <div className="max-w-3xl mx-auto px-4 py-8">
+      <div className="mx-auto max-w-3xl px-4 py-6">
         <Link
           to="/"
-          className="no-min-h inline-flex items-center gap-1.5 text-sm text-primary font-medium mb-4 hover:underline"
+          className="no-min-h mb-2 inline-flex min-h-11 items-center gap-1.5 text-sm font-bold text-primary hover:underline"
         >
-          <ArrowLeft className="h-4 w-4" /> {t("terms.home")}
+          <ArrowLeft className="h-4 w-4 rtl:rotate-180" aria-hidden="true" /> {t("terms.home")}
         </Link>
-        <h1 className="text-3xl sm:text-4xl font-bold mb-2">{t("terms.title")}</h1>
+        <h1 className="mb-2 text-3xl font-bold text-foreground sm:text-4xl">{t("terms.title")}</h1>
         <p className="text-sm text-muted-foreground mb-8">{t("terms.updated")}</p>
 
         <div className="space-y-6 leading-relaxed text-foreground">
           <p>{t("terms.intro")}</p>
 
           <section>
-            <h2 className="text-2xl font-bold mb-2">{t("terms.accuracyTitle")}</h2>
+            <h2 className="mb-2 border-t-[3px] border-foreground pt-2 text-xl font-bold sm:text-2xl">
+              {t("terms.accuracyTitle")}
+            </h2>
             <p>{t("terms.accuracy")}</p>
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold mb-2">{t("terms.submissionsTitle")}</h2>
+            <h2 className="mb-2 border-t-[3px] border-foreground pt-2 text-xl font-bold sm:text-2xl">
+              {t("terms.submissionsTitle")}
+            </h2>
             <p>{t("terms.submissions")}</p>
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold mb-2">{t("terms.listingsTitle")}</h2>
+            <h2 className="mb-2 border-t-[3px] border-foreground pt-2 text-xl font-bold sm:text-2xl">
+              {t("terms.listingsTitle")}
+            </h2>
             <p>{t("terms.listings")}</p>
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold mb-2">{t("terms.useTitle")}</h2>
+            <h2 className="mb-2 border-t-[3px] border-foreground pt-2 text-xl font-bold sm:text-2xl">
+              {t("terms.useTitle")}
+            </h2>
             <ul className="list-disc ps-6 space-y-1">
               <li>{t("terms.use1")}</li>
               <li>{t("terms.use2")}</li>
@@ -60,12 +68,16 @@ function TermsPage() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold mb-2">{t("terms.warrantyTitle")}</h2>
+            <h2 className="mb-2 border-t-[3px] border-foreground pt-2 text-xl font-bold sm:text-2xl">
+              {t("terms.warrantyTitle")}
+            </h2>
             <p>{t("terms.warranty")}</p>
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold mb-2">{t("terms.contactTitle")}</h2>
+            <h2 className="mb-2 border-t-[3px] border-foreground pt-2 text-xl font-bold sm:text-2xl">
+              {t("terms.contactTitle")}
+            </h2>
             <p>
               {t("terms.contactPre")}{" "}
               <a href="mailto:hello@thebronxapp.org" className="text-primary underline">

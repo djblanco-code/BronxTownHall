@@ -22,22 +22,22 @@ function HowToAddPage() {
   const { t } = useI18n();
   return (
     <AppShell>
-      <div className="max-w-3xl mx-auto px-4 py-8">
+      <div className="mx-auto max-w-3xl px-4 py-6">
         <Link
           to="/"
-          className="no-min-h inline-flex items-center gap-1.5 text-sm text-primary font-medium mb-4 hover:underline"
+          className="no-min-h mb-2 inline-flex min-h-11 items-center gap-1.5 text-sm font-bold text-primary hover:underline"
         >
-          <ArrowLeft className="h-4 w-4" /> {t("howToAdd.home")}
+          <ArrowLeft className="h-4 w-4 rtl:rotate-180" aria-hidden="true" /> {t("howToAdd.home")}
         </Link>
-        <h1 className="text-3xl sm:text-4xl font-bold mb-2">{t("howToAdd.title")}</h1>
-        <p className="text-muted-foreground mb-8">{t("howToAdd.subtitle")}</p>
+        <h1 className="text-3xl font-bold text-foreground sm:text-4xl">{t("howToAdd.title")}</h1>
+        <p className="mt-2 text-muted-foreground">{t("howToAdd.subtitle")}</p>
 
-        <div className="space-y-8">
+        <div>
           <Card
             title={t("howToAdd.membersTitle")}
             steps={[t("howToAdd.members1"), t("howToAdd.members2"), t("howToAdd.members3")]}
             action={
-              <Link to="/request-resource" className="btn-primary">
+              <Link to="/request-resource" className={ACTION}>
                 {t("howToAdd.membersCta")}
               </Link>
             }
@@ -52,7 +52,7 @@ function HowToAddPage() {
               t("howToAdd.orgs4"),
             ]}
             action={
-              <Link to="/portal" className="btn-primary">
+              <Link to="/portal" className={ACTION}>
                 {t("howToAdd.orgsCta")}
               </Link>
             }
@@ -62,7 +62,7 @@ function HowToAddPage() {
             title={t("howToAdd.eventsTitle")}
             steps={[t("howToAdd.events1"), t("howToAdd.events2"), t("howToAdd.events3")]}
             action={
-              <Link to="/events" className="btn-primary">
+              <Link to="/events" className={ACTION}>
                 {t("howToAdd.eventsCta")}
               </Link>
             }
@@ -78,6 +78,10 @@ function HowToAddPage() {
   );
 }
 
+/** Each section's next step: the secondary outline button (docs/design-system.md). */
+const ACTION =
+  "no-min-h inline-flex min-h-11 items-center rounded-md border-2 border-foreground px-5 py-2 text-sm font-bold text-foreground hover:bg-foreground hover:text-background";
+
 function Card({
   title,
   steps,
@@ -88,12 +92,12 @@ function Card({
   action?: React.ReactNode;
 }) {
   return (
-    <section className="rounded-2xl border-2 border-border bg-card p-6">
-      <h2 className="text-xl font-bold mb-3">{title}</h2>
-      <ol className="space-y-2 mb-4">
+    <section className="mt-8 border-t-[3px] border-foreground pt-2">
+      <h2 className="mb-3 text-lg font-bold sm:text-2xl">{title}</h2>
+      <ol className="mb-4 space-y-2">
         {steps.map((s, i) => (
           <li key={i} className="flex gap-3">
-            <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+            <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
             <span>{s}</span>
           </li>
         ))}

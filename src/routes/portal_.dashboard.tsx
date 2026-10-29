@@ -72,8 +72,8 @@ function DashboardPage() {
   if (loading) {
     return (
       <AppShell>
-        <p className="max-w-3xl mx-auto px-4 py-10 text-muted-foreground inline-flex items-center gap-2">
-          <Loader2 className="h-4 w-4 animate-spin" /> Loading…
+        <p className="mx-auto flex max-w-3xl items-center gap-2 px-4 py-10 text-muted-foreground">
+          <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> Loading…
         </p>
       </AppShell>
     );
@@ -82,12 +82,14 @@ function DashboardPage() {
   if (!user) {
     return (
       <AppShell>
-        <div className="max-w-md mx-auto px-4 py-10 space-y-3 text-center">
-          <h1 className="text-2xl font-bold">Sign in to manage your listing</h1>
+        <div className="mx-auto max-w-3xl space-y-3 px-4 py-6">
+          <h1 className="text-3xl font-bold text-foreground sm:text-4xl">
+            Sign in to manage your listing
+          </h1>
           <p className="text-muted-foreground">Organization accounts sign in here.</p>
           <Link
             to="/portal"
-            className="inline-block px-5 py-3 rounded-lg bg-primary text-primary-foreground font-semibold"
+            className="no-min-h inline-flex h-11 items-center rounded-md bg-primary px-5 font-semibold text-primary-foreground hover:bg-primary/90"
           >
             Go to the organization portal
           </Link>
@@ -143,32 +145,32 @@ function DashboardPage() {
 
   return (
     <AppShell>
-      <div className="max-w-3xl mx-auto px-4 py-6 space-y-5">
+      <div className="mx-auto max-w-3xl space-y-5 px-4 py-6">
         <Link
           to="/"
-          className="no-min-h inline-flex items-center gap-1.5 text-sm text-primary font-medium hover:underline"
+          className="no-min-h inline-flex min-h-11 items-center gap-1.5 text-sm font-bold text-primary hover:underline"
         >
-          <ArrowLeft className="h-4 w-4" /> Home
+          <ArrowLeft className="h-4 w-4 rtl:rotate-180" aria-hidden="true" /> Home
         </Link>
 
-        <header className="flex items-start justify-between gap-3 flex-wrap">
-          <div>
-            <h1 className="text-3xl font-bold">Your listings</h1>
-            <p className="text-sm text-muted-foreground">Signed in as {user.email}</p>
+        <header className="flex flex-wrap items-start justify-between gap-3">
+          <div className="min-w-0">
+            <h1 className="text-3xl font-bold text-foreground sm:text-4xl">Your listings</h1>
+            <p className="text-sm break-all text-muted-foreground">Signed in as {user.email}</p>
           </div>
           <div className="flex gap-2">
             <Link
               to="/portal"
-              className="no-min-h inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-primary text-primary-foreground font-semibold text-sm"
+              className="no-min-h inline-flex h-11 items-center gap-1.5 rounded-md bg-primary px-4 text-sm font-semibold text-primary-foreground hover:bg-primary/90"
             >
-              <Plus className="h-4 w-4" /> Add another
+              <Plus className="h-4 w-4" aria-hidden="true" /> Add another
             </Link>
             <button
               onClick={async () => {
                 await supabase.auth.signOut();
                 navigate({ to: "/" });
               }}
-              className="no-min-h px-4 py-2 rounded-lg border-2 border-border font-semibold text-sm hover:bg-secondary"
+              className="no-min-h h-11 rounded-md border-2 border-foreground px-4 text-sm font-bold text-foreground hover:bg-foreground hover:text-background"
             >
               Sign out
             </button>
@@ -176,15 +178,15 @@ function DashboardPage() {
         </header>
 
         {busy && (
-          <p className="text-sm text-muted-foreground inline-flex items-center gap-2">
-            <Loader2 className="h-4 w-4 animate-spin" /> Loading your listings…
+          <p className="flex items-center gap-2 text-sm text-muted-foreground">
+            <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> Loading your listings…
           </p>
         )}
 
         {!busy && orgs.length === 0 && (
-          <div className="rounded-2xl border-2 border-dashed border-border p-8 text-center space-y-2">
-            <p className="font-semibold">You haven&apos;t submitted a listing yet.</p>
-            <Link to="/portal" className="text-primary underline">
+          <div className="space-y-1 border-y border-border py-4">
+            <p className="font-bold">You haven&apos;t submitted a listing yet.</p>
+            <Link to="/portal" className="font-bold text-primary underline underline-offset-4">
               Create your first listing
             </Link>
           </div>
@@ -198,7 +200,7 @@ function DashboardPage() {
                   setEditing(null);
                   setForm(null);
                 }}
-                className="no-min-h text-sm text-primary hover:underline"
+                className="no-min-h inline-flex min-h-11 items-center text-sm font-bold text-primary hover:underline"
               >
                 ← Cancel editing
               </button>
@@ -263,22 +265,22 @@ function OrgCard({
   };
 
   return (
-    <section className="rounded-2xl border-2 border-border bg-card p-4 space-y-3">
+    <section className="space-y-3 border-t-[3px] border-foreground pt-3">
       <div className="flex items-start justify-between gap-3 flex-wrap">
         <div className="flex gap-3">
           {photo ? (
             <img
               src={photo}
               alt={`${org.org_name} logo`}
-              className="h-14 w-14 rounded-xl object-cover border border-border"
+              className="h-14 w-14 shrink-0 rounded-md border border-border object-cover"
             />
           ) : (
-            <div className="h-14 w-14 rounded-xl border-2 border-dashed border-border grid place-items-center text-muted-foreground">
-              <ImagePlus className="h-5 w-5" />
+            <div className="grid h-14 w-14 shrink-0 place-items-center rounded-md border border-border text-muted-foreground">
+              <ImagePlus className="h-5 w-5" aria-hidden="true" />
             </div>
           )}
           <div>
-            <h2 className="font-bold text-lg">{org.org_name}</h2>
+            <h2 className="text-lg font-bold sm:text-2xl">{org.org_name}</h2>
             <p className="text-sm text-muted-foreground">
               {typeLabel}
               {org.category ? ` · ${CATEGORY_LABELS[org.category] ?? org.category}` : ""}
@@ -290,21 +292,21 @@ function OrgCard({
         </div>
         <button
           onClick={onEdit}
-          className="no-min-h inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border-2 border-border font-semibold text-sm hover:bg-secondary"
+          className="no-min-h inline-flex h-11 items-center gap-1.5 rounded-md border-2 border-foreground px-3 text-sm font-bold text-foreground hover:bg-foreground hover:text-background"
         >
-          <Pencil className="h-4 w-4" /> Edit listing
+          <Pencil className="h-4 w-4" aria-hidden="true" /> Edit listing
         </button>
       </div>
 
       {org.status === "needs_changes" && (
-        <p className="rounded-xl border-2 border-warning/40 bg-warning/10 p-3 text-sm">
+        <p className="rounded-md border-2 border-foreground p-3 text-sm">
           A reviewer asked for changes{org.admin_notes ? `: ${org.admin_notes}` : "."} Edit your
           listing and save to send it back.
         </p>
       )}
 
-      <label className="no-min-h inline-flex items-center gap-2 text-sm font-semibold text-primary cursor-pointer">
-        <ImagePlus className="h-4 w-4" />{" "}
+      <label className="no-min-h inline-flex min-h-11 cursor-pointer items-center gap-2 text-sm font-bold text-primary hover:underline">
+        <ImagePlus className="h-4 w-4" aria-hidden="true" />{" "}
         {org.photo_url ? "Replace photo" : "Add a logo or storefront photo"}
         <input
           type="file"
@@ -319,8 +321,8 @@ function OrgCard({
 
       {org.account_type === "business" && (
         <>
-          <div className="grid sm:grid-cols-2 gap-3">
-            <div className="rounded-xl border border-border p-3">
+          <div className="grid gap-3 sm:grid-cols-2">
+            <div className="rounded-md border border-border p-3">
               <p className="text-sm font-semibold">Event posts this month</p>
               <p className="text-2xl font-bold">
                 {monthEvents}
@@ -337,9 +339,9 @@ function OrgCard({
                   : `Free listing includes ${FREE_TIER_EVENTS_PER_MONTH} event posts a month.`}
               </p>
             </div>
-            <div className="rounded-xl border border-border p-3">
-              <p className="text-sm font-semibold inline-flex items-center gap-1.5">
-                <BarChart3 className="h-4 w-4" /> This week
+            <div className="rounded-md border border-border p-3">
+              <p className="inline-flex items-center gap-1.5 text-sm font-semibold">
+                <BarChart3 className="h-4 w-4" aria-hidden="true" /> This week
               </p>
               {org.premium ? (
                 <p className="text-sm text-muted-foreground mt-1">
@@ -399,7 +401,7 @@ function OfficialUpdateBox({ org, userId }: { org: OrgAccount; userId: string })
   // The database only accepts posts from offices staff have verified.
   if (org.status !== "verified") {
     return (
-      <div className="rounded-xl border border-border p-3 space-y-1">
+      <div className="space-y-1 rounded-md border border-border p-3">
         <p className="font-semibold inline-flex items-center gap-1.5">
           <Megaphone className="h-4 w-4" /> Post to “Latest from Your Officials”
         </p>
@@ -411,7 +413,7 @@ function OfficialUpdateBox({ org, userId }: { org: OrgAccount; userId: string })
   }
 
   return (
-    <div className="rounded-xl border border-border p-3 space-y-2">
+    <div className="space-y-2 rounded-md border border-border p-3">
       <p className="font-semibold inline-flex items-center gap-1.5">
         <Megaphone className="h-4 w-4" /> Post to “Latest from Your Officials”
       </p>
@@ -421,7 +423,7 @@ function OfficialUpdateBox({ org, userId }: { org: OrgAccount; userId: string })
         value={body}
         onChange={(e) => setBody(e.target.value)}
         placeholder="Short announcement for residents…"
-        className="w-full px-3 py-2 rounded-lg border border-border bg-background text-sm"
+        className="w-full rounded-md border border-border bg-background px-3 py-2 text-base focus-visible:border-primary focus-visible:outline-none"
       />
       <div className="flex items-center justify-between gap-2">
         <span className="text-xs text-muted-foreground">
@@ -430,7 +432,7 @@ function OfficialUpdateBox({ org, userId }: { org: OrgAccount; userId: string })
         <button
           onClick={post}
           disabled={busy || !body.trim()}
-          className="no-min-h px-4 py-2 rounded-lg bg-primary text-primary-foreground font-semibold text-sm disabled:opacity-50"
+          className="no-min-h h-11 rounded-md bg-primary px-4 text-sm font-semibold text-primary-foreground hover:bg-primary/90 disabled:opacity-50"
         >
           {busy ? "Posting…" : "Post"}
         </button>

@@ -1,7 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { AppShell } from "@/features/shell";
 import { HOTLINES } from "@/lib/resources-extra";
-import { Phone, MessageSquare, ArrowLeft, AlertTriangle, Home, ShieldAlert } from "lucide-react";
+import { Phone, MessageSquare, ArrowLeft, Home, ShieldAlert, type LucideIcon } from "lucide-react";
 import { useI18n } from "@/lib/i18n-context";
 
 export const Route = createFileRoute("/urgent")({
@@ -19,7 +19,7 @@ export const Route = createFileRoute("/urgent")({
   component: UrgentPage,
 });
 
-const ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
+const ICONS: Record<string, LucideIcon> = {
   hotline: Phone,
   text: MessageSquare,
   shelter: Home,
@@ -44,48 +44,42 @@ function UrgentPage() {
 
   return (
     <AppShell>
-      <div className="bg-destructive text-destructive-foreground">
-        <div className="max-w-3xl mx-auto px-4 py-6">
-          <button
-            onClick={() => nav({ to: "/" })}
-            className="no-min-h inline-flex items-center gap-1.5 text-sm font-medium mb-3 hover:underline"
+      <div className="mx-auto max-w-3xl px-4 py-6">
+        <button
+          onClick={() => nav({ to: "/" })}
+          className="no-min-h mb-2 inline-flex min-h-11 items-center gap-1.5 text-sm font-bold text-primary hover:underline"
+        >
+          <ArrowLeft className="h-4 w-4 rtl:rotate-180" aria-hidden="true" /> {t("urgent.home")}
+        </button>
+        <h1 className="text-3xl font-bold text-destructive sm:text-4xl">{t("urgent.title")}</h1>
+        <p className="mt-1 text-foreground sm:text-lg">{t("urgent.subtitle")}</p>
+        <div className="mt-4 grid grid-cols-2 gap-3">
+          <a
+            href="tel:911"
+            className="no-min-h flex min-h-14 items-center justify-center gap-2 rounded-md bg-destructive px-3 text-lg font-bold text-destructive-foreground hover:bg-destructive/90"
           >
-            <ArrowLeft className="h-4 w-4" /> {t("urgent.home")}
-          </button>
-          <div className="flex items-center gap-3">
-            <div className="h-12 w-12 rounded-full bg-white/20 grid place-items-center">
-              <AlertTriangle className="h-7 w-7" />
-            </div>
-            <div>
-              <h1 className="text-2xl sm:text-3xl font-bold">{t("urgent.title")}</h1>
-              <p className="text-sm sm:text-base mt-0.5">{t("urgent.subtitle")}</p>
-            </div>
-          </div>
-          <div className="mt-4 grid grid-cols-2 gap-3">
-            <a
-              href="tel:911"
-              className="no-min-h flex items-center justify-center gap-2 py-4 rounded-2xl bg-white text-destructive font-bold shadow min-h-[56px]"
-            >
-              <Phone className="h-5 w-5" /> {t("urgent.call911")}
-            </a>
-            <a
-              href="tel:988"
-              className="no-min-h flex items-center justify-center gap-2 py-4 rounded-2xl bg-white text-destructive font-bold shadow min-h-[56px]"
-            >
-              <Phone className="h-5 w-5" /> {t("urgent.call988")}
-            </a>
-          </div>
+            <Phone className="h-5 w-5 shrink-0" aria-hidden="true" /> {t("urgent.call911")}
+          </a>
+          <a
+            href="tel:988"
+            className="no-min-h flex min-h-14 items-center justify-center gap-2 rounded-md bg-destructive px-3 text-lg font-bold text-destructive-foreground hover:bg-destructive/90"
+          >
+            <Phone className="h-5 w-5 shrink-0" aria-hidden="true" /> {t("urgent.call988")}
+          </a>
         </div>
-      </div>
 
-      <div className="max-w-3xl mx-auto px-4 py-6 space-y-6">
         {groups.map((g) => {
           const items = HOTLINES.filter((h) => g.types.includes(h.type));
           if (!items.length) return null;
           return (
-            <section key={g.key}>
-              <h2 className="text-lg font-bold mb-3">{g.label}</h2>
-              <ul className="space-y-3">
+            <section key={g.key} aria-labelledby={`urgent-${g.key}`} className="mt-8">
+              <h2
+                id={`urgent-${g.key}`}
+                className="border-t-[3px] border-destructive pt-2 text-lg font-bold text-destructive sm:text-2xl"
+              >
+                {g.label}
+              </h2>
+              <ul className="divide-y divide-border border-b border-border">
                 {items.map((h) => {
                   const Icon = ICONS[h.type] ?? Phone;
                   const href =
@@ -93,38 +87,36 @@ function UrgentPage() {
                       ? `sms:${h.number}${h.textBody ? `?&body=${encodeURIComponent(h.textBody)}` : ""}`
                       : `tel:${h.number.replace(/[^0-9+]/g, "")}`;
                   return (
-                    <li
-                      key={h.id}
-                      className="rounded-2xl border-2 border-destructive/30 bg-card p-4"
-                    >
+                    <li key={h.id} className="py-4">
                       <div className="flex items-start gap-3">
-                        <div className="h-11 w-11 rounded-xl grid place-items-center bg-destructive/15 text-destructive shrink-0">
-                          <Icon className="h-6 w-6" />
-                        </div>
+                        <Icon
+                          className="mt-0.5 h-5 w-5 shrink-0 text-destructive"
+                          aria-hidden="true"
+                        />
                         <div className="min-w-0 flex-1">
-                          <p className="font-bold text-foreground">{t(`urgent.${h.id}.name`)}</p>
-                          <p className="text-sm text-muted-foreground mt-0.5">
-                            {t(`urgent.${h.id}.desc`)}
-                          </p>
-                          <p className="text-xs uppercase tracking-wide text-destructive font-semibold mt-1">
+                          <p className="label-caps text-destructive">
                             {AVAILABILITY_KEYS[h.available]
                               ? t(AVAILABILITY_KEYS[h.available])
                               : h.available}
+                          </p>
+                          <p className="font-bold text-foreground">{t(`urgent.${h.id}.name`)}</p>
+                          <p className="mt-0.5 text-sm text-muted-foreground">
+                            {t(`urgent.${h.id}.desc`)}
                           </p>
                         </div>
                       </div>
                       <a
                         href={href}
-                        className="no-min-h mt-3 w-full inline-flex items-center justify-center gap-2 py-3 rounded-xl bg-destructive text-destructive-foreground font-bold min-h-[48px]"
+                        className="no-min-h mt-3 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-md bg-destructive px-5 py-2 text-center font-bold sm:w-auto text-destructive-foreground hover:bg-destructive/90"
                       >
                         {h.type === "text" ? (
                           <>
-                            <MessageSquare className="h-5 w-5" />{" "}
+                            <MessageSquare className="h-5 w-5 shrink-0" aria-hidden="true" />{" "}
                             {t("urgent.textCta", { word: h.textBody ?? "", number: h.number })}
                           </>
                         ) : (
                           <>
-                            <Phone className="h-5 w-5" />{" "}
+                            <Phone className="h-5 w-5 shrink-0" aria-hidden="true" />{" "}
                             {t("urgent.callCta", { number: h.number })}
                           </>
                         )}
@@ -137,8 +129,11 @@ function UrgentPage() {
           );
         })}
 
-        <p className="text-xs text-muted-foreground text-center pt-2">{t("urgent.footnote")}</p>
-        <Link to="/" className="no-min-h block text-center text-sm text-primary hover:underline">
+        <p className="mt-8 text-center text-xs text-muted-foreground">{t("urgent.footnote")}</p>
+        <Link
+          to="/"
+          className="no-min-h mt-2 flex min-h-11 items-center justify-center text-sm font-bold text-primary underline underline-offset-4"
+        >
           {t("urgent.backHome")}
         </Link>
       </div>

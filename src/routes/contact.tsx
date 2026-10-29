@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { AppShell } from "@/features/shell";
-import { ArrowLeft, Mail, Send } from "lucide-react";
+import { ArrowLeft, CheckCircle2, Mail, Send } from "lucide-react";
 import { useState } from "react";
 import { z } from "zod";
 import { useI18n } from "@/lib/i18n-context";
@@ -48,29 +48,30 @@ function ContactPage() {
 
   return (
     <AppShell>
-      <div className="max-w-2xl mx-auto px-4 py-8">
+      <div className="mx-auto max-w-2xl px-4 py-6">
         <Link
           to="/"
-          className="no-min-h inline-flex items-center gap-1.5 text-sm text-primary font-medium mb-4 hover:underline"
+          className="no-min-h mb-2 inline-flex min-h-11 items-center gap-1.5 text-sm font-bold text-primary hover:underline"
         >
-          <ArrowLeft className="h-4 w-4" /> {t("contact.home")}
+          <ArrowLeft className="h-4 w-4 rtl:rotate-180" aria-hidden="true" /> {t("contact.home")}
         </Link>
-        <h1 className="text-3xl sm:text-4xl font-bold mb-2">{t("contact.title")}</h1>
-        <p className="text-muted-foreground mb-6 inline-flex items-center gap-2">
-          <Mail className="h-4 w-4" /> hello@thebronxapp.org
+        <h1 className="mb-2 text-3xl font-bold text-foreground sm:text-4xl">
+          {t("contact.title")}
+        </h1>
+        <p className="mb-6 inline-flex items-center gap-2 text-muted-foreground">
+          <Mail className="h-4 w-4" aria-hidden="true" /> hello@thebronxapp.org
         </p>
 
         {done ? (
-          <div className="rounded-2xl border-2 border-success/40 bg-success/10 p-6 text-center">
-            <p className="text-5xl mb-2">✉️</p>
-            <p className="font-bold text-lg">{t("contact.doneTitle")}</p>
-            <p className="text-sm text-muted-foreground mt-1">{t("contact.doneBody")}</p>
+          <div className="flex items-start gap-3 rounded-md border-2 border-foreground p-4">
+            <CheckCircle2 className="mt-0.5 h-6 w-6 shrink-0 text-success" aria-hidden="true" />
+            <div className="min-w-0">
+              <p className="text-lg font-bold">{t("contact.doneTitle")}</p>
+              <p className="mt-1 text-sm text-muted-foreground">{t("contact.doneBody")}</p>
+            </div>
           </div>
         ) : (
-          <form
-            onSubmit={onSubmit}
-            className="space-y-4 rounded-2xl border border-border bg-card p-6"
-          >
+          <form onSubmit={onSubmit} className="space-y-4 rounded-md border border-border p-4">
             <Field label={t("contact.labelName")}>
               <input
                 name="name"
@@ -109,12 +110,16 @@ function ContactPage() {
                 className={inp}
               />
             </Field>
-            {err && <p className="text-sm text-destructive">{err}</p>}
+            {err && (
+              <p role="alert" className="text-sm font-semibold text-destructive">
+                {err}
+              </p>
+            )}
             <button
               type="submit"
-              className="no-min-h w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-primary text-primary-foreground font-semibold hover:bg-primary/90"
+              className="no-min-h inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-md bg-primary px-5 py-3 font-bold text-primary-foreground hover:bg-primary/90"
             >
-              <Send className="h-4 w-4" /> {t("contact.send")}
+              <Send className="h-4 w-4" aria-hidden="true" /> {t("contact.send")}
             </button>
           </form>
         )}
@@ -124,11 +129,11 @@ function ContactPage() {
 }
 
 const inp =
-  "w-full px-3 py-2 rounded-lg border border-border bg-background focus:outline-none focus:border-primary";
+  "min-h-11 w-full rounded-md border border-border bg-background px-3 py-2 focus:border-primary focus:outline-none";
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <label className="block">
-      <span className="text-sm font-medium mb-1 block">{label}</span>
+      <span className="mb-1 block text-sm font-bold">{label}</span>
       {children}
     </label>
   );

@@ -55,22 +55,22 @@ function DataQualityPage() {
 
   return (
     <AppShell>
-      <div className="max-w-4xl mx-auto px-4 py-8">
-        <div className="flex items-center gap-2 text-sm text-muted-foreground mb-3">
-          <ShieldCheck className="h-4 w-4" />
+      <div className="mx-auto max-w-4xl px-4 py-6">
+        <p className="label-caps mb-2 flex items-center gap-1.5 text-primary">
+          <ShieldCheck className="h-4 w-4 shrink-0" aria-hidden="true" />
           Public data-quality report
-        </div>
-        <h1 className="text-3xl sm:text-4xl font-bold tracking-tight">
+        </p>
+        <h1 className="text-3xl font-bold text-foreground sm:text-4xl">
           Fresh data is our whole job.
         </h1>
-        <p className="mt-3 text-lg text-muted-foreground max-w-2xl">
+        <p className="mt-3 max-w-2xl text-lg text-muted-foreground">
           Every listing carries a verification record — who confirmed it and when. Different
           listings are re-checked on different schedules: a food pantry every 90 days, a hospital
           about once a year. Listings we have not confirmed yet say so plainly. These numbers are
           counted from real records, not estimated.
         </p>
 
-        <div className="mt-8 grid sm:grid-cols-3 gap-4">
+        <div className="mt-8 grid gap-x-6 sm:grid-cols-3">
           <Stat
             icon={<CalendarCheck className="h-5 w-5" />}
             value={stats.verifiedThisWeek.toString()}
@@ -95,8 +95,13 @@ function DataQualityPage() {
           <RecentlyFixedTicker />
         </div>
 
-        <div className="mt-8 rounded-2xl border-2 border-border bg-card p-6">
-          <h2 className="text-xl font-bold mb-4">Verification breakdown</h2>
+        <section
+          aria-labelledby="dq-breakdown"
+          className="mt-8 border-t-[3px] border-foreground pt-2"
+        >
+          <h2 id="dq-breakdown" className="mb-4 text-lg font-bold sm:text-2xl">
+            Verification breakdown
+          </h2>
           <div className="space-y-3">
             <Bar
               label="Fresh — inside its re-check window"
@@ -123,7 +128,7 @@ function DataQualityPage() {
               tone="muted"
             />
           </div>
-          <div className="mt-5 flex flex-wrap gap-2 items-center text-xs">
+          <div className="mt-5 flex flex-wrap items-center gap-2 border-t border-border pt-3 text-xs">
             <span className="text-muted-foreground">Legend:</span>
             <VerifiedPill
               status="verified_by_bronx_app"
@@ -138,12 +143,12 @@ function DataQualityPage() {
             <VerifiedPill status="community_submitted" />
             <VerifiedPill />
           </div>
-        </div>
+        </section>
 
-        <div className="mt-8 grid sm:grid-cols-2 gap-4">
-          <div className="rounded-2xl border-2 border-border bg-card p-5">
-            <div className="flex items-center gap-2 mb-2">
-              <Flag className="h-5 w-5 text-primary" />
+        <div className="mt-8 grid gap-x-6 sm:grid-cols-2">
+          <div className="border-t-[3px] border-foreground py-3">
+            <div className="mb-1 flex items-center gap-2">
+              <Flag className="h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
               <h3 className="font-bold">See something wrong?</h3>
             </div>
             <p className="text-sm text-muted-foreground">
@@ -151,9 +156,9 @@ function DataQualityPage() {
               auto-hide a resource until a Liaison re-checks it.
             </p>
           </div>
-          <div className="rounded-2xl border-2 border-border bg-card p-5">
-            <div className="flex items-center gap-2 mb-2">
-              <ShieldCheck className="h-5 w-5 text-success" />
+          <div className="border-t-[3px] border-foreground py-3">
+            <div className="mb-1 flex items-center gap-2">
+              <ShieldCheck className="h-5 w-5 shrink-0 text-success" aria-hidden="true" />
               <h3 className="font-bold">Community Liaison network</h3>
             </div>
             <p className="text-sm text-muted-foreground">
@@ -164,7 +169,10 @@ function DataQualityPage() {
         </div>
 
         <div className="mt-8">
-          <Link to="/" className="text-primary font-semibold hover:underline">
+          <Link
+            to="/"
+            className="no-min-h inline-flex min-h-11 items-center font-bold text-primary underline underline-offset-4"
+          >
             ← Back home
           </Link>
         </div>
@@ -184,14 +192,13 @@ function Stat({
   label: string;
   tone: "fresh" | "neutral";
 }) {
-  const bg = tone === "fresh" ? "bg-success/10 border-success/30" : "bg-card border-border";
   return (
-    <div className={`rounded-2xl border-2 ${bg} p-5`}>
-      <div className="flex items-center gap-2 text-muted-foreground text-sm">
-        {icon}
+    <div className="border-t-[3px] border-foreground py-3">
+      <div className="flex items-center gap-2 text-sm text-muted-foreground">
+        <span className={tone === "fresh" ? "text-success" : "text-primary"}>{icon}</span>
         <span>{label}</span>
       </div>
-      <div className="text-4xl font-bold mt-2">{value}</div>
+      <div className="font-display mt-1 text-4xl font-bold">{value}</div>
     </div>
   );
 }
@@ -224,7 +231,7 @@ function Bar({
           {count} · {pct}%
         </span>
       </div>
-      <div className="h-3 rounded-full bg-secondary overflow-hidden">
+      <div className="h-3 overflow-hidden rounded-sm bg-secondary">
         <div className={`h-full ${color}`} style={{ width: `${pct}%` }} />
       </div>
     </div>

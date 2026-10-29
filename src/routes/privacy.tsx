@@ -23,29 +23,33 @@ function PrivacyPage() {
   const { t } = useI18n();
   return (
     <AppShell>
-      <div className="max-w-3xl mx-auto px-4 py-8 prose-like">
+      <div className="mx-auto max-w-3xl px-4 py-6">
         <Link
           to="/"
-          className="no-min-h inline-flex items-center gap-1.5 text-sm text-primary font-medium mb-4 hover:underline"
+          className="no-min-h mb-2 inline-flex min-h-11 items-center gap-1.5 text-sm font-bold text-primary hover:underline"
         >
-          <ArrowLeft className="h-4 w-4" /> {t("privacy.home")}
+          <ArrowLeft className="h-4 w-4 rtl:rotate-180" aria-hidden="true" /> {t("privacy.home")}
         </Link>
-        <h1 className="text-3xl sm:text-4xl font-bold mb-2">{t("privacy.title")}</h1>
+        <h1 className="mb-2 text-3xl font-bold text-foreground sm:text-4xl">
+          {t("privacy.title")}
+        </h1>
         <p className="text-sm text-muted-foreground mb-8">{t("privacy.updated")}</p>
 
         <div className="space-y-6 leading-relaxed text-foreground">
           <p>{t("privacy.intro")}</p>
 
-          <section className="rounded-2xl border-2 border-primary/30 bg-primary/5 p-5">
-            <h2 className="text-2xl font-bold mb-2">{t("privacy.protectTitle")}</h2>
+          <section className="rounded-md border-2 border-foreground p-4">
+            <h2 className="mb-2 text-xl font-bold sm:text-2xl">{t("privacy.protectTitle")}</h2>
             <p>{t("privacy.protect")}</p>
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold mb-2">{t("privacy.collectTitle")}</h2>
+            <h2 className="mb-2 border-t-[3px] border-foreground pt-2 text-xl font-bold sm:text-2xl">
+              {t("privacy.collectTitle")}
+            </h2>
             <p className="mb-4">{t("privacy.collectIntro")}</p>
 
-            <h3 className="text-lg font-semibold mb-2">{t("privacy.noAccountTitle")}</h3>
+            <h3 className="mb-2 text-lg font-bold">{t("privacy.noAccountTitle")}</h3>
             <ul className="list-disc ps-6 space-y-1 mb-4">
               <li>
                 <strong>{t("privacy.noAccount1Label")}</strong> — {t("privacy.noAccount1")}
@@ -61,7 +65,7 @@ function PrivacyPage() {
               </li>
             </ul>
 
-            <h3 className="text-lg font-semibold mb-2">{t("privacy.accountTitle")}</h3>
+            <h3 className="mb-2 text-lg font-bold">{t("privacy.accountTitle")}</h3>
             <ul className="list-disc ps-6 space-y-1">
               <li>
                 <strong>{t("privacy.account1Label")}</strong> — {t("privacy.account1")}
@@ -76,7 +80,9 @@ function PrivacyPage() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold mb-2">{t("privacy.deletionTitle")}</h2>
+            <h2 className="mb-2 border-t-[3px] border-foreground pt-2 text-xl font-bold sm:text-2xl">
+              {t("privacy.deletionTitle")}
+            </h2>
             <p>
               {t("privacy.deletionPre")}{" "}
               <a href="mailto:hello@thebronxapp.org" className="text-primary underline">
@@ -89,7 +95,9 @@ function PrivacyPage() {
           <DataControls />
 
           <section>
-            <h2 className="text-2xl font-bold mb-2">{t("privacy.dontTitle")}</h2>
+            <h2 className="mb-2 border-t-[3px] border-foreground pt-2 text-xl font-bold sm:text-2xl">
+              {t("privacy.dontTitle")}
+            </h2>
             <ul className="list-disc ps-6 space-y-1">
               <li>{t("privacy.dont1")}</li>
               <li>{t("privacy.dont2")}</li>
@@ -98,12 +106,16 @@ function PrivacyPage() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold mb-2">{t("privacy.thirdTitle")}</h2>
+            <h2 className="mb-2 border-t-[3px] border-foreground pt-2 text-xl font-bold sm:text-2xl">
+              {t("privacy.thirdTitle")}
+            </h2>
             <p>{t("privacy.third")}</p>
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold mb-2">{t("privacy.choicesTitle")}</h2>
+            <h2 className="mb-2 border-t-[3px] border-foreground pt-2 text-xl font-bold sm:text-2xl">
+              {t("privacy.choicesTitle")}
+            </h2>
             <ul className="list-disc ps-6 space-y-1">
               <li>{t("privacy.choice1")}</li>
               <li>{t("privacy.choice2")}</li>
@@ -112,7 +124,9 @@ function PrivacyPage() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold mb-2">{t("privacy.contactTitle")}</h2>
+            <h2 className="mb-2 border-t-[3px] border-foreground pt-2 text-xl font-bold sm:text-2xl">
+              {t("privacy.contactTitle")}
+            </h2>
             <p>
               {t("privacy.contactPre")}{" "}
               <a href="mailto:hello@thebronxapp.org" className="text-primary underline">

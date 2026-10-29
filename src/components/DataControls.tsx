@@ -37,34 +37,45 @@ export function DataControls() {
   }
 
   return (
-    <section className="rounded-2xl border border-border bg-card p-5">
-      <h2 className="flex items-center gap-2 text-xl font-bold">
-        <ShieldCheck className="h-5 w-5 text-primary" aria-hidden="true" /> Your data controls
+    <section aria-labelledby="data-controls-title" className="mt-8">
+      <h2
+        id="data-controls-title"
+        className="flex items-center gap-2 border-t-[3px] border-foreground pt-2 text-lg font-bold sm:text-2xl"
+      >
+        <ShieldCheck className="h-5 w-5 shrink-0 text-primary" aria-hidden="true" /> Your data
+        controls
       </h2>
       <p className="mt-1 text-sm text-muted-foreground">
         You are in control. Nothing here requires an account, an email, or a phone number.
       </p>
 
-      <div className="mt-4 flex items-start gap-3 rounded-xl border border-border p-3">
-        <BarChart3 className="mt-0.5 h-5 w-5 text-muted-foreground" aria-hidden="true" />
-        <div className="flex-1">
-          <p className="font-bold text-sm">Anonymous usage counting</p>
+      <div className="mt-3 flex items-center gap-3 border-y border-border py-3">
+        <BarChart3 className="h-5 w-5 shrink-0 text-muted-foreground" aria-hidden="true" />
+        <div className="min-w-0 flex-1">
+          <p className="text-sm font-bold">Anonymous usage counting</p>
           <p className="text-xs text-muted-foreground">
             Counts which resources people open, so we can fix gaps. No names, no accounts, no IP
             tracking.
           </p>
         </div>
+        {/* The button is the 44px tap target; the track inside it is the visible switch. */}
         <button
           type="button"
           onClick={toggle}
           role="switch"
           aria-checked={!optOut}
           aria-label="Anonymous usage counting"
-          className={`h-7 w-12 shrink-0 rounded-full transition ${optOut ? "bg-muted" : "bg-primary"}`}
+          className="no-min-h simplified-exempt grid h-11 w-14 shrink-0 place-items-center"
         >
           <span
-            className={`block h-6 w-6 rounded-full bg-card shadow transition-transform ${optOut ? "translate-x-0.5" : "translate-x-[22px]"}`}
-          />
+            aria-hidden="true"
+            dir="ltr"
+            className={`flex h-5 w-9 items-center rounded-full border-2 border-transparent transition-colors ${optOut ? "bg-input" : "bg-primary"}`}
+          >
+            <span
+              className={`block h-4 w-4 rounded-full bg-background transition-transform ${optOut ? "translate-x-0" : "translate-x-4"}`}
+            />
+          </span>
         </button>
       </div>
 
@@ -73,23 +84,23 @@ export function DataControls() {
           <button
             type="button"
             onClick={() => setConfirming(true)}
-            className="inline-flex items-center gap-2 rounded-xl border-2 border-destructive px-4 py-2 text-sm font-bold text-destructive"
+            className="no-min-h inline-flex min-h-11 items-center gap-2 rounded-md border-2 border-foreground px-4 py-2 text-sm font-bold text-foreground hover:bg-foreground hover:text-background"
           >
             <Trash2 className="h-4 w-4" aria-hidden="true" /> Delete all my data
           </button>
         ) : (
-          <div className="rounded-xl border-2 border-destructive/50 bg-destructive/5 p-4">
+          <div className="rounded-md border-2 border-foreground p-4">
             <p className="text-sm font-bold">Delete everything?</p>
             <p className="mt-1 text-sm text-muted-foreground">
               This erases your saved resources, preferences, and anonymous usage rows — on this
               device and on our servers. It cannot be undone.
             </p>
-            <div className="mt-3 flex gap-2">
+            <div className="mt-3 flex flex-wrap gap-2">
               <button
                 type="button"
                 onClick={erase}
                 disabled={busy}
-                className="inline-flex items-center gap-2 rounded-xl bg-destructive px-4 py-2 text-sm font-bold text-destructive-foreground disabled:opacity-60"
+                className="no-min-h inline-flex min-h-11 items-center gap-2 rounded-md bg-foreground px-4 py-2 text-sm font-bold text-background hover:bg-foreground/90 disabled:opacity-60"
               >
                 {busy ? (
                   <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
@@ -101,7 +112,7 @@ export function DataControls() {
               <button
                 type="button"
                 onClick={() => setConfirming(false)}
-                className="rounded-xl border border-border px-4 py-2 text-sm font-bold"
+                className="no-min-h inline-flex min-h-11 items-center rounded-md border-2 border-foreground px-4 py-2 text-sm font-bold text-foreground hover:bg-foreground hover:text-background"
               >
                 Cancel
               </button>

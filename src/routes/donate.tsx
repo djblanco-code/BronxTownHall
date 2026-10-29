@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { AppShell } from "@/features/shell";
-import { ArrowLeft, Heart, Sparkles } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 
 export const Route = createFileRoute("/donate")({
   staticData: { sitemap: true },
@@ -20,18 +20,17 @@ export const Route = createFileRoute("/donate")({
 function DonatePage() {
   return (
     <AppShell>
-      <div className="max-w-2xl mx-auto px-4 py-8 text-center">
+      <div className="mx-auto max-w-2xl px-4 py-6">
         <Link
           to="/"
-          className="no-min-h inline-flex items-center gap-1.5 text-sm text-primary font-medium mb-4 hover:underline"
+          className="no-min-h mb-2 inline-flex min-h-11 items-center gap-1.5 text-sm font-bold text-primary hover:underline"
         >
-          <ArrowLeft className="h-4 w-4" /> Home
+          <ArrowLeft className="h-4 w-4 rtl:rotate-180" aria-hidden="true" /> Home
         </Link>
-        <div className="h-16 w-16 mx-auto rounded-2xl bg-gradient-to-br from-primary to-accent grid place-items-center text-primary-foreground mb-4">
-          <Heart className="h-8 w-8" fill="currentColor" />
-        </div>
-        <h1 className="text-3xl sm:text-4xl font-bold mb-3">Keep The Bronx App Free</h1>
-        <p className="text-lg text-muted-foreground mb-6">
+        <h1 className="mb-3 text-3xl font-bold text-foreground sm:text-4xl">
+          Keep The Bronx App Free
+        </h1>
+        <p className="mb-6 text-lg text-muted-foreground">
           Your donation pays for hosting, verifying listings, and translating resources into five
           languages — so every Bronx neighbor can find help.
         </p>
@@ -40,7 +39,7 @@ function DonatePage() {
           {[10, 25, 100].map((n) => (
             <button
               key={n}
-              className="no-min-h rounded-2xl border-2 border-primary/30 bg-primary/5 hover:border-primary hover:bg-primary/10 p-5 font-bold text-2xl transition"
+              className="no-min-h min-h-16 rounded-md border-2 border-foreground p-4 text-2xl font-bold text-foreground hover:bg-foreground hover:text-background"
             >
               ${n}
             </button>
@@ -49,9 +48,9 @@ function DonatePage() {
 
         <a
           href="mailto:hello@thebronxapp.org?subject=Donation%20inquiry"
-          className="no-min-h w-full inline-flex items-center justify-center gap-2 px-6 py-4 rounded-full bg-primary text-primary-foreground text-lg font-bold hover:bg-primary/90"
+          className="no-min-h inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-md bg-primary px-6 py-4 text-lg font-bold text-primary-foreground hover:bg-primary/90"
         >
-          <Sparkles className="h-5 w-5" /> Donate Now
+          Donate Now
         </a>
 
         <p className="text-sm text-muted-foreground mt-6">
