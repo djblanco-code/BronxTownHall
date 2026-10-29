@@ -1,12 +1,17 @@
 /**
- * Sample content for demo mode. These are real Northeast Bronx (Council
- * District 12) events and announcements from the Council Member's October
- * 2026 constituent newsletter, kept with their real dates; they are not
- * published listings and have not gone through admin review. Real events
- * reach residents only through the approval flow (AGENTS.md).
+ * Hard-coded community posts, shown alongside live data for now (the owner
+ * asked for real example content on the site). They are real Northeast Bronx
+ * (Council District 12) events and announcements from the Council Member's
+ * October 2026 constituent newsletter, with their real dates, and they are
+ * attributed on the page. They skip the admin review flow (AGENTS.md), so
+ * move them into the events table through review when that is ready, then
+ * delete this file. Past events drop off by date.
  */
 
-export type SampleEvent = {
+/** Shown with every post so residents know where it came from. */
+export const POST_SOURCE = "Council Member Riley's District 12 newsletter";
+
+export type CommunityEvent = {
   id: string;
   title: string;
   description: string;
@@ -20,9 +25,11 @@ export type SampleEvent = {
   neighborhood: string;
   is_free: boolean;
   website: string | null;
+  /** The organizer's flyer, once added under /public/images/events. */
+  image?: string;
 };
 
-export const SAMPLE_EVENTS: SampleEvent[] = [
+export const COMMUNITY_EVENTS: CommunityEvent[] = [
   {
     id: "demo-cleanup-dyre",
     title: "Community clean-up on Dyre Avenue",
@@ -153,8 +160,8 @@ export const SAMPLE_EVENTS: SampleEvent[] = [
   },
 ];
 
-/** Announcements shown in Town Hall's "Latest from your officials" in demo mode. */
-export const SAMPLE_UPDATES = [
+/** Announcements shown in Town Hall's "Latest from your officials". */
+export const COMMUNITY_UPDATES = [
   {
     id: "demo-update-pb",
     office: "Office of Council Member Kevin C. Riley (District 12)",
@@ -175,8 +182,8 @@ export const SAMPLE_UPDATES = [
   },
 ];
 
-/** Deadlines shown on Home in demo mode. */
-export const SAMPLE_DEADLINES = [
+/** Deadlines shown on Home. */
+export const COMMUNITY_DEADLINES = [
   {
     id: "demo-deadline-pb",
     category: "government",
@@ -192,3 +199,15 @@ export const SAMPLE_DEADLINES = [
     created_at: "2026-10-22T14:00:00Z",
   },
 ];
+
+/** Events that haven't ended yet (YYYY-MM-DD `today`), soonest first. */
+export function upcomingCommunityEvents(today: string): CommunityEvent[] {
+  return COMMUNITY_EVENTS.filter((e) => (e.event_end_date ?? e.event_date) >= today).sort((a, b) =>
+    a.event_date.localeCompare(b.event_date),
+  );
+}
+
+/** A post's description with where it came from, for full event cards. */
+export function describeWithSource(e: CommunityEvent): string {
+  return `${e.description} Source: ${POST_SOURCE}. Check with the organizer before going.`;
+}

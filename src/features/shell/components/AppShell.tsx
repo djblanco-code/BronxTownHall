@@ -3,7 +3,6 @@ import { TopBar } from "./TopBar";
 import { TabBar } from "./TabBar";
 import { SiteFooter } from "./SiteFooter";
 import { FloatingActions } from "./FloatingActions";
-import { DemoBanner } from "@/features/demo";
 
 /**
  * Frame for every resident-facing screen. Phones and tablets get the app
@@ -17,7 +16,6 @@ export function AppShell({ children, fab }: { children: ReactNode; fab?: ReactNo
   return (
     <div className="flex min-h-dvh flex-col bg-background pb-[var(--app-tabbar-h)]">
       <TopBar />
-      <DemoBanner />
       <main id="main-content" tabIndex={-1} className="flex-1">
         {children}
       </main>

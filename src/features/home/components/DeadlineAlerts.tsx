@@ -5,7 +5,7 @@ import { useI18n } from "@/lib/i18n-context";
 import { LANGS } from "@/lib/i18n";
 import { CATEGORIES } from "@/lib/data";
 import { loadRecentPublishedAlerts, type PolicyAlert } from "@/lib/policy-alerts";
-import { isDemoMode, SAMPLE_DEADLINES } from "@/features/demo";
+import { COMMUNITY_DEADLINES } from "@/features/community-posts";
 import { activeDeadlines, nycIsoDate } from "../lib/today";
 
 /**
@@ -14,18 +14,21 @@ import { activeDeadlines, nycIsoDate } from "../lib/today";
  */
 export function DeadlineAlerts() {
   const { t, lang } = useI18n();
-  const [alerts, setAlerts] = useState<PolicyAlert[]>([]);
+  // The hard-coded District 12 deadlines show at once; published ones join them.
+  const [alerts, setAlerts] = useState<PolicyAlert[]>(() =>
+    activeDeadlines(COMMUNITY_DEADLINES, nycIsoDate()),
+  );
 
   useEffect(() => {
-    // Demo mode (labeled by a banner) shows a sample deadline.
-    if (isDemoMode()) {
-      setAlerts(activeDeadlines(SAMPLE_DEADLINES, nycIsoDate()));
-      return;
-    }
     let alive = true;
-    loadRecentPublishedAlerts(50).then((all) => {
-      if (alive) setAlerts(activeDeadlines(all, nycIsoDate()));
-    });
+    loadRecentPublishedAlerts(50)
+      .then((all) => {
+        // Hard-coded District 12 deadlines join the published ones for now.
+        if (alive) setAlerts(activeDeadlines([...all, ...COMMUNITY_DEADLINES], nycIsoDate()));
+      })
+      .catch(() => {
+        if (alive) setAlerts(activeDeadlines(COMMUNITY_DEADLINES, nycIsoDate()));
+      });
     return () => {
       alive = false;
     };
