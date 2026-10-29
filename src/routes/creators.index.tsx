@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, redirect } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { AppShell } from "@/features/shell";
 import { listCreators, type Creator } from "@/lib/creators";
@@ -6,6 +6,10 @@ import { Users } from "lucide-react";
 
 export const Route = createFileRoute("/creators/")({
   staticData: { sitemap: false },
+  // Out of the first version (docs/product-scope.md); hidden, not deleted.
+  beforeLoad: () => {
+    throw redirect({ to: "/" });
+  },
   component: CreatorsIndex,
   head: () => ({
     meta: [

@@ -43,6 +43,7 @@ import { useResourceMeta } from "@/lib/resource-meta";
 import { SponsoredCard } from "@/components/SponsoredCard";
 import { PolicyAlerts } from "@/components/PolicyAlerts";
 import { HiringBoard } from "@/components/HiringBoard";
+import { SHOW_BUSINESS_FEATURES } from "@/lib/first-version";
 
 type CategorySearch = { after5?: boolean };
 
@@ -385,7 +386,7 @@ function CategoryPage() {
 
         <PolicyAlerts category={cat} />
 
-        {isJobs && (
+        {isJobs && SHOW_BUSINESS_FEATURES && (
           <div className="mb-6">
             <HiringBoard />
           </div>

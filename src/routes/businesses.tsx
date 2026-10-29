@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, redirect } from "@tanstack/react-router";
 import { AppShell } from "@/features/shell";
 import { useEffect, useMemo, useState } from "react";
 import { getBusinesses, isLiveBusiness } from "@/lib/business";
@@ -23,6 +23,10 @@ import {
 
 export const Route = createFileRoute("/businesses")({
   staticData: { sitemap: false },
+  // Out of the first version (docs/product-scope.md); hidden, not deleted.
+  beforeLoad: () => {
+    throw redirect({ to: "/search" });
+  },
   head: () => ({
     meta: [
       { name: "robots", content: "noindex" },

@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, redirect } from "@tanstack/react-router";
 import { isNonSpecificAddress } from "@/lib/address";
 import { useEffect, useState } from "react";
 import { AppShell } from "@/features/shell";
@@ -10,6 +10,10 @@ import { DirectionsLink } from "@/components/DirectionsLink";
 
 export const Route = createFileRoute("/pack/$slug")({
   staticData: { sitemap: false },
+  // Out of the first version (docs/product-scope.md); hidden, not deleted.
+  beforeLoad: () => {
+    throw redirect({ to: "/search" });
+  },
   component: PackPage,
   validateSearch: (s: Record<string, unknown>) => ({
     ids: typeof s.ids === "string" ? s.ids : undefined,

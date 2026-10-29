@@ -1,4 +1,4 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate, redirect } from "@tanstack/react-router";
 import { AppShell } from "@/features/shell";
 import { useEffect, useState } from "react";
 import { Business, DayHours, getCurrentBusiness, setSession } from "@/lib/business";
@@ -16,6 +16,10 @@ import {
 
 export const Route = createFileRoute("/business-dashboard")({
   staticData: { sitemap: false },
+  // Out of the first version (docs/product-scope.md); hidden, not deleted.
+  beforeLoad: () => {
+    throw redirect({ to: "/portal" });
+  },
   component: DashboardPage,
 });
 

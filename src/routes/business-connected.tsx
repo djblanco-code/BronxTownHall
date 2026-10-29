@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate, redirect } from "@tanstack/react-router";
 import { AppShell } from "@/features/shell";
 import { useEffect, useState } from "react";
 import { Business, ConnectedAccounts, getCurrentBusiness, upsertBusiness } from "@/lib/business";
@@ -6,6 +6,10 @@ import { ArrowLeft, Facebook, Instagram, MessageCircle, Twitter } from "lucide-r
 
 export const Route = createFileRoute("/business-connected")({
   staticData: { sitemap: false },
+  // Out of the first version (docs/product-scope.md); hidden, not deleted.
+  beforeLoad: () => {
+    throw redirect({ to: "/portal" });
+  },
   component: ConnectedPage,
 });
 

@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, redirect } from "@tanstack/react-router";
 import { AppShell } from "@/features/shell";
 import { ROADMAP, GRANTS, ADVISORS, STORIES, LIBRARY } from "@/lib/entrepreneur-data";
 import { EntrepreneurLeadForm } from "@/components/EntrepreneurLeadForm";
@@ -6,6 +6,10 @@ import { ArrowLeft, ExternalLink, Phone, MapPin, Rocket, Sparkles, Calendar } fr
 
 export const Route = createFileRoute("/start-business")({
   staticData: { sitemap: false },
+  // Out of the first version (docs/product-scope.md); hidden, not deleted.
+  beforeLoad: () => {
+    throw redirect({ to: "/portal" });
+  },
   head: () => ({
     meta: [
       { name: "robots", content: "noindex" },

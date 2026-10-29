@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate, redirect } from "@tanstack/react-router";
 import { AppShell } from "@/features/shell";
 import { useEffect, useState } from "react";
 import {
@@ -12,6 +12,10 @@ import { ArrowLeft, Send } from "lucide-react";
 
 export const Route = createFileRoute("/business-update")({
   staticData: { sitemap: false },
+  // Out of the first version (docs/product-scope.md); hidden, not deleted.
+  beforeLoad: () => {
+    throw redirect({ to: "/portal" });
+  },
   component: UpdatePage,
 });
 

@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { AppShell } from "@/features/shell";
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
@@ -161,12 +161,6 @@ function AuthPage() {
           >
             {mode === "sign-up" ? "Sign in" : "Create an account"}
           </button>
-        </p>
-        <p className="mt-2 text-center text-xs text-muted-foreground">
-          Business owner?{" "}
-          <Link to="/business-login" className="text-primary underline">
-            Business login
-          </Link>
         </p>
       </div>
     </AppShell>

@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, redirect } from "@tanstack/react-router";
 import { useCallback, useEffect, useState } from "react";
 import { AppShell } from "@/features/shell";
 import { useAuth } from "@/hooks/use-auth";
@@ -21,6 +21,10 @@ import { Instagram, Youtube, Music2, Quote, Trash2, Plus } from "lucide-react";
 
 export const Route = createFileRoute("/creators/$handle")({
   staticData: { sitemap: false },
+  // Out of the first version (docs/product-scope.md); hidden, not deleted.
+  beforeLoad: () => {
+    throw redirect({ to: "/" });
+  },
   component: CreatorPage,
   head: ({ params }) => ({
     meta: [

@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate, redirect } from "@tanstack/react-router";
 import { AppShell } from "@/features/shell";
 import { useI18n } from "@/lib/i18n-context";
 import { ArrowLeft, Upload, Facebook, Instagram, MessageSquare } from "lucide-react";
@@ -6,6 +6,10 @@ import { useState } from "react";
 
 export const Route = createFileRoute("/social-sync")({
   staticData: { sitemap: false },
+  // Out of the first version (docs/product-scope.md); hidden, not deleted.
+  beforeLoad: () => {
+    throw redirect({ to: "/events" });
+  },
   component: SocialSyncPage,
 });
 

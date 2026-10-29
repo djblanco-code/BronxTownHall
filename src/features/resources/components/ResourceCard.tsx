@@ -19,6 +19,7 @@ import { FavoriteStar } from "@/components/FavoriteStar";
 import { ListenButton } from "@/components/ListenButton";
 import { DirectionsLink } from "@/components/DirectionsLink";
 import { PackCheckbox } from "@/components/PackCheckbox";
+import { SHOW_CASEWORKER_TOOLS } from "@/lib/first-version";
 
 /**
  * A listing as the app shows it: a seeded resource, a business from the
@@ -195,7 +196,7 @@ export function ResourceCard({
             className="no-min-h h-10 w-10 justify-center rounded-md border border-border hover:border-foreground hover:no-underline"
           />
         )}
-        {selectable && !isBiz && <PackCheckbox id={r.id} label={name} />}
+        {SHOW_CASEWORKER_TOOLS && selectable && !isBiz && <PackCheckbox id={r.id} label={name} />}
       </div>
     </div>
   );

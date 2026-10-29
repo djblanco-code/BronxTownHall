@@ -4,6 +4,7 @@ import { Link } from "@tanstack/react-router";
 import { ListPlus, MessageSquare, Printer, ClipboardCheck } from "lucide-react";
 import { fetchMyLists, addToList, createList, type List } from "@/lib/cloud-lists";
 import { logReferral } from "@/lib/cloud-pro";
+import { SHOW_CASEWORKER_TOOLS } from "@/lib/first-version";
 import { toast } from "sonner";
 import { trackResourceShared } from "@/lib/track-resource";
 import { useI18n } from "@/lib/i18n-context";
@@ -114,14 +115,18 @@ export function ResourceActions({
         >
           <Printer className="h-4 w-4" /> {t("interface.print")}
         </button>
-        <button
-          onClick={() =>
-            user ? setShowReferral(true) : toast.info("Sign in as a professional to log referrals")
-          }
-          className="no-min-h inline-flex items-center justify-center gap-1.5 py-3 rounded-md border border-border bg-card text-sm font-semibold hover:border-foreground min-h-[44px]"
-        >
-          <ClipboardCheck className="h-4 w-4" /> {t("interface.logReferral")}
-        </button>
+        {SHOW_CASEWORKER_TOOLS && (
+          <button
+            onClick={() =>
+              user
+                ? setShowReferral(true)
+                : toast.info("Sign in as a professional to log referrals")
+            }
+            className="no-min-h inline-flex items-center justify-center gap-1.5 py-3 rounded-md border border-border bg-card text-sm font-semibold hover:border-foreground min-h-[44px]"
+          >
+            <ClipboardCheck className="h-4 w-4" /> {t("interface.logReferral")}
+          </button>
+        )}
       </div>
 
       {showLists && (

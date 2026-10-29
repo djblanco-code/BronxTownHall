@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, redirect } from "@tanstack/react-router";
 import { AppShell } from "@/features/shell";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/hooks/use-auth";
@@ -18,6 +18,10 @@ import { Briefcase, Download, Trash2, BadgeCheck } from "lucide-react";
 
 export const Route = createFileRoute("/pro")({
   staticData: { sitemap: false },
+  // Out of the first version (docs/product-scope.md); hidden, not deleted.
+  beforeLoad: () => {
+    throw redirect({ to: "/" });
+  },
   component: ProPortal,
   head: () => ({
     meta: [
