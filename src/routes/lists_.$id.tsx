@@ -13,7 +13,7 @@ import { useI18n } from "@/lib/i18n-context";
 import { toast } from "sonner";
 import { ArrowLeft, Printer, Share2, Trash2 } from "lucide-react";
 
-export const Route = createFileRoute("/lists/$id")({
+export const Route = createFileRoute("/lists_/$id")({
   staticData: { sitemap: false },
   component: ListDetail,
 });

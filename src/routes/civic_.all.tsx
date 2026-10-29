@@ -3,7 +3,7 @@ import { AppShell } from "@/features/shell";
 import { ArrowLeft, MapPin, Phone, Globe, Mail } from "lucide-react";
 import { COMMUNITY_BOARDS, PRECINCTS, ZIP_MAP } from "@/lib/civic-data";
 
-export const Route = createFileRoute("/civic/all")({
+export const Route = createFileRoute("/civic_/all")({
   staticData: { sitemap: true },
   component: AllAreasPage,
   head: () => ({
