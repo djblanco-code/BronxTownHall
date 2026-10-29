@@ -27,6 +27,7 @@ import {
   BOROUGH_WIDE,
   COMMUNITY_BOARDS,
   PRECINCTS,
+  CIVIC_ZIP_KEY,
   ZIP_MAP,
   officialsForZip,
   REPORT_ISSUES,
@@ -51,7 +52,7 @@ export const Route = createFileRoute("/civic")({
   }),
 });
 
-const ZIP_KEY = "bronx_voice_zip";
+const ZIP_KEY = CIVIC_ZIP_KEY;
 
 function PhoneLink({ phone }: { phone: string }) {
   const tel = phone.replace(/[^0-9+]/g, "");

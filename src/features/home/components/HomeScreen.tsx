@@ -12,13 +12,14 @@ import { SimplerViewPrompt } from "./SimplerViewPrompt";
 import { DeadlineAlerts } from "./DeadlineAlerts";
 import { TodayLists } from "./TodayLists";
 import { HomeExtras } from "./HomeExtras";
+import { TownHallCard } from "./TownHallCard";
 import { PicksRow } from "./PicksRow";
 import { HelpNowList } from "./HelpNowList";
 
 /**
  * Home is "Today in the Bronx", ordered act now → what's on → extras:
  * search and one-tap needs, any deadline coming up, places open tonight and
- * events this week, picks from what this phone has browsed, crisis lines,
+ * events this week, who represents you, picks from what this phone has browsed, crisis lines,
  * then the daily fact and feedback. Nothing opens on top of the page when it
  * loads.
  */
@@ -58,6 +59,7 @@ export function HomeScreen() {
       <SimplerViewPrompt />
       <DeadlineAlerts />
       <TodayLists neighborhood={neighborhood || null} />
+      <TownHallCard />
       <PicksRow />
       <HelpNowList />
       <SponsoredBanner />

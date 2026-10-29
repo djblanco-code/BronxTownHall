@@ -1,5 +1,8 @@
 // Bronx civic data — Your Voice in the Bronx
 
+/** Where the chosen ZIP is kept on this device (Town Hall and Home share it). */
+export const CIVIC_ZIP_KEY = "bronx_voice_zip";
+
 export type Official = {
   name: string;
   title: string;
