@@ -4,12 +4,27 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* No shadows on content; only things floating over the page (sheets,
+   menus, the SOS tab) keep one crisp elevation shadow. */
+@theme {
+  --shadow-2xs: none;
+  --shadow-xs: none;
+  --shadow-sm: none;
+  --shadow-md: none;
+  --shadow-lg: 0 10px 28px -14px rgb(22 29 51 / 0.45);
+  --shadow-xl: 0 10px 28px -14px rgb(22 29 51 / 0.45);
+  --shadow-2xl: 0 10px 28px -14px rgb(22 29 51 / 0.45);
+}
+
 @theme inline {
+  /* Small corners everywhere: anything larger than lg is capped at the
+     base radius (docs/design-system.md). rounded-full stays round. */
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-xl: var(--radius);
+  --radius-2xl: var(--radius);
+  --radius-3xl: var(--radius);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -47,7 +62,7 @@
 }
 
 :root {
-  --radius: 0.875rem;
+  --radius: 0.375rem;
   /* Bronx-rooted palette: paper-off-white background, deep Bronx navy foreground,
      subway-cobalt primary, brownstone-terracotta accent, park-green success. */
   --background: oklch(0.985 0.008 85);
@@ -309,10 +324,10 @@ html.simplified .min-h-\[44px\] {
   min-height: 48px !important;
   min-width: 48px !important;
 }
-/* Rounded corners on all buttons */
+/* Small corners on all buttons, as everywhere else */
 html.simplified button:not(.simplified-exempt),
 html.simplified a[role="button"]:not(.simplified-exempt) {
-  border-radius: 14px;
+  border-radius: var(--radius);
 }
 /* Bigger focus ring for visibility */
 html.simplified :focus-visible {
@@ -336,7 +351,7 @@ html.simplified [data-message-action] {
   min-height: 56px;
   min-width: 56px;
   padding: 0 20px;
-  border-radius: 9999px;
+  border-radius: var(--radius);
   background: var(--color-primary);
   color: var(--color-primary-foreground);
   font-weight: 800;

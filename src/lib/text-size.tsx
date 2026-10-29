@@ -85,7 +85,7 @@ export function TextSizeControl({ className = "" }: { className?: string }) {
     <div
       role="group"
       aria-label="Text size"
-      className={`inline-flex items-center rounded-full border border-border bg-card p-0.5 ${className}`}
+      className={`inline-flex items-center rounded-md border border-foreground p-0.5 ${className}`}
     >
       {TEXT_SIZES.map((s, i) => (
         <button
@@ -95,7 +95,7 @@ export function TextSizeControl({ className = "" }: { className?: string }) {
           aria-pressed={size === s.id}
           aria-label={`Text size: ${s.label}`}
           title={s.label}
-          className={`no-min-h simplified-exempt min-h-[40px] min-w-[40px] px-2 rounded-full font-bold leading-none ${size === s.id ? "bg-primary text-primary-foreground" : "text-foreground hover:bg-secondary"}`}
+          className={`no-min-h simplified-exempt min-h-[40px] min-w-[40px] px-2 rounded-sm font-bold leading-none ${size === s.id ? "bg-primary text-primary-foreground" : "text-foreground hover:bg-secondary"}`}
           style={{ fontSize: `${0.8 + i * 0.15}rem` }}
         >
           {s.short}

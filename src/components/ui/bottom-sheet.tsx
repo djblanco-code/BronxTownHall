@@ -33,9 +33,9 @@ const BottomSheetContent = React.forwardRef<
       // Radix wires up the description itself; without one, opt out explicitly.
       {...(description ? {} : { "aria-describedby": undefined })}
       className={cn(
-        "fixed inset-x-0 bottom-0 z-[90] flex max-h-[85dvh] flex-col rounded-t-3xl border-t border-border bg-card text-card-foreground shadow-2xl pb-[env(safe-area-inset-bottom)] duration-200",
+        "fixed inset-x-0 bottom-0 z-[90] flex max-h-[85dvh] flex-col rounded-t-lg border-t border-border bg-card text-card-foreground shadow-2xl pb-[env(safe-area-inset-bottom)] duration-200",
         "data-[state=open]:animate-in data-[state=open]:slide-in-from-bottom data-[state=closed]:animate-out data-[state=closed]:slide-out-to-bottom",
-        "lg:inset-x-auto lg:bottom-auto lg:left-1/2 lg:top-1/2 lg:w-full lg:max-w-md lg:-translate-x-1/2 lg:-translate-y-1/2 lg:rounded-2xl lg:border lg:pb-0",
+        "lg:inset-x-auto lg:bottom-auto lg:left-1/2 lg:top-1/2 lg:w-full lg:max-w-md lg:-translate-x-1/2 lg:-translate-y-1/2 lg:rounded-lg lg:border lg:pb-0",
         "lg:data-[state=open]:slide-in-from-bottom-0 lg:data-[state=open]:zoom-in-95 lg:data-[state=closed]:slide-out-to-bottom-0 lg:data-[state=closed]:zoom-out-95",
         className,
       )}
@@ -58,7 +58,7 @@ const BottomSheetContent = React.forwardRef<
         </div>
         <DialogPrimitive.Close
           aria-label={closeLabel}
-          className="no-min-h simplified-exempt -me-1 grid h-9 w-9 shrink-0 place-items-center rounded-full bg-secondary text-muted-foreground hover:text-foreground"
+          className="no-min-h simplified-exempt -me-1 grid h-9 w-9 shrink-0 place-items-center rounded-md bg-secondary text-muted-foreground hover:text-foreground"
         >
           <X className="h-4 w-4" aria-hidden="true" />
         </DialogPrimitive.Close>

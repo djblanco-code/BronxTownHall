@@ -41,7 +41,7 @@ export function ListenButton({
         onClick={onClick}
         aria-label={aria}
         title={aria}
-        className={`no-min-h h-9 w-9 shrink-0 inline-flex items-center justify-center rounded-full bg-accent text-accent-foreground shadow-sm hover:scale-105 active:scale-95 transition ${className}`}
+        className={`no-min-h h-9 w-9 shrink-0 inline-flex items-center justify-center rounded-md bg-bronx-orange text-bronx-orange-foreground hover:brightness-95 transition ${className}`}
       >
         {isLoading && active ? (
           <Loader2 className="h-4 w-4 animate-spin" />
@@ -59,7 +59,7 @@ export function ListenButton({
         type="button"
         onClick={onClick}
         aria-label={aria}
-        className={`no-min-h inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border border-border bg-card hover:bg-secondary transition ${active ? "bg-primary text-primary-foreground border-primary" : ""} ${className}`}
+        className={`no-min-h inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-bold border border-foreground hover:bg-secondary transition ${active ? "bg-primary text-primary-foreground border-primary" : ""} ${className}`}
       >
         {isLoading && active ? (
           <Loader2 className="h-3.5 w-3.5 animate-spin" />
@@ -78,7 +78,7 @@ export function ListenButton({
       type="button"
       onClick={onClick}
       aria-label={aria}
-      className={`no-min-h inline-flex items-center justify-center gap-2 py-3 px-4 rounded-2xl bg-accent text-accent-foreground font-semibold shadow-md hover:bg-accent/90 transition min-h-[48px] ${className}`}
+      className={`no-min-h inline-flex items-center justify-center gap-2 py-3 px-4 rounded-md bg-bronx-orange text-bronx-orange-foreground font-bold hover:brightness-95 transition min-h-[48px] ${className}`}
     >
       {isLoading && active ? (
         <Loader2 className="h-5 w-5 animate-spin" />

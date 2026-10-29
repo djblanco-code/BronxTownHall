@@ -21,11 +21,11 @@ export function LanguageButton() {
         <button
           type="button"
           aria-label={`${t("chooseLanguage")} — ${current.native}`}
-          className="no-min-h simplified-exempt inline-flex h-10 items-center gap-1.5 rounded-full border border-border bg-card px-3 text-sm font-semibold text-foreground hover:bg-secondary"
+          className="no-min-h simplified-exempt inline-flex h-10 items-center gap-1.5 rounded-md border border-foreground px-3 text-sm font-bold text-foreground hover:bg-foreground hover:text-background"
         >
-          <Globe className="h-4 w-4 text-primary" aria-hidden="true" />
+          <Globe className="h-4 w-4" aria-hidden="true" />
           <span lang={current.code}>{current.native}</span>
-          <ChevronDown className="h-3.5 w-3.5 text-muted-foreground" aria-hidden="true" />
+          <ChevronDown className="h-3.5 w-3.5" aria-hidden="true" />
         </button>
       </BottomSheetTrigger>
       <BottomSheetContent title={t("chooseLanguage")} closeLabel={t("shell.close")}>
@@ -63,7 +63,7 @@ export function LanguageButton() {
           })}
         </ul>
         {(lang === "bn" || lang === "ar") && (
-          <p className="mt-3 text-xs text-muted-foreground">🔊 {t("interface.audioSoon")}</p>
+          <p className="mt-3 text-xs text-muted-foreground">{t("interface.audioSoon")}</p>
         )}
       </BottomSheetContent>
     </BottomSheet>

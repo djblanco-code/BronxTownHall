@@ -73,7 +73,7 @@ function cap(s: string) {
 
 function Pill({ children }: { children: ReactNode }) {
   return (
-    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-secondary text-secondary-foreground border border-border">
+    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-sm text-xs font-semibold bg-secondary text-secondary-foreground border border-border">
       {children}
     </span>
   );
@@ -89,12 +89,7 @@ export function AttributeBadges({ a, max }: { a: Attributes; max?: number }) {
       .replace(/\s+/g, "-")
       .replace(/-owned$/, "");
     const o = OWNERSHIP_LABEL[normalized];
-    if (o)
-      items.push(
-        <Pill key={`o-${k}`}>
-          {o.emoji} {t(`interface.${o.key}`)}
-        </Pill>,
-      );
+    if (o) items.push(<Pill key={`o-${k}`}>{t(`interface.${o.key}`)}</Pill>);
   }
   for (const h of a.heritage ?? []) {
     const flag = HERITAGE_FLAGS[h.toLowerCase()] ?? "🌍";
@@ -106,12 +101,7 @@ export function AttributeBadges({ a, max }: { a: Attributes; max?: number }) {
   }
   for (const d of a.dietary ?? []) {
     const o = DIETARY_LABEL[d];
-    if (o)
-      items.push(
-        <Pill key={`d-${d}`}>
-          {o.emoji} {o.label}
-        </Pill>,
-      );
+    if (o) items.push(<Pill key={`d-${d}`}>{o.label}</Pill>);
   }
   for (const l of listingLanguages(a.languages)) {
     items.push(<Pill key={`l-${l}`}>🗣️ {l}</Pill>);
@@ -120,9 +110,7 @@ export function AttributeBadges({ a, max }: { a: Attributes; max?: number }) {
     const o = ACCESS_LABEL[x];
     if (o)
       items.push(
-        <Pill key={`x-${x}`}>
-          {o.emoji} {x === "wheelchair" ? t("interface.wheelchair") : o.label}
-        </Pill>,
+        <Pill key={`x-${x}`}>{x === "wheelchair" ? t("interface.wheelchair") : o.label}</Pill>,
       );
   }
   if (items.length === 0) return null;

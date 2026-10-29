@@ -43,11 +43,11 @@ function SosButton() {
     <Link
       to="/urgent"
       aria-label={`SOS — ${t("getHelpNow")}`}
-      className="no-min-h grid h-14 w-14 place-items-center rounded-full bg-destructive text-sm font-extrabold text-destructive-foreground shadow-xl transition hover:scale-105 active:scale-95"
+      className="no-min-h inline-flex h-12 items-center gap-1.5 rounded-md border-2 border-white bg-destructive px-3 text-sm font-extrabold text-destructive-foreground shadow-lg hover:bg-destructive/90"
     >
-      <span className="flex flex-col items-center leading-none" aria-hidden="true">
+      <span className="flex items-center gap-1.5 leading-none" aria-hidden="true">
         <AlertTriangle className="h-4 w-4" />
-        <span className="mt-0.5 text-[11px]">SOS</span>
+        SOS
       </span>
     </Link>
   );

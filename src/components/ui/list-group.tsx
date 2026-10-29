@@ -4,24 +4,18 @@ import { cva, type VariantProps } from "class-variance-authority";
 
 import { cn } from "@/lib/utils";
 
-/** Rows grouped in one rounded card with dividers, like a settings screen. */
+/** Rows between hairlines, like a settings screen (docs/design-system.md). */
 function ListGroup({ className, ...props }: React.HTMLAttributes<HTMLUListElement>) {
   return (
-    <ul
-      className={cn(
-        "divide-y divide-border overflow-hidden rounded-2xl border border-border bg-card",
-        className,
-      )}
-      {...props}
-    />
+    <ul className={cn("divide-y divide-border border-y border-border", className)} {...props} />
   );
 }
 
-const iconVariants = cva("grid h-10 w-10 shrink-0 place-items-center rounded-full", {
+const iconVariants = cva("grid h-6 w-6 shrink-0 place-items-center", {
   variants: {
     tone: {
-      default: "bg-primary/15 text-primary",
-      destructive: "bg-destructive text-destructive-foreground",
+      default: "text-primary",
+      destructive: "text-destructive",
     },
   },
   defaultVariants: { tone: "default" },
@@ -47,8 +41,7 @@ type ListRowProps = VariantProps<typeof iconVariants> & {
  * </ListRow>
  */
 function ListRow({ icon: Icon, tone, title, description, children, onClick, id }: ListRowProps) {
-  const rowClass =
-    "no-min-h flex min-h-16 w-full items-center gap-3 px-4 py-3 text-start hover:bg-secondary";
+  const rowClass = "no-min-h group flex min-h-16 w-full items-center gap-3 py-3 text-start";
   const content = (
     <>
       {Icon && (
@@ -59,8 +52,8 @@ function ListRow({ icon: Icon, tone, title, description, children, onClick, id }
       <span className="min-w-0 flex-1">
         <span
           className={cn(
-            "block font-bold",
-            tone === "destructive" ? "text-destructive" : "text-sm text-foreground",
+            "block font-bold group-hover:underline",
+            tone === "destructive" ? "text-destructive" : "text-foreground",
           )}
         >
           {title}

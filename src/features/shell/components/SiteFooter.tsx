@@ -10,7 +10,7 @@ import { FOOTER_SECTIONS } from "../nav";
 export function SiteFooter() {
   const { t } = useI18n();
   return (
-    <footer className="mt-12 hidden border-t border-border bg-card lg:block">
+    <footer className="mt-12 hidden border-t-[3px] border-foreground lg:block">
       <div className="mx-auto max-w-5xl px-4 py-8">
         <div className="mb-6 grid grid-cols-2 gap-6 md:grid-cols-4">
           {FOOTER_SECTIONS.map((section) => (
@@ -36,7 +36,7 @@ export function SiteFooter() {
             <h3 className="mb-2 text-sm font-bold">{t("common.footerSupport")}</h3>
             <Link
               to="/donate"
-              className="no-min-h inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-primary to-accent px-4 py-2 text-sm font-bold text-primary-foreground shadow hover:opacity-90"
+              className="no-min-h inline-flex items-center gap-1.5 rounded-md bg-primary px-4 py-2 text-sm font-bold text-primary-foreground hover:bg-primary/90"
             >
               <Heart className="h-4 w-4" fill="currentColor" aria-hidden="true" />{" "}
               {t("common.footerDonate")}
