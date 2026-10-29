@@ -1,6 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { SITE_URL } from "@/lib/site";
 import { AppShell } from "@/features/shell";
+import { PagePhoto, categoryPhoto } from "@/features/photos";
 import { useI18n } from "@/lib/i18n-context";
 import { RESOURCES } from "@/lib/data";
 import { ListenButton } from "@/components/ListenButton";
@@ -255,6 +256,7 @@ function ResourcePage() {
         </div>
         <CallAheadNote className="mb-2" />
 
+        <PagePhoto slug={categoryPhoto(res.category)} />
         <div className="flex items-start gap-2 mb-2">
           <h1 className="min-w-0 flex-1 text-3xl text-foreground sm:text-4xl">{res.name[lang]}</h1>
           <FavoriteStar id={res.id} size="lg" category={res.category} />

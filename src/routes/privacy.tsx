@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { AppShell } from "@/features/shell";
+import { PagePhoto } from "@/features/photos";
 import { ArrowLeft } from "lucide-react";
 import { DataControls } from "@/features/settings";
 import { useI18n } from "@/lib/i18n-context";
@@ -30,6 +31,7 @@ function PrivacyPage() {
         >
           <ArrowLeft className="h-4 w-4 rtl:rotate-180" aria-hidden="true" /> {t("privacy.home")}
         </Link>
+        <PagePhoto slug={"botanical-garden"} />
         <h1 className="mb-2 text-3xl text-foreground sm:text-4xl">{t("privacy.title")}</h1>
         <p className="text-sm text-muted-foreground mb-8">{t("privacy.updated")}</p>
 

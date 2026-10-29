@@ -1,6 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { SITE_URL } from "@/lib/site";
 import { AppShell } from "@/features/shell";
+import { PagePhoto, categoryPhoto } from "@/features/photos";
 import { ResourceCard } from "@/features/resources";
 import { useI18n } from "@/lib/i18n-context";
 import { CATEGORIES, RESOURCES, Category, YouthSubcategory, isArtRelatedEvent } from "@/lib/data";
@@ -367,6 +368,7 @@ function CategoryPage() {
           <ArrowLeft className="h-4 w-4" /> {t("back")}
         </button>
 
+        <PagePhoto slug={categoryPhoto(cat)} />
         <h1 className="mb-3 text-3xl text-foreground sm:text-4xl">{t(meta.titleKey)}</h1>
         {(() => {
           const catLabel = t(meta.titleKey);

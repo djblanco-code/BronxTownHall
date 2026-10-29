@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { ArrowLeft, ChevronRight, Cloud, ListPlus, Smartphone, Star } from "lucide-react";
 import { AppShell } from "@/features/shell";
+import { PagePhoto } from "@/features/photos";
 import { ResourceCard } from "@/features/resources";
 import { useAuth } from "@/hooks/use-auth";
 import { useI18n } from "@/lib/i18n-context";
@@ -38,6 +39,7 @@ export function FavoritesScreen() {
         <button onClick={() => navigate({ to: "/" })} className={BACK_LINK}>
           <ArrowLeft className="h-4 w-4 rtl:rotate-180" aria-hidden="true" /> {t("back")}
         </button>
+        <PagePhoto slug={"botanical-garden"} />
         <h1 className="text-3xl text-foreground sm:text-4xl">{t("saved.favoritesTitle")}</h1>
         <p className="mt-1 text-muted-foreground">
           {items.length === 1

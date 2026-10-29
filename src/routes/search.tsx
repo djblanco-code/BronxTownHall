@@ -1,5 +1,6 @@
 import { createFileRoute, Link, useNavigate, useSearch } from "@tanstack/react-router";
 import { AppShell } from "@/features/shell";
+import { PagePhoto } from "@/features/photos";
 import { ResourceCard } from "@/features/resources";
 import { useI18n } from "@/lib/i18n-context";
 import { RESOURCES } from "@/lib/data";
@@ -118,6 +119,7 @@ function SearchPage() {
         >
           <ArrowLeft className="h-4 w-4" /> {t("back")}
         </button>
+        <PagePhoto slug={"el-train"} />
         <h1 className="text-3xl text-foreground mb-3 sm:text-4xl">Search Bronx resources</h1>
         <div className="flex h-14 items-center gap-2 rounded-md border border-border bg-card ps-4 pe-1.5 focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-ring">
           <label htmlFor="search-input" className="sr-only">

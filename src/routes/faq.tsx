@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { AppShell } from "@/features/shell";
+import { PagePhoto } from "@/features/photos";
 import { ArrowLeft, Minus, Plus } from "lucide-react";
 import { useState } from "react";
 import { useI18n } from "@/lib/i18n-context";
@@ -85,6 +86,7 @@ function FaqPage() {
         >
           <ArrowLeft className="h-4 w-4 rtl:rotate-180" aria-hidden="true" /> {t("faq.home")}
         </Link>
+        <PagePhoto slug={"el-train"} />
         <h1 className="mb-6 text-3xl text-foreground sm:text-4xl">{t("faq.title")}</h1>
         <ul className="divide-y divide-border border-y border-border">
           {qas.map((qa, i) => (

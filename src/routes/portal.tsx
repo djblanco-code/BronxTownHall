@@ -1,6 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { AppShell } from "@/features/shell";
+import { PagePhoto } from "@/features/photos";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/use-auth";
 import {
@@ -92,6 +93,7 @@ function PortalPage() {
           <ArrowLeft className="h-4 w-4 rtl:rotate-180" aria-hidden="true" /> Home
         </Link>
 
+        <PagePhoto slug={"fordham-road"} />
         <header className="space-y-2">
           <h1 className="text-3xl text-foreground sm:text-4xl">List your organization</h1>
           <p className="text-muted-foreground">

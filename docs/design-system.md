@@ -45,6 +45,10 @@ white text stays readable.
 - Put text on photos only over a dark fade, in white.
 - Home's masthead rotates one photo per day
   (`src/features/home/lib/hero-photos.ts`).
+- Every other page opens with one photo under the back link: `<PagePhoto>`
+  from `@/features/photos` (category pages and listings use their
+  category's photo). Crisis pages (/urgent, /emergency) and the map skip it
+  so they stay fast.
 
 ## Shape and depth
 

@@ -3,6 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { toast } from "sonner";
 import { ArrowLeft, Globe, ListPlus, Lock, Share2, Trash2 } from "lucide-react";
 import { AppShell } from "@/features/shell";
+import { PagePhoto } from "@/features/photos";
 import { EmptyState } from "@/components/ui/empty-state";
 import { useAuth } from "@/hooks/use-auth";
 import { useI18n } from "@/lib/i18n-context";
@@ -63,6 +64,7 @@ export function ListsScreen() {
           <ArrowLeft className="h-4 w-4 rtl:rotate-180" aria-hidden="true" />{" "}
           {t("saved.favoritesTitle")}
         </Link>
+        <PagePhoto slug={"botanical-garden"} />
         <h1 className="text-3xl text-foreground sm:text-4xl">{t("saved.myLists")}</h1>
         <p className="mt-1 mb-6 text-muted-foreground">{t("saved.listsIntro")}</p>
 

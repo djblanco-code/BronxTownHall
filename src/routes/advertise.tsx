@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { AppShell } from "@/features/shell";
+import { PagePhoto } from "@/features/photos";
 import { AdInquiryForm } from "@/components/AdInquiryForm";
 import { Megaphone, LayoutPanelTop, Shield, Lock } from "lucide-react";
 import { useI18n } from "@/lib/i18n-context";
@@ -32,6 +33,7 @@ function AdvertisePage() {
   return (
     <AppShell>
       <div className="mx-auto max-w-5xl space-y-8 px-4 py-6">
+        <PagePhoto slug={"fordham-road"} />
         <header>
           <h1 className="text-3xl text-foreground sm:text-4xl">{t("advertise.title")}</h1>
           <p className="mt-2 text-muted-foreground">{t("advertise.intro")}</p>

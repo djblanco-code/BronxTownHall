@@ -1,5 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { AppShell } from "@/features/shell";
+import { PagePhoto } from "@/features/photos";
 import { OfficialUpdatesFeed } from "@/components/OfficialUpdatesFeed";
 import { useI18n } from "@/lib/i18n-context";
 import { SpeakButton } from "@/components/SpeakButton";
@@ -478,6 +479,7 @@ export function CivicPage() {
           <ArrowLeft className="h-4 w-4 rtl:rotate-180" aria-hidden="true" /> {t("back")}
         </button>
 
+        <PagePhoto slug={"courthouse"} />
         <header className="mt-1 flex items-start gap-3 pb-4">
           <div className="min-w-0 flex-1">
             <h1 className="text-3xl text-foreground sm:text-4xl">Your Voice in the Bronx</h1>

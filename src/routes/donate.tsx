@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { AppShell } from "@/features/shell";
+import { PagePhoto } from "@/features/photos";
 import { ArrowLeft } from "lucide-react";
 
 export const Route = createFileRoute("/donate")({
@@ -27,6 +28,7 @@ function DonatePage() {
         >
           <ArrowLeft className="h-4 w-4 rtl:rotate-180" aria-hidden="true" /> Home
         </Link>
+        <PagePhoto slug={"crotona-park"} />
         <h1 className="mb-3 text-3xl text-foreground sm:text-4xl">Keep The Bronx App Free</h1>
         <p className="mb-6 text-lg text-muted-foreground">
           Your donation pays for hosting, verifying listings, and translating resources into five

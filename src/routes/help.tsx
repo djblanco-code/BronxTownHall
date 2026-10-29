@@ -2,6 +2,7 @@ import { createFileRoute, Link, useNavigate, useSearch } from "@tanstack/react-r
 import { openingStatus, useNycTime } from "@/lib/opening-hours";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { AppShell } from "@/features/shell";
+import { PagePhoto } from "@/features/photos";
 import { useI18n } from "@/lib/i18n-context";
 import { CATEGORIES, RESOURCES, type Resource } from "@/lib/data";
 import { VoiceSearchButton } from "@/components/VoiceSearchButton";
@@ -155,6 +156,7 @@ function HelpPage() {
           <ArrowLeft className="h-4 w-4" /> {t("back")}
         </button>
 
+        <PagePhoto slug={"grand-concourse"} />
         <h1 className="text-3xl text-foreground sm:text-4xl">Tell us what's going on</h1>
         <p className="mt-1 text-muted-foreground">
           Write or say one sentence in your own words. We'll pull together five places that can help

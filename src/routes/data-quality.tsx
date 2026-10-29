@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { AppShell } from "@/features/shell";
+import { PagePhoto } from "@/features/photos";
 import { RESOURCES } from "@/lib/data";
 import { useResourceMeta } from "@/lib/resource-meta";
 import { freshnessOf, isVerified, verifyEveryDaysFor } from "@/lib/verification";
@@ -56,6 +57,7 @@ function DataQualityPage() {
   return (
     <AppShell>
       <div className="mx-auto max-w-5xl px-4 py-6">
+        <PagePhoto slug={"hostos"} />
         <p className="label-caps mb-2 flex items-center gap-1.5 text-primary">
           <ShieldCheck className="h-4 w-4 shrink-0" aria-hidden="true" />
           Public data-quality report

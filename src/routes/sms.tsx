@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { AppShell } from "@/features/shell";
+import { PagePhoto } from "@/features/photos";
 import {
   SMS_KEYWORDS,
   SMS_SPECIAL_KEYWORDS,
@@ -71,6 +72,7 @@ function SmsPage() {
   return (
     <AppShell>
       <section className="mx-auto max-w-5xl px-4 pt-6">
+        <PagePhoto slug={"el-train"} />
         <p className="label-caps flex items-center gap-1.5 text-primary">
           <Signal className="h-3.5 w-3.5 shrink-0" aria-hidden="true" /> Works on any phone
         </p>

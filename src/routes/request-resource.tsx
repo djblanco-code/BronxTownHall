@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { AppShell } from "@/features/shell";
+import { PagePhoto } from "@/features/photos";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/use-auth";
@@ -73,6 +74,7 @@ function RequestResource() {
   return (
     <AppShell>
       <div className="mx-auto max-w-5xl px-4 py-6">
+        <PagePhoto slug={"hostos"} />
         <h1 className="text-3xl text-foreground sm:text-4xl">
           Can't find what you're looking for?
         </h1>

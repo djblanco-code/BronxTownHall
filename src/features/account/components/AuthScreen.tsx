@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { useI18n } from "@/lib/i18n-context";
 import { AppShell } from "@/features/shell";
+import { PagePhoto } from "@/features/photos";
 import { authErrorKey } from "../lib/auth-errors";
 import { GOOGLE_SIGN_IN_ENABLED, resetPasswordUrl } from "../lib/config";
 import { FIELD, PRIMARY_BUTTON } from "./styles";
@@ -105,6 +106,7 @@ export function AuthScreen() {
           <ArrowLeft className="h-4 w-4 rtl:rotate-180" aria-hidden="true" /> {t("account.home")}
         </button>
 
+        <PagePhoto slug="el-train" />
         {sent ? (
           <div role="status">
             <MailCheck className="h-10 w-10 text-primary" aria-hidden="true" />

@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { AppShell } from "@/features/shell";
+import { PagePhoto } from "@/features/photos";
 import { VerifiedPill } from "@/components/VerifiedPill";
 import { askQuestion, type AskResult } from "@/lib/ask.functions";
 import { useI18n } from "@/lib/i18n-context";
@@ -60,6 +61,7 @@ function AskPage() {
   return (
     <AppShell>
       <div className="max-w-5xl mx-auto px-4 py-6">
+        <PagePhoto slug={"hostos"} />
         <h1 className="text-3xl text-foreground sm:text-4xl">Ask a question</h1>
         <p className="text-sm text-muted-foreground mt-1">
           Answers come only from listings in The Bronx App. If we don't have it, we'll tell you.

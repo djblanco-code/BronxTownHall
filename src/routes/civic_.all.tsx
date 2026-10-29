@@ -1,5 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { AppShell } from "@/features/shell";
+import { PagePhoto } from "@/features/photos";
 import { ArrowLeft, MapPin, Phone, Globe, Mail, Shield, Users } from "lucide-react";
 import { Section } from "@/components/ui/section";
 import { buttonVariants } from "@/components/ui/button";
@@ -53,6 +54,7 @@ function AllAreasPage() {
         >
           <ArrowLeft className="h-4 w-4 rtl:rotate-180" aria-hidden="true" /> Back
         </button>
+        <PagePhoto slug={"courthouse"} />
         <header className="mt-1 pb-4">
           <h1 className="text-3xl text-foreground sm:text-4xl">Browse All Areas</h1>
           <p dir="auto" className="mt-1 text-muted-foreground">

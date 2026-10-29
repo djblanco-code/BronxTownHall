@@ -2,6 +2,7 @@ import { Link, useNavigate } from "@tanstack/react-router";
 import { toast } from "sonner";
 import { ArrowLeft, Check, RotateCcw, Trash2 } from "lucide-react";
 import { AppShell } from "@/features/shell";
+import { PagePhoto } from "@/features/photos";
 import { Section } from "@/components/ui/section";
 import { Switch } from "@/components/ui/switch";
 import { useI18n } from "@/lib/i18n-context";
@@ -41,6 +42,7 @@ export function SettingsScreen() {
         >
           <ArrowLeft className="h-4 w-4 rtl:rotate-180" aria-hidden="true" /> {t("back")}
         </button>
+        <PagePhoto slug={"grand-concourse"} />
         <h1 className="text-3xl text-foreground sm:text-4xl">{t("settings.title")}</h1>
 
         <Section

@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { submitCommunityEvent } from "@/lib/events.functions";
 import { AppShell } from "@/features/shell";
+import { PagePhoto } from "@/features/photos";
 import { EventCard, type EventSummary } from "@/features/events";
 import { supabase } from "@/integrations/supabase/client";
 import { describeWithSource, upcomingCommunityEvents } from "@/features/community-posts";
@@ -180,6 +181,7 @@ function EventsPage() {
         >
           <ArrowLeft className="h-4 w-4 rtl:rotate-180" aria-hidden="true" /> Home
         </Link>
+        <PagePhoto slug={"arthur-ave-fair"} />
         <div className="mt-1 flex flex-wrap items-end justify-between gap-x-6 gap-y-4">
           <div className="max-w-2xl">
             <h1 className="text-[2.5rem] leading-[0.95] text-foreground sm:text-6xl">
