@@ -41,6 +41,13 @@ export const Route = createFileRoute("/deck")({
       },
       { name: "robots", content: "noindex" },
     ],
+    // The deck keeps its own display face; the app's fonts load in __root.
+    links: [
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap",
+      },
+    ],
   }),
   component: DeckPage,
 });

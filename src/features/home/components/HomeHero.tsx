@@ -72,7 +72,7 @@ export function HomeHero({
       {/* Oversized borough mark, like a newspaper nameplate. Decorative only. */}
       <span
         aria-hidden="true"
-        className="pointer-events-none absolute -end-6 -bottom-10 -z-10 select-none font-[Archivo_Black] text-[11rem] leading-none text-white/[0.06] sm:text-[16rem] lg:-end-2 lg:text-[22rem]"
+        className="pointer-events-none absolute -end-6 -bottom-10 -z-10 select-none font-display text-[11rem] leading-none text-white/[0.06] sm:text-[16rem] lg:-end-2 lg:text-[22rem]"
       >
         BX
       </span>
@@ -187,7 +187,7 @@ export function HomeHero({
           </Link>
         </p>
       </div>
-      <SubwayStripe />
+      <FlagStripe />
     </section>
   );
 }
@@ -195,13 +195,13 @@ export function HomeHero({
 const GHOST_CHIP =
   "no-min-h inline-flex h-10 items-center gap-1.5 rounded-full border border-white/25 bg-white/10 px-4 text-sm font-semibold text-white transition hover:bg-white/20";
 
-/** The lines that run through the Bronx, as a thin stripe under the masthead. */
-function SubwayStripe() {
+/** A Bronx-flag stripe under the masthead: orange, with a white band. */
+function FlagStripe() {
   return (
     <div aria-hidden="true" className="flex h-1.5">
-      <span className="flex-1 bg-mta-red" />
-      <span className="flex-1 bg-mta-green" />
-      <span className="flex-1 bg-mta-orange" />
+      <span className="flex-[5] bg-bronx-orange" />
+      <span className="flex-1 bg-white" />
+      <span className="flex-[5] bg-bronx-orange" />
     </div>
   );
 }
@@ -228,7 +228,7 @@ function Greeting({ neighborhood }: { neighborhood: string }) {
     >
       <span
         aria-hidden="true"
-        className="mt-[0.3em] h-2 w-2 shrink-0 self-start rounded-full bg-mta-green"
+        className="mt-[0.3em] h-2 w-2 shrink-0 self-start rounded-full bg-bronx-orange"
       />
       <span className="line-clamp-2">
         {date} ·{" "}
