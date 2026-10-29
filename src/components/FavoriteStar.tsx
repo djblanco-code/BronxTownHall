@@ -34,7 +34,7 @@ export function FavoriteStar({
       }}
       aria-label={fav ? t("interface.removeFavorite") : t("interface.saveFavorite")}
       aria-pressed={fav}
-      className={`no-min-h ${px} grid place-items-center rounded-full hover:bg-secondary transition shrink-0`}
+      className={`no-min-h ${px} grid place-items-center rounded-md hover:bg-secondary transition shrink-0`}
     >
       <Star
         className={`${iconSize} ${fav ? "fill-warning text-warning" : "text-foreground/70"}`}

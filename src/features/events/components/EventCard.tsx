@@ -109,14 +109,13 @@ export function EventCard({
 
   const header = (
     <div className="flex gap-3">
-      <span
-        aria-hidden="true"
-        className="flex h-14 w-12 shrink-0 flex-col items-center justify-center rounded-xl bg-primary/10 text-primary"
-      >
-        <span className="text-[11px] font-bold uppercase leading-none">
+      <span aria-hidden="true" className="w-12 shrink-0">
+        <span className="label-caps block text-primary">
           {start.toLocaleDateString(locale, { month: "short" })}
         </span>
-        <span className="mt-1 text-xl font-extrabold leading-none">{start.getDate()}</span>
+        <span className="font-display block text-2xl leading-none font-extrabold text-foreground">
+          {start.getDate()}
+        </span>
       </span>
       <div className="min-w-0">
         <p
@@ -148,7 +147,7 @@ export function EventCard({
       )}
       <div className="flex flex-wrap items-center gap-2">
         {e.is_free ? (
-          <span className="inline-flex items-center gap-1 rounded-full bg-success/10 px-2 py-0.5 text-xs font-bold text-success">
+          <span className="inline-flex items-center gap-1 text-xs font-bold text-success">
             <Ticket className="h-3.5 w-3.5" aria-hidden="true" /> {t("interface.free")}
           </span>
         ) : (
@@ -170,8 +169,7 @@ export function EventCard({
     </>
   );
 
-  const cardClass =
-    "relative flex w-full flex-col gap-3 rounded-2xl border border-border bg-card p-3 shadow-sm transition hover:border-primary/40";
+  const cardClass = "group relative flex w-full flex-col gap-3 border-b border-border py-3";
 
   if (!full) {
     return (
@@ -223,11 +221,10 @@ export function EventCard({
     }
   };
 
-  const action =
-    "no-min-h inline-flex items-center gap-1.5 rounded-full px-3 py-2 text-sm font-medium";
+  const action = "no-min-h inline-flex items-center gap-1.5 rounded-md px-3 py-2 text-sm font-bold";
 
   return (
-    <div ref={ref} className={cn(cardClass, "p-4")}>
+    <div ref={ref} className={cn(cardClass, "py-4")}>
       {header}
       {facts}
       <div className="flex flex-wrap gap-2">

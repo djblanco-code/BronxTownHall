@@ -22,12 +22,7 @@ function EmptyState({
   className?: string;
 }) {
   return (
-    <div
-      className={cn(
-        "flex items-start gap-3 rounded-2xl border border-border bg-card p-4 text-sm",
-        className,
-      )}
-    >
+    <div className={cn("flex items-start gap-3 border-y border-border py-4 text-sm", className)}>
       {Icon && (
         <Icon className="mt-0.5 h-5 w-5 shrink-0 text-muted-foreground" aria-hidden="true" />
       )}

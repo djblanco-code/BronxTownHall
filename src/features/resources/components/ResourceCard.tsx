@@ -10,6 +10,7 @@ import { isNonSpecificAddress } from "@/lib/address";
 import { formatAgeRange } from "@/lib/age-range";
 import { buildResourceScript } from "@/lib/tts-context";
 import { cn } from "@/lib/utils";
+import { CATEGORY_ICONS } from "../lib/category-icons";
 import { openingStatus, useNycTime } from "@/lib/opening-hours";
 import { VerifiedPill } from "@/components/VerifiedPill";
 import { AvailabilityBadge, CallAheadNote } from "@/components/AvailabilityBadge";
@@ -79,22 +80,21 @@ export function ResourceCard({
     />
   );
 
+  const CategoryIcon = CATEGORY_ICONS[r.category];
   const body = (
     <div className="flex items-start gap-3">
       {showCategory && category && (
-        <span
+        <CategoryIcon
+          className="mt-0.5 h-5 w-5 shrink-0"
+          style={{ color: category.color }}
           aria-hidden="true"
-          className="grid h-12 w-12 shrink-0 place-items-center rounded-xl text-2xl"
-          style={{ backgroundColor: category.color }}
-        >
-          {category.emoji}
-        </span>
+        />
       )}
       <div className="min-w-0 flex-1">
-        <p className="flex items-center gap-1.5 font-semibold text-foreground">
+        <p className="flex items-center gap-1.5 font-bold text-foreground group-hover:underline">
           <span className={full ? undefined : "truncate"}>{name}</span>
           {r.__biz?.tier === "premium" && r.__biz.verified && (
-            <Check className="h-4 w-4 shrink-0 rounded-full bg-success/15 p-0.5 text-success" />
+            <Check className="h-4 w-4 shrink-0 text-success" />
           )}
         </p>
         {(showCategory || !full) && (
@@ -157,11 +157,11 @@ export function ResourceCard({
     </div>
   );
 
-  const cardClass =
-    "min-w-0 flex-1 rounded-2xl border border-border bg-card p-4 transition hover:border-primary hover:shadow-md";
+  // A ruled row, not a box (docs/design-system.md): stacked cards read as a list.
+  const cardClass = "group min-w-0 flex-1";
 
   return (
-    <div className="flex items-stretch gap-2">
+    <div className="flex items-stretch gap-2 border-b border-border py-3">
       {isBiz || imported ? (
         <div className={cardClass}>{body}</div>
       ) : (
@@ -192,7 +192,7 @@ export function ResourceCard({
             address={r.address}
             label={`${t("interface.directions")}: ${name}`}
             iconOnly
-            className="no-min-h h-10 w-10 justify-center rounded-full border border-border bg-card hover:bg-secondary hover:no-underline"
+            className="no-min-h h-10 w-10 justify-center rounded-md border border-border hover:border-foreground hover:no-underline"
           />
         )}
         {selectable && !isBiz && <PackCheckbox id={r.id} label={name} />}
@@ -253,7 +253,7 @@ function Badge({ children, cls, title }: { children: ReactNode; cls: string; tit
     <span
       title={title}
       className={cn(
-        "inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-semibold",
+        "inline-flex items-center gap-1 rounded-sm px-1.5 py-0.5 text-xs font-bold",
         cls,
       )}
     >

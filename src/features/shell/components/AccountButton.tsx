@@ -37,14 +37,14 @@ export function AccountButton() {
           <button
             type="button"
             aria-label={t("shell.account")}
-            className="no-min-h simplified-exempt grid h-10 w-10 place-items-center rounded-full bg-primary text-sm font-bold text-primary-foreground hover:bg-primary/90"
+            className="no-min-h simplified-exempt grid h-10 w-10 place-items-center rounded-md bg-primary text-sm font-bold text-primary-foreground hover:bg-primary/90"
           >
             <span aria-hidden="true">{initial}</span>
           </button>
         ) : (
           <button
             type="button"
-            className="no-min-h simplified-exempt inline-flex h-10 min-w-10 items-center justify-center gap-1.5 rounded-full bg-secondary px-2.5 text-sm font-bold text-foreground hover:bg-secondary/70"
+            className="no-min-h simplified-exempt inline-flex h-10 min-w-10 items-center justify-center gap-1.5 rounded-md border border-foreground px-2.5 text-sm font-bold text-foreground hover:bg-foreground hover:text-background"
           >
             <User className="h-5 w-5" aria-hidden="true" />
             <span className="sr-only lg:not-sr-only">{t("common.navSignIn")}</span>
@@ -101,7 +101,7 @@ export function AccountButton() {
           <Link
             to="/donate"
             onClick={close}
-            className="no-min-h mt-3 inline-flex h-10 items-center gap-1.5 rounded-full bg-primary px-4 text-sm font-bold text-primary-foreground hover:bg-primary/90"
+            className="no-min-h mt-3 inline-flex h-10 items-center gap-1.5 rounded-md bg-primary px-4 text-sm font-bold text-primary-foreground hover:bg-primary/90"
           >
             <Heart className="h-4 w-4" fill="currentColor" aria-hidden="true" />
             {t("common.footerDonate")}

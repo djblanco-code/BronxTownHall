@@ -1,5 +1,4 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { Heart } from "lucide-react";
 import { useI18n } from "@/lib/i18n-context";
 import { TextSizeControl } from "@/lib/text-size";
 import { CoachMark } from "@/components/CoachMark";
@@ -17,21 +16,19 @@ export function TopBar() {
   const path = useRouterState({ select: (s) => s.location.pathname });
 
   return (
-    <header className="sticky top-0 z-30 border-b border-border bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/80">
+    <header className="sticky top-0 z-30 border-b border-foreground bg-background">
       <div className="mx-auto flex h-14 max-w-5xl items-center gap-3 px-4">
         <Link
           to="/"
           aria-label={`${t("appName")} — ${t("common.navHome")}`}
           className="no-min-h group flex min-w-0 items-center gap-2 lg:shrink-0"
         >
-          <span
-            aria-hidden="true"
-            className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-gradient-to-br from-primary to-accent text-primary-foreground shadow-sm"
-          >
-            <Heart className="h-4 w-4" fill="currentColor" />
-          </span>
-          <span className="truncate text-base font-bold text-foreground transition group-hover:text-primary">
+          {/* A text wordmark, like a paper's nameplate; no icon. */}
+          <span className="font-display truncate text-lg font-extrabold text-foreground group-hover:underline">
             {t("appName")}
+            <span aria-hidden="true" className="text-bronx-orange">
+              .
+            </span>
           </span>
         </Link>
 
@@ -47,8 +44,10 @@ export function TopBar() {
                 to={item.to}
                 aria-current={active ? "page" : undefined}
                 className={cn(
-                  "no-min-h whitespace-nowrap rounded-lg px-2.5 py-1.5 text-sm font-medium hover:bg-secondary",
-                  active ? "text-primary" : "text-foreground",
+                  "no-min-h flex h-14 items-center border-b-[3px] px-2.5 pt-[3px] text-sm font-bold whitespace-nowrap",
+                  active
+                    ? "border-primary text-primary"
+                    : "border-transparent text-foreground hover:border-foreground",
                 )}
               >
                 {t(item.labelKey)}
