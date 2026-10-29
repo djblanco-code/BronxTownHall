@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "@/hooks/use-auth";
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import { ListPlus, MessageSquare, Printer, ClipboardCheck } from "lucide-react";
 import { fetchMyLists, addToList, createList, type List } from "@/lib/cloud-lists";
 import { logReferral } from "@/lib/cloud-pro";
@@ -24,6 +24,7 @@ export function ResourceActions({
 }) {
   const { user } = useAuth();
   const { t } = useI18n();
+  const navigate = useNavigate();
   const [showLists, setShowLists] = useState(false);
   const [lists, setLists] = useState<List[]>([]);
   const [newName, setNewName] = useState("");
@@ -94,7 +95,16 @@ export function ResourceActions({
     <div className="print-hide">
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4">
         <button
-          onClick={() => (user ? setShowLists(true) : toast.info("Sign in to save to a list"))}
+          onClick={() =>
+            user
+              ? setShowLists(true)
+              : toast.info(t("account.signInToSave"), {
+                  action: {
+                    label: t("account.signInLink"),
+                    onClick: () => navigate({ to: "/auth" }),
+                  },
+                })
+          }
           className="no-min-h inline-flex items-center justify-center gap-1.5 py-3 rounded-md border border-border bg-card text-sm font-semibold hover:border-foreground min-h-[44px]"
         >
           <ListPlus className="h-4 w-4" /> {t("interface.addList")}

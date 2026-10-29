@@ -47,6 +47,7 @@ import { Route as PortalRouteImport } from './routes/portal'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ProRouteImport } from './routes/pro'
 import { Route as RequestResourceRouteImport } from './routes/request-resource'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as RoadmapRouteImport } from './routes/roadmap'
 import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
 import { Route as SearchRouteImport } from './routes/search'
@@ -264,6 +265,11 @@ const RequestResourceRoute = RequestResourceRouteImport.update({
   path: '/request-resource',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RoadmapRoute = RoadmapRouteImport.update({
   id: '/roadmap',
   path: '/roadmap',
@@ -436,6 +442,7 @@ export interface FileRoutesByFullPath {
   '/privacy': typeof PrivacyRoute
   '/pro': typeof ProRoute
   '/request-resource': typeof RequestResourceRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/roadmap': typeof RoadmapRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/search': typeof SearchRoute
@@ -502,6 +509,7 @@ export interface FileRoutesByTo {
   '/privacy': typeof PrivacyRoute
   '/pro': typeof ProRoute
   '/request-resource': typeof RequestResourceRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/roadmap': typeof RoadmapRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/search': typeof SearchRoute
@@ -569,6 +577,7 @@ export interface FileRoutesById {
   '/privacy': typeof PrivacyRoute
   '/pro': typeof ProRoute
   '/request-resource': typeof RequestResourceRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/roadmap': typeof RoadmapRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/search': typeof SearchRoute
@@ -637,6 +646,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/pro'
     | '/request-resource'
+    | '/reset-password'
     | '/roadmap'
     | '/robots.txt'
     | '/search'
@@ -703,6 +713,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/pro'
     | '/request-resource'
+    | '/reset-password'
     | '/roadmap'
     | '/robots.txt'
     | '/search'
@@ -769,6 +780,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/pro'
     | '/request-resource'
+    | '/reset-password'
     | '/roadmap'
     | '/robots.txt'
     | '/search'
@@ -836,6 +848,7 @@ export interface RootRouteChildren {
   PrivacyRoute: typeof PrivacyRoute
   ProRoute: typeof ProRoute
   RequestResourceRoute: typeof RequestResourceRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
   RoadmapRoute: typeof RoadmapRoute
   RobotsDottxtRoute: typeof RobotsDottxtRoute
   SearchRoute: typeof SearchRoute
@@ -1132,6 +1145,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RequestResourceRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/roadmap': {
       id: '/roadmap'
       path: '/roadmap'
@@ -1356,6 +1376,7 @@ const rootRouteChildren: RootRouteChildren = {
   PrivacyRoute: PrivacyRoute,
   ProRoute: ProRoute,
   RequestResourceRoute: RequestResourceRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
   RoadmapRoute: RoadmapRoute,
   RobotsDottxtRoute: RobotsDottxtRoute,
   SearchRoute: SearchRoute,

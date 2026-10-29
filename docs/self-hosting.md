@@ -62,12 +62,15 @@ In Supabase, under **Authentication → URL Configuration**:
 - **Redirect URLs**: add `https://bronxtownhall.vercel.app/**` and
   `http://localhost:8080/**` (for local development)
 
-Email + password sign-in works with no further setup.
+Email + password sign-in works with no further setup, including "Forgot
+password?": the reset email links back to `/reset-password`, which the
+redirect URLs above already allow.
 
 **Google sign-in** (optional): create an OAuth client in Google Cloud
 (APIs & Services → Credentials → OAuth client ID → Web application) with
 the authorized redirect URI `https://<project-ref>.supabase.co/auth/v1/callback`,
-then paste its client ID and secret into **Authentication → Providers → Google**.
+then paste its client ID and secret into **Authentication → Providers → Google**. Then set `VITE_GOOGLE_SIGN_IN=true` in Vercel so the
+"Continue with Google" button appears; without it, sign-in is email only.
 
 ## 4. Add the environment variables in Vercel
 
@@ -93,6 +96,7 @@ are already covered by the variables it added.
 | `GOOGLE_MAPS_API_KEY`           | Optional                   | Server-side address checks (Geocoding + Places APIs)                                                                 |
 | `FIRECRAWL_API_KEY`             | Optional                   | Weekly event scraping into the admin review queue                                                                    |
 | `VITE_SMS_NUMBER`               | Optional                   | The "Text FOOD to…" number, once the text line exists                                                                |
+| `VITE_GOOGLE_SIGN_IN`           | Optional                   | `true` shows "Continue with Google" on sign-in. Only after setting up Google in step 3                               |
 
 Vercel detects the build on its own (`npm run build`, Node 22). Nothing else
 needs configuring.
