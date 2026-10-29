@@ -65,7 +65,7 @@ export default defineConfig(({ command, mode }) => {
           name: "The Bronx App",
           short_name: "Bronx App",
           description: "Community resources, events, and 24/7 emergency help for the Bronx.",
-          theme_color: "#1d4ed8",
+          theme_color: "#c9dcf5",
           background_color: "#ffffff",
           display: "standalone",
           start_url: "/",
