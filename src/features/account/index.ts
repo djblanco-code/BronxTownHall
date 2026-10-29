@@ -2,3 +2,4 @@
 export { AuthScreen } from "./components/AuthScreen";
 export { ResetPasswordScreen } from "./components/ResetPasswordScreen";
 export { authErrorKey } from "./lib/auth-errors";
+export { FavoritesSync } from "./components/FavoritesSync";

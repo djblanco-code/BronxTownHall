@@ -44,9 +44,18 @@ export function getFavorites(): string[] {
 }
 export function toggleFavorite(id: string) {
   const cur = getFavorites();
-  const next = cur.includes(id) ? cur.filter((x) => x !== id) : [...cur, id];
+  const saved = !cur.includes(id);
+  const next = saved ? [...cur, id] : cur.filter((x) => x !== id);
   write(FAV_KEY, next);
+  // Signed-in residents' saves are copied to their account (features/account).
+  if (typeof window !== "undefined") {
+    window.dispatchEvent(new CustomEvent("bronx:favorite", { detail: { id, saved } }));
+  }
   return next;
+}
+/** Replace this phone's saved places, e.g. after merging with the account. */
+export function setFavorites(ids: string[]) {
+  write(FAV_KEY, ids);
 }
 export function isFavorite(id: string) {
   return getFavorites().includes(id);

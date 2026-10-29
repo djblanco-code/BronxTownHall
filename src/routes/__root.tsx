@@ -17,6 +17,7 @@ import { TtsProvider } from "@/lib/tts-context";
 import { PackProvider } from "@/lib/pack";
 import { PackShareBar } from "@/components/PackShareBar";
 import { SHOW_CASEWORKER_TOOLS } from "@/lib/first-version";
+import { FavoritesSync } from "@/features/account";
 import { TtsPlayer } from "@/components/TtsPlayer";
 import { SelectionListenButton } from "@/components/SelectionListenButton";
 import { SkipLink } from "@/components/SkipLink";
@@ -161,6 +162,7 @@ function RootComponent() {
               <OfflineNotice />
               {SHOW_CASEWORKER_TOOLS && <PackShareBar />}
               <ToastHost />
+              <FavoritesSync />
             </PackProvider>
           </LiveLocationProvider>
         </TtsProvider>
