@@ -22,6 +22,7 @@ function communityUpcoming(): UpcomingEvent[] {
     location: e.location,
     neighborhood: e.neighborhood,
     is_free: e.is_free,
+    image: e.image,
     source: POST_SOURCE,
     verification_status: "needs_verification",
     last_verified: null,

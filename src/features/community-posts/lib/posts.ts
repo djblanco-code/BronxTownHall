@@ -25,7 +25,7 @@ export type CommunityEvent = {
   neighborhood: string;
   is_free: boolean;
   website: string | null;
-  /** The organizer's flyer, once added under /public/images/events. */
+  /** The organizer's flyer from the newsletter, in /public/images/events. */
   image?: string;
 };
 
@@ -45,6 +45,7 @@ export const COMMUNITY_EVENTS: CommunityEvent[] = [
     neighborhood: "Eastchester",
     is_free: true,
     website: null,
+    image: "/images/events/cleanup-dyre-ave.webp",
   },
   {
     id: "demo-career-day-47",
@@ -93,6 +94,7 @@ export const COMMUNITY_EVENTS: CommunityEvent[] = [
     neighborhood: "Williamsbridge",
     is_free: true,
     website: null,
+    image: "/images/events/energy-conversation.webp",
   },
   {
     id: "demo-trunk-or-treat",
@@ -109,6 +111,7 @@ export const COMMUNITY_EVENTS: CommunityEvent[] = [
     neighborhood: "Williamsbridge",
     is_free: true,
     website: null,
+    image: "/images/events/trunk-or-treat.webp",
   },
   {
     id: "demo-ymca-food-nov5",
@@ -125,6 +128,7 @@ export const COMMUNITY_EVENTS: CommunityEvent[] = [
     neighborhood: "Williamsbridge",
     is_free: true,
     website: null,
+    image: "/images/events/ymca-food-distribution.webp",
   },
   {
     id: "demo-ymca-food-nov19",
@@ -141,6 +145,7 @@ export const COMMUNITY_EVENTS: CommunityEvent[] = [
     neighborhood: "Williamsbridge",
     is_free: true,
     website: null,
+    image: "/images/events/ymca-food-distribution.webp",
   },
   {
     id: "demo-participatory-budgeting",
@@ -157,6 +162,7 @@ export const COMMUNITY_EVENTS: CommunityEvent[] = [
     neighborhood: "Northeast Bronx",
     is_free: true,
     website: "https://rnd.council.nyc.gov/ideamap/",
+    image: "/images/events/participatory-budgeting.webp",
   },
 ];
 
