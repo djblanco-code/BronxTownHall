@@ -4,13 +4,13 @@ import { useI18n } from "@/lib/i18n-context";
 import { FOOTER_SECTIONS } from "../nav";
 
 /**
- * Shown on every screen size: on phones it is the only path to About, FAQ,
- * Contact and the legal pages, so it can't be desktop-only.
+ * Laptops only. Phones reach the same pages from the profile sheet
+ * (`AccountButton`), the way apps keep About and legal out of the scroll.
  */
 export function SiteFooter() {
   const { t } = useI18n();
   return (
-    <footer className="mt-12 border-t border-border bg-card">
+    <footer className="mt-12 hidden border-t border-border bg-card lg:block">
       <div className="mx-auto max-w-5xl px-4 py-8">
         <div className="mb-6 grid grid-cols-2 gap-6 md:grid-cols-4">
           {FOOTER_SECTIONS.map((section) => (

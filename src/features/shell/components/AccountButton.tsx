@@ -1,13 +1,23 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { LogIn, LogOut, Settings, User } from "lucide-react";
+import { Heart, LogIn, LogOut, Settings, User } from "lucide-react";
 import { useI18n } from "@/lib/i18n-context";
 import { useAuth } from "@/hooks/use-auth";
 import { BottomSheet, BottomSheetContent, BottomSheetTrigger } from "@/components/ui/bottom-sheet";
+import { FOOTER_SECTIONS } from "../nav";
+
+/**
+ * The footer's pages, for phones where the footer is hidden. Events and Town
+ * Hall are tabs and urgent help is the SOS button, so they are left out.
+ */
+const MORE_LINKS = FOOTER_SECTIONS.flatMap((section) => section.links).filter(
+  (link) => !["/events", "/civic", "/urgent"].includes(link.to),
+);
 
 /**
  * Opens a small sheet for everyone: Settings lives here (it has no tab), plus
- * sign in or sign out. Signing out is never a single stray tap.
+ * sign in or sign out, and on phones the About, help and legal pages the
+ * footer carries on laptops. Signing out is never a single stray tap.
  */
 export function AccountButton() {
   const { t } = useI18n();
@@ -71,6 +81,32 @@ export function AccountButton() {
             </button>
           )}
         </div>
+        <nav
+          aria-label={t("common.footerAbout")}
+          className="mt-4 border-t border-border pt-4 lg:hidden"
+        >
+          <ul className="grid grid-cols-2 gap-x-3 gap-y-1">
+            {MORE_LINKS.map((link) => (
+              <li key={link.to}>
+                <Link
+                  to={link.to}
+                  onClick={close}
+                  className="no-min-h flex min-h-11 items-center rounded-lg px-3 text-sm text-muted-foreground hover:bg-secondary hover:text-foreground"
+                >
+                  {t(link.labelKey)}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <Link
+            to="/donate"
+            onClick={close}
+            className="no-min-h mt-3 inline-flex h-10 items-center gap-1.5 rounded-full bg-primary px-4 text-sm font-bold text-primary-foreground hover:bg-primary/90"
+          >
+            <Heart className="h-4 w-4" fill="currentColor" aria-hidden="true" />
+            {t("common.footerDonate")}
+          </Link>
+        </nav>
       </BottomSheetContent>
     </BottomSheet>
   );
