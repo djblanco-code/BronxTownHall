@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { Link } from "@tanstack/react-router";
-import { CalendarDays, MapPin, Share2, Ticket } from "lucide-react";
+import { ArrowUpRight, CalendarDays, MapPin, Share2, Ticket } from "lucide-react";
 import { toast } from "sonner";
 import { useI18n } from "@/lib/i18n-context";
 import { LANGS } from "@/lib/i18n";
@@ -57,7 +57,8 @@ function parseTime(t: string | null | undefined): string | null {
 /**
  * The one event card. Compact: a tappable summary that opens the events page
  * (Home's swipeable row). Full: description, cost and calendar/share/RSVP
- * actions (the events page).
+ * actions (the events page). It draws no box or rule of its own: put cards
+ * in a ruled list (`divide-y divide-border border-b border-border`).
  */
 export function EventCard({
   event: e,
@@ -107,37 +108,40 @@ export function EventCard({
     return () => obs.disconnect();
   }, [full, e.id, e.category, e.event_date]);
 
-  const header = (
-    <div className="flex gap-3">
-      <span aria-hidden="true" className="w-12 shrink-0">
-        <span className="label-caps block text-primary">
-          {start.toLocaleDateString(locale, { month: "short" })}
-        </span>
-        <span className="font-display block text-2xl leading-none font-extrabold text-foreground">
-          {start.getDate()}
-        </span>
+  // Like a listings column: month and day on the leading side, everything
+  // else lined up under the title.
+  const dateColumn = (
+    <span aria-hidden="true" className="w-12 shrink-0">
+      <span className="label-caps block text-primary">
+        {start.toLocaleDateString(locale, { month: "short" })}
       </span>
-      <div className="min-w-0">
-        <p
-          className={cn(
-            "font-bold leading-snug text-foreground",
-            full ? "text-lg" : "line-clamp-2",
-          )}
-        >
-          {e.title}
-        </p>
-        <p className="mt-1 text-xs font-semibold text-muted-foreground">
-          <span className="sr-only">
-            {start.toLocaleDateString(locale, { month: "long", day: "numeric" })},{" "}
-          </span>
-          {when}
-        </p>
-      </div>
-    </div>
+      <span className="font-display block text-2xl leading-none font-extrabold text-foreground">
+        {start.getDate()}
+      </span>
+    </span>
+  );
+
+  const heading = (
+    <>
+      <p
+        className={cn(
+          "font-bold leading-snug text-foreground",
+          full ? "text-lg" : "line-clamp-2 group-hover:underline",
+        )}
+      >
+        {e.title}
+      </p>
+      <p className="mt-1 text-xs font-semibold text-muted-foreground">
+        <span className="sr-only">
+          {start.toLocaleDateString(locale, { month: "long", day: "numeric" })},{" "}
+        </span>
+        {when}
+      </p>
+    </>
   );
 
   const facts = (
-    <>
+    <div className="mt-2 space-y-2">
       {full && e.description && <p className="text-sm text-muted-foreground">{e.description}</p>}
       {where && (
         <p className="flex items-center gap-1 text-xs text-muted-foreground">
@@ -166,10 +170,8 @@ export function EventCard({
           source={e.source ?? null}
         />
       </div>
-    </>
+    </div>
   );
-
-  const cardClass = "group relative flex w-full flex-col gap-3 border-b border-border py-3";
 
   if (!full) {
     return (
@@ -182,10 +184,13 @@ export function EventCard({
             date: e.event_date,
           })
         }
-        className={cn("no-min-h", cardClass)}
+        className="no-min-h group flex w-full gap-3 py-3"
       >
-        {header}
-        {facts}
+        {dateColumn}
+        <span className="block min-w-0 flex-1">
+          {heading}
+          {facts}
+        </span>
       </Link>
     );
   }
@@ -221,38 +226,37 @@ export function EventCard({
     }
   };
 
-  const action = "no-min-h inline-flex items-center gap-1.5 rounded-md px-3 py-2 text-sm font-bold";
+  const action =
+    "no-min-h inline-flex h-11 items-center gap-1.5 rounded-md px-3 text-sm font-bold transition-colors";
+  const outline =
+    "border-2 border-foreground text-foreground hover:bg-foreground hover:text-background";
 
   return (
-    <div ref={ref} className={cn(cardClass, "py-4")}>
-      {header}
-      {facts}
-      <div className="flex flex-wrap gap-2">
-        <button
-          type="button"
-          onClick={addToCalendar}
-          className={cn(action, "bg-secondary hover:bg-secondary/70")}
-        >
-          <CalendarDays className="h-4 w-4" aria-hidden="true" /> {t("addToCalendar")}
-        </button>
-        <button
-          type="button"
-          onClick={share}
-          className={cn(action, "bg-secondary hover:bg-secondary/70")}
-        >
-          <Share2 className="h-4 w-4" aria-hidden="true" /> {t("events.share")}
-        </button>
-        {e.website && (
-          <a
-            href={e.website}
-            target="_blank"
-            rel="noreferrer"
-            onClick={() => trackEventRsvp({ eventId: e.id, organization: e.location })}
-            className={cn(action, "bg-primary/10 text-primary hover:bg-primary/20")}
-          >
-            {t("events.website")} ↗
-          </a>
-        )}
+    <div ref={ref} className="flex w-full gap-3 py-4">
+      {dateColumn}
+      <div className="min-w-0 flex-1">
+        {heading}
+        {facts}
+        <div className="mt-3 flex flex-wrap items-center gap-2">
+          <button type="button" onClick={addToCalendar} className={cn(action, outline)}>
+            <CalendarDays className="h-4 w-4" aria-hidden="true" /> {t("addToCalendar")}
+          </button>
+          <button type="button" onClick={share} className={cn(action, outline)}>
+            <Share2 className="h-4 w-4" aria-hidden="true" /> {t("events.share")}
+          </button>
+          {e.website && (
+            <a
+              href={e.website}
+              target="_blank"
+              rel="noreferrer"
+              onClick={() => trackEventRsvp({ eventId: e.id, organization: e.location })}
+              className={cn(action, "text-primary underline underline-offset-4 hover:decoration-2")}
+            >
+              {t("events.website")}
+              <ArrowUpRight className="h-4 w-4 rtl:-scale-x-100" aria-hidden="true" />
+            </a>
+          )}
+        </div>
       </div>
     </div>
   );

@@ -5,10 +5,31 @@ import { AppShell } from "@/features/shell";
 import { EventCard, type EventSummary } from "@/features/events";
 import { supabase } from "@/integrations/supabase/client";
 import { useEffect, useMemo, useState } from "react";
-import { Plus, Loader2, ArrowLeft, List, CalendarRange } from "lucide-react";
+import {
+  Plus,
+  Loader2,
+  ArrowLeft,
+  List,
+  CalendarRange,
+  CalendarDays,
+  ChevronLeft,
+  ChevronRight,
+  CircleCheck,
+  PartyPopper,
+  Tent,
+  Palette,
+  Bike,
+  Sparkles,
+  Pin,
+  type LucideIcon,
+} from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { z } from "zod";
 import { loadDirectory } from "@/lib/bronx-resources";
+import { Chip } from "@/components/ui/chip";
+import { EmptyState } from "@/components/ui/empty-state";
+import { Section } from "@/components/ui/section";
+import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/events")({
   head: () => ({
@@ -49,14 +70,29 @@ type EventRow = {
   is_community_submitted: boolean;
 };
 
-const EVENT_TYPES = [
-  { id: "block_party", label: "Block Party", emoji: "🎉" },
-  { id: "festival", label: "Festival", emoji: "🎪" },
-  { id: "arts_culture", label: "Arts / Culture", emoji: "🎨" },
-  { id: "recreation", label: "Recreation", emoji: "🏃" },
-  { id: "holiday", label: "Holiday", emoji: "✨" },
-  { id: "other", label: "Other", emoji: "📌" },
+const EVENT_TYPES: { id: string; label: string; icon: LucideIcon }[] = [
+  { id: "block_party", label: "Block Party", icon: PartyPopper },
+  { id: "festival", label: "Festival", icon: Tent },
+  { id: "arts_culture", label: "Arts / Culture", icon: Palette },
+  { id: "recreation", label: "Recreation", icon: Bike },
+  { id: "holiday", label: "Holiday", icon: Sparkles },
+  { id: "other", label: "Other", icon: Pin },
 ];
+
+/** Ruled list: hairlines between rows and under the last one, no box. */
+const LIST = "divide-y divide-border border-b border-border";
+
+/** Editorial tab: a bold label with a rule under the active one. */
+const TAB =
+  "no-min-h simplified-exempt -mb-px inline-flex h-11 items-center gap-1.5 border-b-2 text-sm font-bold transition-colors";
+
+/** The page's one solid button. */
+const PRIMARY =
+  "no-min-h inline-flex h-11 items-center justify-center gap-2 rounded-md bg-primary px-5 font-bold text-primary-foreground transition-colors hover:bg-primary/90 disabled:opacity-60";
+
+/** Secondary: a 2px ink outline that fills on hover. */
+const OUTLINE =
+  "no-min-h inline-flex h-11 items-center justify-center gap-1.5 rounded-md border-2 border-foreground px-4 text-sm font-bold text-foreground transition-colors hover:bg-foreground hover:text-background";
 
 function EventsPage() {
   const [rows, setRows] = useState<EventRow[] | null>(null);
@@ -127,78 +163,94 @@ function EventsPage() {
 
   return (
     <AppShell>
-      <div className="max-w-4xl mx-auto px-4 py-6">
+      <div className="mx-auto max-w-5xl px-4 pt-3 pb-6 lg:pt-8">
         <Link
           to="/"
-          className="no-min-h inline-flex items-center gap-1.5 text-sm text-primary font-medium mb-4 hover:underline"
+          className="no-min-h inline-flex h-11 items-center gap-1.5 text-sm font-bold text-primary hover:underline"
         >
-          <ArrowLeft className="h-4 w-4" /> Home
+          <ArrowLeft className="h-4 w-4 rtl:rotate-180" aria-hidden="true" /> Home
         </Link>
-        <div className="flex items-start justify-between gap-3 mb-4 flex-wrap">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-bold flex items-center gap-2">
-              🎉 Events in the Bronx
+        <div className="mt-1 flex flex-wrap items-end justify-between gap-x-6 gap-y-4">
+          <div className="max-w-2xl">
+            <h1 className="text-[2.5rem] leading-[0.95] text-foreground sm:text-6xl">
+              Events in the <span className="text-primary">Bronx</span>
             </h1>
-            <p className="text-muted-foreground mt-1">
+            <p className="mt-3 text-muted-foreground">
               Block parties, festivals, and hyper-local events — the ones only Bronx locals would
               know about.
             </p>
           </div>
-          <button
-            onClick={() => setShowForm(true)}
-            className="no-min-h inline-flex items-center gap-2 px-5 py-3 rounded-full bg-primary text-primary-foreground shadow-md font-semibold hover:bg-primary/90"
-          >
-            <Plus className="h-5 w-5" /> Submit an Event
+          <button type="button" onClick={() => setShowForm(true)} className={PRIMARY}>
+            <Plus className="h-5 w-5" aria-hidden="true" /> Submit an Event
           </button>
         </div>
 
-        <div className="flex items-center gap-2 mb-4 flex-wrap">
-          <div className="inline-flex rounded-full border border-border overflow-hidden">
-            <button
-              onClick={() => setView("list")}
-              className={`no-min-h px-4 py-2 text-sm font-medium inline-flex items-center gap-1.5 ${view === "list" ? "bg-primary text-primary-foreground" : "bg-card hover:bg-secondary"}`}
-            >
-              <List className="h-4 w-4" /> List
-            </button>
-            <button
-              onClick={() => setView("calendar")}
-              className={`no-min-h px-4 py-2 text-sm font-medium inline-flex items-center gap-1.5 ${view === "calendar" ? "bg-primary text-primary-foreground" : "bg-card hover:bg-secondary"}`}
-            >
-              <CalendarRange className="h-4 w-4" /> Calendar
-            </button>
-          </div>
+        <div className="mt-5 flex gap-6 border-b border-foreground">
+          <button
+            type="button"
+            aria-pressed={view === "list"}
+            onClick={() => setView("list")}
+            className={cn(
+              TAB,
+              view === "list"
+                ? "border-primary text-primary"
+                : "border-transparent text-foreground hover:border-foreground",
+            )}
+          >
+            <List className="h-4 w-4" aria-hidden="true" /> List
+          </button>
+          <button
+            type="button"
+            aria-pressed={view === "calendar"}
+            onClick={() => setView("calendar")}
+            className={cn(
+              TAB,
+              view === "calendar"
+                ? "border-primary text-primary"
+                : "border-transparent text-foreground hover:border-foreground",
+            )}
+          >
+            <CalendarRange className="h-4 w-4" aria-hidden="true" /> Calendar
+          </button>
         </div>
 
-        <div className="flex flex-wrap gap-2 mb-6">
-          <Chip active={!typeFilter} onClick={() => setTypeFilter(null)}>
+        <div className="mt-4 flex flex-wrap gap-2">
+          <Chip selected={!typeFilter} onClick={() => setTypeFilter(null)} className="h-11">
             All
           </Chip>
           {EVENT_TYPES.map((t) => (
             <Chip
               key={t.id}
-              active={typeFilter === t.id}
+              icon={t.icon}
+              selected={typeFilter === t.id}
               onClick={() => setTypeFilter(t.id === typeFilter ? null : t.id)}
+              className="h-11"
             >
-              <span className="me-1">{t.emoji}</span> {t.label}
+              {t.label}
             </Chip>
           ))}
         </div>
 
         {rows === null ? (
-          <div className="flex items-center gap-2 text-muted-foreground py-8">
-            <Loader2 className="h-5 w-5 animate-spin" /> Loading events…
+          <div
+            className="mt-8 flex items-center gap-2 border-y border-border py-4 text-muted-foreground"
+            aria-busy="true"
+          >
+            <Loader2 className="h-5 w-5 animate-spin" aria-hidden="true" /> Loading events…
           </div>
         ) : filtered.length === 0 ? (
-          <p className="text-muted-foreground py-8">
-            No upcoming events match this filter yet. Be the first to submit one!
-          </p>
+          <EmptyState
+            className="mt-8"
+            icon={CalendarDays}
+            title="No upcoming events match this filter yet. Be the first to submit one!"
+          />
         ) : view === "calendar" ? (
           <CalendarView items={filtered} />
         ) : (
           <>
-            <Section title="Upcoming This Week" items={thisWeek} />
-            <Section title="Upcoming This Month" items={thisMonth} />
-            <Section title="Later" items={later} />
+            <EventSection id="events-week" title="Upcoming This Week" items={thisWeek} />
+            <EventSection id="events-month" title="Upcoming This Month" items={thisMonth} />
+            <EventSection id="events-later" title="Later" items={later} />
           </>
         )}
       </div>
@@ -235,67 +287,90 @@ function CalendarView({ items }: { items: EventRow[] }) {
   const selectedEvents = selected ? (byDate.get(selected) ?? []) : [];
 
   return (
-    <div>
-      <div className="flex items-center justify-between mb-3">
+    <div className="mt-8">
+      <div className="mb-3 flex items-center justify-between gap-2 border-t-[3px] border-foreground pt-2">
         <button
+          type="button"
           onClick={() => setMonthOffset((v) => v - 1)}
-          className="no-min-h px-3 py-2 rounded-full border border-border hover:bg-secondary text-sm font-medium"
+          className={cn(OUTLINE, "px-3")}
         >
-          ← Prev
+          <ChevronLeft className="h-4 w-4 rtl:rotate-180" aria-hidden="true" /> Prev
         </button>
-        <h2 className="text-lg font-bold">{monthLabel}</h2>
+        <h2 className="text-center text-lg font-bold text-foreground sm:text-2xl">{monthLabel}</h2>
         <button
+          type="button"
           onClick={() => setMonthOffset((v) => v + 1)}
-          className="no-min-h px-3 py-2 rounded-full border border-border hover:bg-secondary text-sm font-medium"
+          className={cn(OUTLINE, "px-3")}
         >
-          Next →
+          Next <ChevronRight className="h-4 w-4 rtl:rotate-180" aria-hidden="true" />
         </button>
       </div>
-      <div className="grid grid-cols-7 gap-1 text-center text-xs font-semibold text-muted-foreground mb-1">
-        {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((d) => (
-          <div key={d} className="py-1">
-            {d}
-          </div>
-        ))}
-      </div>
-      <div className="grid grid-cols-7 gap-1">
-        {cells.map((d, i) => {
-          if (d === null) return <div key={i} className="aspect-square" />;
-          const key = `${year}-${String(month + 1).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
-          const dayEvents = byDate.get(key) ?? [];
-          const isToday = key === todayKey;
-          const isSelected = key === selected;
-          return (
-            <button
-              key={i}
-              onClick={() => setSelected(isSelected ? null : key)}
-              className={`aspect-square rounded-lg border p-1 text-left transition ${
-                isSelected
-                  ? "border-primary bg-primary/10"
-                  : isToday
-                    ? "border-accent bg-accent/10"
-                    : "border-border bg-card hover:border-primary/50"
-              } ${dayEvents.length > 0 ? "font-bold" : "text-muted-foreground"}`}
+      {/* Bleeds a little on phones so each day stays a 44px target. */}
+      <div className="-mx-2 sm:mx-0">
+        <div className="grid grid-cols-7 text-center text-muted-foreground">
+          {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((d) => (
+            <div
+              key={d}
+              className="label-caps min-w-0 overflow-hidden py-1 [html.simplified_&]:tracking-normal [html.simplified_&]:normal-case"
             >
-              <div className="text-sm">{d}</div>
-              {dayEvents.length > 0 && (
-                <div className="mt-0.5 flex flex-wrap gap-0.5">
-                  {dayEvents.slice(0, 3).map((e, idx) => (
-                    <span
-                      key={idx}
-                      className="inline-block h-1.5 w-1.5 rounded-full bg-primary"
-                      aria-hidden
-                    />
-                  ))}
-                </div>
-              )}
-            </button>
-          );
-        })}
+              {d}
+            </div>
+          ))}
+        </div>
+        <div className="grid grid-cols-7 border-s border-t border-border">
+          {cells.map((d, i) => {
+            if (d === null)
+              return (
+                <div
+                  key={i}
+                  className="aspect-square border-e border-b border-border sm:aspect-auto sm:h-20"
+                />
+              );
+            const key = `${year}-${String(month + 1).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
+            const dayEvents = byDate.get(key) ?? [];
+            const isToday = key === todayKey;
+            const isSelected = key === selected;
+            return (
+              <button
+                key={i}
+                type="button"
+                aria-pressed={isSelected}
+                onClick={() => setSelected(isSelected ? null : key)}
+                className={cn(
+                  "simplified-exempt flex aspect-square min-w-0 flex-col items-start border-e border-b border-border p-1 text-start transition-colors sm:aspect-auto sm:h-20",
+                  isSelected
+                    ? "bg-primary text-primary-foreground"
+                    : isToday
+                      ? "bg-secondary text-foreground hover:bg-secondary/70"
+                      : "hover:bg-secondary",
+                  dayEvents.length > 0
+                    ? "font-bold"
+                    : !isSelected && !isToday && "text-muted-foreground",
+                )}
+              >
+                <span className={cn("text-sm", isToday && "font-extrabold underline")}>{d}</span>
+                {dayEvents.length > 0 && (
+                  <span className="mt-0.5 flex flex-wrap gap-0.5">
+                    {dayEvents.slice(0, 3).map((e, idx) => (
+                      <span
+                        key={idx}
+                        className={cn(
+                          "inline-block h-1.5 w-1.5 rounded-full",
+                          isSelected ? "bg-current" : "bg-primary",
+                        )}
+                        aria-hidden
+                      />
+                    ))}
+                  </span>
+                )}
+              </button>
+            );
+          })}
+        </div>
       </div>
       {selected && (
-        <div className="mt-6">
-          <h3 className="font-bold mb-3">
+        <div className="mt-8">
+          <h3 className="border-t-[3px] border-foreground pt-2 text-lg font-bold text-foreground">
             {new Date(selected + "T12:00:00").toLocaleDateString(undefined, {
               weekday: "long",
               month: "long",
@@ -303,9 +378,9 @@ function CalendarView({ items }: { items: EventRow[] }) {
             })}
           </h3>
           {selectedEvents.length === 0 ? (
-            <p className="text-muted-foreground text-sm">No events on this day.</p>
+            <EmptyState className="mt-1" icon={CalendarDays} title="No events on this day." />
           ) : (
-            <ul className="space-y-3">
+            <ul className={LIST}>
               {selectedEvents.map((e) => (
                 <li key={e.id}>
                   <EventCard event={toSummary(e)} detail="full" />
@@ -319,21 +394,18 @@ function CalendarView({ items }: { items: EventRow[] }) {
   );
 }
 
-function Section({ title, items }: { title: string; items: EventRow[] }) {
+function EventSection({ id, title, items }: { id: string; title: string; items: EventRow[] }) {
   if (items.length === 0) return null;
   return (
-    <section className="mb-8">
-      <h2 className="text-sm font-bold uppercase tracking-wider text-muted-foreground mb-3">
-        ── {title} ──
-      </h2>
-      <ul className="space-y-3">
+    <Section id={id} title={title} ruled className="px-0">
+      <ul className={LIST}>
         {items.map((e) => (
           <li key={e.id}>
             <EventCard event={toSummary(e)} detail="full" />
           </li>
         ))}
       </ul>
-    </section>
+    </Section>
   );
 }
 
@@ -347,29 +419,6 @@ function toSummary(e: EventRow): EventSummary {
         ? "community_submitted"
         : "needs_verification",
   };
-}
-
-function Chip({
-  active,
-  onClick,
-  children,
-}: {
-  active: boolean;
-  onClick: () => void;
-  children: React.ReactNode;
-}) {
-  return (
-    <button
-      onClick={onClick}
-      className={`no-min-h px-4 py-2 rounded-full text-sm font-medium border transition ${
-        active
-          ? "bg-primary text-primary-foreground border-primary"
-          : "bg-card border-border hover:bg-secondary"
-      }`}
-    >
-      {children}
-    </button>
-  );
 }
 
 const submitSchema = z.object({
@@ -432,31 +481,33 @@ function SubmitEventModal({ onClose }: { onClose: () => void }) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/60 grid place-items-center p-4" onClick={onClose}>
+    <div className="fixed inset-0 z-50 grid place-items-center bg-black/60 p-4" onClick={onClose}>
       <div
-        className="bg-card rounded-2xl shadow-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="submit-event-title"
+        className="max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-md border-2 border-foreground bg-card shadow-lg"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="p-5 sticky top-0 bg-card border-b border-border">
-          <h2 className="text-xl font-bold">Submit a Local Event</h2>
-          <p className="text-sm text-muted-foreground">
+        <div className="sticky top-0 border-b border-foreground bg-card p-5">
+          <h2 id="submit-event-title" className="text-2xl font-bold text-foreground">
+            Submit a Local Event
+          </h2>
+          <p className="mt-1 text-sm text-muted-foreground">
             Reviewed within 24–48 hours. Thank you for helping your neighbors!
           </p>
         </div>
         {done ? (
           <div className="p-8 text-center">
-            <div className="text-5xl mb-3">🎉</div>
-            <p className="font-bold text-lg">Thanks — we got it!</p>
-            <p className="text-sm text-muted-foreground mt-1">Your event is pending review.</p>
-            <button
-              onClick={onClose}
-              className="no-min-h mt-5 px-5 py-2.5 rounded-full bg-primary text-primary-foreground font-semibold"
-            >
+            <CircleCheck className="mx-auto mb-3 h-10 w-10 text-success" aria-hidden="true" />
+            <p className="text-lg font-bold">Thanks — we got it!</p>
+            <p className="mt-1 text-sm text-muted-foreground">Your event is pending review.</p>
+            <button type="button" onClick={onClose} className={cn(PRIMARY, "mt-5")}>
               Close
             </button>
           </div>
         ) : (
-          <form onSubmit={onSubmit} className="p-5 space-y-3">
+          <form onSubmit={onSubmit} className="space-y-3 p-5">
             <Field label="Event Name *">
               <input name="title" required maxLength={120} className={inp} />
             </Field>
@@ -464,12 +515,12 @@ function SubmitEventModal({ onClose }: { onClose: () => void }) {
               <select name="event_type" required className={inp} defaultValue="block_party">
                 {EVENT_TYPES.map((t) => (
                   <option key={t.id} value={t.id}>
-                    {t.emoji} {t.label}
+                    {t.label}
                   </option>
                 ))}
               </select>
             </Field>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid gap-3 sm:grid-cols-2">
               <Field label="Date *">
                 <input type="date" name="event_date" required className={inp} />
               </Field>
@@ -484,7 +535,12 @@ function SubmitEventModal({ onClose }: { onClose: () => void }) {
               <input name="address" className={inp} placeholder="Street, Bronx, NY" />
             </Field>
             <Field label="Description">
-              <textarea name="description" rows={3} maxLength={2000} className={inp} />
+              <textarea
+                name="description"
+                rows={3}
+                maxLength={2000}
+                className={cn(inp, "h-auto py-2")}
+              />
             </Field>
             <Field label="Cost">
               <select name="is_free" className={inp} defaultValue="free">
@@ -499,7 +555,7 @@ function SubmitEventModal({ onClose }: { onClose: () => void }) {
             <Field label="Contact / Website">
               <input name="website" className={inp} placeholder="https://…" />
             </Field>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid gap-3 sm:grid-cols-2">
               <Field label="Your Name">
                 <input name="submitted_by" className={inp} />
               </Field>
@@ -508,20 +564,13 @@ function SubmitEventModal({ onClose }: { onClose: () => void }) {
               </Field>
             </div>
             {err && <p className="text-sm text-destructive">{err}</p>}
-            <div className="flex justify-end gap-2 pt-2">
-              <button
-                type="button"
-                onClick={onClose}
-                className="no-min-h px-4 py-2.5 rounded-full border border-border font-medium hover:bg-secondary"
-              >
+            <div className="flex flex-wrap justify-end gap-2 pt-2">
+              <button type="button" onClick={onClose} className={OUTLINE}>
                 Cancel
               </button>
-              <button
-                type="submit"
-                disabled={busy}
-                className="no-min-h px-5 py-2.5 rounded-full bg-primary text-primary-foreground font-semibold disabled:opacity-60 inline-flex items-center gap-2"
-              >
-                {busy && <Loader2 className="h-4 w-4 animate-spin" />} Submit Event
+              <button type="submit" disabled={busy} className={PRIMARY}>
+                {busy && <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />} Submit
+                Event
               </button>
             </div>
           </form>
@@ -532,11 +581,11 @@ function SubmitEventModal({ onClose }: { onClose: () => void }) {
 }
 
 const inp =
-  "w-full px-3 py-2 rounded-lg border border-border bg-background focus:outline-none focus:border-primary";
+  "h-11 w-full min-w-0 rounded-md border border-border bg-background px-3 text-foreground focus:border-foreground focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring";
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <label className="block">
-      <span className="text-sm font-medium mb-1 block">{label}</span>
+      <span className="mb-1 block text-sm font-bold text-foreground">{label}</span>
       {children}
     </label>
   );
