@@ -9,6 +9,7 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
+import { Analytics } from "@vercel/analytics/react";
 
 import appCss from "../styles.css?url";
 import { I18nProvider, useI18n } from "@/lib/i18n-context";
@@ -130,6 +131,7 @@ function RootShell({ children }: { children: React.ReactNode }) {
         <SkipLink />
         {children}
         <Scripts />
+        <Analytics />
       </body>
     </html>
   );
