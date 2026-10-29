@@ -20,7 +20,7 @@ export function ViewToggle({
     <div
       role="tablist"
       aria-label={t("interface.view")}
-      className="inline-flex rounded-full border border-border bg-card p-0.5"
+      className="inline-flex rounded-md border border-foreground bg-card p-0.5"
     >
       {opts.map((o) => {
         const Icon = o.icon;
@@ -31,7 +31,7 @@ export function ViewToggle({
             role="tab"
             aria-selected={active}
             onClick={() => onChange(o.id)}
-            className={`no-min-h inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold min-h-[36px] ${active ? "bg-primary text-primary-foreground" : "text-foreground hover:bg-secondary"}`}
+            className={`no-min-h simplified-exempt inline-flex min-h-[40px] items-center gap-1.5 rounded-sm px-3 text-xs font-bold ${active ? "bg-primary text-primary-foreground" : "text-foreground hover:bg-secondary"}`}
           >
             <Icon className="h-3.5 w-3.5" aria-hidden="true" /> {o.label}
           </button>

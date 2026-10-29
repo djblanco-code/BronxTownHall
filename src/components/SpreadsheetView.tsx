@@ -2,6 +2,8 @@ import { trackCallClicked } from "@/lib/track-resource";
 import { Link } from "@tanstack/react-router";
 import { Phone } from "lucide-react";
 import { CATEGORY_PIN } from "@/lib/map-pins";
+import { CATEGORY_ICONS } from "@/features/resources";
+import type { Category } from "@/lib/data";
 import { isNonSpecificAddress } from "@/lib/address";
 import { FavoriteStar } from "./FavoriteStar";
 import { DirectionsLink } from "./DirectionsLink";
@@ -18,42 +20,47 @@ export type SheetRow = {
 
 export function SpreadsheetView({ rows }: { rows: SheetRow[] }) {
   return (
-    <div className="overflow-x-auto rounded-2xl border border-border bg-card">
+    <div className="overflow-x-auto border-t-[3px] border-b border-t-foreground border-b-border">
       <table className="min-w-full text-sm">
-        <thead className="bg-secondary text-secondary-foreground text-xs uppercase tracking-wide">
+        <thead className="label-caps text-muted-foreground">
           <tr>
-            <th className="text-left px-3 py-2 font-semibold">Name</th>
-            <th className="text-left px-3 py-2 font-semibold">Category</th>
-            <th className="text-left px-3 py-2 font-semibold">Address</th>
-            <th className="text-left px-3 py-2 font-semibold">Phone</th>
-            <th className="text-left px-3 py-2 font-semibold">Dist</th>
-            <th className="text-left px-3 py-2 font-semibold">Actions</th>
+            <th className="text-start px-3 py-2">Name</th>
+            <th className="text-start px-3 py-2">Category</th>
+            <th className="text-start px-3 py-2">Address</th>
+            <th className="text-start px-3 py-2">Phone</th>
+            <th className="text-start px-3 py-2">Dist</th>
+            <th className="text-start px-3 py-2">Actions</th>
           </tr>
         </thead>
         <tbody>
           {rows.map((r) => {
             const cat = CATEGORY_PIN[r.category];
+            const Icon = CATEGORY_ICONS[r.category as Category];
             return (
               <tr key={r.id} className="border-t border-border align-top">
                 <td className="px-3 py-2">
                   {r.isBiz ? (
-                    <span className="font-medium">{r.name}</span>
+                    <span className="font-bold">{r.name}</span>
                   ) : (
                     <Link
                       to="/resource/$id"
                       params={{ id: r.id }}
-                      className="no-min-h font-medium text-primary hover:underline"
+                      className="no-min-h font-bold text-foreground hover:underline"
                     >
                       {r.name}
                     </Link>
                   )}
                 </td>
                 <td className="px-3 py-2">
-                  <span
-                    className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold text-white"
-                    style={{ backgroundColor: cat?.color ?? "#475569" }}
-                  >
-                    {cat?.emoji} {cat?.label ?? r.category}
+                  <span className="inline-flex items-center gap-1.5 whitespace-nowrap text-xs font-semibold">
+                    {Icon && (
+                      <Icon
+                        className="h-4 w-4 shrink-0"
+                        style={{ color: cat?.color ?? "#475569" }}
+                        aria-hidden="true"
+                      />
+                    )}
+                    {cat?.label ?? r.category}
                   </span>
                 </td>
                 <td className="px-3 py-2 max-w-[18ch] truncate" title={r.address}>
@@ -81,16 +88,16 @@ export function SpreadsheetView({ rows }: { rows: SheetRow[] }) {
                         trackCallClicked({ resourceId: r.id, category: r.category, phone: r.phone })
                       }
                       aria-label={`Call ${r.name}`}
-                      className="no-min-h inline-flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground"
+                      className="no-min-h inline-flex h-9 w-9 items-center justify-center rounded-md border border-border hover:border-foreground"
                     >
-                      <Phone className="h-3.5 w-3.5" />
+                      <Phone className="h-4 w-4" aria-hidden />
                     </a>
                     {!isNonSpecificAddress(r.address) && (
                       <DirectionsLink
                         address={r.address}
                         label={`Get directions to ${r.name}`}
                         iconOnly
-                        className="no-min-h h-8 w-8 justify-center rounded-full bg-accent text-accent-foreground hover:no-underline"
+                        className="no-min-h h-9 w-9 justify-center rounded-md border border-border text-foreground hover:border-foreground hover:no-underline"
                       />
                     )}
                     {!r.isBiz && <FavoriteStar id={r.id} />}

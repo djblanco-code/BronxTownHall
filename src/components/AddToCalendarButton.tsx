@@ -48,7 +48,7 @@ export function AddToCalendarButton({
       onClick={onClick}
       className={
         className ??
-        "inline-flex items-center gap-2 rounded-full border-2 border-border bg-card px-5 py-2.5 text-sm font-semibold text-foreground shadow-sm hover:border-primary/40 hover:shadow transition"
+        "inline-flex min-h-[44px] items-center gap-2 rounded-md border-2 border-foreground px-4 text-sm font-bold text-foreground transition-colors hover:bg-foreground hover:text-background"
       }
     >
       <CalendarDays className="h-4 w-4" aria-hidden />

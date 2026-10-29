@@ -29,7 +29,7 @@ export function FavoriteStar({
         e.stopPropagation();
         const next = toggleFavorite(id);
         trackResourceSaved({ resourceId: id, category, saved: next.includes(id) });
-        toast.success(next.includes(id) ? "Saved to Favorites ⭐" : "Removed from Favorites");
+        toast.success(next.includes(id) ? "Saved to Favorites" : "Removed from Favorites");
         onClick?.(e);
       }}
       aria-label={fav ? t("interface.removeFavorite") : t("interface.saveFavorite")}

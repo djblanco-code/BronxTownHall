@@ -3,6 +3,8 @@ import { Bell, Check, Loader2, Mail, MessageSquare } from "lucide-react";
 import { CATEGORIES } from "@/lib/data";
 import { useI18n } from "@/lib/i18n-context";
 import { useProfile, NEED_TO_CATEGORY } from "@/lib/onboarding";
+import { chipVariants } from "@/components/ui/chip";
+import { CATEGORY_ICONS } from "@/features/resources";
 import { subscribeToAlerts, phoneIssue, type AlertChannel } from "@/lib/policy-alerts";
 
 export function AlertSubscribeForm({
@@ -64,10 +66,8 @@ export function AlertSubscribeForm({
 
   if (status === "ok") {
     return (
-      <div className="rounded-xl border-2 border-primary/40 bg-primary/5 p-4 text-center">
-        <div className="mx-auto h-10 w-10 rounded-full bg-primary/15 grid place-items-center mb-2">
-          <Check className="h-6 w-6 text-primary" aria-hidden />
-        </div>
+      <div className="rounded-md border border-border p-4 text-center">
+        <Check className="mx-auto mb-2 h-6 w-6 text-success" aria-hidden />
         <p className="font-bold">{t("alertsSubOk")}</p>
         <p className="text-sm text-muted-foreground mt-1">{t("alertsSubOkNote")}</p>
         {onDone && (
@@ -83,7 +83,7 @@ export function AlertSubscribeForm({
   }
 
   return (
-    <form onSubmit={onSubmit} className="rounded-xl border-2 border-border bg-card p-4 space-y-3">
+    <form onSubmit={onSubmit} className="rounded-md border border-border bg-card p-4 space-y-3">
       <p className="font-bold inline-flex items-center gap-2">
         <Bell className="h-5 w-5 text-primary" aria-hidden /> {t("alertsSubTitle")}
       </p>
@@ -99,11 +99,7 @@ export function AlertSubscribeForm({
             type="button"
             onClick={() => setChannel(id)}
             aria-pressed={channel === id}
-            className={`no-min-h inline-flex items-center gap-1.5 text-sm px-3 py-2 rounded-full border-2 transition ${
-              channel === id
-                ? "border-primary bg-primary text-primary-foreground"
-                : "border-border bg-card hover:border-primary"
-            }`}
+            className={chipVariants({ selected: channel === id })}
           >
             <Icon className="h-4 w-4" aria-hidden /> {label}
           </button>
@@ -122,7 +118,7 @@ export function AlertSubscribeForm({
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
             placeholder="(718) 555-0123"
-            className="mt-1 w-full px-3 py-3 rounded-xl border-2 border-border bg-background focus:outline-none focus:border-primary min-h-[48px]"
+            className="mt-1 w-full px-3 py-3 rounded-md border border-border bg-background focus:outline-none focus:border-primary min-h-[48px]"
           />
         </label>
       ) : (
@@ -136,7 +132,7 @@ export function AlertSubscribeForm({
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="you@example.com"
-            className="mt-1 w-full px-3 py-3 rounded-xl border-2 border-border bg-background focus:outline-none focus:border-primary min-h-[48px]"
+            className="mt-1 w-full px-3 py-3 rounded-md border border-border bg-background focus:outline-none focus:border-primary min-h-[48px]"
           />
         </label>
       )}
@@ -148,19 +144,21 @@ export function AlertSubscribeForm({
         <div className="flex flex-wrap gap-2">
           {CATEGORIES.map((c) => {
             const active = cats.includes(c.id);
+            const Icon = CATEGORY_ICONS[c.id];
             return (
               <button
                 key={c.id}
                 type="button"
                 onClick={() => toggle(c.id)}
                 aria-pressed={active}
-                className={`no-min-h text-sm px-3 py-2 rounded-full border-2 transition ${
-                  active
-                    ? "border-primary bg-primary text-primary-foreground"
-                    : "border-border bg-card hover:border-primary"
-                }`}
+                className={chipVariants({ selected: active })}
               >
-                <span aria-hidden>{c.emoji}</span> {t(c.labelKey)}
+                <Icon
+                  className="h-4 w-4 shrink-0"
+                  style={active ? undefined : { color: c.color }}
+                  aria-hidden="true"
+                />
+                {t(c.labelKey)}
               </button>
             );
           })}
@@ -178,7 +176,7 @@ export function AlertSubscribeForm({
         <button
           type="submit"
           disabled={status === "loading"}
-          className="no-min-h inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-primary text-primary-foreground font-semibold shadow hover:opacity-90 disabled:opacity-60 min-h-[48px]"
+          className="no-min-h inline-flex items-center gap-2 px-5 py-3 rounded-md bg-primary text-primary-foreground font-bold transition-colors hover:bg-primary/90 disabled:opacity-60 min-h-[48px]"
         >
           {status === "loading" ? (
             <Loader2 className="h-5 w-5 animate-spin" />

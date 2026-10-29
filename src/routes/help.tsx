@@ -24,6 +24,7 @@ import { isNonSpecificAddress, LOCATION_VARIES_LABEL } from "@/lib/address";
 import { VerifiedPill } from "@/components/VerifiedPill";
 import { useResourceMeta } from "@/lib/resource-meta";
 import { DirectionsLink } from "@/components/DirectionsLink";
+import { CATEGORY_ICONS } from "@/features/resources";
 
 type SearchSchema = { q?: string };
 
@@ -154,7 +155,7 @@ function HelpPage() {
           <ArrowLeft className="h-4 w-4" /> {t("back")}
         </button>
 
-        <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
+        <h1 className="text-3xl font-bold leading-tight text-foreground sm:text-4xl">
           Tell us what's going on
         </h1>
         <p className="mt-1 text-muted-foreground">
@@ -167,7 +168,7 @@ function HelpPage() {
             e.preventDefault();
             run(input);
           }}
-          className="mt-4 rounded-2xl border-2 border-border bg-card p-3 shadow-sm focus-within:border-primary"
+          className="mt-4 rounded-md border-2 border-foreground bg-card p-3 focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-ring"
         >
           <label htmlFor="need-input" className="sr-only">
             Describe what you need help with
@@ -188,6 +189,7 @@ function HelpPage() {
           />
           <div className="flex items-center justify-between gap-2 pt-1">
             <VoiceSearchButton
+              className="rounded-md bg-bronx-orange text-bronx-orange-foreground hover:bg-bronx-orange/90"
               onResult={(text) => {
                 setInput(text);
                 run(text);
@@ -196,40 +198,39 @@ function HelpPage() {
             <button
               type="submit"
               disabled={!input.trim()}
-              className="no-min-h inline-flex items-center gap-2 rounded-full bg-primary px-5 py-3 font-semibold text-primary-foreground shadow-sm disabled:opacity-40 hover:opacity-90 transition"
+              className="no-min-h inline-flex min-h-[44px] items-center gap-2 rounded-md bg-primary px-5 py-2.5 font-bold text-primary-foreground transition-colors hover:bg-primary/90 disabled:opacity-40"
             >
-              <Send className="h-4 w-4" /> Get my help pack
+              <Send className="h-4 w-4 rtl:-scale-x-100" aria-hidden /> Get my help pack
             </button>
           </div>
         </form>
 
         {!parse && (
           <div className="mt-4">
-            <p className="text-sm font-semibold text-muted-foreground mb-2">
-              Not sure how to say it? Try:
-            </p>
-            <div className="flex flex-wrap gap-2">
+            <p className="label-caps mb-1 text-muted-foreground">Not sure how to say it? Try:</p>
+            <ul className="divide-y divide-border border-y border-border">
               {EXAMPLE_PROMPTS.map((p) => (
-                <button
-                  key={p}
-                  onClick={() => {
-                    setInput(p);
-                    run(p);
-                  }}
-                  className="no-min-h rounded-full border border-border bg-card px-3 py-2 text-sm hover:border-primary hover:bg-primary/5 transition"
-                >
-                  “{p}”
-                </button>
+                <li key={p}>
+                  <button
+                    onClick={() => {
+                      setInput(p);
+                      run(p);
+                    }}
+                    className="no-min-h flex min-h-[44px] w-full items-center py-2.5 text-start text-sm font-semibold text-primary hover:underline"
+                  >
+                    “{p}”
+                  </button>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
         )}
 
         {parse && (
           <>
             {parse.urgent && (
-              <div className="mt-5 flex items-start gap-3 rounded-2xl border-2 border-destructive/40 bg-destructive/10 p-4">
-                <AlertTriangle className="h-5 w-5 shrink-0 text-destructive mt-0.5" />
+              <div className="mt-5 flex items-start gap-3 rounded-md border-2 border-destructive p-4">
+                <AlertTriangle className="h-5 w-5 shrink-0 text-destructive mt-0.5" aria-hidden />
                 <div>
                   <p className="font-bold text-destructive">
                     If you're in danger or crisis right now
@@ -237,22 +238,22 @@ function HelpPage() {
                   <p className="text-sm text-muted-foreground">
                     Call 911 for emergencies, or 988 for free 24/7 crisis support.
                   </p>
-                  <div className="mt-2 flex gap-2">
+                  <div className="mt-3 flex flex-wrap gap-2">
                     <a
                       href="tel:911"
-                      className="no-min-h rounded-full bg-destructive px-4 py-2 text-sm font-bold text-destructive-foreground"
+                      className="no-min-h inline-flex min-h-[44px] items-center rounded-md bg-destructive px-4 text-sm font-bold text-destructive-foreground hover:bg-destructive/90"
                     >
                       Call 911
                     </a>
                     <a
                       href="tel:988"
-                      className="no-min-h rounded-full border border-destructive px-4 py-2 text-sm font-bold text-destructive"
+                      className="no-min-h inline-flex min-h-[44px] items-center rounded-md border-2 border-destructive px-4 text-sm font-bold text-destructive hover:bg-destructive hover:text-destructive-foreground"
                     >
                       Call 988
                     </a>
                     <Link
                       to="/emergency"
-                      className="no-min-h rounded-full border border-border px-4 py-2 text-sm font-semibold"
+                      className="no-min-h inline-flex min-h-[44px] items-center rounded-md border-2 border-foreground px-4 text-sm font-bold text-foreground hover:bg-foreground hover:text-background"
                     >
                       All hotlines
                     </Link>
@@ -261,7 +262,7 @@ function HelpPage() {
               </div>
             )}
 
-            <div className="mt-5 rounded-2xl border border-primary/30 bg-primary/5 p-4">
+            <div className="mt-6 border-t-[3px] border-foreground pt-3">
               <div className="flex items-start gap-2">
                 <Sparkles className="h-5 w-5 text-primary shrink-0 mt-0.5" aria-hidden />
                 <div className="min-w-0 flex-1">
@@ -269,20 +270,28 @@ function HelpPage() {
                   <div className="mt-2 flex flex-wrap items-center gap-1.5">
                     {[parse.primaryNeed, ...parse.relatedNeeds].map((c) => {
                       const cat = CATEGORIES.find((x) => x.id === c);
+                      const Icon = CATEGORY_ICONS[c];
                       return (
                         <Link
                           key={c}
                           to="/category/$cat"
                           params={{ cat: c }}
-                          className="no-min-h rounded-full border border-border bg-card px-3 py-1 text-xs font-semibold hover:border-primary"
+                          className="no-min-h inline-flex h-9 items-center gap-1.5 rounded-md border border-border bg-card px-3 text-xs font-semibold hover:border-foreground"
                         >
-                          {cat?.emoji} {cat ? t(cat.labelKey) : c}
+                          {Icon && (
+                            <Icon
+                              className="h-4 w-4 shrink-0"
+                              style={cat ? { color: cat.color } : undefined}
+                              aria-hidden="true"
+                            />
+                          )}
+                          {cat ? t(cat.labelKey) : c}
                         </Link>
                       );
                     })}
                     {refining && (
                       <span className="inline-flex items-center gap-1 text-xs text-muted-foreground">
-                        <Loader2 className="h-3 w-3 animate-spin" /> refining…
+                        <Loader2 className="h-3 w-3 animate-spin" aria-hidden /> refining…
                       </span>
                     )}
                   </div>
@@ -303,20 +312,23 @@ function HelpPage() {
                 />
                 <button
                   onClick={sharePack}
-                  className="no-min-h inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2 text-sm font-semibold hover:border-primary"
+                  className="no-min-h inline-flex min-h-[44px] items-center gap-2 rounded-md border-2 border-foreground px-4 text-sm font-bold text-foreground transition-colors hover:bg-foreground hover:text-background"
                 >
-                  <Share2 className="h-4 w-4" /> Send by text
+                  <Share2 className="h-4 w-4" aria-hidden /> Send by text
                 </button>
               </div>
             </div>
 
-            <h2 className="mt-6 mb-3 text-lg font-bold">Your 5 resources</h2>
-            <ol className="space-y-3">
+            <h2 className="mt-8 border-t-[3px] border-foreground pt-2 text-lg font-bold sm:text-2xl">
+              Your 5 resources
+            </h2>
+            <ol className="mt-1 divide-y divide-border border-y border-border">
               {pack.map((r, i) => {
                 const cat = CATEGORIES.find((c) => c.id === r.category);
+                const Icon = CATEGORY_ICONS[r.category];
                 return (
-                  <li key={r.id} className="flex items-stretch gap-2">
-                    <div className="flex-1 rounded-2xl border border-border bg-card p-4 hover:border-primary hover:shadow-md transition">
+                  <li key={r.id} className="flex items-stretch gap-2 py-3">
+                    <div className="group min-w-0 flex-1">
                       <Link
                         to="/resource/$id"
                         params={{ id: r.id }}
@@ -330,15 +342,14 @@ function HelpPage() {
                         }}
                         className="no-min-h block"
                       >
-                        <span className="flex items-center gap-3">
-                          <span
-                            className="h-11 w-11 shrink-0 grid place-items-center rounded-xl text-2xl"
-                            style={{ backgroundColor: cat?.color }}
-                          >
-                            {cat?.emoji}
-                          </span>
+                        <span className="flex items-start gap-3">
+                          <Icon
+                            className="mt-0.5 h-5 w-5 shrink-0"
+                            style={cat ? { color: cat.color } : undefined}
+                            aria-hidden="true"
+                          />
                           <span className="min-w-0 flex-1">
-                            <span className="block font-semibold truncate">
+                            <span className="block truncate font-bold text-foreground group-hover:underline">
                               {i + 1}. {r.name[lang]}
                             </span>
                             <span className="block text-xs text-muted-foreground truncate">
@@ -353,11 +364,11 @@ function HelpPage() {
                             </span>
                           </span>
                         </span>
-                        <span className="mt-2 block text-sm text-muted-foreground line-clamp-2">
+                        <span className="mt-1 block ps-8 text-sm text-muted-foreground line-clamp-2">
                           {r.description[lang]}
                         </span>
                       </Link>
-                      <div className="mt-2 flex flex-wrap items-center gap-1.5">
+                      <div className="mt-2 flex flex-wrap items-center gap-1.5 ps-8">
                         <VerifiedPill
                           status={resMeta[r.id]?.verification_status ?? "needs_verification"}
                           lastVerified={resMeta[r.id]?.last_verified ?? null}
@@ -367,21 +378,21 @@ function HelpPage() {
                           compact
                         />
                       </div>
-                      <div className="mt-2">
+                      <div className="mt-2 ps-8">
                         <AttributeBadges a={r} />
                       </div>
-                      <div className="mt-3 flex flex-wrap gap-2">
+                      <div className="mt-3 flex flex-wrap gap-2 ps-8">
                         <a
                           href={`tel:${r.phone}`}
-                          className="no-min-h inline-flex items-center gap-1.5 rounded-full bg-primary px-3 py-2 text-xs font-bold text-primary-foreground"
+                          className="no-min-h inline-flex min-h-[44px] items-center gap-1.5 rounded-md border-2 border-foreground px-3 text-sm font-bold text-foreground transition-colors hover:bg-foreground hover:text-background"
                         >
-                          <Phone className="h-3.5 w-3.5" /> Call
+                          <Phone className="h-4 w-4" aria-hidden /> Call
                         </a>
                         {!isNonSpecificAddress(r.address) && (
                           <DirectionsLink
                             address={r.address}
                             label="Get Directions"
-                            className="no-min-h rounded-full border border-border px-3 py-2 text-xs hover:no-underline"
+                            className="no-min-h min-h-[44px] rounded-md border border-border px-3 text-sm text-foreground hover:border-foreground hover:no-underline"
                           />
                         )}
                       </div>

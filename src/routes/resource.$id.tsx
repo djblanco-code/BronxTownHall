@@ -256,7 +256,7 @@ function ResourcePage() {
         <CallAheadNote className="mb-2" />
 
         <div className="flex items-start gap-2 mb-2">
-          <h1 className="text-2xl sm:text-3xl font-bold text-foreground flex-1">
+          <h1 className="min-w-0 flex-1 text-3xl font-bold leading-tight text-foreground sm:text-4xl">
             {res.name[lang]}
           </h1>
           <FavoriteStar id={res.id} size="lg" category={res.category} />
@@ -300,7 +300,7 @@ function ResourcePage() {
           {attrs.map((a, i) => (
             <span
               key={i}
-              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-secondary text-secondary-foreground border border-border"
+              className="inline-flex items-center gap-1 rounded-sm border border-border bg-secondary px-2.5 py-1 text-xs font-semibold text-secondary-foreground"
             >
               {a.icon} {a.label}
             </span>
@@ -326,9 +326,9 @@ function ResourcePage() {
               trackUsage(res.id, "call");
               trackCallClicked({ resourceId: res.id, category: res.category, phone: res.phone });
             }}
-            className="no-min-h inline-flex items-center justify-center gap-2 py-4 rounded-2xl bg-primary text-primary-foreground font-semibold shadow-md hover:bg-primary/90 transition min-h-[56px]"
+            className="no-min-h inline-flex items-center justify-center gap-2 py-3 rounded-md bg-primary text-primary-foreground font-bold hover:bg-primary/90 transition-colors min-h-[52px]"
           >
-            <Phone className="h-5 w-5" /> {t("callNow")}
+            <Phone className="h-5 w-5" aria-hidden /> {t("callNow")}
           </a>
           {locationVaries ? (
             res.website ? (
@@ -343,9 +343,9 @@ function ResourcePage() {
                     url: res.website,
                   })
                 }
-                className="no-min-h inline-flex items-center justify-center gap-2 py-4 rounded-2xl bg-accent text-accent-foreground font-semibold shadow-md hover:bg-accent/90 transition min-h-[56px]"
+                className="no-min-h inline-flex items-center justify-center gap-2 py-3 min-h-[52px] rounded-md border-2 border-foreground bg-transparent font-bold text-foreground transition-colors hover:bg-foreground hover:text-background"
               >
-                <ExternalLink className="h-5 w-5" /> {t("interface.seeLocations")}
+                <ExternalLink className="h-5 w-5" aria-hidden /> {t("interface.seeLocations")}
               </a>
             ) : null
           ) : (
@@ -360,7 +360,7 @@ function ResourcePage() {
                   distanceMiles: res.distance,
                 });
               }}
-              className="no-min-h justify-center gap-2 py-4 rounded-2xl bg-accent text-accent-foreground font-semibold shadow-md hover:bg-accent/90 hover:no-underline transition min-h-[56px]"
+              className="no-min-h justify-center gap-2 py-3 min-h-[52px] hover:no-underline rounded-md border-2 border-foreground bg-transparent font-bold text-foreground transition-colors hover:bg-foreground hover:text-background"
             />
           )}
         </div>
@@ -388,9 +388,13 @@ function ResourcePage() {
                     url: action.href,
                   });
               }}
-              className="no-min-h w-full inline-flex items-center justify-center gap-2 py-4 rounded-2xl bg-primary text-primary-foreground font-semibold shadow-md hover:bg-primary/90 transition mb-3 min-h-[56px]"
+              className="no-min-h w-full inline-flex items-center justify-center gap-2 py-3 mb-3 min-h-[52px] rounded-md border-2 border-foreground bg-transparent font-bold text-foreground transition-colors hover:bg-foreground hover:text-background"
             >
-              {isPhone ? <Phone className="h-5 w-5" /> : <ExternalLink className="h-5 w-5" />}
+              {isPhone ? (
+                <Phone className="h-5 w-5" aria-hidden />
+              ) : (
+                <ExternalLink className="h-5 w-5" aria-hidden />
+              )}
               {t("interface.applyHere")}
               {isPhone ? ` · ${action.display}` : ""}
             </a>
@@ -398,9 +402,9 @@ function ResourcePage() {
         })()}
         <button
           onClick={handleShare}
-          className="no-min-h w-full inline-flex items-center justify-center gap-2 py-3.5 rounded-2xl border-2 border-border bg-card font-semibold hover:bg-secondary transition mb-4 min-h-[48px] print-hide"
+          className="no-min-h w-full inline-flex items-center justify-center gap-2 py-3 mb-4 min-h-[48px] print-hide rounded-md border-2 border-foreground bg-transparent font-bold text-foreground transition-colors hover:bg-foreground hover:text-background"
         >
-          <Share2 className="h-5 w-5" /> {t("interface.shareWhatsApp")}
+          <Share2 className="h-5 w-5" aria-hidden /> {t("interface.shareWhatsApp")}
         </button>
 
         <ResourceActions
@@ -411,7 +415,7 @@ function ResourcePage() {
           category={res.category}
         />
 
-        <div className="rounded-2xl border border-border bg-card p-5 space-y-3">
+        <div className="divide-y divide-border border-t-[3px] border-b border-t-foreground border-b-border">
           <InfoRow label={t("address")}>{res.address}</InfoRow>
           <InfoRow label={t("phone")}>{res.phone}</InfoRow>
           <InfoRow label={t("hours")}>{res.hours[lang]}</InfoRow>
@@ -442,8 +446,10 @@ function ResourcePage() {
           )}
         </div>
 
-        <section className="mt-6">
-          <h2 className="font-bold text-lg text-foreground mb-2">{t("services")}</h2>
+        <section className="mt-8">
+          <h2 className="mb-2 border-t-[3px] border-foreground pt-2 text-lg font-bold text-foreground sm:text-2xl">
+            {t("services")}
+          </h2>
           <p className="text-foreground leading-relaxed">{res.description[lang]}</p>
           {lang !== "en" && res.description[lang] === res.description.en && (
             <p className="mt-2 text-sm font-medium text-muted-foreground">
@@ -455,16 +461,18 @@ function ResourcePage() {
         {/* Only real, approved reviews submitted by residents are shown.
             No placeholder content is ever rendered here. */}
         {realReviews.length > 0 && (
-          <section className="mt-6">
-            <h2 className="font-bold text-lg text-foreground mb-3">{t("neighborsSay")}</h2>
-            <ul className="space-y-3">
+          <section className="mt-8">
+            <h2 className="border-t-[3px] border-foreground pt-2 text-lg font-bold text-foreground sm:text-2xl">
+              {t("neighborsSay")}
+            </h2>
+            <ul className="mt-1 divide-y divide-border border-b border-border">
               {realReviews.map((rv) => (
-                <li key={rv.id} className="rounded-2xl border border-border bg-card p-4">
+                <li key={rv.id} className="py-3">
                   <div className="flex items-center gap-2">
                     <span className="font-semibold text-foreground">{rv.name}</span>
                     <span className="flex" aria-label={`${rv.rating} stars`}>
                       {Array.from({ length: rv.rating }).map((_, k) => (
-                        <Star key={k} className="h-4 w-4 fill-warning text-warning" />
+                        <Star key={k} className="h-4 w-4 fill-warning text-warning" aria-hidden />
                       ))}
                     </span>
                   </div>
@@ -475,7 +483,7 @@ function ResourcePage() {
           </section>
         )}
 
-        <div className="flex flex-wrap gap-2 mt-6">
+        <div className="flex flex-wrap gap-2 mt-8 border-t border-border pt-4">
           {res.eventDate && (
             <AddToCalendarButton
               title={res.name[lang]}
@@ -483,7 +491,7 @@ function ResourcePage() {
               time={res.eventTime}
               location={isNonSpecificAddress(res.address) ? "" : res.address}
               description={res.description[lang]}
-              className="no-min-h inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-border text-sm font-medium hover:bg-secondary"
+              className="no-min-h inline-flex min-h-[44px] items-center gap-2 rounded-md border border-border px-4 py-2.5 text-sm font-semibold hover:border-foreground"
             />
           )}
           <PrintFlyerButton
@@ -503,24 +511,25 @@ function ResourcePage() {
           />
           <button
             onClick={() => setShowSuggest(true)}
-            className="no-min-h inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-border text-sm font-medium hover:bg-secondary"
+            className="no-min-h inline-flex min-h-[44px] items-center gap-2 rounded-md border border-border px-4 py-2.5 text-sm font-semibold hover:border-foreground"
           >
-            <Pencil className="h-4 w-4" /> {t("interface.suggestEdit")}
+            <Pencil className="h-4 w-4" aria-hidden /> {t("interface.suggestEdit")}
           </button>
           <button
             onClick={() => {
               trackUsage(res.id, "report");
               setShowReport(true);
             }}
-            className="no-min-h inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-border text-sm font-medium hover:bg-secondary"
+            className="no-min-h inline-flex min-h-[44px] items-center gap-2 rounded-md border border-border px-4 py-2.5 text-sm font-semibold hover:border-foreground"
           >
-            <Flag className="h-4 w-4" /> {t("interface.reportIncorrect")}
+            <Flag className="h-4 w-4" aria-hidden /> {t("interface.reportIncorrect")}
           </button>
           <button
             onClick={() => setShowFlag(true)}
-            className="no-min-h inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-border text-sm font-medium hover:bg-secondary"
+            className="no-min-h inline-flex min-h-[44px] items-center gap-2 rounded-md border border-border px-4 py-2.5 text-sm font-semibold hover:border-foreground"
           >
-            <ShieldAlert className="h-4 w-4 text-destructive" /> {t("interface.flagBusiness")}
+            <ShieldAlert className="h-4 w-4 text-destructive" aria-hidden />{" "}
+            {t("interface.flagBusiness")}
           </button>
         </div>
         <p className="mt-2 text-xs text-muted-foreground">{t("interface.actionHelp")}</p>
@@ -557,11 +566,9 @@ function ResourcePage() {
 
 function InfoRow({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-3">
-      <span className="text-xs font-semibold uppercase tracking-wide text-muted-foreground sm:w-28 shrink-0">
-        {label}
-      </span>
-      <span className="text-foreground">{children}</span>
+    <div className="flex flex-col gap-0.5 py-3 sm:flex-row sm:items-baseline sm:gap-3">
+      <span className="label-caps shrink-0 text-muted-foreground sm:w-28">{label}</span>
+      <span className="min-w-0 text-foreground">{children}</span>
     </div>
   );
 }

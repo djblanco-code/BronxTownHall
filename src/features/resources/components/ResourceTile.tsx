@@ -5,6 +5,7 @@ import { LANGS } from "@/lib/i18n";
 import { formatClock, useNycTime } from "@/lib/opening-hours";
 import { cn } from "@/lib/utils";
 import { openingLine } from "../lib/opening-line";
+import { CATEGORY_ICONS } from "../lib/category-icons";
 
 /**
  * A listing as a small tile for swipeable rows on Home ("Open tonight",
@@ -13,22 +14,17 @@ import { openingLine } from "../lib/opening-line";
 export function ResourceTile({ resource: r }: { resource: Resource }) {
   const { t, lang } = useI18n();
   const category = CATEGORIES.find((c) => c.id === r.category);
+  const Icon = CATEGORY_ICONS[r.category];
 
   return (
     <Link
       to="/resource/$id"
       params={{ id: r.id }}
-      className="no-min-h flex w-full flex-col rounded-2xl border border-border bg-card p-3 transition hover:border-primary hover:shadow-md"
+      className="no-min-h flex w-full flex-col rounded-md border border-border bg-card p-3 transition-colors hover:border-foreground"
     >
       <span className="flex items-center gap-2">
         {category && (
-          <span
-            aria-hidden="true"
-            className="grid h-9 w-9 shrink-0 place-items-center rounded-xl text-xl"
-            style={{ backgroundColor: category.color }}
-          >
-            {category.emoji}
-          </span>
+          <Icon className="h-5 w-5 shrink-0" style={{ color: category.color }} aria-hidden="true" />
         )}
         <span className="min-w-0 truncate text-xs text-muted-foreground">
           {category ? t(category.labelKey) : null}

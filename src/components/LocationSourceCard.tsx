@@ -18,8 +18,8 @@ export function LocationSourceCard({ className = "" }: { className?: string }) {
       : "No location set — distances are approximate";
 
   return (
-    <div className={`rounded-2xl border border-border bg-card p-3 ${className}`} aria-live="polite">
-      <div className="flex items-start gap-2">
+    <div className={`border-b border-border py-3 ${className}`} aria-live="polite">
+      <div className="flex items-start gap-3">
         {live ? (
           <Crosshair className="h-4 w-4 mt-0.5 shrink-0 text-success" aria-hidden />
         ) : (
@@ -57,7 +57,7 @@ export function LocationSourceCard({ className = "" }: { className?: string }) {
             {live ? (
               <button
                 onClick={useZipOnly}
-                className="no-min-h inline-flex items-center gap-1.5 rounded-full border-2 border-border bg-card px-3 py-2 text-xs font-bold min-h-[44px]"
+                className="no-min-h inline-flex min-h-[44px] items-center gap-1.5 rounded-md border-2 border-foreground px-3 py-2 text-sm font-bold text-foreground transition-colors hover:bg-foreground hover:text-background"
               >
                 <MapPin className="h-3.5 w-3.5" aria-hidden /> Switch back to zip code only
               </button>
@@ -65,7 +65,7 @@ export function LocationSourceCard({ className = "" }: { className?: string }) {
               <button
                 onClick={enableLive}
                 disabled={status === "requesting" || !supported}
-                className="no-min-h inline-flex items-center gap-1.5 rounded-full bg-primary px-3.5 py-2 text-xs font-bold text-primary-foreground hover:bg-primary/90 disabled:opacity-60 min-h-[44px]"
+                className="no-min-h inline-flex min-h-[44px] items-center gap-1.5 rounded-md border-2 border-foreground px-3 py-2 text-sm font-bold text-foreground transition-colors hover:bg-foreground hover:text-background disabled:opacity-60"
               >
                 {status === "requesting" ? (
                   <>

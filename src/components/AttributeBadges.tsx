@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { Languages } from "lucide-react";
 import { listingLanguages } from "@/lib/languages";
 import { useI18n } from "@/lib/i18n-context";
 
@@ -10,61 +11,31 @@ export type Attributes = {
   accessibility?: string[];
 };
 
-const OWNERSHIP_LABEL: Record<string, { emoji: string; key: string }> = {
-  women: { emoji: "👩", key: "womenOwned" },
-  minority: { emoji: "🌟", key: "minorityOwned" },
-  immigrant: { emoji: "🌍", key: "immigrantOwned" },
-  family: { emoji: "👨‍👩‍👧‍👦", key: "familyOwned" },
-  veteran: { emoji: "🎖️", key: "veteranOwned" },
-  "fair-chance": { emoji: "⚖️", key: "fairChance" },
+// Text only: no flags or emoji beside the tags (docs/design-system.md).
+const OWNERSHIP_LABEL: Record<string, { key: string }> = {
+  women: { key: "womenOwned" },
+  minority: { key: "minorityOwned" },
+  immigrant: { key: "immigrantOwned" },
+  family: { key: "familyOwned" },
+  veteran: { key: "veteranOwned" },
+  "fair-chance": { key: "fairChance" },
 };
 
-const DIETARY_LABEL: Record<string, { emoji: string; label: string }> = {
-  halal: { emoji: "☪️", label: "Halal" },
-  kosher: { emoji: "✡️", label: "Kosher" },
-  vegetarian: { emoji: "🌱", label: "Vegetarian" },
-  vegan: { emoji: "🌿", label: "Vegan" },
-  "gluten-free": { emoji: "🌾", label: "Gluten-Free" },
-  "dairy-free": { emoji: "🥛", label: "Dairy-Free" },
-  "nut-free": { emoji: "🥜", label: "Nut-Free" },
+const DIETARY_LABEL: Record<string, { label: string }> = {
+  halal: { label: "Halal" },
+  kosher: { label: "Kosher" },
+  vegetarian: { label: "Vegetarian" },
+  vegan: { label: "Vegan" },
+  "gluten-free": { label: "Gluten-Free" },
+  "dairy-free": { label: "Dairy-Free" },
+  "nut-free": { label: "Nut-Free" },
 };
 
-const ACCESS_LABEL: Record<string, { emoji: string; label: string }> = {
-  wheelchair: { emoji: "♿", label: "Wheelchair Accessible" },
-  restroom: { emoji: "♿", label: "Accessible Restroom" },
-  "service-animals": { emoji: "🐕", label: "Service Animals OK" },
-  "large-print": { emoji: "🔠", label: "Large Print Available" },
-};
-
-const HERITAGE_FLAGS: Record<string, string> = {
-  guinean: "🇬🇳",
-  senegalese: "🇸🇳",
-  nigerian: "🇳🇬",
-  ghanaian: "🇬🇭",
-  ivorian: "🇨🇮",
-  malian: "🇲🇱",
-  dominican: "🇩🇴",
-  "puerto rican": "🇵🇷",
-  mexican: "🇲🇽",
-  ecuadorian: "🇪🇨",
-  honduran: "🇭🇳",
-  colombian: "🇨🇴",
-  bengali: "🇧🇩",
-  bangladeshi: "🇧🇩",
-  indian: "🇮🇳",
-  pakistani: "🇵🇰",
-  yemeni: "🇾🇪",
-  moroccan: "🇲🇦",
-  egyptian: "🇪🇬",
-  lebanese: "🇱🇧",
-  syrian: "🇸🇾",
-  haitian: "🇭🇹",
-  jamaican: "🇯🇲",
-  trinidadian: "🇹🇹",
-  chinese: "🇨🇳",
-  vietnamese: "🇻🇳",
-  korean: "🇰🇷",
-  filipino: "🇵🇭",
+const ACCESS_LABEL: Record<string, { label: string }> = {
+  wheelchair: { label: "Wheelchair Accessible" },
+  restroom: { label: "Accessible Restroom" },
+  "service-animals": { label: "Service Animals OK" },
+  "large-print": { label: "Large Print Available" },
 };
 
 function cap(s: string) {
@@ -92,19 +63,19 @@ export function AttributeBadges({ a, max }: { a: Attributes; max?: number }) {
     if (o) items.push(<Pill key={`o-${k}`}>{t(`interface.${o.key}`)}</Pill>);
   }
   for (const h of a.heritage ?? []) {
-    const flag = HERITAGE_FLAGS[h.toLowerCase()] ?? "🌍";
-    items.push(
-      <Pill key={`h-${h}`}>
-        {flag} {cap(h)}-Owned
-      </Pill>,
-    );
+    items.push(<Pill key={`h-${h}`}>{cap(h)}-Owned</Pill>);
   }
   for (const d of a.dietary ?? []) {
     const o = DIETARY_LABEL[d];
     if (o) items.push(<Pill key={`d-${d}`}>{o.label}</Pill>);
   }
   for (const l of listingLanguages(a.languages)) {
-    items.push(<Pill key={`l-${l}`}>🗣️ {l}</Pill>);
+    items.push(
+      <Pill key={`l-${l}`}>
+        <Languages className="h-3 w-3 shrink-0 text-muted-foreground" aria-hidden="true" />
+        {l}
+      </Pill>,
+    );
   }
   for (const x of a.accessibility ?? []) {
     const o = ACCESS_LABEL[x];

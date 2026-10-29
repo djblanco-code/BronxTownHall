@@ -15,7 +15,9 @@ import {
 } from "@/components/FilterPanel";
 import { SUBCATEGORIES_BY_CATEGORY } from "@/lib/subcategories";
 import { includesAdults, includesMinors } from "@/lib/age-range";
-import { ArrowLeft, Plus, X, SlidersHorizontal } from "lucide-react";
+import { ArrowLeft, Check, ChevronRight, Plus, X, SlidersHorizontal } from "lucide-react";
+import { Chip, chipVariants } from "@/components/ui/chip";
+import { EmptyState } from "@/components/ui/empty-state";
 import { useEffect, useMemo, useState } from "react";
 import { trackCategoryBrowsed } from "@/lib/track-journey";
 import { ListenButton } from "@/components/ListenButton";
@@ -72,23 +74,20 @@ export const Route = createFileRoute("/category/$cat")({
   },
 });
 
-const SUBS: { id: YouthSubcategory; label: string; emoji: string; desc: string }[] = [
+const SUBS: { id: YouthSubcategory; label: string; desc: string }[] = [
   {
     id: "fun",
     label: "Fun & Activities",
-    emoji: "⚽",
     desc: "Sports, arts, camps, recreation centers, movie nights",
   },
   {
     id: "employment",
     label: "Employment & Internships",
-    emoji: "💼",
     desc: "Paid jobs, internships, resume help, career counseling",
   },
   {
     id: "mentorship",
     label: "Mentorship & Leadership",
-    emoji: "🌟",
     desc: "Tutoring, college prep, leadership programs, mentoring",
   },
 ];
@@ -352,9 +351,9 @@ function CategoryPage() {
       fab={
         <button
           onClick={() => setShowSuggest(true)}
-          className="no-min-h inline-flex items-center gap-2 px-5 py-3.5 rounded-full bg-primary text-primary-foreground shadow-xl hover:scale-105 transition font-semibold"
+          className="no-min-h inline-flex min-h-[48px] items-center gap-2 rounded-md bg-primary px-5 py-3 font-bold text-primary-foreground shadow-lg transition-colors hover:bg-primary/90"
         >
-          <Plus className="h-5 w-5" /> {t("interface.suggestResource")}
+          <Plus className="h-5 w-5" aria-hidden /> {t("interface.suggestResource")}
         </button>
       }
     >
@@ -366,17 +365,9 @@ function CategoryPage() {
           <ArrowLeft className="h-4 w-4" /> {t("back")}
         </button>
 
-        <div className="flex items-center gap-3 mb-3">
-          <div
-            className="h-12 w-12 rounded-xl grid place-items-center text-2xl shrink-0"
-            style={{ backgroundColor: meta.color }}
-          >
-            {meta.emoji}
-          </div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-foreground flex-1">
-            {t(meta.titleKey)}
-          </h1>
-        </div>
+        <h1 className="mb-3 text-3xl font-bold leading-tight text-foreground sm:text-4xl">
+          {t(meta.titleKey)}
+        </h1>
         {(() => {
           const catLabel = t(meta.titleKey);
           const totalInCat = RESOURCES.filter((r) => r.category === cat).length;
@@ -403,21 +394,29 @@ function CategoryPage() {
         )}
 
         {isYouth && !youthSub && (
-          <div className="space-y-3 mb-6">
+          <div className="mb-6 border-t-[3px] border-foreground pt-2">
             <p className="text-muted-foreground">{t("interface.chooseLooking")}</p>
-            <div className="grid sm:grid-cols-3 gap-3">
+            <ul className="mt-1 divide-y divide-border border-b border-border">
               {SUBS.map((s) => (
-                <button
-                  key={s.id}
-                  onClick={() => setYouthSub(s.id)}
-                  className="no-min-h text-left rounded-2xl border-2 border-border bg-card p-4 hover:border-primary hover:shadow-md transition"
-                >
-                  <div className="text-3xl mb-2">{s.emoji}</div>
-                  <p className="font-bold">{s.label}</p>
-                  <p className="text-sm text-muted-foreground mt-1">{s.desc}</p>
-                </button>
+                <li key={s.id}>
+                  <button
+                    onClick={() => setYouthSub(s.id)}
+                    className="no-min-h group flex w-full items-center gap-3 py-3 text-start"
+                  >
+                    <span className="min-w-0 flex-1">
+                      <span className="block font-bold text-foreground group-hover:underline">
+                        {s.label}
+                      </span>
+                      <span className="mt-0.5 block text-sm text-muted-foreground">{s.desc}</span>
+                    </span>
+                    <ChevronRight
+                      className="h-5 w-5 shrink-0 text-muted-foreground rtl:rotate-180"
+                      aria-hidden
+                    />
+                  </button>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
         )}
 
@@ -440,7 +439,7 @@ function CategoryPage() {
 
             <LocationSourceCard className="mb-4" />
 
-            <div className="flex flex-wrap items-center gap-2 mb-5">
+            <div className="flex flex-wrap items-center gap-2 mb-3">
               <FilterChip active={sortDistance} onClick={() => setSortDistance((v) => !v)}>
                 {t("distance")}
               </FilterChip>
@@ -459,15 +458,15 @@ function CategoryPage() {
               )}
               <button
                 onClick={() => setFilterOpen(true)}
-                className={`no-min-h px-4 py-2 rounded-full text-sm font-medium border inline-flex items-center gap-1.5 min-h-[44px] ${isFilterActive(filters) ? "bg-primary text-primary-foreground border-primary" : "bg-card border-border hover:bg-secondary"}`}
+                className={chipVariants({ selected: isFilterActive(filters) })}
               >
-                <SlidersHorizontal className="h-4 w-4" /> {t("interface.filter")}
+                <SlidersHorizontal className="h-4 w-4" aria-hidden /> {t("interface.filter")}
               </button>
               {isYouth && youthSub === "employment" && (
                 <select
                   value={ageFilter}
                   onChange={(e) => setAgeFilter(e.target.value as "all" | "minors" | "adults")}
-                  className="px-3 py-2 rounded-full text-sm font-medium border border-border bg-card min-h-[44px]"
+                  className="h-9 rounded-md border border-border bg-card px-3 text-sm font-semibold"
                 >
                   <option value="all">{t("interface.agesAll")}</option>
                   <option value="minors">{t("interface.minorsOnly")}</option>
@@ -481,20 +480,18 @@ function CategoryPage() {
 
             {subs && (
               <div className="flex flex-wrap gap-2 mb-4">
-                <button
-                  onClick={() => setSubFilter(null)}
-                  className={`no-min-h px-3 py-1.5 rounded-full text-sm font-medium border ${!subFilter ? "bg-primary text-primary-foreground border-primary" : "bg-card border-border hover:bg-secondary"}`}
-                >
+                <Chip selected={!subFilter} onClick={() => setSubFilter(null)}>
                   {t("interface.all")}
-                </button>
+                </Chip>
                 {subs.map((s) => (
-                  <button
+                  <Chip
                     key={s.id}
+                    selected={subFilter === s.id}
                     onClick={() => setSubFilter(s.id === subFilter ? null : s.id)}
-                    className={`no-min-h px-3 py-1.5 rounded-full text-sm font-medium border inline-flex items-center gap-1 ${subFilter === s.id ? "bg-primary text-primary-foreground border-primary" : "bg-card border-border hover:bg-secondary"}`}
+                    className="h-auto min-h-9 max-w-full shrink py-1.5 text-start"
                   >
-                    <span>{s.emoji}</span> {s.label}
-                  </button>
+                    {s.label}
+                  </Chip>
                 ))}
               </div>
             )}
@@ -539,7 +536,7 @@ function CategoryPage() {
               />
             )}
             {view === "list" && (
-              <ul className="space-y-3">
+              <ul className="border-t-[3px] border-foreground">
                 {/* At most one sponsored card per category; never on civic/urgent pages. */}
                 {cat !== "government" && <SponsoredCard category={cat} />}
                 {list.map((r) => (
@@ -553,8 +550,12 @@ function CategoryPage() {
                   </li>
                 ))}
                 {list.length === 0 && (
-                  <li className="text-center text-muted-foreground py-8">
-                    {t("interface.noFilterResults")}
+                  <li>
+                    <EmptyState
+                      icon={SlidersHorizontal}
+                      title={t("interface.noFilterResults")}
+                      className="border-t-0"
+                    />
                   </li>
                 )}
               </ul>
@@ -609,12 +610,9 @@ function FilterChip({
   children: React.ReactNode;
 }) {
   return (
-    <button
-      onClick={onClick}
-      className={`no-min-h px-4 py-2 rounded-full text-sm font-medium border transition ${active ? "bg-primary text-primary-foreground border-primary" : "bg-card border-border text-foreground hover:bg-secondary"}`}
-    >
+    <Chip selected={active} onClick={onClick}>
       {children}
-    </button>
+    </Chip>
   );
 }
 
@@ -630,7 +628,7 @@ function SuggestModal({
   return (
     <div className="fixed inset-0 z-50 bg-black/50 grid place-items-center p-4" onClick={onClose}>
       <div
-        className="bg-card rounded-2xl shadow-2xl max-w-md w-full p-6"
+        className="bg-card rounded-md border border-border shadow-xl max-w-md w-full p-6"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between mb-4">
@@ -638,14 +636,14 @@ function SuggestModal({
           <button
             onClick={onClose}
             aria-label={t("interface.close")}
-            className="no-min-h h-9 w-9 rounded-full grid place-items-center hover:bg-secondary"
+            className="no-min-h h-11 w-11 rounded-md grid place-items-center hover:bg-secondary"
           >
-            <X className="h-5 w-5" />
+            <X className="h-5 w-5" aria-hidden />
           </button>
         </div>
         {submitted ? (
-          <p className="text-success font-medium py-6 text-center">
-            ✓ {t("interface.thankYouReview")}
+          <p className="flex items-center justify-center gap-2 py-6 text-center font-medium text-success">
+            <Check className="h-5 w-5 shrink-0" aria-hidden /> {t("interface.thankYouReview")}
           </p>
         ) : (
           <form
@@ -660,21 +658,21 @@ function SuggestModal({
               <span className="text-sm font-medium mb-1 block">{t("interface.name")}</span>
               <input
                 required
-                className="w-full px-3 py-2 rounded-lg border border-border bg-background"
+                className="h-11 w-full rounded-md border border-border bg-background px-3"
               />
             </label>
             <label className="block">
               <span className="text-sm font-medium mb-1 block">{t("interface.address")}</span>
               <input
                 required
-                className="w-full px-3 py-2 rounded-lg border border-border bg-background"
+                className="h-11 w-full rounded-md border border-border bg-background px-3"
               />
             </label>
             <label className="block">
               <span className="text-sm font-medium mb-1 block">{t("interface.category")}</span>
               <select
                 defaultValue={defaultCategory}
-                className="w-full px-3 py-2 rounded-lg border border-border bg-background"
+                className="h-11 w-full rounded-md border border-border bg-background px-3"
               >
                 {CATEGORIES.map((c) => (
                   <option key={c.id} value={c.id}>
@@ -685,7 +683,7 @@ function SuggestModal({
             </label>
             <button
               type="submit"
-              className="no-min-h w-full py-3 rounded-lg bg-primary text-primary-foreground font-semibold hover:bg-primary/90"
+              className="no-min-h w-full min-h-[44px] py-3 rounded-md bg-primary text-primary-foreground font-bold hover:bg-primary/90"
             >
               {t("interface.submit")}
             </button>
