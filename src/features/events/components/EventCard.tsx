@@ -34,6 +34,8 @@ export type EventSummary = {
   verification_status: VerificationStatus;
   last_verified?: string | null;
   source?: string | null;
+  /** The organizer's flyer image, when there is one. */
+  image?: string | null;
 };
 
 function parseDay(iso: string): Date {
@@ -142,6 +144,14 @@ export function EventCard({
 
   const facts = (
     <div className="mt-2 space-y-2">
+      {full && e.image && (
+        <img
+          src={e.image}
+          alt={`Flyer: ${e.title}`}
+          loading="lazy"
+          className="w-full max-w-xs rounded-xl border border-border"
+        />
+      )}
       {full && e.description && <p className="text-sm text-muted-foreground">{e.description}</p>}
       {where && (
         <p className="flex items-center gap-1 text-xs text-muted-foreground">

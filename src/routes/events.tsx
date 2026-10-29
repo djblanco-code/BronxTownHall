@@ -4,7 +4,7 @@ import { submitCommunityEvent } from "@/lib/events.functions";
 import { AppShell } from "@/features/shell";
 import { EventCard, type EventSummary } from "@/features/events";
 import { supabase } from "@/integrations/supabase/client";
-import { isDemoMode, SAMPLE_EVENTS } from "@/features/demo";
+import { describeWithSource, upcomingCommunityEvents } from "@/features/community-posts";
 import { useEffect, useMemo, useState } from "react";
 import {
   Plus,
@@ -69,6 +69,8 @@ type EventRow = {
   website: string | null;
   is_verified: boolean;
   is_community_submitted: boolean;
+  /** Organizer flyer, when there is one. */
+  image?: string;
 };
 
 const EVENT_TYPES: { id: string; label: string; icon: LucideIcon }[] = [
@@ -96,36 +98,13 @@ const OUTLINE =
   "no-min-h inline-flex h-11 items-center justify-center gap-1.5 rounded-md border border-border px-4 text-sm font-bold text-foreground transition-colors hover:bg-secondary";
 
 function EventsPage() {
-  const [rows, setRows] = useState<EventRow[] | null>(null);
+  // The community posts show at once; live events join them when loaded.
+  const [rows, setRows] = useState<EventRow[] | null>(() => communityRows());
   const [showForm, setShowForm] = useState(false);
   const [typeFilter, setTypeFilter] = useState<string | null>(null);
   const [view, setView] = useState<"list" | "calendar">("list");
 
   useEffect(() => {
-    // Demo mode (labeled by a banner) shows sample events instead of live ones.
-    if (isDemoMode()) {
-      const today = new Date().toISOString().slice(0, 10);
-      setRows(
-        SAMPLE_EVENTS.filter((e) => (e.event_end_date ?? e.event_date) >= today).map((e) => ({
-          id: e.id,
-          title: e.title,
-          description: e.description,
-          event_type: e.event_type,
-          category: e.category,
-          event_date: e.event_date,
-          event_end_date: e.event_end_date,
-          event_time: e.event_time,
-          location: e.location,
-          address: e.address,
-          is_free: e.is_free,
-          cost: null,
-          website: e.website,
-          is_verified: false,
-          is_community_submitted: false,
-        })),
-      );
-      return;
-    }
     (async () => {
       const today = new Date().toISOString().slice(0, 10);
       const [{ data }, directory] = await Promise.all([
@@ -168,7 +147,13 @@ function EventsPage() {
           is_verified: false,
           is_community_submitted: false,
         }));
-      setRows([...submitted, ...imported].sort((a, b) => a.event_date.localeCompare(b.event_date)));
+      // Hard-coded District 12 posts sit alongside live events for now.
+      const community = communityRows();
+      setRows(
+        [...submitted, ...imported, ...community].sort((a, b) =>
+          a.event_date.localeCompare(b.event_date),
+        ),
+      );
     })();
   }, []);
 
@@ -435,6 +420,29 @@ function EventSection({ id, title, items }: { id: string; title: string; items: 
 }
 
 /** The events table stores yes/no flags; the shared card speaks verification statuses. */
+/** The hard-coded District 12 posts, as event rows. */
+function communityRows(): EventRow[] {
+  const today = new Date().toISOString().slice(0, 10);
+  return upcomingCommunityEvents(today).map<EventRow>((e) => ({
+    id: e.id,
+    title: e.title,
+    description: describeWithSource(e),
+    event_type: e.event_type,
+    category: e.category,
+    event_date: e.event_date,
+    event_end_date: e.event_end_date,
+    event_time: e.event_time,
+    location: e.location,
+    address: e.address,
+    is_free: e.is_free,
+    cost: null,
+    website: e.website,
+    is_verified: false,
+    is_community_submitted: false,
+    image: e.image,
+  }));
+}
+
 function toSummary(e: EventRow): EventSummary {
   return {
     ...e,

@@ -3,11 +3,30 @@ import { supabase } from "@/integrations/supabase/client";
 import { loadDirectory } from "@/lib/bronx-resources";
 import type { VerificationStatus } from "@/lib/verification";
 import type { EventSummary } from "@/features/events";
-import { isDemoMode, SAMPLE_EVENTS } from "@/features/demo";
+import { upcomingCommunityEvents, POST_SOURCE } from "@/features/community-posts";
 
 export type UpcomingEvent = EventSummary;
 
 const TIMEOUT_MS = 10_000;
+
+/** The hard-coded District 12 posts, as upcoming events. */
+function communityUpcoming(): UpcomingEvent[] {
+  const today = new Date().toISOString().slice(0, 10);
+  return upcomingCommunityEvents(today).map<UpcomingEvent>((e) => ({
+    id: e.id,
+    title: e.title,
+    category: e.category,
+    event_date: e.event_date,
+    event_end_date: e.event_end_date,
+    event_time: e.event_time,
+    location: e.location,
+    neighborhood: e.neighborhood,
+    is_free: e.is_free,
+    source: POST_SOURCE,
+    verification_status: "needs_verification",
+    last_verified: null,
+  }));
+}
 
 /** Approved events plus imported community events, soonest first. */
 async function loadUpcomingEvents(): Promise<UpcomingEvent[]> {
@@ -53,39 +72,24 @@ async function loadUpcomingEvents(): Promise<UpcomingEvent[]> {
       verification_status: "needs_verification",
       last_verified: null,
     }));
-  return [...submitted, ...imported].sort((a, b) => a.event_date.localeCompare(b.event_date));
+  // Hard-coded District 12 posts sit alongside live events for now.
+  const community = communityUpcoming();
+  return [...submitted, ...imported, ...community].sort((a, b) =>
+    a.event_date.localeCompare(b.event_date),
+  );
 }
 
 /**
- * `events` is null while loading. A failed or stalled request ends in
- * `failed` instead of an endless spinner.
+ * `events` starts with the hard-coded community posts and becomes live
+ * events plus those posts once loaded. A failed or stalled request ends in
+ * `failed` (only when there is nothing at all to show).
  */
 export function useUpcomingEvents(): { events: UpcomingEvent[] | null; failed: boolean } {
-  const [events, setEvents] = useState<UpcomingEvent[] | null>(null);
+  // The community posts show at once; live events replace the list when loaded.
+  const [events, setEvents] = useState<UpcomingEvent[] | null>(() => communityUpcoming());
   const [failed, setFailed] = useState(false);
 
   useEffect(() => {
-    // Demo mode (labeled by a banner) shows sample events instead of live ones.
-    if (isDemoMode()) {
-      const today = new Date().toISOString().slice(0, 10);
-      setEvents(
-        SAMPLE_EVENTS.filter((e) => (e.event_end_date ?? e.event_date) >= today).map((e) => ({
-          id: e.id,
-          title: e.title,
-          category: e.category,
-          event_date: e.event_date,
-          event_end_date: e.event_end_date,
-          event_time: e.event_time,
-          location: e.location,
-          neighborhood: e.neighborhood,
-          is_free: e.is_free,
-          source: null,
-          verification_status: "needs_verification",
-          last_verified: null,
-        })),
-      );
-      return;
-    }
     let alive = true;
     const timeout = new Promise<never>((_, reject) =>
       setTimeout(() => reject(new Error("timed out")), TIMEOUT_MS),
@@ -96,8 +100,10 @@ export function useUpcomingEvents(): { events: UpcomingEvent[] | null; failed: b
       })
       .catch(() => {
         if (!alive) return;
-        setFailed(true);
-        setEvents([]);
+        // Live events failed; the hard-coded community posts still show.
+        const community = communityUpcoming();
+        setFailed(community.length === 0);
+        setEvents(community);
       });
     return () => {
       alive = false;

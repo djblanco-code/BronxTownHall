@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { loadOfficialUpdates, type OfficialUpdate } from "@/lib/org-accounts";
 import { BadgeCheck, Megaphone } from "lucide-react";
 import { Section } from "@/components/ui/section";
-import { isDemoMode, SAMPLE_UPDATES } from "@/features/demo";
+import { COMMUNITY_UPDATES, POST_SOURCE } from "@/features/community-posts";
 
 type Item = OfficialUpdate & {
   org?: {
@@ -15,27 +15,26 @@ type Item = OfficialUpdate & {
 
 /** Posts from verified offices, as a ruled section of rows on the Town Hall page. */
 export function OfficialUpdatesFeed() {
-  const [items, setItems] = useState<Item[]>([]);
-  const [sample, setSample] = useState(false);
+  // Hard-coded District 12 announcements show right away; live posts from
+  // verified offices are added above them when they load.
+  const community: Item[] = COMMUNITY_UPDATES.map((u) => ({
+    id: u.id,
+    org_id: "community",
+    user_id: "community",
+    body: u.body,
+    status: "published" as const,
+    created_at: u.created_at,
+    org: { org_name: u.office, office_name: u.office, status: "newsletter", verified_at: null },
+  }));
+  const [live, setLive] = useState<Item[]>([]);
+  const items = [...live, ...community];
 
   useEffect(() => {
-    // Demo mode (labeled by a banner) shows sample announcements, never as verified posts.
-    if (isDemoMode()) {
-      setSample(true);
-      setItems(
-        SAMPLE_UPDATES.map((u) => ({
-          id: u.id,
-          org_id: "demo",
-          user_id: "demo",
-          body: u.body,
-          status: "published" as const,
-          created_at: u.created_at,
-          org: { org_name: u.office, office_name: u.office, status: "sample", verified_at: null },
-        })),
-      );
-      return;
-    }
-    void loadOfficialUpdates(10).then((r) => setItems(r as Item[]));
+    loadOfficialUpdates(10)
+      .then((r) => setLive(r as Item[]))
+      .catch(() => {
+        /* live posts unavailable; the newsletter items still show */
+      });
   }, []);
 
   return (
@@ -73,11 +72,12 @@ export function OfficialUpdatesFeed() {
               </li>
             ))}
           </ul>
-          {!sample && (
-            <p dir="auto" className="mt-2 text-xs text-muted-foreground">
-              Posted directly by the offices themselves through their Bronx App account.
-            </p>
-          )}
+          <p dir="auto" className="mt-2 text-xs text-muted-foreground">
+            {live.length > 0
+              ? "Verified posts come directly from the offices through their Bronx App account. "
+              : ""}
+            Other items are from {POST_SOURCE}.
+          </p>
         </>
       )}
     </Section>
