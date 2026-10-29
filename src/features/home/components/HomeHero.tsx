@@ -217,7 +217,10 @@ function Greeting({ neighborhood }: { neighborhood: string }) {
         LATIN.has(lang) && "tracking-[0.12em]",
       )}
     >
-      <span aria-hidden="true" className="mt-[0.3em] h-2 w-2 shrink-0 self-start rounded-full bg-mta-green" />
+      <span
+        aria-hidden="true"
+        className="mt-[0.3em] h-2 w-2 shrink-0 self-start rounded-full bg-mta-green"
+      />
       <span className="line-clamp-2">
         {date} ·{" "}
         {neighborhood ? t("home.greetingPlace", { greeting, place: neighborhood }) : greeting}
