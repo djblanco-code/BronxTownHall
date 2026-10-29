@@ -1,7 +1,7 @@
 # Design system
 
-Bronx Town Hall looks like a careful local paper set in Bronx flag colors:
-type-led, ruled, square, calm. These rules keep every page consistent. Check
+Bronx Town Hall looks like a careful local paper set in Bronx flag colors on
+plain white: type-led, ruled, square, calm. These rules keep every page consistent. Check
 new UI against them, and against the "slop tells" list at the end, before
 opening a PR.
 
@@ -20,14 +20,15 @@ The reference implementation is Home (`src/features/home`).
 
 | Token                       | Use                                                                          |
 | --------------------------- | ---------------------------------------------------------------------------- |
-| `foreground` / `background` | Ink on paper. Rules use `foreground` (heavy) or `border`                     |
+| `foreground` / `background` | Navy ink on plain white. Rules use `foreground` (heavy) or `border`          |
 | `primary` (subway blue)     | Links, the accent word in a title, active tab, kicker text                   |
 | `bronx-orange`              | Voice and read-aloud buttons, small highlights. Navy text on it, never white |
 | `destructive`               | Crisis and SOS only                                                          |
 | `success`                   | "Open now" status                                                            |
 | `--cat-*`                   | A category's icon and label color, never a fill behind text                  |
 
-No gradients, no glow, no neon, no purple accents.
+No gradients, no glow, no neon, no purple accents, no warm "paper" tints:
+grays (`secondary`, `muted`, `border`) are cool and nearly neutral.
 
 ## Shape and depth
 
