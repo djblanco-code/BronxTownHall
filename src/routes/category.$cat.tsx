@@ -394,7 +394,7 @@ function CategoryPage() {
         )}
 
         {isYouth && !youthSub && (
-          <div className="mb-6 border-t-[3px] border-foreground pt-2">
+          <div className="mb-6 pt-2">
             <p className="text-muted-foreground">{t("interface.chooseLooking")}</p>
             <ul className="mt-1 divide-y divide-border border-b border-border">
               {SUBS.map((s) => (
@@ -536,7 +536,7 @@ function CategoryPage() {
               />
             )}
             {view === "list" && (
-              <ul className="border-t-[3px] border-foreground">
+              <ul className="">
                 {/* At most one sponsored card per category; never on civic/urgent pages. */}
                 {cat !== "government" && <SponsoredCard category={cat} />}
                 {list.map((r) => (

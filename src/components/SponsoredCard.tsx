@@ -45,7 +45,7 @@ export function SponsoredCard({ category }: { category: string }) {
                 href={ad.cta_url}
                 target="_blank"
                 rel="noreferrer nofollow sponsored"
-                className="no-min-h mt-3 inline-flex min-h-[44px] items-center gap-1.5 rounded-md border-2 border-foreground px-3 text-sm font-bold text-foreground transition-colors hover:bg-foreground hover:text-background"
+                className="no-min-h mt-3 inline-flex min-h-[44px] items-center gap-1.5 rounded-md border border-border px-3 text-sm font-bold text-foreground transition-colors hover:bg-secondary"
               >
                 {ad.cta_label || "Learn more"} <ExternalLink className="h-4 w-4" aria-hidden />
               </a>

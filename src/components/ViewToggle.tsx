@@ -20,7 +20,7 @@ export function ViewToggle({
     <div
       role="tablist"
       aria-label={t("interface.view")}
-      className="inline-flex rounded-md border border-foreground bg-card p-0.5"
+      className="inline-flex rounded-md border border-border bg-card p-0.5"
     >
       {opts.map((o) => {
         const Icon = o.icon;

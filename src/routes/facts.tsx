@@ -65,7 +65,7 @@ function FactsPage() {
           A new fact every day. Tap the heart to save the ones you love.
         </p>
 
-        <figure className="m-0 mt-6 border-t-[3px] border-foreground pt-2">
+        <figure className="m-0 mt-6 pt-2">
           <figcaption className="label-caps text-primary">Today</figcaption>
           <span
             aria-hidden="true"
@@ -90,7 +90,7 @@ function FactsPage() {
               value={q}
               onChange={(e) => setQ(e.target.value)}
               placeholder="Search facts (e.g. zoo, hip hop, Poe)"
-              className="h-12 w-full rounded-md border-2 border-foreground bg-card ps-10 pe-3 text-base focus-visible:border-primary focus-visible:outline-none"
+              className="h-12 w-full rounded-md border border-border bg-card ps-10 pe-3 text-base focus-visible:border-primary focus-visible:outline-none"
             />
           </label>
           <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1">
@@ -102,7 +102,7 @@ function FactsPage() {
           </div>
         </div>
 
-        <ul className="mt-5 divide-y divide-border border-t-[3px] border-b border-t-foreground border-b-border">
+        <ul className="mt-5 divide-y divide-border border-y border-border">
           {list.map((f, i) => {
             const isLiked = liked.includes(f.id);
             return (

@@ -121,7 +121,7 @@ function SearchPage() {
         <h1 className="text-3xl font-bold leading-tight text-foreground mb-3 sm:text-4xl">
           Search Bronx resources
         </h1>
-        <div className="flex h-14 items-center gap-2 rounded-md border-2 border-foreground bg-card ps-4 pe-1.5 focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-ring">
+        <div className="flex h-14 items-center gap-2 rounded-md border border-border bg-card ps-4 pe-1.5 focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-ring">
           <label htmlFor="search-input" className="sr-only">
             Search resources
           </label>
@@ -202,7 +202,7 @@ function SearchPage() {
             )}
           </div>
         )}
-        <div className="mt-6 flex items-center justify-between gap-2 flex-wrap border-t-[3px] border-foreground pt-2">
+        <div className="mt-6 flex items-center justify-between gap-2 flex-wrap pt-2">
           <p className="text-sm font-bold text-foreground">
             {results.length} result{results.length === 1 ? "" : "s"}
           </p>

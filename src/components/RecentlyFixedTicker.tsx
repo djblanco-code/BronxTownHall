@@ -61,7 +61,7 @@ export function RecentlyFixedTicker({ variant = "full" }: { variant?: "full" | "
   }
 
   return (
-    <section aria-label="Recently fixed listings" className="border-t-[3px] border-foreground pt-2">
+    <section aria-label="Recently fixed listings" className="pt-2">
       <h2 className="text-lg font-bold sm:text-2xl">Recently fixed from community reports</h2>
       <p className="mt-1 mb-2 text-sm text-muted-foreground">
         Every report gets reviewed. Here's the latest {items.length} listings a Community Liaison

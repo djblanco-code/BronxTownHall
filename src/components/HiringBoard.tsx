@@ -30,7 +30,7 @@ export function HiringBoard() {
 
   return (
     <section aria-labelledby="hiring-board-heading" className="space-y-3">
-      <div className="border-t-[3px] border-foreground pt-2">
+      <div className="pt-2">
         <p className="label-caps text-primary">Quick hiring board</p>
         <h2 id="hiring-board-heading" className="text-lg font-bold sm:text-2xl">
           Now Hiring

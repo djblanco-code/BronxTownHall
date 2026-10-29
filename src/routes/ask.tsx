@@ -82,7 +82,7 @@ function AskPage() {
             onChange={(e) => setQ(e.target.value)}
             maxLength={400}
             placeholder="e.g. Is there a food pantry open on Sundays?"
-            className="h-12 min-w-0 flex-1 rounded-md border-2 border-foreground bg-card px-4 text-base text-foreground placeholder:text-muted-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+            className="h-12 min-w-0 flex-1 rounded-md border border-border bg-card px-4 text-base text-foreground placeholder:text-muted-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
           />
           <button
             type="submit"
@@ -143,7 +143,7 @@ function AskPage() {
           )}
           {res?.kind === "matches" && (
             <div>
-              <p className="border-t-[3px] border-foreground pt-2 font-bold">
+              <p className="pt-2 font-bold">
                 Here{" "}
                 {res.matches.length === 1 ? "is 1 listing" : `are ${res.matches.length} listings`}{" "}
                 from The Bronx App that may match:

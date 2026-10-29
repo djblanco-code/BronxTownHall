@@ -80,7 +80,7 @@ function AuthPage() {
         <button
           onClick={onGoogle}
           disabled={busy}
-          className="no-min-h mb-4 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-md border-2 border-foreground bg-card py-3 font-bold text-foreground hover:bg-secondary disabled:opacity-50"
+          className="no-min-h mb-4 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-md border border-border bg-card py-3 font-bold text-foreground hover:bg-secondary disabled:opacity-50"
         >
           <svg className="h-5 w-5" viewBox="0 0 48 48" aria-hidden="true">
             <path

@@ -48,7 +48,7 @@ function FavoritesPage() {
         </p>
 
         {items.length === 0 ? (
-          <div className="flex items-start gap-3 border-t-[3px] border-b border-t-foreground border-b-border py-5">
+          <div className="flex items-start gap-3 border-y border-border py-5">
             <Star className="mt-0.5 h-5 w-5 shrink-0 text-muted-foreground" aria-hidden="true" />
             <div className="min-w-0 flex-1">
               <p className="font-bold text-foreground">You haven't saved any favorites yet.</p>
@@ -64,7 +64,7 @@ function FavoritesPage() {
             </div>
           </div>
         ) : (
-          <ul className="border-t-[3px] border-foreground">
+          <ul className="">
             {items.map((r) => (
               <li key={r.id}>
                 <ResourceCard resource={r} meta={resMeta[r.id]} showCategory />

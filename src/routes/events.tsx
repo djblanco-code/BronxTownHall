@@ -92,7 +92,7 @@ const PRIMARY =
 
 /** Secondary: a 2px ink outline that fills on hover. */
 const OUTLINE =
-  "no-min-h inline-flex h-11 items-center justify-center gap-1.5 rounded-md border-2 border-foreground px-4 text-sm font-bold text-foreground transition-colors hover:bg-foreground hover:text-background";
+  "no-min-h inline-flex h-11 items-center justify-center gap-1.5 rounded-md border border-border px-4 text-sm font-bold text-foreground transition-colors hover:bg-secondary";
 
 function EventsPage() {
   const [rows, setRows] = useState<EventRow[] | null>(null);
@@ -185,7 +185,7 @@ function EventsPage() {
           </button>
         </div>
 
-        <div className="mt-5 flex gap-6 border-b border-foreground">
+        <div className="mt-5 flex gap-6 border-b border-border">
           <button
             type="button"
             aria-pressed={view === "list"}
@@ -288,7 +288,7 @@ function CalendarView({ items }: { items: EventRow[] }) {
 
   return (
     <div className="mt-8">
-      <div className="mb-3 flex items-center justify-between gap-2 border-t-[3px] border-foreground pt-2">
+      <div className="mb-3 flex items-center justify-between gap-2 pt-2">
         <button
           type="button"
           onClick={() => setMonthOffset((v) => v - 1)}
@@ -370,7 +370,7 @@ function CalendarView({ items }: { items: EventRow[] }) {
       </div>
       {selected && (
         <div className="mt-8">
-          <h3 className="border-t-[3px] border-foreground pt-2 text-lg font-bold text-foreground">
+          <h3 className="pt-2 text-lg font-bold text-foreground">
             {new Date(selected + "T12:00:00").toLocaleDateString(undefined, {
               weekday: "long",
               month: "long",
@@ -486,10 +486,10 @@ function SubmitEventModal({ onClose }: { onClose: () => void }) {
         role="dialog"
         aria-modal="true"
         aria-labelledby="submit-event-title"
-        className="max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-md border-2 border-foreground bg-card shadow-lg"
+        className="max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-md border border-border bg-card shadow-lg"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="sticky top-0 border-b border-foreground bg-card p-5">
+        <div className="sticky top-0 border-b border-border bg-card p-5">
           <h2 id="submit-event-title" className="text-2xl font-bold text-foreground">
             Submit a Local Event
           </h2>

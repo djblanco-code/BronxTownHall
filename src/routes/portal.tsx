@@ -98,7 +98,7 @@ function PortalPage() {
         </header>
 
         {!type && (
-          <ul className="divide-y divide-border border-t-[3px] border-b border-t-foreground border-b-border">
+          <ul className="divide-y divide-border border-y border-border">
             {ACCOUNT_TYPES.map((t) => {
               const Icon = ACCOUNT_ICONS[t.id];
               return (
@@ -142,7 +142,7 @@ function PortalPage() {
         {type && user && (
           <>
             {user.email && type === "government" && !isGovernmentEmail(user.email) && (
-              <p className="rounded-md border-2 border-foreground p-3 text-sm">
+              <p className="rounded-md border border-border p-3 text-sm">
                 You&apos;re signed in as a non-government address. {GOV_EMAIL_MESSAGE}
               </p>
             )}
@@ -208,7 +208,7 @@ function AccountStep({ type }: { type: AccountType }) {
 
   if (sent) {
     return (
-      <div className="space-y-2 rounded-md border-2 border-foreground p-4">
+      <div className="space-y-2 rounded-md border border-border p-4">
         <p className="inline-flex items-center gap-2 font-bold">
           <CheckCircle2 className="h-5 w-5 text-success" aria-hidden="true" /> Check your email
         </p>

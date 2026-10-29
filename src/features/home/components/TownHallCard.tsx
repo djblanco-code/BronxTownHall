@@ -126,8 +126,13 @@ function Row({
 }) {
   return (
     <li>
-      <Link to="/civic" className="no-min-h group flex h-full items-start gap-3 py-3">
-        <Icon className="mt-4 h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
+      <Link to="/civic" className="no-min-h group flex h-full items-center gap-3 py-3">
+        <span
+          aria-hidden="true"
+          className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-primary/10 text-primary"
+        >
+          <Icon className="h-5 w-5" />
+        </span>
         <span className="min-w-0 flex-1">
           <span className="label-caps block text-primary">{label}</span>
           {/* Schedules and titles come from English records; dir="auto" keeps them readable in Arabic. */}
@@ -176,7 +181,7 @@ function ZipForm({ initial, onSave }: { initial: string; onSave: (zip: string) =
             }}
             aria-invalid={invalid}
             aria-describedby="home-zip-hint"
-            className="h-11 w-full rounded-md border-2 border-foreground bg-card px-4 text-base text-foreground focus-visible:border-primary focus-visible:outline-none"
+            className="h-11 w-full rounded-md border border-border bg-card px-4 text-base text-foreground focus-visible:border-primary focus-visible:outline-none"
           />
         </label>
         <button

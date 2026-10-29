@@ -18,7 +18,7 @@ export function TabBar() {
     <nav
       data-app-tabbar
       aria-label={t("interface.navPrimary")}
-      className="fixed inset-x-0 bottom-0 z-40 border-t border-foreground bg-background pb-[env(safe-area-inset-bottom)] lg:hidden"
+      className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-background pb-[env(safe-area-inset-bottom)] lg:hidden"
     >
       <ul className={cn("mx-auto flex max-w-xl items-stretch px-1", simplified ? "h-20" : "h-16")}>
         {TABS.map((item) => {

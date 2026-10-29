@@ -228,7 +228,7 @@ export function MapView({
 
   return (
     <div
-      className="relative rounded-md overflow-hidden border border-foreground bg-secondary"
+      className="relative rounded-md overflow-hidden border border-border bg-secondary"
       style={{ height }}
     >
       <div ref={elRef} className="absolute inset-0" aria-label="Resource map" role="application" />
@@ -236,18 +236,18 @@ export function MapView({
         <button
           onClick={locateMe}
           aria-label="Center map on my location"
-          className="no-min-h h-11 w-11 rounded-md bg-card border-2 border-foreground grid place-items-center hover:bg-secondary"
+          className="no-min-h h-11 w-11 rounded-md bg-card border border-border grid place-items-center hover:bg-secondary"
         >
           <LocateFixed className="h-4 w-4" aria-hidden />
         </button>
       </div>
       {(!ready || isLoading) && (
-        <div className="absolute top-3 start-3 inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-card border border-foreground text-xs font-semibold">
+        <div className="absolute top-3 start-3 inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-card border border-border text-xs font-semibold">
           <Loader2 className="h-3.5 w-3.5 animate-spin" aria-hidden />{" "}
           {ready ? "Locating resources…" : "Loading map…"}
         </div>
       )}
-      <p className="absolute bottom-3 start-3 px-2.5 py-1 rounded-md bg-card border border-foreground text-xs font-semibold text-foreground">
+      <p className="absolute bottom-3 start-3 px-2.5 py-1 rounded-md bg-card border border-border text-xs font-semibold text-foreground">
         {visible.length} on map
       </p>
     </div>

@@ -38,14 +38,14 @@ function AdvertisePage() {
         </header>
 
         <section className="grid gap-x-6 sm:grid-cols-2">
-          <div className="flex items-start gap-3 border-t-[3px] border-foreground py-3">
+          <div className="flex items-start gap-3 py-3">
             <LayoutPanelTop className="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden />
             <div className="min-w-0">
               <h2 className="font-sans font-bold">{t("advertise.bannerTitle")}</h2>
               <p className="mt-1 text-sm text-muted-foreground">{t("advertise.bannerBody")}</p>
             </div>
           </div>
-          <div className="flex items-start gap-3 border-t-[3px] border-foreground py-3">
+          <div className="flex items-start gap-3 py-3">
             <Megaphone className="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden />
             <div className="min-w-0">
               <h2 className="font-sans font-bold">{t("advertise.cardTitle")}</h2>
@@ -54,7 +54,7 @@ function AdvertisePage() {
           </div>
         </section>
 
-        <section className="border-t-[3px] border-foreground pt-2">
+        <section className="pt-2">
           <h2 className="flex items-center gap-2 text-lg font-bold sm:text-2xl">
             <Shield className="h-5 w-5 shrink-0 text-primary" aria-hidden />{" "}
             {t("advertise.neverTitle")}

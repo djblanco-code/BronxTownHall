@@ -60,7 +60,7 @@ function ListDetail() {
   };
 
   const secondary =
-    "no-min-h inline-flex h-11 items-center gap-1.5 rounded-md border-2 border-foreground px-4 text-sm font-bold text-foreground hover:bg-foreground hover:text-background";
+    "no-min-h inline-flex h-11 items-center gap-1.5 rounded-md border border-border px-4 text-sm font-bold text-foreground hover:bg-secondary";
 
   return (
     <AppShell>
@@ -99,7 +99,7 @@ function ListDetail() {
             No resources in this list yet. Use "Add to list" on any resource page.
           </p>
         ) : (
-          <ul className="divide-y divide-border border-t-[3px] border-b border-t-foreground border-b-border">
+          <ul className="divide-y divide-border border-y border-border">
             {items.map((it) => {
               const r = RESOURCES.find((x) => x.id === it.resource_id);
               if (!r) return null;

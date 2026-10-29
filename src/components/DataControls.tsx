@@ -40,7 +40,7 @@ export function DataControls() {
     <section aria-labelledby="data-controls-title" className="mt-8">
       <h2
         id="data-controls-title"
-        className="flex items-center gap-2 border-t-[3px] border-foreground pt-2 text-lg font-bold sm:text-2xl"
+        className="flex items-center gap-2 pt-2 text-lg font-bold sm:text-2xl"
       >
         <ShieldCheck className="h-5 w-5 shrink-0 text-primary" aria-hidden="true" /> Your data
         controls
@@ -84,12 +84,12 @@ export function DataControls() {
           <button
             type="button"
             onClick={() => setConfirming(true)}
-            className="no-min-h inline-flex min-h-11 items-center gap-2 rounded-md border-2 border-foreground px-4 py-2 text-sm font-bold text-foreground hover:bg-foreground hover:text-background"
+            className="no-min-h inline-flex min-h-11 items-center gap-2 rounded-md border border-border px-4 py-2 text-sm font-bold text-foreground hover:bg-secondary"
           >
             <Trash2 className="h-4 w-4" aria-hidden="true" /> Delete all my data
           </button>
         ) : (
-          <div className="rounded-md border-2 border-foreground p-4">
+          <div className="rounded-md border border-border p-4">
             <p className="text-sm font-bold">Delete everything?</p>
             <p className="mt-1 text-sm text-muted-foreground">
               This erases your saved resources, preferences, and anonymous usage rows — on this
@@ -112,7 +112,7 @@ export function DataControls() {
               <button
                 type="button"
                 onClick={() => setConfirming(false)}
-                className="no-min-h inline-flex min-h-11 items-center rounded-md border-2 border-foreground px-4 py-2 text-sm font-bold text-foreground hover:bg-foreground hover:text-background"
+                className="no-min-h inline-flex min-h-11 items-center rounded-md border border-border px-4 py-2 text-sm font-bold text-foreground hover:bg-secondary"
               >
                 Cancel
               </button>

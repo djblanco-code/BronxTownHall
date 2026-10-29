@@ -23,7 +23,7 @@ export function PolicyAlerts({ category }: { category: string }) {
   return (
     <section
       aria-labelledby="policy-alerts-heading"
-      className="mb-6 border-t-[3px] border-b border-t-foreground border-b-border pt-2 pb-3"
+      className="mb-6 border-y border-border pt-2 pb-3"
     >
       <div className="flex items-start gap-2">
         <AlertTriangle className="h-5 w-5 text-warning shrink-0 mt-1" aria-hidden />

@@ -40,7 +40,7 @@ export function HomeExtras({ onFeedback }: { onFeedback: () => void }) {
         <button
           type="button"
           onClick={onFeedback}
-          className="no-min-h mt-3 h-11 rounded-md border-2 border-foreground px-4 text-sm font-bold text-foreground hover:bg-foreground hover:text-background"
+          className="no-min-h mt-3 h-11 rounded-md border border-border px-4 text-sm font-bold text-foreground hover:bg-secondary"
         >
           {t("home.feedbackCta")}
         </button>

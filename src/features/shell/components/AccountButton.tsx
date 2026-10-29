@@ -44,7 +44,7 @@ export function AccountButton() {
         ) : (
           <button
             type="button"
-            className="no-min-h simplified-exempt inline-flex h-10 min-w-10 items-center justify-center gap-1.5 rounded-md border border-foreground px-2.5 text-sm font-bold text-foreground hover:bg-foreground hover:text-background"
+            className="no-min-h simplified-exempt inline-flex h-10 min-w-10 items-center justify-center gap-1.5 rounded-md border border-border px-2.5 text-sm font-bold text-foreground hover:bg-secondary"
           >
             <User className="h-5 w-5" aria-hidden="true" />
             <span className="sr-only lg:not-sr-only">{t("common.navSignIn")}</span>
