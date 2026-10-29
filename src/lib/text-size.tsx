@@ -95,7 +95,9 @@ export function TextSizeControl({ className = "" }: { className?: string }) {
           aria-pressed={size === s.id}
           aria-label={`Text size: ${s.label}`}
           title={s.label}
-          className={`no-min-h simplified-exempt min-h-[40px] min-w-[40px] px-2 rounded-sm font-bold leading-none ${size === s.id ? "bg-primary-fill text-primary-fill-foreground" : "text-foreground hover:bg-secondary"}`}
+          // "A+" must not flip to "+A" in Arabic.
+          dir="ltr"
+          className={`no-min-h simplified-exempt min-h-11 min-w-11 px-2 rounded-sm font-bold leading-none ${size === s.id ? "bg-primary-fill text-primary-fill-foreground" : "text-foreground hover:bg-secondary"}`}
           style={{ fontSize: `${0.8 + i * 0.15}rem` }}
         >
           {s.short}

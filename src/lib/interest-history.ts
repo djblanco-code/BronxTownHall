@@ -1,5 +1,7 @@
 // Local-only record of which categories someone actually browses.
 // Nothing leaves the device: counts per category id, capped and decayed by age.
+// Nothing is recorded while "Remember what I look at" is off in Settings.
+import { getSettings } from "./personalization";
 const KEY = "bronx.categoryHistory";
 const MAX_ENTRIES = 40;
 
@@ -18,7 +20,7 @@ export function readCategoryHistory(): CategoryHistory {
 
 /** Called whenever a category page or a listing in a category is viewed. */
 export function recordCategoryView(category: string | null | undefined) {
-  if (typeof window === "undefined") return;
+  if (typeof window === "undefined" || !getSettings().trackingEnabled) return;
   const id = (category ?? "").trim();
   if (!id) return;
   try {
@@ -29,6 +31,14 @@ export function recordCategoryView(category: string | null | undefined) {
       .sort((a, b) => b[1].last - a[1].last)
       .slice(0, MAX_ENTRIES);
     localStorage.setItem(KEY, JSON.stringify(Object.fromEntries(trimmed)));
+  } catch {
+    /* ignore */
+  }
+}
+
+export function clearCategoryHistory() {
+  try {
+    localStorage.removeItem(KEY);
   } catch {
     /* ignore */
   }

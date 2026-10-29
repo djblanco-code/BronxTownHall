@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { AppShell } from "@/features/shell";
 import { ArrowLeft } from "lucide-react";
-import { DataControls } from "@/components/DataControls";
+import { DataControls } from "@/features/settings";
 import { useI18n } from "@/lib/i18n-context";
 
 export const Route = createFileRoute("/privacy")({
