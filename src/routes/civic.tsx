@@ -3,25 +3,39 @@ import { AppShell } from "@/features/shell";
 import { OfficialUpdatesFeed } from "@/components/OfficialUpdatesFeed";
 import { useI18n } from "@/lib/i18n-context";
 import { SpeakButton } from "@/components/SpeakButton";
+import { Section } from "@/components/ui/section";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import {
   ArrowLeft,
+  ArrowRight,
+  BadgeAlert,
+  CalendarDays,
   CalendarPlus,
+  ClipboardCheck,
+  House,
   Megaphone,
   User,
+  Users,
   Bell,
   Phone,
   Mail,
   Globe,
   Instagram,
   Twitter,
+  Scale,
   Shield,
+  ShieldAlert,
   MapPin,
   MessageSquare,
   Locate,
   Vote,
   AlertTriangle,
   ChevronRight,
+  Volume2,
+  Wrench,
 } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import {
   BOROUGH_WIDE,
@@ -54,14 +68,39 @@ export const Route = createFileRoute("/civic")({
 
 const ZIP_KEY = CIVIC_ZIP_KEY;
 
+/** Secondary button: 2px ink outline that fills on hover, 44px tall. */
+const OUTLINE_BTN = cn(buttonVariants({ variant: "outline" }), "no-min-h h-11 px-4");
+/** The one solid button on the page (Find, or Send Email in the contact dialog). */
+const PRIMARY_BTN = cn(buttonVariants(), "no-min-h h-11 px-5");
+/** Contact details shown as underlined links, still a 44px tap target. */
+const TEXT_LINK =
+  "no-min-h inline-flex min-h-11 max-w-full items-center gap-1.5 text-sm font-semibold text-primary underline underline-offset-4 hover:decoration-2";
+/** Rows between hairlines; two columns on a laptop. */
+const ROW_LIST =
+  "divide-y divide-border border-b border-border lg:grid lg:grid-cols-2 lg:gap-x-8 lg:divide-y-0 lg:border-b-0";
+const ROW = "py-4 lg:border-b lg:border-border";
+
+/** Line icons for the report-an-issue and voter rows (the data carries emoji we don't show). */
+const ISSUE_ICONS: Record<string, LucideIcon> = {
+  "Pothole, streetlight, sanitation": Wrench,
+  "Housing violation": House,
+  "Noise complaint": Volume2,
+  "Safety concern (non-emergency)": ShieldAlert,
+  "Police misconduct": BadgeAlert,
+  "Crime victim assistance": Scale,
+};
+const VOTER_ICONS: Record<string, LucideIcon> = {
+  "Register to Vote": Vote,
+  "Check Registration Status": ClipboardCheck,
+  "Find Your Polling Place": MapPin,
+  "Upcoming Elections": CalendarDays,
+};
+
 function PhoneLink({ phone }: { phone: string }) {
   const tel = phone.replace(/[^0-9+]/g, "");
   return (
-    <a
-      href={`tel:${tel}`}
-      className="no-min-h inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-[#34a853] text-white text-sm font-semibold hover:opacity-90 transition"
-    >
-      <Phone className="h-4 w-4" /> {phone}
+    <a href={`tel:${tel}`} className={OUTLINE_BTN}>
+      <Phone className="h-4 w-4" aria-hidden="true" /> {phone}
     </a>
   );
 }
@@ -76,14 +115,19 @@ function LinkBtn({
   children: React.ReactNode;
 }) {
   return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="no-min-h inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-primary text-primary text-sm font-semibold hover:bg-primary hover:text-primary-foreground transition break-all"
-    >
-      <Icon className="h-4 w-4 shrink-0" /> <span className="truncate">{children}</span>
+    <a href={href} target="_blank" rel="noopener noreferrer" className={TEXT_LINK}>
+      <Icon className="h-4 w-4 shrink-0" />{" "}
+      <span dir="auto" className="min-w-0 [overflow-wrap:anywhere]">
+        {children}
+      </span>
     </a>
+  );
+}
+
+/** A row's leading line icon, aligned with the label line. */
+function RowIcon({ icon: Icon, className }: { icon: LucideIcon; className?: string }) {
+  return (
+    <Icon className={cn("mt-0.5 h-5 w-5 shrink-0 text-primary", className)} aria-hidden="true" />
   );
 }
 
@@ -95,53 +139,58 @@ function ContactModal({ o, onClose }: { o: Official; onClose: () => void }) {
   const mailto = o.email
     ? `mailto:${o.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
     : null;
+  const titleId = `contact-${o.name.replace(/\W+/g, "-")}`;
   return (
-    <div className="fixed inset-0 z-50 bg-black/50 grid place-items-center p-4" onClick={onClose}>
+    <div className="fixed inset-0 z-[90] grid place-items-center bg-black/50 p-4" onClick={onClose}>
       <div
-        className="bg-card rounded-2xl max-w-lg w-full p-5 shadow-xl max-h-[90vh] overflow-y-auto"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={titleId}
+        className="max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-md border border-foreground bg-card p-5 shadow-xl"
         onClick={(e) => e.stopPropagation()}
       >
-        <h3 className="font-bold text-lg">Contact {o.name}</h3>
-        <p className="text-xs text-muted-foreground">{o.title}</p>
-        <label className="block text-sm font-semibold mt-4">Subject</label>
+        <h3
+          id={titleId}
+          dir="auto"
+          className="border-b border-border pb-2 text-lg font-bold text-foreground"
+        >
+          Contact {o.name}
+        </h3>
+        <p dir="auto" className="label-caps mt-2 text-primary">
+          {o.title}
+        </p>
+        <label className="mt-4 block text-sm font-semibold text-foreground">Subject</label>
         <input
           value={subject}
           onChange={(e) => setSubject(e.target.value)}
-          className="mt-1 w-full px-3 py-2 rounded-lg border border-border bg-background text-sm"
+          dir="auto"
+          className="mt-1 h-11 w-full rounded-md border border-border bg-background px-3 text-sm text-foreground focus-visible:border-primary focus-visible:outline-none"
         />
-        <label className="block text-sm font-semibold mt-3">Message</label>
+        <label className="mt-3 block text-sm font-semibold text-foreground">Message</label>
         <textarea
           value={body}
           onChange={(e) => setBody(e.target.value)}
           rows={10}
-          className="mt-1 w-full px-3 py-2 rounded-lg border border-border bg-background text-sm"
+          dir="auto"
+          className="mt-1 w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground focus-visible:border-primary focus-visible:outline-none"
         />
-        <div className="mt-4 flex flex-wrap gap-2 justify-end">
-          <button
-            onClick={onClose}
-            className="no-min-h px-4 py-2 rounded-lg border border-border text-sm font-semibold"
-          >
+        <div className="mt-4 flex flex-wrap justify-end gap-2">
+          <button onClick={onClose} className={OUTLINE_BTN}>
             Cancel
           </button>
           {o.phone && (
-            <a
-              href={`tel:${o.phone.replace(/[^0-9+]/g, "")}`}
-              className="no-min-h px-4 py-2 rounded-lg bg-[#34a853] text-white text-sm font-semibold inline-flex items-center gap-1.5"
-            >
+            <a href={`tel:${o.phone.replace(/[^0-9+]/g, "")}`} className={OUTLINE_BTN}>
               <Phone className="h-4 w-4" />
               Call
             </a>
           )}
           {mailto ? (
-            <a
-              href={mailto}
-              className="no-min-h px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-semibold inline-flex items-center gap-1.5"
-            >
+            <a href={mailto} className={PRIMARY_BTN}>
               <Mail className="h-4 w-4" />
               Send Email
             </a>
           ) : (
-            <span className="text-xs text-muted-foreground self-center">
+            <span className="self-center text-xs text-muted-foreground">
               No email on file — please call or visit the website.
             </span>
           )}
@@ -156,73 +205,80 @@ function OfficialCard({ o, badge }: { o: Official; badge?: string }) {
   const [openContact, setOpenContact] = useState(false);
   const summary = `${o.title}. ${o.name}${o.party ? `, ${o.party}` : ""}. ${o.helps ?? ""}`;
   return (
-    <article className="rounded-2xl border border-border bg-card p-5 shadow-sm">
-      <div className="flex items-start gap-4">
-        <div className="h-12 w-12 rounded-full bg-gradient-to-br from-primary to-accent grid place-items-center text-primary-foreground shrink-0">
-          <User className="h-6 w-6" />
-        </div>
-        <div className="min-w-0 flex-1">
-          {badge && (
-            <p className="text-[11px] font-bold uppercase tracking-wider text-accent">{badge}</p>
-          )}
-          <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-            {o.title}
-          </p>
-          <h3 className="font-bold text-lg text-foreground leading-tight">
-            {o.name}
-            {o.party && (
-              <span className="text-sm font-normal text-muted-foreground"> ({o.party})</span>
+    <li className={ROW}>
+      <article>
+        <div className="flex items-start gap-3">
+          <RowIcon icon={User} />
+          <div className="min-w-0 flex-1">
+            {badge && <p className="label-caps text-primary">{badge}</p>}
+            <p
+              dir="auto"
+              className={badge ? "text-sm text-muted-foreground" : "label-caps text-primary"}
+            >
+              {o.title}
+            </p>
+            {/* Names in lists are bold body text; the h3 keeps them navigable by screen reader. */}
+            <h3 dir="auto" className="text-base leading-snug font-bold text-foreground">
+              {o.name}
+              {o.party && (
+                <span className="text-sm font-normal text-muted-foreground"> ({o.party})</span>
+              )}
+            </h3>
+            {o.helps && (
+              <p dir="auto" className="mt-1 text-sm text-foreground/80">
+                {o.helps}
+              </p>
             )}
-          </h3>
-          {o.helps && <p className="text-sm text-foreground/80 mt-2">{o.helps}</p>}
+            {o.address && (
+              <p className="mt-1 flex items-start gap-1.5 text-sm text-muted-foreground">
+                <MapPin className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
+                <span dir="auto">{o.address}</span>
+              </p>
+            )}
+          </div>
+          <button
+            onClick={() => speak(summary)}
+            aria-label="Listen"
+            className="no-min-h grid h-11 w-11 shrink-0 place-items-center rounded-md bg-bronx-orange text-bronx-orange-foreground transition hover:brightness-95"
+          >
+            <Volume2 className="h-5 w-5" aria-hidden="true" />
+          </button>
         </div>
-        <button
-          onClick={() => speak(summary)}
-          aria-label="Listen"
-          className="no-min-h h-9 w-9 grid place-items-center rounded-full border border-border text-foreground hover:bg-secondary shrink-0"
-        >
-          🔊
-        </button>
-      </div>
 
-      {o.address && (
-        <p className="mt-3 text-sm text-muted-foreground flex items-start gap-1.5">
-          <MapPin className="h-4 w-4 mt-0.5 shrink-0" /> {o.address}
-        </p>
-      )}
+        <div className="mt-3 flex flex-wrap gap-2 ps-8">
+          {o.phone && <PhoneLink phone={o.phone} />}
+          <button onClick={() => setOpenContact(true)} className={OUTLINE_BTN}>
+            <MessageSquare className="h-4 w-4" /> Contact
+          </button>
+        </div>
+        {(o.email || o.website || o.instagram || o.twitter) && (
+          <div className="mt-1 flex flex-wrap gap-x-4 ps-8">
+            {o.email && (
+              <LinkBtn href={`mailto:${o.email}`} icon={Mail}>
+                {o.email}
+              </LinkBtn>
+            )}
+            {o.website && (
+              <LinkBtn href={o.website} icon={Globe}>
+                {o.website.replace(/^https?:\/\//, "")}
+              </LinkBtn>
+            )}
+            {o.instagram && (
+              <LinkBtn href={`https://instagram.com/${o.instagram}`} icon={Instagram}>
+                @{o.instagram}
+              </LinkBtn>
+            )}
+            {o.twitter && (
+              <LinkBtn href={`https://twitter.com/${o.twitter}`} icon={Twitter}>
+                @{o.twitter}
+              </LinkBtn>
+            )}
+          </div>
+        )}
 
-      <div className="mt-3 flex flex-wrap gap-2">
-        {o.phone && <PhoneLink phone={o.phone} />}
-        {o.email && (
-          <LinkBtn href={`mailto:${o.email}`} icon={Mail}>
-            {o.email}
-          </LinkBtn>
-        )}
-        {o.website && (
-          <LinkBtn href={o.website} icon={Globe}>
-            {o.website.replace(/^https?:\/\//, "")}
-          </LinkBtn>
-        )}
-        {o.instagram && (
-          <LinkBtn href={`https://instagram.com/${o.instagram}`} icon={Instagram}>
-            @{o.instagram}
-          </LinkBtn>
-        )}
-        {o.twitter && (
-          <LinkBtn href={`https://twitter.com/${o.twitter}`} icon={Twitter}>
-            @{o.twitter}
-          </LinkBtn>
-        )}
-        <button
-          onClick={() => setOpenContact(true)}
-          className="no-min-h inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-accent text-accent-foreground text-sm font-semibold hover:opacity-90 transition"
-        >
-          <MessageSquare className="h-4 w-4" /> Contact
-        </button>
-      </div>
-
-      {openContact && <ContactModal o={o} onClose={() => setOpenContact(false)} />}
-    </article>
+        {openContact && <ContactModal o={o} onClose={() => setOpenContact(false)} />}
+      </article>
+    </li>
   );
 }
 
@@ -245,16 +301,10 @@ function MeetingCalendarButtons({
   };
   return (
     <div className="flex flex-wrap gap-2">
-      <button
-        onClick={onAdd}
-        className="no-min-h inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-primary text-primary text-sm font-semibold"
-      >
+      <button onClick={onAdd} className={OUTLINE_BTN}>
         <CalendarPlus className="h-4 w-4" /> Add to Calendar
       </button>
-      <button
-        onClick={onRemind}
-        className="no-min-h inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-accent text-accent text-sm font-semibold"
-      >
+      <button onClick={onRemind} className={OUTLINE_BTN}>
         <Bell className="h-4 w-4" /> Remind Me
       </button>
     </div>
@@ -265,21 +315,30 @@ function CommunityBoardCard({ id }: { id: string }) {
   const cb = COMMUNITY_BOARDS[id];
   if (!cb) return null;
   return (
-    <div className="rounded-2xl border border-border bg-card p-5">
-      <p className="text-xs font-bold uppercase tracking-wider text-accent">Your Community Board</p>
-      <h3 className="font-bold text-lg text-foreground mt-1">
-        Community Board {id.replace("CB", "")}
-      </h3>
-      <p className="text-sm text-muted-foreground flex items-start gap-1.5 mt-2">
-        <MapPin className="h-4 w-4 mt-0.5 shrink-0" />
-        {cb.address}
-      </p>
-      <p className="text-sm text-foreground mt-1">
-        {cb.schedule} · {cb.time}
-      </p>
-      <p className="text-xs text-muted-foreground">✅ Public session: {cb.publicSession}</p>
-      <div className="mt-3 flex flex-wrap gap-2">
+    <li className="py-4">
+      <div className="flex items-start gap-3">
+        <RowIcon icon={Users} />
+        <div className="min-w-0 flex-1">
+          <p className="label-caps text-primary">Your Community Board</p>
+          <h3 className="text-base font-bold text-foreground">
+            Community Board {id.replace("CB", "")}
+          </h3>
+          <p className="mt-1 flex items-start gap-1.5 text-sm text-muted-foreground">
+            <MapPin className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
+            <span dir="auto">{cb.address}</span>
+          </p>
+          <p dir="auto" className="mt-1 text-sm text-foreground">
+            {cb.schedule} · {cb.time}
+          </p>
+          <p dir="auto" className="text-sm text-muted-foreground">
+            Public session: {cb.publicSession}
+          </p>
+        </div>
+      </div>
+      <div className="mt-3 flex flex-wrap gap-2 ps-8">
         <PhoneLink phone={cb.phone} />
+      </div>
+      <div className="mt-1 flex flex-wrap gap-x-4 ps-8">
         <LinkBtn href={`mailto:${cb.email}`} icon={Mail}>
           {cb.email}
         </LinkBtn>
@@ -287,14 +346,14 @@ function CommunityBoardCard({ id }: { id: string }) {
           {cb.website.replace(/^https?:\/\//, "")}
         </LinkBtn>
       </div>
-      <div className="mt-3">
+      <div className="mt-2 ps-8">
         <MeetingCalendarButtons
           title={`CB${id.replace("CB", "")} Monthly Meeting`}
           location={cb.address}
           description={`Community Board ${id.replace("CB", "")} monthly meeting — ${cb.schedule} at ${cb.time}.`}
         />
       </div>
-    </div>
+    </li>
   );
 }
 
@@ -302,39 +361,37 @@ function PrecinctCard({ id }: { id: string }) {
   const p = PRECINCTS[id];
   if (!p) return null;
   return (
-    <div className="rounded-2xl border border-border bg-card p-5">
-      <p className="text-xs font-bold uppercase tracking-wider text-accent flex items-center gap-1">
-        <Shield className="h-3.5 w-3.5" />
-        Your Police Precinct
-      </p>
-      <h3 className="font-bold text-lg text-foreground mt-1">{p.name}</h3>
-      <p className="text-sm text-muted-foreground">Serves: {p.serves}</p>
-      <p className="text-sm text-muted-foreground flex items-start gap-1.5 mt-1">
-        <MapPin className="h-4 w-4 mt-0.5 shrink-0" />
-        {p.address}
-      </p>
-      <p className="text-xs text-muted-foreground mt-1">
-        Next community council meeting: {p.nextMeeting}
-      </p>
-      <div className="mt-3 flex flex-wrap gap-2">
+    <li className="py-4">
+      <div className="flex items-start gap-3">
+        <RowIcon icon={Shield} />
+        <div className="min-w-0 flex-1">
+          <p className="label-caps text-primary">Your Police Precinct</p>
+          <h3 dir="auto" className="text-base font-bold text-foreground">
+            {p.name}
+          </h3>
+          <p dir="auto" className="text-sm text-muted-foreground">
+            Serves: {p.serves}
+          </p>
+          <p className="mt-1 flex items-start gap-1.5 text-sm text-muted-foreground">
+            <MapPin className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
+            <span dir="auto">{p.address}</span>
+          </p>
+          <p dir="auto" className="mt-1 text-sm text-muted-foreground">
+            Next community council meeting: {p.nextMeeting}
+          </p>
+        </div>
+      </div>
+      <div className="mt-3 flex flex-wrap gap-2 ps-8">
         <PhoneLink phone={p.phone} />
       </div>
-      <div className="mt-3">
+      <div className="mt-2 ps-8">
         <MeetingCalendarButtons
           title={`${p.name} Community Council Meeting`}
           location={p.address}
           description={`Community council meeting at ${p.name}. Call ${p.phone} for date.`}
         />
       </div>
-    </div>
-  );
-}
-
-function SectionHeader({ children }: { children: React.ReactNode }) {
-  return (
-    <h2 className="text-xs font-bold uppercase tracking-[0.15em] text-muted-foreground mt-8 mb-3 border-t border-border pt-6">
-      {children}
-    </h2>
+    </li>
   );
 }
 
@@ -413,209 +470,235 @@ export function CivicPage() {
 
   return (
     <AppShell>
-      <div className="max-w-3xl mx-auto px-4 py-6">
+      <div className="mx-auto max-w-5xl px-4 pt-4 pb-10">
         <button
           onClick={() => navigate({ to: "/" })}
-          className="no-min-h inline-flex items-center gap-1.5 text-sm text-primary font-medium mb-4 hover:underline"
+          className="no-min-h inline-flex min-h-11 items-center gap-1.5 text-sm font-semibold text-primary hover:underline"
         >
-          <ArrowLeft className="h-4 w-4" /> {t("back")}
+          <ArrowLeft className="h-4 w-4 rtl:rotate-180" aria-hidden="true" /> {t("back")}
         </button>
 
-        <div className="flex items-center gap-2">
-          <Vote className="h-7 w-7 text-primary" />
-          <h1 className="text-3xl font-bold text-foreground">Your Voice in the Bronx</h1>
-        </div>
-        <p className="text-muted-foreground mt-1">
-          Find your local officials, Community Board, and Police Precinct.
-        </p>
-        <div className="mt-2">
+        <header className="mt-1 flex items-start gap-3 border-b-[3px] border-double border-foreground pb-4">
+          <div className="min-w-0 flex-1">
+            <h1 className="text-3xl font-extrabold text-foreground sm:text-4xl">
+              Your Voice in the Bronx
+            </h1>
+            <p dir="auto" className="mt-1 text-muted-foreground">
+              Find your local officials, Community Board, and Police Precinct.
+            </p>
+          </div>
           <SpeakButton
             text="Your Voice in the Bronx. Enter your zip code to find your local officials, community board, and police precinct."
             label={t("listen")}
           />
-        </div>
+        </header>
 
-        <div className="mt-6">
-          <OfficialUpdatesFeed />
-        </div>
+        <OfficialUpdatesFeed />
 
-        {/* ZIP input */}
-        <form onSubmit={submit} className="mt-6 rounded-2xl border border-border bg-card p-5">
-          <label className="block text-sm font-semibold text-foreground mb-2">
+        {/* ZIP input: the one boxed group on the page */}
+        <form
+          onSubmit={submit}
+          className="mt-8 max-w-2xl rounded-md border border-border bg-card p-4"
+        >
+          <label className="mb-3 block text-sm font-semibold text-foreground">
             Enter your Bronx zip code to find your local officials, Community Board, and Police
             Precinct
           </label>
-          <div className="flex flex-col sm:flex-row gap-2">
+          <div className="flex flex-col gap-2 sm:flex-row">
             <button
               type="button"
               onClick={useMyLocation}
               disabled={locating}
-              className="no-min-h inline-flex items-center justify-center gap-2 px-4 py-3 rounded-lg border border-primary text-primary text-sm font-semibold disabled:opacity-50"
+              className={OUTLINE_BTN}
             >
               <Locate className="h-4 w-4" />
               {locating ? "Locating…" : "Use My Location"}
             </button>
-            <input
-              value={zipInput}
-              onChange={(e) => setZipInput(e.target.value.replace(/[^0-9]/g, "").slice(0, 5))}
-              placeholder="e.g. 10462"
-              inputMode="numeric"
-              maxLength={5}
-              className="flex-1 px-4 py-3 rounded-lg border border-border bg-background text-base"
-              aria-label="Bronx zip code"
-            />
-            <button
-              type="submit"
-              className="no-min-h px-5 py-3 rounded-lg bg-primary text-primary-foreground font-semibold"
-            >
-              Find
-            </button>
+            <div className="flex min-w-0 flex-1 gap-2">
+              <input
+                value={zipInput}
+                onChange={(e) => setZipInput(e.target.value.replace(/[^0-9]/g, "").slice(0, 5))}
+                placeholder="e.g. 10462"
+                inputMode="numeric"
+                maxLength={5}
+                className="h-11 w-full min-w-0 flex-1 rounded-md border-2 border-foreground bg-background px-4 text-base text-foreground focus-visible:border-primary focus-visible:outline-none"
+                aria-label="Bronx zip code"
+              />
+              <button type="submit" className={PRIMARY_BTN}>
+                Find
+              </button>
+            </div>
           </div>
           {zip && (
             <p className="mt-3 text-sm text-foreground">
               <span className="font-semibold">Showing results for:</span> {zip}
             </p>
           )}
-          <div className="mt-3">
-            <Link
-              to="/civic/all"
-              className="inline-flex items-center gap-1 text-sm text-primary font-semibold hover:underline"
-            >
-              🌎 See Other Areas <ChevronRight className="h-4 w-4" />
+          <div className="mt-1">
+            <Link to="/civic/all" className={TEXT_LINK}>
+              See Other Areas <ChevronRight className="h-4 w-4 rtl:rotate-180" aria-hidden="true" />
             </Link>
           </div>
         </form>
 
         {!zip && (
-          <div className="mt-6 rounded-2xl border border-dashed border-border bg-secondary/40 p-5 text-sm text-muted-foreground">
+          <p dir="auto" className="mt-4 max-w-2xl text-sm text-muted-foreground">
             Enter your ZIP above to see your Community Board, Police Precinct, City Council member,
             State Senator, Assembly member, and U.S. Representative.
-          </div>
+          </p>
         )}
 
         {zip && mapping && off && (
           <>
-            <SectionHeader>Your Community Board</SectionHeader>
-            <div className="grid gap-3">
-              {mapping.cb.map((id) => (
-                <CommunityBoardCard key={id} id={id} />
-              ))}
-              {mapping.cbPartial && mapping.cbPartial.length > 0 && (
-                <p className="text-xs text-muted-foreground italic">
-                  Your area may also be served by:{" "}
-                  {mapping.cbPartial.map((c) => `CB${c.replace("CB", "")}`).join(", ")}.
-                </p>
-              )}
+            <div className="lg:grid lg:grid-cols-2 lg:gap-x-8">
+              <Section id="civic-cb-title" title="Your Community Board" ruled className="px-0">
+                <ul className="divide-y divide-border border-b border-border">
+                  {mapping.cb.map((id) => (
+                    <CommunityBoardCard key={id} id={id} />
+                  ))}
+                </ul>
+                {mapping.cbPartial && mapping.cbPartial.length > 0 && (
+                  <p dir="auto" className="mt-2 text-xs text-muted-foreground italic">
+                    Your area may also be served by:{" "}
+                    {mapping.cbPartial.map((c) => `CB${c.replace("CB", "")}`).join(", ")}.
+                  </p>
+                )}
+              </Section>
+
+              <Section
+                id="civic-precinct-title"
+                title="Your Police Precinct"
+                ruled
+                className="px-0"
+              >
+                <ul className="divide-y divide-border border-b border-border">
+                  {mapping.precincts.map((id) => (
+                    <PrecinctCard key={id} id={id} />
+                  ))}
+                </ul>
+              </Section>
             </div>
 
-            <SectionHeader>Your Police Precinct</SectionHeader>
-            <div className="grid gap-3">
-              {mapping.precincts.map((id) => (
-                <PrecinctCard key={id} id={id} />
-              ))}
-            </div>
-
-            <SectionHeader>Your Elected Officials</SectionHeader>
-            <div className="grid gap-3">
-              {off.council.map((o) => (
-                <OfficialCard key={o.name} o={o} badge="City Council" />
-              ))}
-              {off.assembly.map((o) => (
-                <OfficialCard key={o.name} o={o} badge="State Assembly" />
-              ))}
-              {off.senate.map((o) => (
-                <OfficialCard key={o.name} o={o} badge="State Senate" />
-              ))}
-              {off.house.map((o) => (
-                <OfficialCard key={o.name} o={o} badge="U.S. Representative" />
-              ))}
+            <Section
+              id="civic-officials-title"
+              title="Your Elected Officials"
+              ruled
+              className="px-0"
+            >
+              <ul className={ROW_LIST}>
+                {off.council.map((o) => (
+                  <OfficialCard key={o.name} o={o} badge="City Council" />
+                ))}
+                {off.assembly.map((o) => (
+                  <OfficialCard key={o.name} o={o} badge="State Assembly" />
+                ))}
+                {off.senate.map((o) => (
+                  <OfficialCard key={o.name} o={o} badge="State Senate" />
+                ))}
+                {off.house.map((o) => (
+                  <OfficialCard key={o.name} o={o} badge="U.S. Representative" />
+                ))}
+              </ul>
               {off.council.length + off.assembly.length + off.senate.length + off.house.length ===
                 0 && (
-                <p className="text-sm text-muted-foreground">
+                <p className="py-3 text-sm text-muted-foreground">
                   No district-level officials found for this ZIP.
                 </p>
               )}
-            </div>
+            </Section>
           </>
         )}
 
-        <SectionHeader>Borough-Wide Officials</SectionHeader>
-        <div className="grid gap-3">
-          {BOROUGH_WIDE.map((o) => (
-            <OfficialCard key={o.name} o={o} />
-          ))}
-        </div>
+        <Section id="civic-borough-title" title="Borough-Wide Officials" ruled className="px-0">
+          <ul className={ROW_LIST}>
+            {BOROUGH_WIDE.map((o) => (
+              <OfficialCard key={o.name} o={o} />
+            ))}
+          </ul>
+        </Section>
 
-        <SectionHeader>Report an Issue</SectionHeader>
-        <ul className="grid gap-2">
-          {REPORT_ISSUES.map((r) => (
-            <li
-              key={r.label}
-              className="rounded-xl border border-border bg-card p-4 flex items-start gap-3"
-            >
-              <span className="text-xl shrink-0" aria-hidden>
-                {r.icon}
-              </span>
-              <div className="flex-1 min-w-0">
-                <p className="font-semibold text-foreground">{r.label}</p>
-                <p className="text-sm text-muted-foreground">→ {r.to}</p>
-              </div>
-              <div className="flex flex-col gap-1 shrink-0">
+        <Section id="civic-report-title" title="Report an Issue" ruled className="px-0">
+          <ul className={ROW_LIST}>
+            {REPORT_ISSUES.map((r) => {
+              const Icon = ISSUE_ICONS[r.label] ?? Megaphone;
+              return (
+                <li key={r.label} className={cn(ROW, "flex items-start gap-3")}>
+                  <RowIcon icon={Icon} />
+                  <div className="min-w-0 flex-1">
+                    <p className="font-bold text-foreground">{r.label}</p>
+                    <p className="flex items-center gap-1 text-sm text-muted-foreground">
+                      <ArrowRight
+                        className="h-3.5 w-3.5 shrink-0 rtl:rotate-180"
+                        aria-hidden="true"
+                      />
+                      <span dir="auto">{r.to}</span>
+                    </p>
+                    <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1">
+                      <a href={`tel:${r.phone.replace(/[^0-9]/g, "")}`} className={OUTLINE_BTN}>
+                        Call {r.phone}
+                      </a>
+                      <a
+                        href={r.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={TEXT_LINK}
+                      >
+                        Website
+                      </a>
+                    </div>
+                  </div>
+                </li>
+              );
+            })}
+            <li className={cn(ROW, "flex items-start gap-3")}>
+              <AlertTriangle
+                className="mt-0.5 h-5 w-5 shrink-0 text-destructive"
+                aria-hidden="true"
+              />
+              <p dir="auto" className="text-sm text-foreground">
+                <span className="font-bold text-destructive">Emergency?</span> Always call{" "}
                 <a
-                  href={`tel:${r.phone.replace(/[^0-9]/g, "")}`}
-                  className="no-min-h text-xs px-2 py-1.5 rounded bg-[#34a853] text-white font-semibold"
+                  href="tel:911"
+                  className="font-bold text-destructive underline underline-offset-4"
                 >
-                  Call {r.phone}
+                  911
                 </a>
-                <a
-                  href={r.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="no-min-h text-xs px-2 py-1.5 rounded border border-primary text-primary font-semibold text-center"
-                >
-                  Website
-                </a>
-              </div>
+                .
+              </p>
             </li>
-          ))}
-          <li className="rounded-xl border border-destructive/40 bg-destructive/5 p-4 flex items-center gap-3">
-            <AlertTriangle className="h-5 w-5 text-destructive shrink-0" />
-            <p className="text-sm text-foreground">
-              <span className="font-bold">Emergency?</span> Always call{" "}
-              <a href="tel:911" className="underline font-bold">
-                911
-              </a>
-              .
-            </p>
-          </li>
-        </ul>
+          </ul>
+        </Section>
 
-        <SectionHeader>Voter Resources</SectionHeader>
-        <ul className="grid sm:grid-cols-2 gap-2">
-          {VOTER_LINKS.map((v) => (
-            <li key={v.label}>
-              <a
-                href={v.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-xl border border-border bg-card p-4 flex items-center gap-3 hover:bg-secondary/50 transition"
-              >
-                <span className="text-2xl" aria-hidden>
-                  {v.icon}
-                </span>
-                <span className="font-semibold text-foreground flex-1">{v.label}</span>
-                <ChevronRight className="h-4 w-4 text-muted-foreground" />
-              </a>
-            </li>
-          ))}
-        </ul>
+        <Section id="civic-voter-title" title="Voter Resources" ruled className="px-0">
+          <ul className={ROW_LIST}>
+            {VOTER_LINKS.map((v) => {
+              const Icon = VOTER_ICONS[v.label] ?? Vote;
+              return (
+                <li key={v.label} className="lg:border-b lg:border-border">
+                  <a
+                    href={v.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="no-min-h group flex min-h-11 items-center gap-3 py-3"
+                  >
+                    <Icon className="h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
+                    <span className="flex-1 font-bold text-foreground group-hover:underline">
+                      {v.label}
+                    </span>
+                    <ChevronRight
+                      className="h-5 w-5 shrink-0 text-muted-foreground rtl:rotate-180"
+                      aria-hidden="true"
+                    />
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+        </Section>
 
         <div className="mt-10 flex justify-center">
-          <Link
-            to="/civic/all"
-            className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-primary text-primary-foreground font-semibold"
-          >
-            🌎 See Other Areas
+          <Link to="/civic/all" className={OUTLINE_BTN}>
+            See Other Areas
           </Link>
         </div>
       </div>

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { loadOfficialUpdates, type OfficialUpdate } from "@/lib/org-accounts";
 import { BadgeCheck, Megaphone } from "lucide-react";
+import { Section } from "@/components/ui/section";
 
 type Item = OfficialUpdate & {
   org?: {
@@ -11,6 +12,7 @@ type Item = OfficialUpdate & {
   };
 };
 
+/** Posts from verified offices, as a ruled section of rows on the Town Hall page. */
 export function OfficialUpdatesFeed() {
   const [items, setItems] = useState<Item[]>([]);
 
@@ -18,44 +20,46 @@ export function OfficialUpdatesFeed() {
     void loadOfficialUpdates(10).then((r) => setItems(r as Item[]));
   }, []);
 
-  if (items.length === 0) {
-    return (
-      <section className="rounded-2xl border-2 border-border bg-card p-4">
-        <h2 className="font-bold text-lg inline-flex items-center gap-2">
-          <Megaphone className="h-5 w-5 text-primary" /> Latest from your officials
-        </h2>
-        <p className="text-sm text-muted-foreground mt-2">
-          Nothing posted yet — check back soon. Only posts made by a verified government office
-          through its own Bronx App account appear here.
-        </p>
-      </section>
-    );
-  }
-
   return (
-    <section className="rounded-2xl border-2 border-border bg-card p-4 space-y-3">
-      <h2 className="font-bold text-lg inline-flex items-center gap-2">
-        <Megaphone className="h-5 w-5 text-primary" /> Latest from your officials
-      </h2>
-      <ul className="space-y-3">
-        {items.map((u) => (
-          <li key={u.id} className="border-b border-border last:border-0 pb-3 last:pb-0">
-            <p className="text-sm font-semibold inline-flex items-center gap-1.5">
-              {u.org?.office_name || u.org?.org_name || "Bronx official"}
-              {u.org?.status === "verified" && (
-                <BadgeCheck className="h-4 w-4 text-success" aria-label="Verified office" />
-              )}
-            </p>
-            <p className="text-sm mt-0.5">{u.body}</p>
-            <p className="text-xs text-muted-foreground mt-1">
-              {new Date(u.created_at).toLocaleDateString()}
-            </p>
-          </li>
-        ))}
-      </ul>
-      <p className="text-xs text-muted-foreground">
-        Posted directly by the offices themselves through their Bronx App account.
-      </p>
-    </section>
+    <Section id="official-updates-title" title="Latest from your officials" ruled className="px-0">
+      {items.length === 0 ? (
+        <p className="flex items-start gap-3 border-b border-border py-3 text-sm text-muted-foreground">
+          <Megaphone className="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
+          <span dir="auto">
+            Nothing posted yet — check back soon. Only posts made by a verified government office
+            through its own Bronx App account appear here.
+          </span>
+        </p>
+      ) : (
+        <>
+          <ul className="divide-y divide-border border-b border-border">
+            {items.map((u) => (
+              <li key={u.id} className="flex items-start gap-3 py-3">
+                <Megaphone className="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
+                <div className="min-w-0 flex-1">
+                  <p className="label-caps inline-flex items-center gap-1.5 text-primary">
+                    <span dir="auto">
+                      {u.org?.office_name || u.org?.org_name || "Bronx official"}
+                    </span>
+                    {u.org?.status === "verified" && (
+                      <BadgeCheck className="h-4 w-4 text-success" aria-label="Verified office" />
+                    )}
+                  </p>
+                  <p dir="auto" className="mt-0.5 text-sm text-foreground">
+                    {u.body}
+                  </p>
+                  <p className="mt-1 text-xs text-muted-foreground">
+                    {new Date(u.created_at).toLocaleDateString()}
+                  </p>
+                </div>
+              </li>
+            ))}
+          </ul>
+          <p dir="auto" className="mt-2 text-xs text-muted-foreground">
+            Posted directly by the offices themselves through their Bronx App account.
+          </p>
+        </>
+      )}
+    </Section>
   );
 }
