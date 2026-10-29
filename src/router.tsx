@@ -1,3 +1,4 @@
+import "./lib/safe-storage"; // Must run before any app code reads storage.
 import { QueryClient } from "@tanstack/react-query";
 import { createRouter } from "@tanstack/react-router";
 import { routeTree } from "./routeTree.gen";
