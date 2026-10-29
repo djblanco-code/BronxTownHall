@@ -121,28 +121,26 @@ function EmergencyPage() {
 
   return (
     <AppShell>
-      <div className="max-w-3xl mx-auto px-4 py-6">
+      <div className="mx-auto max-w-3xl px-4 py-6">
         <button
           onClick={() => navigate({ to: "/" })}
-          className="no-min-h inline-flex items-center gap-1.5 text-sm text-primary font-medium mb-4 hover:underline"
+          className="no-min-h mb-2 inline-flex min-h-11 items-center gap-1.5 text-sm font-bold text-primary hover:underline"
         >
-          <ArrowLeft className="h-4 w-4" /> {t("back")}
+          <ArrowLeft className="h-4 w-4 rtl:rotate-180" aria-hidden="true" /> {t("back")}
         </button>
 
-        <h1 className="text-3xl font-bold text-foreground">Emergency Contacts</h1>
-        <p className="text-muted-foreground mt-1">
+        <h1 className="text-3xl font-bold text-destructive sm:text-4xl">Emergency Contacts</h1>
+        <p className="mt-1 text-muted-foreground">
           Immediate help and essential Bronx services available 24/7.
         </p>
 
-        <div
-          className={`mt-4 rounded-2xl px-4 py-3 flex items-center gap-3 border ${online ? "bg-success/15 border-success/30" : "bg-warning/15 border-warning/40"}`}
-        >
+        <div className="mt-4 flex items-center gap-3 rounded-md border border-border px-4 py-3">
           {online ? (
-            <WifiOff className="h-5 w-5 text-success shrink-0" />
+            <WifiOff className="h-5 w-5 shrink-0 text-success" aria-hidden="true" />
           ) : (
-            <Wifi className="h-5 w-5 text-warning shrink-0" />
+            <Wifi className="h-5 w-5 shrink-0 text-warning" aria-hidden="true" />
           )}
-          <p className={`text-sm font-semibold ${online ? "text-success" : "text-warning"}`}>
+          <p className="text-sm font-semibold text-foreground">
             {online
               ? "This page works offline • Saved to your phone, all numbers dial without internet"
               : "You are offline — this saved page and every number below still work"}
@@ -151,27 +149,27 @@ function EmergencyPage() {
 
         <a
           href="tel:911"
-          className="no-min-h mt-5 w-full inline-flex items-center justify-center gap-3 py-6 rounded-2xl bg-destructive text-destructive-foreground text-2xl font-bold shadow-2xl hover:bg-destructive/90 transition"
+          className="no-min-h mt-5 inline-flex min-h-20 w-full items-center justify-center gap-3 rounded-md bg-destructive px-4 py-5 text-2xl font-bold text-destructive-foreground hover:bg-destructive/90"
         >
-          <Phone className="h-7 w-7" /> DIAL 911 NOW
+          <Phone className="h-7 w-7 shrink-0" aria-hidden="true" /> DIAL 911 NOW
         </a>
 
-        <Section title="Critical Emergencies" tone="destructive">
+        <ContactGroup id="emergency-critical" title="Critical Emergencies" tone="destructive">
           {CRITICAL.map((c) => (
-            <ContactCard key={c.name} c={c} tone="destructive" />
+            <ContactRow key={c.name} c={c} tone="destructive" />
           ))}
-        </Section>
+        </ContactGroup>
 
-        <Section title="NYC Crisis & Support Lines" tone="primary">
+        <ContactGroup id="emergency-nyc" title="NYC Crisis & Support Lines" tone="primary">
           {NYC_SPECIFIC.map((c) => (
-            <ContactCard key={c.name} c={c} tone="primary" />
+            <ContactRow key={c.name} c={c} tone="primary" />
           ))}
-        </Section>
+        </ContactGroup>
 
         {otherHotlines.length > 0 && (
-          <Section title="More 24/7 Hotlines" tone="primary">
+          <ContactGroup id="emergency-more" title="More 24/7 Hotlines" tone="primary">
             {otherHotlines.map((h) => (
-              <ContactCard
+              <ContactRow
                 key={h.id}
                 tone="primary"
                 c={{
@@ -183,29 +181,30 @@ function EmergencyPage() {
                 }}
               />
             ))}
-          </Section>
+          </ContactGroup>
         )}
 
         {textLines.length > 0 && (
-          <Section title="Crisis Text Lines" tone="primary">
+          <ContactGroup id="emergency-text" title="Crisis Text Lines" tone="primary">
             {textLines.map((h) => (
-              <div key={h.id} className="rounded-2xl border border-border bg-card p-4">
+              <li key={h.id} className="py-4">
                 <h3 className="font-bold text-foreground">{h.name}</h3>
-                <p className="text-sm text-muted-foreground mt-1">{h.description}</p>
+                <p className="mt-0.5 text-sm text-muted-foreground">{h.description}</p>
                 <a
                   href={`sms:${h.number}${h.textBody ? `?&body=${encodeURIComponent(h.textBody)}` : ""}`}
-                  className="no-min-h mt-3 inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-semibold bg-primary text-primary-foreground"
+                  className={`${CALL_BUTTON} bg-primary text-primary-foreground hover:bg-primary/90`}
                 >
-                  <MessageSquare className="h-5 w-5" /> Text {h.textBody} to {h.number}
+                  <MessageSquare className="h-5 w-5 shrink-0" aria-hidden="true" /> Text{" "}
+                  {h.textBody} to {h.number}
                 </a>
-              </div>
+              </li>
             ))}
-          </Section>
+          </ContactGroup>
         )}
 
-        <p className="mt-8 text-sm text-muted-foreground text-center">
+        <p className="mt-8 text-center text-sm text-muted-foreground">
           Need shelter, food, or legal help right now?{" "}
-          <Link to="/urgent" className="text-primary font-semibold hover:underline">
+          <Link to="/urgent" className="font-bold text-primary underline underline-offset-4">
             See all urgent help →
           </Link>
         </p>
@@ -214,50 +213,55 @@ function EmergencyPage() {
   );
 }
 
-function Section({
+/** A large, solid call or text button: full width on phones. */
+const CALL_BUTTON =
+  "no-min-h mt-3 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-md px-5 py-2 text-center font-bold sm:w-auto";
+
+/** A group of numbers under a heavy rule: red for emergencies, ink for the rest. */
+function ContactGroup({
+  id,
   title,
   tone,
   children,
 }: {
+  id: string;
   title: string;
   tone: "destructive" | "primary";
   children: React.ReactNode;
 }) {
   return (
-    <section className="mt-8">
+    <section aria-labelledby={id} className="mt-8">
       <h2
-        className={`text-xs font-bold uppercase tracking-wider mb-3 ${tone === "destructive" ? "text-destructive" : "text-primary"}`}
+        id={id}
+        className={`border-t-[3px] pt-2 text-lg font-bold sm:text-2xl ${tone === "destructive" ? "border-destructive text-destructive" : "border-foreground text-foreground"}`}
       >
         {title}
       </h2>
-      <div className="space-y-3">{children}</div>
+      <ul className="divide-y divide-border border-b border-border">{children}</ul>
     </section>
   );
 }
 
-function ContactCard({ c, tone }: { c: Contact; tone: "destructive" | "primary" }) {
+function ContactRow({ c, tone }: { c: Contact; tone: "destructive" | "primary" }) {
   const btn =
     tone === "destructive"
-      ? "bg-destructive text-destructive-foreground"
-      : "bg-primary text-primary-foreground";
+      ? "bg-destructive text-destructive-foreground hover:bg-destructive/90"
+      : "bg-primary text-primary-foreground hover:bg-primary/90";
   return (
-    <div className="rounded-2xl border border-border bg-card p-4">
-      <div className="flex items-center gap-2 flex-wrap">
+    <li className="py-4">
+      <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5">
         <h3 className="font-bold text-foreground">{c.name}</h3>
         {c.verified && (
-          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold bg-success/15 text-success">
-            <ShieldCheck className="h-3.5 w-3.5" /> VERIFIED
+          <span className="label-caps inline-flex items-center gap-1 text-success">
+            <ShieldCheck className="h-3.5 w-3.5" aria-hidden="true" /> VERIFIED
           </span>
         )}
       </div>
-      <p className="text-sm text-muted-foreground mt-1">{c.desc}</p>
-      <a
-        href={`tel:${c.phone.replace(/[^0-9+]/g, "")}`}
-        className={`no-min-h mt-3 inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-semibold ${btn}`}
-      >
-        <Phone className="h-5 w-5" />{" "}
+      <p className="mt-0.5 text-sm text-muted-foreground">{c.desc}</p>
+      <a href={`tel:${c.phone.replace(/[^0-9+]/g, "")}`} className={`${CALL_BUTTON} ${btn}`}>
+        <Phone className="h-5 w-5 shrink-0" aria-hidden="true" />{" "}
         {c.name === "Emergency Services" ? "DIAL 911" : `Call ${c.display}`}
       </a>
-    </div>
+    </li>
   );
 }

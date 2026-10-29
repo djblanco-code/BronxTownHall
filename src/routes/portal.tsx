@@ -11,12 +11,27 @@ import {
   type AccountType,
 } from "@/lib/org-accounts";
 import { OrgListingForm, emptyForm, type OrgFormValue } from "@/components/OrgListingForm";
-import { ArrowLeft, Building2, CheckCircle2 } from "lucide-react";
+import {
+  ArrowLeft,
+  CheckCircle2,
+  ChevronRight,
+  HandHeart,
+  Landmark,
+  Store,
+  type LucideIcon,
+} from "lucide-react";
 import { toast } from "sonner";
 
 const TITLE = "List your organization on The Bronx App | Business, nonprofit & government accounts";
 const DESC =
   "Businesses, nonprofits and community organizations, and government offices can create a free account on The Bronx App and manage their own Bronx listing.";
+
+/** Line icons for the account types (their data carries emoji, which the design system doesn't use). */
+const ACCOUNT_ICONS: Record<AccountType, LucideIcon> = {
+  business: Store,
+  nonprofit: HandHeart,
+  government: Landmark,
+};
 
 export const Route = createFileRoute("/portal")({
   staticData: { sitemap: true },
@@ -66,18 +81,16 @@ function PortalPage() {
 
   return (
     <AppShell>
-      <div className="max-w-3xl mx-auto px-4 py-6 space-y-6">
+      <div className="mx-auto max-w-3xl space-y-6 px-4 py-6">
         <Link
           to="/"
-          className="no-min-h inline-flex items-center gap-1.5 text-sm text-primary font-medium hover:underline"
+          className="no-min-h inline-flex min-h-11 items-center gap-1.5 text-sm font-bold text-primary hover:underline"
         >
-          <ArrowLeft className="h-4 w-4" /> Home
+          <ArrowLeft className="h-4 w-4 rtl:rotate-180" aria-hidden="true" /> Home
         </Link>
 
         <header className="space-y-2">
-          <h1 className="text-3xl font-bold flex items-center gap-2">
-            <Building2 className="h-7 w-7 text-primary" /> List your organization
-          </h1>
+          <h1 className="text-3xl font-bold text-foreground sm:text-4xl">List your organization</h1>
           <p className="text-muted-foreground">
             Add your business, community organization or government office to The Bronx App, then
             keep your own details up to date. Free — there is no payment anywhere in the app.
@@ -85,19 +98,31 @@ function PortalPage() {
         </header>
 
         {!type && (
-          <div className="grid sm:grid-cols-3 gap-3">
-            {ACCOUNT_TYPES.map((t) => (
-              <button
-                key={t.id}
-                onClick={() => setType(t.id)}
-                className="no-min-h text-left rounded-2xl border-2 border-border bg-card p-4 hover:border-primary hover:shadow-md transition"
-              >
-                <div className="text-3xl mb-2">{t.emoji}</div>
-                <p className="font-bold">{t.label}</p>
-                <p className="text-sm text-muted-foreground mt-1">{t.blurb}</p>
-              </button>
-            ))}
-          </div>
+          <ul className="divide-y divide-border border-t-[3px] border-b border-t-foreground border-b-border">
+            {ACCOUNT_TYPES.map((t) => {
+              const Icon = ACCOUNT_ICONS[t.id];
+              return (
+                <li key={t.id}>
+                  <button
+                    onClick={() => setType(t.id)}
+                    className="no-min-h group flex min-h-16 w-full items-start gap-3 py-4 text-start"
+                  >
+                    <Icon className="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
+                    <span className="min-w-0 flex-1">
+                      <span className="block font-bold text-foreground group-hover:underline">
+                        {t.label}
+                      </span>
+                      <span className="mt-0.5 block text-sm text-muted-foreground">{t.blurb}</span>
+                    </span>
+                    <ChevronRight
+                      className="mt-0.5 h-5 w-5 shrink-0 text-muted-foreground rtl:rotate-180"
+                      aria-hidden="true"
+                    />
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
         )}
 
         {type && (
@@ -106,7 +131,7 @@ function PortalPage() {
               setType(null);
               setForm(null);
             }}
-            className="no-min-h text-sm text-primary hover:underline"
+            className="no-min-h inline-flex min-h-11 items-center text-sm font-bold text-primary hover:underline"
           >
             ← Choose a different account type
           </button>
@@ -117,7 +142,7 @@ function PortalPage() {
         {type && user && (
           <>
             {user.email && type === "government" && !isGovernmentEmail(user.email) && (
-              <p className="rounded-xl border-2 border-warning/40 bg-warning/10 p-3 text-sm">
+              <p className="rounded-md border-2 border-foreground p-3 text-sm">
                 You&apos;re signed in as a non-government address. {GOV_EMAIL_MESSAGE}
               </p>
             )}
@@ -183,9 +208,9 @@ function AccountStep({ type }: { type: AccountType }) {
 
   if (sent) {
     return (
-      <div className="rounded-2xl border-2 border-border bg-card p-5 space-y-2">
-        <p className="font-bold inline-flex items-center gap-2">
-          <CheckCircle2 className="h-5 w-5 text-success" /> Check your email
+      <div className="space-y-2 rounded-md border-2 border-foreground p-4">
+        <p className="inline-flex items-center gap-2 font-bold">
+          <CheckCircle2 className="h-5 w-5 text-success" aria-hidden="true" /> Check your email
         </p>
         <p className="text-sm text-muted-foreground">
           We sent a confirmation link to {email}. Open it, then come back to this page to fill in
@@ -195,16 +220,19 @@ function AccountStep({ type }: { type: AccountType }) {
     );
   }
 
-  const input = "w-full px-3 py-2 rounded-lg border border-border bg-background text-sm";
+  const input =
+    "h-11 w-full rounded-md border border-border bg-background px-3 text-base focus-visible:border-primary focus-visible:outline-none";
 
   return (
-    <form onSubmit={go} className="rounded-2xl border-2 border-border bg-card p-5 space-y-3">
-      <h2 className="font-bold">{mode === "sign-up" ? "Create your account" : "Sign in"}</h2>
+    <form onSubmit={go} className="space-y-3 rounded-md border border-border p-4">
+      <h2 className="text-lg font-bold">
+        {mode === "sign-up" ? "Create your account" : "Sign in"}
+      </h2>
       {type === "government" && (
         <p className="text-sm text-muted-foreground">{GOV_EMAIL_MESSAGE}</p>
       )}
       <label className="block">
-        <span className="text-sm font-medium mb-1 block">Email</span>
+        <span className="mb-1 block text-sm font-bold">Email</span>
         <input
           required
           type="email"
@@ -220,7 +248,7 @@ function AccountStep({ type }: { type: AccountType }) {
         </p>
       )}
       <label className="block">
-        <span className="text-sm font-medium mb-1 block">Password</span>
+        <span className="mb-1 block text-sm font-bold">Password</span>
         <input
           required
           type="password"
@@ -233,7 +261,7 @@ function AccountStep({ type }: { type: AccountType }) {
       <button
         type="submit"
         disabled={busy || govBlocked}
-        className="no-min-h w-full py-3 rounded-lg bg-primary text-primary-foreground font-semibold hover:bg-primary/90 disabled:opacity-50 min-h-[48px]"
+        className="no-min-h min-h-12 w-full rounded-md bg-primary py-3 font-bold text-primary-foreground hover:bg-primary/90 disabled:opacity-50"
       >
         {busy ? "Working…" : mode === "sign-up" ? "Create account" : "Sign in"}
       </button>
@@ -242,7 +270,7 @@ function AccountStep({ type }: { type: AccountType }) {
         <button
           type="button"
           onClick={() => setMode(mode === "sign-up" ? "sign-in" : "sign-up")}
-          className="no-min-h text-primary font-medium hover:underline"
+          className="no-min-h inline-flex min-h-11 items-center font-bold text-primary underline underline-offset-4"
         >
           {mode === "sign-up" ? "Sign in" : "Create an account"}
         </button>

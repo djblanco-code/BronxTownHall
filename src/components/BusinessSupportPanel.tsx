@@ -151,10 +151,7 @@ function LegalRequestForm({
     }
   };
   return (
-    <form
-      onSubmit={submit}
-      className="rounded-md border-2 border-primary/20 bg-primary/5 p-4 space-y-3"
-    >
+    <form onSubmit={submit} className="space-y-3 rounded-md border border-border p-4">
       <h3 className="font-bold">Request a Free/Reduced-Cost Legal Consultation</h3>
       <p className="text-xs text-muted-foreground">
         This is a request for follow-up, not a live appointment booking.
@@ -246,10 +243,7 @@ function HiringForm({
     }
   };
   return (
-    <form
-      onSubmit={submit}
-      className="rounded-md border-2 border-primary/20 bg-primary/5 p-4 space-y-3"
-    >
+    <form onSubmit={submit} className="space-y-3 rounded-md border border-border p-4">
       <h3 className="font-bold">Post a Now Hiring opening</h3>
       {fairChance && (
         <p className="text-xs font-semibold text-success">

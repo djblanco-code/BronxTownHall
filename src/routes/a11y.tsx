@@ -43,49 +43,48 @@ function A11yDemo() {
 
   return (
     <AppShell>
-      <div className="max-w-3xl mx-auto px-4 py-6">
+      <div className="mx-auto max-w-3xl px-4 py-6">
         <button
           onClick={() => navigate({ to: "/" })}
-          className="no-min-h inline-flex items-center gap-1.5 text-sm text-primary font-medium mb-4 hover:underline"
+          className="no-min-h mb-2 inline-flex min-h-11 items-center gap-1.5 text-sm font-bold text-primary hover:underline"
         >
-          <ArrowLeft className="h-4 w-4" /> {t("back")}
+          <ArrowLeft className="h-4 w-4 rtl:rotate-180" aria-hidden="true" /> {t("back")}
         </button>
 
-        <div className="rounded-3xl bg-gradient-to-br from-accent/15 via-primary/10 to-background p-6 sm:p-10 border border-border">
-          <h1 className="text-3xl sm:text-4xl font-bold text-foreground">{t("a11yTitle")}</h1>
-          <p className="text-muted-foreground mt-3 text-lg max-w-2xl">{t("a11yBlurb")}</p>
+        <h1 className="text-3xl font-bold text-foreground sm:text-4xl">{t("a11yTitle")}</h1>
+        <p className="mt-2 max-w-2xl text-lg text-muted-foreground">{t("a11yBlurb")}</p>
 
-          <div className="mt-6">
-            <LanguageSelector />
-          </div>
+        <div className="mt-6">
+          <LanguageSelector />
         </div>
 
-        <div className="mt-8 rounded-3xl border-2 border-border bg-card p-6 sm:p-8 shadow-sm">
-          <div className="flex flex-col items-center text-center">
+        <section
+          aria-labelledby="a11y-sample"
+          className="mt-8 border-t-[3px] border-foreground pt-4"
+        >
+          <div className="flex items-center gap-3">
             <SpeakButton text={fullText} large label={t("listenAll")} />
-            <p className="mt-3 text-sm font-semibold text-muted-foreground uppercase tracking-wide">
-              {t("listenAll")}
-            </p>
+            <p className="label-caps text-muted-foreground">{t("listenAll")}</p>
           </div>
 
-          <hr className="my-6 border-border" />
-
-          <h2 className="text-2xl font-bold text-foreground">{sample.name[lang]}</h2>
-          <ul className="mt-4 space-y-3 text-foreground">
-            <li className="flex items-start gap-3">
-              <MapPin className="h-5 w-5 text-primary mt-0.5 shrink-0" />
+          <h2 id="a11y-sample" className="mt-6 text-2xl font-bold text-foreground">
+            {sample.name[lang]}
+          </h2>
+          <ul className="mt-3 divide-y divide-border border-y border-border text-foreground">
+            <li className="flex items-start gap-3 py-3">
+              <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
               <span>{sample.address}</span>
             </li>
-            <li className="flex items-start gap-3">
-              <Clock className="h-5 w-5 text-primary mt-0.5 shrink-0" />
+            <li className="flex items-start gap-3 py-3">
+              <Clock className="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
               <span>{sample.hours[lang]}</span>
             </li>
-            <li className="flex items-start gap-3">
-              <Info className="h-5 w-5 text-primary mt-0.5 shrink-0" />
+            <li className="flex items-start gap-3 py-3">
+              <Info className="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
               <span>{sample.requirements[lang]}</span>
             </li>
           </ul>
-        </div>
+        </section>
       </div>
     </AppShell>
   );

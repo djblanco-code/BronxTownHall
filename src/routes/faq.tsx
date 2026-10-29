@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { AppShell } from "@/features/shell";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Minus, Plus } from "lucide-react";
 import { useState } from "react";
 import { useI18n } from "@/lib/i18n-context";
 
@@ -78,29 +78,31 @@ function FaqPage() {
 
   return (
     <AppShell>
-      <div className="max-w-3xl mx-auto px-4 py-8">
+      <div className="mx-auto max-w-3xl px-4 py-6">
         <Link
           to="/"
-          className="no-min-h inline-flex items-center gap-1.5 text-sm text-primary font-medium mb-4 hover:underline"
+          className="no-min-h mb-2 inline-flex min-h-11 items-center gap-1.5 text-sm font-bold text-primary hover:underline"
         >
-          <ArrowLeft className="h-4 w-4" /> {t("faq.home")}
+          <ArrowLeft className="h-4 w-4 rtl:rotate-180" aria-hidden="true" /> {t("faq.home")}
         </Link>
-        <h1 className="text-3xl sm:text-4xl font-bold mb-6">{t("faq.title")}</h1>
-        <ul className="space-y-2">
+        <h1 className="mb-6 text-3xl font-bold text-foreground sm:text-4xl">{t("faq.title")}</h1>
+        <ul className="divide-y divide-border border-t-[3px] border-b border-t-foreground border-b-border">
           {qas.map((qa, i) => (
-            <li key={i} className="rounded-2xl border border-border bg-card overflow-hidden">
+            <li key={i}>
               <button
                 onClick={() => setOpen(open === i ? null : i)}
-                className="no-min-h w-full text-start px-5 py-4 flex items-center justify-between gap-3 hover:bg-secondary/50"
+                className="no-min-h group flex min-h-14 w-full items-center justify-between gap-3 py-3 text-start"
                 aria-expanded={open === i}
               >
-                <span className="font-semibold">{qa.q}</span>
-                <span className="text-primary text-xl font-bold shrink-0">
-                  {open === i ? "−" : "+"}
-                </span>
+                <span className="font-bold text-foreground group-hover:underline">{qa.q}</span>
+                {open === i ? (
+                  <Minus className="h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
+                ) : (
+                  <Plus className="h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
+                )}
               </button>
               {open === i && (
-                <div className="px-5 pb-5 text-muted-foreground leading-relaxed">{qa.a}</div>
+                <div className="pb-4 leading-relaxed text-muted-foreground">{qa.a}</div>
               )}
             </li>
           ))}

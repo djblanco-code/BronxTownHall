@@ -68,7 +68,8 @@ export function fromExisting(o: OrgAccount, c?: OrgContact): OrgFormValue {
   };
 }
 
-const input = "w-full px-3 py-2 rounded-lg border border-border bg-background text-sm";
+const input =
+  "min-h-11 w-full rounded-md border border-border bg-background px-3 py-2 text-base focus-visible:border-primary focus-visible:outline-none";
 
 function Section({
   title,
@@ -80,10 +81,13 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <fieldset className="rounded-2xl border border-border bg-card p-4 space-y-3">
-      <legend className="px-1 font-bold">{title}</legend>
-      {hint && <p className="text-xs text-muted-foreground -mt-1">{hint}</p>}
-      {children}
+    // A ruled group, not a box; the floated legend sits under the rule instead of on it.
+    <fieldset className="min-w-0 border-t-[3px] border-foreground pt-2">
+      <legend className="float-start mb-2 w-full text-lg font-bold">{title}</legend>
+      <div className="clear-both space-y-3">
+        {hint && <p className="-mt-1 text-xs text-muted-foreground">{hint}</p>}
+        {children}
+      </div>
     </fieldset>
   );
 }
@@ -101,7 +105,7 @@ function Field({
 }) {
   return (
     <label className="block">
-      <span className="text-sm font-medium mb-1 block">
+      <span className="mb-1 block text-sm font-bold">
         {label} {required && <span className="text-destructive">*</span>}
       </span>
       {children}
@@ -129,7 +133,7 @@ function CheckGroup({
             key={o}
             aria-pressed={on}
             onClick={() => onChange(on ? value.filter((v) => v !== o) : [...value, o])}
-            className={`no-min-h rounded-full px-3 py-1.5 text-sm font-medium border-2 ${on ? "bg-primary text-primary-foreground border-primary" : "border-border bg-background hover:bg-secondary"}`}
+            className={`no-min-h min-h-11 rounded-md border-2 px-3 py-1.5 text-sm font-semibold ${on ? "border-primary bg-primary text-primary-foreground" : "border-border bg-background hover:bg-secondary"}`}
           >
             {o}
           </button>
@@ -171,7 +175,7 @@ export function OrgListingForm({
   };
 
   return (
-    <form onSubmit={submit} className="space-y-4">
+    <form onSubmit={submit} className="space-y-8">
       <Section title="Who you are">
         <Field label="Organization / business name" required>
           <input
@@ -293,7 +297,7 @@ export function OrgListingForm({
               type="button"
               aria-pressed={value.hours_mode === id}
               onClick={() => set("hours_mode", id)}
-              className={`no-min-h rounded-full px-3 py-1.5 text-sm font-semibold border-2 ${value.hours_mode === id ? "bg-primary text-primary-foreground border-primary" : "border-border bg-background hover:bg-secondary"}`}
+              className={`no-min-h min-h-11 rounded-md border-2 px-3 py-1.5 text-sm font-semibold ${value.hours_mode === id ? "border-primary bg-primary text-primary-foreground" : "border-border bg-background hover:bg-secondary"}`}
             >
               {label}
             </button>
@@ -444,7 +448,7 @@ export function OrgListingForm({
               ).map(([id, label, blurb]) => (
                 <label
                   key={id}
-                  className={`block rounded-xl border-2 p-3 cursor-pointer ${value.tier_interest === id ? "border-primary bg-primary/5" : "border-border"}`}
+                  className={`block cursor-pointer rounded-md border-2 p-3 ${value.tier_interest === id ? "border-primary" : "border-border hover:border-foreground"}`}
                 >
                   <span className="flex items-center gap-2 font-semibold">
                     <input
@@ -581,7 +585,7 @@ export function OrgListingForm({
 
       {err && <p className="text-sm font-semibold text-destructive">{err}</p>}
 
-      <div className="rounded-xl border border-border bg-muted/40 p-3 text-sm">
+      <div className="rounded-md border border-border p-3 text-sm">
         Everything here is what your organization tells us about itself. Your listing goes live
         right away marked
         <strong> “Not yet verified.”</strong> A Bronx App reviewer confirms details by phone or in
@@ -591,7 +595,7 @@ export function OrgListingForm({
       <button
         type="submit"
         disabled={busy}
-        className="no-min-h w-full py-3 rounded-lg bg-primary text-primary-foreground font-semibold hover:bg-primary/90 disabled:opacity-50 min-h-[48px]"
+        className="no-min-h min-h-12 w-full rounded-md bg-primary py-3 font-bold text-primary-foreground hover:bg-primary/90 disabled:opacity-50"
       >
         {busy ? "Saving…" : submitLabel}
       </button>

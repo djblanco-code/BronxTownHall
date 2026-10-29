@@ -62,23 +62,30 @@ function ListsPage() {
   if (authLoading)
     return (
       <AppShell>
-        <div className="max-w-3xl mx-auto px-4 py-10">Loading…</div>
+        <div className="mx-auto max-w-3xl px-4 py-10">Loading…</div>
       </AppShell>
     );
 
   if (!user) {
     return (
       <AppShell>
-        <div className="max-w-3xl mx-auto px-4 py-10 text-center">
-          <ListPlus className="h-12 w-12 text-muted-foreground mx-auto mb-3" />
-          <h1 className="text-2xl font-bold mb-2">My Lists</h1>
-          <p className="text-muted-foreground mb-4">Sign in to create and share resource lists.</p>
-          <Link
-            to="/auth"
-            className="inline-block px-5 py-3 rounded-xl bg-primary text-primary-foreground font-semibold"
-          >
-            Sign in
-          </Link>
+        <div className="mx-auto max-w-3xl px-4 py-6">
+          <h1 className="text-3xl font-bold text-foreground sm:text-4xl">My Lists</h1>
+          <div className="mt-6 flex items-start gap-3 border-t-[3px] border-b border-t-foreground border-b-border py-5">
+            <ListPlus
+              className="mt-0.5 h-5 w-5 shrink-0 text-muted-foreground"
+              aria-hidden="true"
+            />
+            <div className="min-w-0 flex-1">
+              <p className="text-muted-foreground">Sign in to create and share resource lists.</p>
+              <Link
+                to="/auth"
+                className="no-min-h mt-4 inline-flex h-11 items-center rounded-md bg-primary px-5 font-semibold text-primary-foreground hover:bg-primary/90"
+              >
+                Sign in
+              </Link>
+            </div>
+          </div>
         </div>
       </AppShell>
     );
@@ -86,34 +93,37 @@ function ListsPage() {
 
   return (
     <AppShell>
-      <div className="max-w-3xl mx-auto px-4 py-6">
-        <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-1">My Lists</h1>
-        <p className="text-muted-foreground mb-6">Organize and share collections of resources.</p>
+      <div className="mx-auto max-w-3xl px-4 py-6">
+        <h1 className="text-3xl font-bold text-foreground sm:text-4xl">My Lists</h1>
+        <p className="mt-1 mb-6 text-muted-foreground">
+          Organize and share collections of resources.
+        </p>
 
         <form
           onSubmit={handleCreate}
-          className="rounded-2xl border border-border bg-card p-4 mb-6 space-y-3"
+          className="mb-8 space-y-3 rounded-md border border-border p-4"
         >
-          <h2 className="font-semibold">New list</h2>
+          <h2 className="text-lg font-bold">New list</h2>
           <input
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="e.g. Food pantries near Fordham"
-            className="w-full px-3 py-2 rounded-lg border border-border bg-background"
+            className="h-11 w-full rounded-md border border-border bg-background px-3 focus-visible:border-primary focus-visible:outline-none"
             required
             maxLength={100}
           />
-          <label className="flex items-center gap-2 text-sm">
+          <label className="flex min-h-11 items-center gap-2 text-sm">
             <input
               type="checkbox"
               checked={isPublic}
               onChange={(e) => setIsPublic(e.target.checked)}
+              className="h-5 w-5 shrink-0 accent-primary"
             />
             Make public (anyone with the link can view)
           </label>
           <button
             type="submit"
-            className="px-4 py-2 rounded-lg bg-primary text-primary-foreground font-semibold"
+            className="no-min-h h-11 rounded-md bg-primary px-5 font-semibold text-primary-foreground hover:bg-primary/90"
           >
             Create list
           </button>
@@ -122,30 +132,27 @@ function ListsPage() {
         {loading ? (
           <p>Loading…</p>
         ) : lists.length === 0 ? (
-          <p className="text-muted-foreground">No lists yet.</p>
+          <p className="border-y border-border py-4 text-muted-foreground">No lists yet.</p>
         ) : (
-          <ul className="space-y-3">
+          <ul className="divide-y divide-border border-t-[3px] border-b border-t-foreground border-b-border">
             {lists.map((l) => (
-              <li
-                key={l.id}
-                className="rounded-2xl border border-border bg-card p-4 flex items-center gap-3"
-              >
-                <div className="flex-1 min-w-0">
+              <li key={l.id} className="flex items-center gap-2 py-2">
+                <div className="min-w-0 flex-1 py-1">
                   <Link
                     to="/lists/$id"
                     params={{ id: l.id }}
-                    className="font-semibold text-foreground hover:underline truncate block"
+                    className="no-min-h block truncate font-bold text-foreground hover:underline"
                   >
                     {l.name}
                   </Link>
-                  <p className="text-xs text-muted-foreground flex items-center gap-1.5">
+                  <p className="label-caps mt-0.5 flex items-center gap-1.5 text-muted-foreground">
                     {l.is_public ? (
                       <>
-                        <Globe className="h-3.5 w-3.5" /> Public
+                        <Globe className="h-3.5 w-3.5" aria-hidden="true" /> Public
                       </>
                     ) : (
                       <>
-                        <Lock className="h-3.5 w-3.5" /> Private
+                        <Lock className="h-3.5 w-3.5" aria-hidden="true" /> Private
                       </>
                     )}
                   </p>
@@ -153,22 +160,24 @@ function ListsPage() {
                 {l.is_public && (
                   <button
                     title="Copy share link"
+                    aria-label="Copy share link"
                     onClick={() => {
                       const url = `${window.location.origin}/l/${l.share_slug}`;
                       navigator.clipboard.writeText(url);
                       toast.success("Share link copied");
                     }}
-                    className="p-2 rounded-lg hover:bg-secondary"
+                    className="no-min-h grid h-11 w-11 shrink-0 place-items-center rounded-md text-foreground hover:bg-secondary"
                   >
-                    <Share2 className="h-4 w-4" />
+                    <Share2 className="h-5 w-5" aria-hidden="true" />
                   </button>
                 )}
                 <button
                   title="Delete"
+                  aria-label="Delete"
                   onClick={() => handleDelete(l.id)}
-                  className="p-2 rounded-lg hover:bg-secondary text-destructive"
+                  className="no-min-h grid h-11 w-11 shrink-0 place-items-center rounded-md text-muted-foreground hover:bg-secondary hover:text-foreground"
                 >
-                  <Trash2 className="h-4 w-4" />
+                  <Trash2 className="h-5 w-5" aria-hidden="true" />
                 </button>
               </li>
             ))}

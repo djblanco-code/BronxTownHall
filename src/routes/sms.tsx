@@ -10,6 +10,7 @@ import {
   buildSmsReply,
 } from "@/lib/sms";
 import { MessageSquare, Phone, Signal, Check } from "lucide-react";
+import { Section } from "@/components/ui/section";
 
 export const Route = createFileRoute("/sms")({
   staticData: { sitemap: true },
@@ -69,53 +70,45 @@ function SmsPage() {
 
   return (
     <AppShell>
-      <section className="bg-gradient-to-b from-primary/10 via-background to-background">
-        <div className="max-w-3xl mx-auto px-4 pt-10 pb-8 text-center">
-          <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/15 text-primary text-xs font-bold uppercase tracking-wide">
-            <Signal className="h-3.5 w-3.5" /> Works on any phone
-          </span>
-          <h1 className="mt-3 text-3xl sm:text-5xl font-bold tracking-tight text-foreground">
-            Text <span className="text-primary">FOOD</span> for help
-          </h1>
-          <p className="mt-3 text-base sm:text-lg text-muted-foreground">
-            No smartphone, no data, no app. Send one word by text message and get the nearest open
-            Bronx pantry, clinic, or legal clinic right back.
-          </p>
-          <div className="mt-6 rounded-2xl border-2 border-primary/40 bg-card p-5 shadow-sm">
-            {SMS_CONFIGURED ? (
-              <>
-                <p className="text-sm text-muted-foreground">Text a keyword to</p>
-                <a
-                  href={`sms:${SMS_NUMBER}`}
-                  className="no-min-h block text-3xl sm:text-4xl font-bold text-foreground mt-1 hover:underline"
-                >
-                  {formatSmsNumber(SMS_NUMBER)}
-                </a>
-              </>
-            ) : (
-              <>
-                <p className="text-lg font-bold text-foreground">Coming soon</p>
-                <p className="text-sm text-muted-foreground mt-1">
-                  The text line is built and ready — it goes live the day a Bronx number is assigned
-                  to the pilot.
-                </p>
-              </>
-            )}
-          </div>
+      <section className="mx-auto max-w-3xl px-4 pt-6">
+        <p className="label-caps flex items-center gap-1.5 text-primary">
+          <Signal className="h-3.5 w-3.5 shrink-0" aria-hidden="true" /> Works on any phone
+        </p>
+        <h1 className="mt-2 text-4xl font-bold text-foreground sm:text-5xl">
+          Text <span className="text-primary">FOOD</span> for help
+        </h1>
+        <p className="mt-3 text-base text-muted-foreground sm:text-lg">
+          No smartphone, no data, no app. Send one word by text message and get the nearest open
+          Bronx pantry, clinic, or legal clinic right back.
+        </p>
+        <div className="mt-6 rounded-md border-2 border-foreground p-4">
+          {SMS_CONFIGURED ? (
+            <>
+              <p className="text-sm text-muted-foreground">Text a keyword to</p>
+              <a
+                href={`sms:${SMS_NUMBER}`}
+                className="no-min-h font-display mt-1 block text-3xl font-bold text-foreground hover:underline sm:text-4xl"
+              >
+                {formatSmsNumber(SMS_NUMBER)}
+              </a>
+            </>
+          ) : (
+            <>
+              <p className="text-lg font-bold text-foreground">Coming soon</p>
+              <p className="mt-1 text-sm text-muted-foreground">
+                The text line is built and ready — it goes live the day a Bronx number is assigned
+                to the pilot.
+              </p>
+            </>
+          )}
         </div>
       </section>
 
-      <section className="max-w-3xl mx-auto px-4 mt-8">
-        <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-3">Keywords</h2>
-        <ul className="grid sm:grid-cols-2 gap-3">
+      <Section id="sms-keywords" title="Keywords" ruled className="max-w-3xl">
+        <ul className="grid border-b border-border sm:grid-cols-2 sm:gap-x-6">
           {[...SMS_KEYWORDS, ...SMS_SPECIAL_KEYWORDS].map((k) => (
-            <li
-              key={k.keyword}
-              className="rounded-2xl border-2 border-border bg-card p-4 flex items-start gap-3"
-            >
-              <span className="shrink-0 h-10 w-10 rounded-full bg-primary/15 text-primary grid place-items-center">
-                <MessageSquare className="h-5 w-5" />
-              </span>
+            <li key={k.keyword} className="flex items-start gap-3 border-t border-border py-3">
+              <MessageSquare className="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
               <span>
                 <span className="block font-bold text-foreground">Text “{k.keyword}”</span>
                 <span className="block text-sm text-muted-foreground">{k.blurb}</span>
@@ -123,83 +116,73 @@ function SmsPage() {
             </li>
           ))}
         </ul>
-        <p className="text-xs text-muted-foreground mt-3">
+        <p className="mt-3 text-xs text-muted-foreground">
           Text HELP for emergency hotlines, STOP to opt out. Message and data rates may apply. We
           never share your number.
         </p>
-      </section>
+      </Section>
 
-      <section className="max-w-3xl mx-auto px-4 mt-10">
-        <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-3">Try it here</h2>
-        <div className="rounded-2xl border-2 border-border bg-card p-4">
-          <label htmlFor="sms-demo" className="text-sm font-semibold text-foreground">
-            Type a keyword to preview the reply
-          </label>
-          <input
-            id="sms-demo"
-            value={demo}
-            onChange={(e) => setDemo(e.target.value)}
-            className="mt-2 w-full px-4 py-3 rounded-xl border-2 border-border bg-background focus:outline-none focus:border-primary uppercase"
-          />
-          <pre className="mt-3 whitespace-pre-wrap text-sm bg-secondary rounded-xl p-4 text-foreground font-sans">
-            {liveReply ?? buildSmsReply(demo)}
-          </pre>
-        </div>
-      </section>
+      <Section id="sms-try" title="Try it here" ruled className="max-w-3xl">
+        <label htmlFor="sms-demo" className="text-sm font-bold text-foreground">
+          Type a keyword to preview the reply
+        </label>
+        <input
+          id="sms-demo"
+          value={demo}
+          onChange={(e) => setDemo(e.target.value)}
+          className="mt-2 h-12 w-full rounded-md border-2 border-foreground bg-card px-4 text-base uppercase focus-visible:border-primary focus-visible:outline-none"
+        />
+        <pre className="mt-3 rounded-md bg-secondary p-4 font-sans text-sm whitespace-pre-wrap text-foreground">
+          {liveReply ?? buildSmsReply(demo)}
+        </pre>
+      </Section>
 
       {!SMS_CONFIGURED && (
-        <section className="max-w-3xl mx-auto px-4 mt-10">
-          <div className="rounded-2xl border-2 border-border bg-card p-5">
-            <h2 className="text-lg font-bold text-foreground">Tell me when the line is live</h2>
-            {sent ? (
-              <p className="mt-2 inline-flex items-center gap-2 text-success font-semibold">
-                <Check className="h-5 w-5" /> Thanks — we'll let you know.
-              </p>
-            ) : (
-              <form onSubmit={notify} className="mt-3 flex flex-col sm:flex-row gap-2">
-                <input
-                  type="email"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="you@example.com"
-                  aria-label="Email address"
-                  className="flex-1 px-4 py-3 rounded-xl border-2 border-border bg-background focus:outline-none focus:border-primary"
-                />
-                <button className="no-min-h px-5 py-3 rounded-xl bg-primary text-primary-foreground font-semibold min-h-[48px]">
-                  Notify me
-                </button>
-              </form>
-            )}
-          </div>
-        </section>
+        <Section id="sms-notify" title="Tell me when the line is live" ruled className="max-w-3xl">
+          {sent ? (
+            <p className="inline-flex items-center gap-2 font-semibold text-success">
+              <Check className="h-5 w-5" aria-hidden="true" /> Thanks — we'll let you know.
+            </p>
+          ) : (
+            <form onSubmit={notify} className="flex flex-col gap-2 sm:flex-row">
+              <input
+                type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="you@example.com"
+                aria-label="Email address"
+                className="h-12 min-w-0 rounded-md border border-border sm:flex-1 bg-background px-4 text-base focus-visible:border-primary focus-visible:outline-none"
+              />
+              <button className="no-min-h h-12 rounded-md bg-primary px-5 font-semibold text-primary-foreground hover:bg-primary/90">
+                Notify me
+              </button>
+            </form>
+          )}
+        </Section>
       )}
 
-      <section className="max-w-3xl mx-auto px-4 mt-10 mb-12">
-        <div className="rounded-2xl border-2 border-border bg-secondary p-5">
-          <h2 className="text-lg font-bold text-foreground">Why text message</h2>
-          <p className="text-sm text-muted-foreground mt-2">
-            Roughly one in five Bronx households has no home broadband, and many neighbors run out
-            of data before the end of the month. SMS reaches every phone — flip phones, prepaid
-            plans, shared devices — with zero install. It is the most inclusive channel the borough
-            has.
-          </p>
-          <div className="mt-4 flex flex-wrap gap-3">
-            <Link
-              to="/emergency"
-              className="no-min-h inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-destructive text-destructive-foreground font-semibold text-sm"
-            >
-              <Phone className="h-4 w-4" /> Emergency hotlines
-            </Link>
-            <Link
-              to="/"
-              className="no-min-h inline-flex items-center px-4 py-2.5 rounded-full border-2 border-border bg-card font-semibold text-sm text-foreground"
-            >
-              Browse the app
-            </Link>
-          </div>
+      <Section id="sms-why" title="Why text message" ruled className="mb-12 max-w-3xl">
+        <p className="text-sm text-muted-foreground">
+          Roughly one in five Bronx households has no home broadband, and many neighbors run out of
+          data before the end of the month. SMS reaches every phone — flip phones, prepaid plans,
+          shared devices — with zero install. It is the most inclusive channel the borough has.
+        </p>
+        <div className="mt-4 flex flex-wrap gap-3">
+          <Link
+            to="/emergency"
+            className="no-min-h inline-flex h-11 items-center gap-2 rounded-md bg-destructive px-4 text-sm font-bold text-destructive-foreground hover:bg-destructive/90"
+          >
+            <Phone className="h-4 w-4" aria-hidden="true" /> Emergency hotlines
+          </Link>
+          <Link
+            to="/"
+            className="no-min-h inline-flex h-11 items-center rounded-md border-2 border-foreground px-4 text-sm font-bold text-foreground hover:bg-foreground hover:text-background"
+          >
+            Browse the app
+          </Link>
         </div>
-      </section>
+      </Section>
     </AppShell>
   );
 }

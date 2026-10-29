@@ -1,6 +1,6 @@
 import { useI18n } from "@/lib/i18n-context";
 import { LANGS, Lang } from "@/lib/i18n";
-import { Globe } from "lucide-react";
+import { Globe, Volume2 } from "lucide-react";
 
 export function LanguageSelector({ compact = false }: { compact?: boolean }) {
   const { lang, setLang, t } = useI18n();
@@ -15,10 +15,10 @@ export function LanguageSelector({ compact = false }: { compact?: boolean }) {
             <button
               key={l.code}
               onClick={() => setLang(l.code as Lang)}
-              className={`no-min-h px-3 py-1.5 rounded-full text-sm font-medium border transition ${
+              className={`no-min-h inline-flex min-h-11 items-center rounded-md border px-3 text-sm font-semibold transition-colors ${
                 lang === l.code
-                  ? "bg-primary text-primary-foreground border-primary"
-                  : "bg-card text-foreground border-border hover:bg-secondary"
+                  ? "border-primary bg-primary text-primary-foreground"
+                  : "border-border bg-card text-foreground hover:bg-secondary"
               }`}
               aria-pressed={lang === l.code}
             >
@@ -28,8 +28,8 @@ export function LanguageSelector({ compact = false }: { compact?: boolean }) {
         </div>
       </div>
       {showAudioNote && (
-        <p className="text-[11px] text-muted-foreground sm:text-end">
-          🔊 {t("interface.audioSoon")}
+        <p className="flex items-center gap-1 text-[11px] text-muted-foreground sm:justify-end">
+          <Volume2 className="h-3.5 w-3.5 shrink-0" aria-hidden="true" /> {t("interface.audioSoon")}
         </p>
       )}
     </div>

@@ -12,7 +12,7 @@ const schema = z.object({
 });
 
 const inp =
-  "mt-1 w-full px-3 py-2.5 rounded-lg border-2 border-border bg-background text-sm focus:outline-none focus:border-primary";
+  "mt-1 min-h-11 w-full rounded-md border border-border bg-background px-3 py-2.5 text-sm focus:border-primary focus:outline-none";
 
 export function AdInquiryForm() {
   const [status, setStatus] = useState<"idle" | "loading" | "ok">("idle");
@@ -46,23 +46,20 @@ export function AdInquiryForm() {
 
   if (status === "ok") {
     return (
-      <div className="rounded-2xl border-2 border-success/40 bg-success/10 p-6 text-center">
-        <div className="mx-auto h-12 w-12 rounded-full bg-success/20 grid place-items-center mb-2">
-          <Check className="h-7 w-7 text-success" aria-hidden />
+      <div className="flex items-start gap-3 rounded-md border-2 border-foreground p-4">
+        <Check className="mt-0.5 h-6 w-6 shrink-0 text-success" aria-hidden />
+        <div className="min-w-0">
+          <p className="text-lg font-bold">Thanks — we got your inquiry</p>
+          <p className="mt-1 text-sm text-muted-foreground">
+            We'll follow up within a few days to discuss options and pricing.
+          </p>
         </div>
-        <p className="font-bold text-lg">Thanks — we got your inquiry</p>
-        <p className="text-sm text-muted-foreground mt-1">
-          We'll follow up within a few days to discuss options and pricing.
-        </p>
       </div>
     );
   }
 
   return (
-    <form
-      onSubmit={onSubmit}
-      className="rounded-2xl border-2 border-border bg-card p-5 sm:p-6 shadow-sm space-y-4"
-    >
+    <form onSubmit={onSubmit} className="space-y-4 rounded-md border border-border p-4 sm:p-6">
       <div>
         <h2 className="text-lg font-bold">Tell us about your business</h2>
         <p className="text-sm text-muted-foreground">
@@ -96,10 +93,8 @@ export function AdInquiryForm() {
           {INTEREST_OPTIONS.map((o) => (
             <label
               key={o.id}
-              className={`flex items-start gap-3 rounded-xl border-2 p-3 cursor-pointer transition ${
-                interest === o.id
-                  ? "border-primary bg-primary/5"
-                  : "border-border hover:border-primary/50"
+              className={`flex cursor-pointer items-start gap-3 rounded-md border-2 p-3 transition-colors ${
+                interest === o.id ? "border-primary" : "border-border hover:border-foreground"
               }`}
             >
               <input
@@ -108,7 +103,7 @@ export function AdInquiryForm() {
                 value={o.id}
                 checked={interest === o.id}
                 onChange={() => setInterest(o.id)}
-                className="mt-1"
+                className="mt-1 h-4 w-4 shrink-0 accent-primary"
               />
               <span>
                 <span className="block text-sm font-semibold">{o.label}</span>
@@ -143,12 +138,12 @@ export function AdInquiryForm() {
       <button
         type="submit"
         disabled={status === "loading"}
-        className="no-min-h w-full inline-flex items-center justify-center gap-2 py-3 rounded-xl bg-primary text-primary-foreground font-bold hover:bg-primary/90 disabled:opacity-60 min-h-[48px]"
+        className="no-min-h inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-md bg-primary py-3 font-bold text-primary-foreground hover:bg-primary/90 disabled:opacity-60"
       >
         {status === "loading" ? (
-          <Loader2 className="h-5 w-5 animate-spin" />
+          <Loader2 className="h-5 w-5 animate-spin" aria-hidden />
         ) : (
-          <Send className="h-5 w-5" />
+          <Send className="h-5 w-5" aria-hidden />
         )}
         Send inquiry
       </button>

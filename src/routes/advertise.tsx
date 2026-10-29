@@ -31,30 +31,33 @@ function AdvertisePage() {
   const { t } = useI18n();
   return (
     <AppShell>
-      <div className="max-w-3xl mx-auto px-4 py-8 space-y-8">
+      <div className="mx-auto max-w-3xl space-y-8 px-4 py-6">
         <header>
-          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight flex items-center gap-2">
-            <Megaphone className="h-8 w-8 text-primary" aria-hidden /> {t("advertise.title")}
-          </h1>
+          <h1 className="text-3xl font-bold text-foreground sm:text-4xl">{t("advertise.title")}</h1>
           <p className="mt-2 text-muted-foreground">{t("advertise.intro")}</p>
         </header>
 
-        <section className="grid sm:grid-cols-2 gap-4">
-          <div className="rounded-2xl border-2 border-border bg-card p-5">
-            <LayoutPanelTop className="h-6 w-6 text-primary" aria-hidden />
-            <h2 className="font-bold mt-2">{t("advertise.bannerTitle")}</h2>
-            <p className="text-sm text-muted-foreground mt-1">{t("advertise.bannerBody")}</p>
+        <section className="grid gap-x-6 sm:grid-cols-2">
+          <div className="flex items-start gap-3 border-t-[3px] border-foreground py-3">
+            <LayoutPanelTop className="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden />
+            <div className="min-w-0">
+              <h2 className="font-sans font-bold">{t("advertise.bannerTitle")}</h2>
+              <p className="mt-1 text-sm text-muted-foreground">{t("advertise.bannerBody")}</p>
+            </div>
           </div>
-          <div className="rounded-2xl border-2 border-border bg-card p-5">
-            <Megaphone className="h-6 w-6 text-primary" aria-hidden />
-            <h2 className="font-bold mt-2">{t("advertise.cardTitle")}</h2>
-            <p className="text-sm text-muted-foreground mt-1">{t("advertise.cardBody")}</p>
+          <div className="flex items-start gap-3 border-t-[3px] border-foreground py-3">
+            <Megaphone className="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden />
+            <div className="min-w-0">
+              <h2 className="font-sans font-bold">{t("advertise.cardTitle")}</h2>
+              <p className="mt-1 text-sm text-muted-foreground">{t("advertise.cardBody")}</p>
+            </div>
           </div>
         </section>
 
-        <section className="rounded-2xl border-2 border-primary/30 bg-primary/5 p-5">
-          <h2 className="font-bold flex items-center gap-2">
-            <Shield className="h-5 w-5 text-primary" aria-hidden /> {t("advertise.neverTitle")}
+        <section className="border-t-[3px] border-foreground pt-2">
+          <h2 className="flex items-center gap-2 text-lg font-bold sm:text-2xl">
+            <Shield className="h-5 w-5 shrink-0 text-primary" aria-hidden />{" "}
+            {t("advertise.neverTitle")}
           </h2>
           <ul className="mt-2 text-sm text-muted-foreground space-y-1.5 list-disc ps-5">
             <li>{t("advertise.never1")}</li>

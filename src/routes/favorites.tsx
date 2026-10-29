@@ -35,36 +35,36 @@ function FavoritesPage() {
 
   return (
     <AppShell>
-      <div className="max-w-3xl mx-auto px-4 py-6">
+      <div className="mx-auto max-w-3xl px-4 py-6">
         <button
           onClick={() => navigate({ to: "/" })}
-          className="no-min-h inline-flex items-center gap-1.5 text-sm text-primary font-medium mb-4 hover:underline"
+          className="no-min-h mb-2 inline-flex min-h-11 items-center gap-1.5 text-sm font-bold text-primary hover:underline"
         >
-          <ArrowLeft className="h-4 w-4" /> {t("back")}
+          <ArrowLeft className="h-4 w-4 rtl:rotate-180" aria-hidden="true" /> {t("back")}
         </button>
-        <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-1 flex items-center gap-2">
-          <Star className="h-7 w-7 fill-warning text-warning" /> My Favorites
-        </h1>
-        <p className="text-muted-foreground mb-6">
+        <h1 className="text-3xl font-bold text-foreground sm:text-4xl">My Favorites</h1>
+        <p className="mt-1 mb-6 text-muted-foreground">
           {items.length} saved {items.length === 1 ? "resource" : "resources"}
         </p>
 
         {items.length === 0 ? (
-          <div className="rounded-2xl border-2 border-dashed border-border bg-card p-10 text-center">
-            <Star className="h-12 w-12 text-muted-foreground mx-auto mb-3" />
-            <p className="font-semibold text-foreground">You haven't saved any favorites yet.</p>
-            <p className="text-muted-foreground mt-1">
-              Tap the star on any resource to save it here.
-            </p>
-            <Link
-              to="/"
-              className="no-min-h inline-block mt-4 px-5 py-3 rounded-xl bg-primary text-primary-foreground font-semibold"
-            >
-              Browse resources
-            </Link>
+          <div className="flex items-start gap-3 border-t-[3px] border-b border-t-foreground border-b-border py-5">
+            <Star className="mt-0.5 h-5 w-5 shrink-0 text-muted-foreground" aria-hidden="true" />
+            <div className="min-w-0 flex-1">
+              <p className="font-bold text-foreground">You haven't saved any favorites yet.</p>
+              <p className="mt-1 text-muted-foreground">
+                Tap the star on any resource to save it here.
+              </p>
+              <Link
+                to="/"
+                className="no-min-h mt-4 inline-flex h-11 items-center rounded-md bg-primary px-5 font-semibold text-primary-foreground hover:bg-primary/90"
+              >
+                Browse resources
+              </Link>
+            </div>
           </div>
         ) : (
-          <ul className="space-y-3">
+          <ul className="border-t-[3px] border-foreground">
             {items.map((r) => (
               <li key={r.id}>
                 <ResourceCard resource={r} meta={resMeta[r.id]} showCategory />

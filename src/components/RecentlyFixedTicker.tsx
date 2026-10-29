@@ -61,24 +61,15 @@ export function RecentlyFixedTicker({ variant = "full" }: { variant?: "full" | "
   }
 
   return (
-    <section
-      aria-label="Recently fixed listings"
-      className="rounded-2xl border-2 border-success/30 bg-success/5 p-5"
-    >
-      <div className="flex items-center gap-2 mb-3">
-        <CheckCircle2 className="h-5 w-5 text-success" aria-hidden />
-        <h2 className="text-lg font-bold">Recently fixed from community reports</h2>
-      </div>
-      <p className="text-sm text-muted-foreground mb-4">
+    <section aria-label="Recently fixed listings" className="border-t-[3px] border-foreground pt-2">
+      <h2 className="text-lg font-bold sm:text-2xl">Recently fixed from community reports</h2>
+      <p className="mt-1 mb-2 text-sm text-muted-foreground">
         Every report gets reviewed. Here's the latest {items.length} listings a Community Liaison
         updated after a neighbor flagged them.
       </p>
-      <ul className="space-y-2">
+      <ul className="divide-y divide-border border-y border-border">
         {items.map((r) => (
-          <li
-            key={r.id}
-            className="flex items-start gap-3 rounded-lg bg-card border border-border p-3"
-          >
+          <li key={r.id} className="flex items-start gap-3 py-3">
             <CheckCircle2 className="h-4 w-4 text-success mt-0.5 shrink-0" aria-hidden />
             <div className="flex-1 min-w-0">
               <div className="font-semibold text-sm">
