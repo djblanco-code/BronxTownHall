@@ -7,7 +7,8 @@ import { nycIsoDate } from "../lib/today";
 /**
  * An event as one row on Home, like a listings column in a paper: weekday
  * and day number on the leading side, then the title and when, where and
- * whether it's free. Opens the events page.
+ * whether it's free, with the flyer on the trailing side when there is one.
+ * Opens the events page.
  */
 export function EventRow({ event: e }: { event: EventSummary }) {
   const { t, lang } = useI18n();
@@ -39,6 +40,15 @@ export function EventRow({ event: e }: { event: EventSummary }) {
           </span>
           {meta && <span className="mt-0.5 block text-sm text-muted-foreground">{meta}</span>}
         </span>
+        {/* The organizer's flyer, when there is one; the title already says what it is. */}
+        {e.image && (
+          <img
+            src={e.image}
+            alt=""
+            loading="lazy"
+            className="h-20 w-16 shrink-0 rounded-lg border border-border object-cover object-top"
+          />
+        )}
       </Link>
     </li>
   );
