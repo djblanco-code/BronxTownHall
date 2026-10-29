@@ -24,6 +24,7 @@ import { OrgListingForm, fromExisting, type OrgFormValue } from "@/components/Or
 import { StatusBadge } from "@/components/OrgStatusBadge";
 import { ArrowLeft, BarChart3, ImagePlus, Loader2, Megaphone, Pencil, Plus } from "lucide-react";
 import { toast } from "sonner";
+import { SHOW_BUSINESS_FEATURES } from "@/lib/first-version";
 import { BusinessSupportPanel } from "@/components/BusinessSupportPanel";
 
 const TITLE = "Your organization dashboard | The Bronx App";
@@ -54,15 +55,23 @@ function DashboardPage() {
   const [editing, setEditing] = useState<string | null>(null);
   const [form, setForm] = useState<OrgFormValue | null>(null);
   const [monthEvents, setMonthEvents] = useState(0);
+  const [loadError, setLoadError] = useState(false);
 
   const refresh = useCallback(async () => {
     if (!user) return;
     setBusy(true);
-    const list = await loadMyOrgs(user.id);
-    setOrgs(list);
-    setContacts(await loadContacts(list.map((o) => o.id)));
-    setMonthEvents(await eventsThisMonth(user.id));
-    setBusy(false);
+    setLoadError(false);
+    try {
+      const list = await loadMyOrgs(user.id);
+      setOrgs(list);
+      setContacts(await loadContacts(list.map((o) => o.id)));
+      setMonthEvents(await eventsThisMonth(user.id).catch(() => 0));
+    } catch {
+      // Without this the page said "Loading your listings…" forever.
+      setLoadError(true);
+    } finally {
+      setBusy(false);
+    }
   }, [user]);
 
   useEffect(() => {
@@ -132,7 +141,7 @@ function DashboardPage() {
         contact_email,
         contact_phone,
       });
-      toast.success("Saved. Your changes are live and back in the review queue.");
+      toast.success("Saved. Our team reviews changes before residents see them.");
       setEditing(null);
       setForm(null);
       void refresh();
@@ -181,7 +190,22 @@ function DashboardPage() {
           </p>
         )}
 
-        {!busy && orgs.length === 0 && (
+        {!busy && loadError && (
+          <div role="alert" className="space-y-1 border-y border-border py-4">
+            <p className="font-bold">We couldn&apos;t load your listings.</p>
+            <p className="text-sm text-muted-foreground">
+              Check your connection and try again. Nothing you saved was lost.
+            </p>
+            <button
+              onClick={() => void refresh()}
+              className="no-min-h inline-flex min-h-11 items-center font-bold text-primary underline underline-offset-4"
+            >
+              Try again
+            </button>
+          </div>
+        )}
+
+        {!busy && !loadError && orgs.length === 0 && (
           <div className="space-y-1 border-y border-border py-4">
             <p className="font-bold">You haven&apos;t submitted a listing yet.</p>
             <Link to="/portal" className="font-bold text-primary underline underline-offset-4">
@@ -317,7 +341,7 @@ function OrgCard({
         />
       </label>
 
-      {org.account_type === "business" && (
+      {org.account_type === "business" && SHOW_BUSINESS_FEATURES && (
         <>
           <div className="grid gap-3 sm:grid-cols-2">
             <div className="rounded-md border border-border p-3">
