@@ -33,7 +33,7 @@ function AdvertisePage() {
     <AppShell>
       <div className="mx-auto max-w-5xl space-y-8 px-4 py-6">
         <header>
-          <h1 className="text-3xl font-bold text-foreground sm:text-4xl">{t("advertise.title")}</h1>
+          <h1 className="text-3xl text-foreground sm:text-4xl">{t("advertise.title")}</h1>
           <p className="mt-2 text-muted-foreground">{t("advertise.intro")}</p>
         </header>
 
@@ -41,14 +41,14 @@ function AdvertisePage() {
           <div className="flex items-start gap-3 py-3">
             <LayoutPanelTop className="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden />
             <div className="min-w-0">
-              <h2 className="font-sans font-bold">{t("advertise.bannerTitle")}</h2>
+              <h3 className="font-bold">{t("advertise.bannerTitle")}</h3>
               <p className="mt-1 text-sm text-muted-foreground">{t("advertise.bannerBody")}</p>
             </div>
           </div>
           <div className="flex items-start gap-3 py-3">
             <Megaphone className="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden />
             <div className="min-w-0">
-              <h2 className="font-sans font-bold">{t("advertise.cardTitle")}</h2>
+              <h3 className="font-bold">{t("advertise.cardTitle")}</h3>
               <p className="mt-1 text-sm text-muted-foreground">{t("advertise.cardBody")}</p>
             </div>
           </div>

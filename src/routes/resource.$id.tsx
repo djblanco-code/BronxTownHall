@@ -256,9 +256,7 @@ function ResourcePage() {
         <CallAheadNote className="mb-2" />
 
         <div className="flex items-start gap-2 mb-2">
-          <h1 className="min-w-0 flex-1 text-3xl font-bold leading-tight text-foreground sm:text-4xl">
-            {res.name[lang]}
-          </h1>
+          <h1 className="min-w-0 flex-1 text-3xl text-foreground sm:text-4xl">{res.name[lang]}</h1>
           <FavoriteStar id={res.id} size="lg" category={res.category} />
         </div>
 

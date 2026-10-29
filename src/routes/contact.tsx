@@ -55,9 +55,7 @@ function ContactPage() {
         >
           <ArrowLeft className="h-4 w-4 rtl:rotate-180" aria-hidden="true" /> {t("contact.home")}
         </Link>
-        <h1 className="mb-2 text-3xl font-bold text-foreground sm:text-4xl">
-          {t("contact.title")}
-        </h1>
+        <h1 className="mb-2 text-3xl text-foreground sm:text-4xl">{t("contact.title")}</h1>
         <p className="mb-6 inline-flex items-center gap-2 text-muted-foreground">
           <Mail className="h-4 w-4" aria-hidden="true" /> hello@thebronxapp.org
         </p>

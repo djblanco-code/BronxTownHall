@@ -256,7 +256,7 @@ function AnalyticsPage() {
       <AppShell>
         <div className="max-w-sm mx-auto px-4 py-12 text-center space-y-4">
           <Lock className="h-10 w-10 mx-auto text-muted-foreground" />
-          <h1 className="text-2xl font-bold">Analytics</h1>
+          <h1 className="text-2xl">Analytics</h1>
           <p className="text-sm text-muted-foreground">
             {user
               ? "This dashboard is limited to admin accounts."
@@ -297,7 +297,7 @@ function AnalyticsPage() {
         </div>
 
         <header>
-          <h1 className="text-2xl sm:text-3xl font-bold">Analytics dashboard</h1>
+          <h1 className="text-2xl sm:text-3xl">Analytics dashboard</h1>
           <p className="text-sm text-muted-foreground mt-1">
             Anonymous visit data from the last 120 days · {m.sessions.toLocaleString()} sessions
             recorded

@@ -224,9 +224,7 @@ function DigestPage() {
           <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-primary">
             Weekly digest · {today}
           </p>
-          <h1 className="mt-1 text-3xl sm:text-4xl font-black text-foreground leading-tight">
-            This Week in the Bronx
-          </h1>
+          <h1 className="mt-1 text-3xl sm:text-4xl text-foreground">This Week in the Bronx</h1>
           <p className="mt-2 text-sm text-muted-foreground">
             One short read: what&apos;s happening, what&apos;s closing soon, and what&apos;s new in
             the app.{" "}

@@ -51,7 +51,7 @@ function A11yDemo() {
           <ArrowLeft className="h-4 w-4 rtl:rotate-180" aria-hidden="true" /> {t("back")}
         </button>
 
-        <h1 className="text-3xl font-bold text-foreground sm:text-4xl">{t("a11yTitle")}</h1>
+        <h1 className="text-3xl text-foreground sm:text-4xl">{t("a11yTitle")}</h1>
         <p className="mt-2 max-w-2xl text-lg text-muted-foreground">{t("a11yBlurb")}</p>
 
         <div className="mt-6">

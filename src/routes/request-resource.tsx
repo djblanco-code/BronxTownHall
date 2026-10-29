@@ -50,9 +50,7 @@ function RequestResource() {
     return (
       <AppShell>
         <div className="mx-auto max-w-5xl px-4 py-6">
-          <h1 className="text-3xl font-bold text-foreground sm:text-4xl">
-            Thanks — request received
-          </h1>
+          <h1 className="text-3xl text-foreground sm:text-4xl">Thanks — request received</h1>
           <div className="mt-6 flex items-start gap-3 border-y border-border py-5">
             <Inbox className="mt-0.5 h-5 w-5 shrink-0 text-success" aria-hidden="true" />
             <div className="min-w-0 flex-1">
@@ -75,7 +73,7 @@ function RequestResource() {
   return (
     <AppShell>
       <div className="mx-auto max-w-5xl px-4 py-6">
-        <h1 className="text-3xl font-bold text-foreground sm:text-4xl">
+        <h1 className="text-3xl text-foreground sm:text-4xl">
           Can't find what you're looking for?
         </h1>
         <p className="mt-1 mb-6 text-muted-foreground">

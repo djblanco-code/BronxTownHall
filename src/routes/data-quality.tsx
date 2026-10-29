@@ -60,9 +60,7 @@ function DataQualityPage() {
           <ShieldCheck className="h-4 w-4 shrink-0" aria-hidden="true" />
           Public data-quality report
         </p>
-        <h1 className="text-3xl font-bold text-foreground sm:text-4xl">
-          Fresh data is our whole job.
-        </h1>
+        <h1 className="text-3xl text-foreground sm:text-4xl">Fresh data is our whole job.</h1>
         <p className="mt-3 max-w-2xl text-lg text-muted-foreground">
           Every listing carries a verification record — who confirmed it and when. Different
           listings are re-checked on different schedules: a food pantry every 90 days, a hospital

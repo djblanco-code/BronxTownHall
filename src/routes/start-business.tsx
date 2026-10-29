@@ -46,7 +46,7 @@ function StartBusinessPage() {
               <p className="text-xs uppercase tracking-wider font-semibold opacity-80">
                 Bronx Entrepreneur Hub
               </p>
-              <h1 className="text-3xl sm:text-4xl font-bold mt-1">Start a Business in The Bronx</h1>
+              <h1 className="text-3xl sm:text-4xl mt-1">Start a Business in The Bronx</h1>
               <p className="mt-2 text-sm sm:text-base opacity-95 max-w-2xl">
                 A step-by-step roadmap, Bronx-only grants, and free advisors — so your idea doesn't
                 stay just an idea.

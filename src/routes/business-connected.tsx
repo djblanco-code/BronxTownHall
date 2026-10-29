@@ -46,7 +46,7 @@ function ConnectedPage() {
         >
           <ArrowLeft className="h-4 w-4" /> Dashboard
         </button>
-        <h1 className="text-3xl font-bold mb-1">Connected Accounts</h1>
+        <h1 className="text-3xl mb-1">Connected Accounts</h1>
         <p className="text-muted-foreground mb-6">
           Link platforms so you can Social Sync events and updates with one click.
         </p>

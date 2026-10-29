@@ -46,7 +46,7 @@ function PublicListPage() {
   return (
     <AppShell>
       <div className="max-w-5xl mx-auto px-4 py-6 print-area">
-        <h1 className="text-2xl sm:text-3xl font-bold mb-1">{list.name}</h1>
+        <h1 className="text-2xl sm:text-3xl mb-1">{list.name}</h1>
         <p className="text-muted-foreground mb-4">A shared resource list from The Bronx App</p>
         <button
           onClick={() => window.print()}

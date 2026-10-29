@@ -29,7 +29,7 @@ function HowToAddPage() {
         >
           <ArrowLeft className="h-4 w-4 rtl:rotate-180" aria-hidden="true" /> {t("howToAdd.home")}
         </Link>
-        <h1 className="text-3xl font-bold text-foreground sm:text-4xl">{t("howToAdd.title")}</h1>
+        <h1 className="text-3xl text-foreground sm:text-4xl">{t("howToAdd.title")}</h1>
         <p className="mt-2 text-muted-foreground">{t("howToAdd.subtitle")}</p>
 
         <div>
