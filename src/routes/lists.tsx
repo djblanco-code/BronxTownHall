@@ -62,14 +62,14 @@ function ListsPage() {
   if (authLoading)
     return (
       <AppShell>
-        <div className="mx-auto max-w-3xl px-4 py-10">Loading…</div>
+        <div className="mx-auto max-w-5xl px-4 py-10">Loading…</div>
       </AppShell>
     );
 
   if (!user) {
     return (
       <AppShell>
-        <div className="mx-auto max-w-3xl px-4 py-6">
+        <div className="mx-auto max-w-5xl px-4 py-6">
           <h1 className="text-3xl font-bold text-foreground sm:text-4xl">My Lists</h1>
           <div className="mt-6 flex items-start gap-3 border-y border-border py-5">
             <ListPlus
@@ -93,7 +93,7 @@ function ListsPage() {
 
   return (
     <AppShell>
-      <div className="mx-auto max-w-3xl px-4 py-6">
+      <div className="mx-auto max-w-5xl px-4 py-6">
         <h1 className="text-3xl font-bold text-foreground sm:text-4xl">My Lists</h1>
         <p className="mt-1 mb-6 text-muted-foreground">
           Organize and share collections of resources.

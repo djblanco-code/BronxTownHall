@@ -32,20 +32,20 @@ function PublicListPage() {
   if (loading)
     return (
       <AppShell>
-        <div className="max-w-3xl mx-auto px-4 py-10">Loading…</div>
+        <div className="max-w-5xl mx-auto px-4 py-10">Loading…</div>
       </AppShell>
     );
   if (!data)
     return (
       <AppShell>
-        <div className="max-w-3xl mx-auto px-4 py-10">List not found or no longer public.</div>
+        <div className="max-w-5xl mx-auto px-4 py-10">List not found or no longer public.</div>
       </AppShell>
     );
   const { list, items } = data;
 
   return (
     <AppShell>
-      <div className="max-w-3xl mx-auto px-4 py-6 print-area">
+      <div className="max-w-5xl mx-auto px-4 py-6 print-area">
         <h1 className="text-2xl sm:text-3xl font-bold mb-1">{list.name}</h1>
         <p className="text-muted-foreground mb-4">A shared resource list from The Bronx App</p>
         <button

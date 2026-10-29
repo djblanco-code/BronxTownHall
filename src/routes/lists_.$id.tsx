@@ -36,13 +36,13 @@ function ListDetail() {
   if (loading)
     return (
       <AppShell>
-        <div className="mx-auto max-w-3xl px-4 py-10">Loading…</div>
+        <div className="mx-auto max-w-5xl px-4 py-10">Loading…</div>
       </AppShell>
     );
   if (!data)
     return (
       <AppShell>
-        <div className="mx-auto max-w-3xl px-4 py-10">List not found.</div>
+        <div className="mx-auto max-w-5xl px-4 py-10">List not found.</div>
       </AppShell>
     );
   const { list, items } = data;
@@ -64,7 +64,7 @@ function ListDetail() {
 
   return (
     <AppShell>
-      <div className="print-area mx-auto max-w-3xl px-4 py-6">
+      <div className="print-area mx-auto max-w-5xl px-4 py-6">
         <button
           onClick={() => nav({ to: "/lists" })}
           className="print-hide no-min-h mb-2 inline-flex min-h-11 items-center gap-1.5 text-sm font-bold text-primary hover:underline"

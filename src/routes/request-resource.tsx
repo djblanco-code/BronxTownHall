@@ -49,7 +49,7 @@ function RequestResource() {
   if (submitted) {
     return (
       <AppShell>
-        <div className="mx-auto max-w-2xl px-4 py-6">
+        <div className="mx-auto max-w-5xl px-4 py-6">
           <h1 className="text-3xl font-bold text-foreground sm:text-4xl">
             Thanks — request received
           </h1>
@@ -74,7 +74,7 @@ function RequestResource() {
 
   return (
     <AppShell>
-      <div className="mx-auto max-w-2xl px-4 py-6">
+      <div className="mx-auto max-w-5xl px-4 py-6">
         <h1 className="text-3xl font-bold text-foreground sm:text-4xl">
           Can't find what you're looking for?
         </h1>

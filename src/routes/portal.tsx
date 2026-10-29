@@ -81,7 +81,7 @@ function PortalPage() {
 
   return (
     <AppShell>
-      <div className="mx-auto max-w-3xl space-y-6 px-4 py-6">
+      <div className="mx-auto max-w-5xl space-y-6 px-4 py-6">
         <Link
           to="/"
           className="no-min-h inline-flex min-h-11 items-center gap-1.5 text-sm font-bold text-primary hover:underline"

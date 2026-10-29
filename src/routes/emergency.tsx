@@ -121,7 +121,7 @@ function EmergencyPage() {
 
   return (
     <AppShell>
-      <div className="mx-auto max-w-3xl px-4 py-6">
+      <div className="mx-auto max-w-5xl px-4 py-6">
         <button
           onClick={() => navigate({ to: "/" })}
           className="no-min-h mb-2 inline-flex min-h-11 items-center gap-1.5 text-sm font-bold text-primary hover:underline"

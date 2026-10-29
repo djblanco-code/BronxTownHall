@@ -74,7 +74,7 @@ function CreatorPage() {
   if (creator === null) {
     return (
       <AppShell>
-        <div className="max-w-3xl mx-auto px-4 py-10 text-muted-foreground">Loading…</div>
+        <div className="max-w-5xl mx-auto px-4 py-10 text-muted-foreground">Loading…</div>
       </AppShell>
     );
   }
@@ -82,7 +82,7 @@ function CreatorPage() {
   if (creator === "missing") {
     return (
       <AppShell>
-        <div className="max-w-3xl mx-auto px-4 py-10">
+        <div className="max-w-5xl mx-auto px-4 py-10">
           <h1 className="text-2xl font-bold">Creator page not found</h1>
           <Link to="/creators" className="text-primary underline">
             ← All Bronx creators
@@ -96,7 +96,7 @@ function CreatorPage() {
 
   return (
     <AppShell>
-      <div className="max-w-3xl mx-auto px-4 py-8">
+      <div className="max-w-5xl mx-auto px-4 py-8">
         <Link to="/creators" className="no-min-h text-sm text-primary hover:underline">
           ← All Bronx creators
         </Link>

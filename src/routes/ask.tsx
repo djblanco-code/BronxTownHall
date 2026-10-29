@@ -59,7 +59,7 @@ function AskPage() {
 
   return (
     <AppShell>
-      <div className="max-w-2xl mx-auto px-4 py-6">
+      <div className="max-w-5xl mx-auto px-4 py-6">
         <h1 className="text-3xl font-bold leading-tight text-foreground sm:text-4xl">
           Ask a question
         </h1>

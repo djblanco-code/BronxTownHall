@@ -62,14 +62,14 @@ function ProPortal() {
   if (authLoading)
     return (
       <AppShell>
-        <div className="max-w-3xl mx-auto px-4 py-10">Loading…</div>
+        <div className="max-w-5xl mx-auto px-4 py-10">Loading…</div>
       </AppShell>
     );
 
   if (!user) {
     return (
       <AppShell>
-        <div className="max-w-3xl mx-auto px-4 py-10 text-center">
+        <div className="max-w-5xl mx-auto px-4 py-10 text-center">
           <Briefcase className="h-12 w-12 text-muted-foreground mx-auto mb-3" />
           <h1 className="text-2xl font-bold mb-2">Professional Portal</h1>
           <p className="text-muted-foreground mb-4">
@@ -136,7 +136,7 @@ function ProPortal() {
 
   return (
     <AppShell>
-      <div className="max-w-4xl mx-auto px-4 py-6 space-y-8">
+      <div className="max-w-5xl mx-auto px-4 py-6 space-y-8">
         <header>
           <h1 className="text-2xl sm:text-3xl font-bold flex items-center gap-2">
             <Briefcase className="h-7 w-7" /> Professional Portal

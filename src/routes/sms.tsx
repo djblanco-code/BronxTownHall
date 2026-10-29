@@ -70,7 +70,7 @@ function SmsPage() {
 
   return (
     <AppShell>
-      <section className="mx-auto max-w-3xl px-4 pt-6">
+      <section className="mx-auto max-w-5xl px-4 pt-6">
         <p className="label-caps flex items-center gap-1.5 text-primary">
           <Signal className="h-3.5 w-3.5 shrink-0" aria-hidden="true" /> Works on any phone
         </p>

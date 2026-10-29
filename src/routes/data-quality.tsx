@@ -55,7 +55,7 @@ function DataQualityPage() {
 
   return (
     <AppShell>
-      <div className="mx-auto max-w-4xl px-4 py-6">
+      <div className="mx-auto max-w-5xl px-4 py-6">
         <p className="label-caps mb-2 flex items-center gap-1.5 text-primary">
           <ShieldCheck className="h-4 w-4 shrink-0" aria-hidden="true" />
           Public data-quality report
