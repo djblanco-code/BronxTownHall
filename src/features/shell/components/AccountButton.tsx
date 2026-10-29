@@ -34,10 +34,10 @@ export function AccountButton() {
         ) : (
           <button
             type="button"
-            aria-label={t("shell.account")}
             className="no-min-h simplified-exempt inline-flex h-10 min-w-10 items-center justify-center gap-1.5 rounded-full bg-secondary px-2.5 text-sm font-bold text-foreground hover:bg-secondary/70"
           >
             <User className="h-5 w-5" aria-hidden="true" />
+            <span className="sr-only lg:not-sr-only">{t("common.navSignIn")}</span>
           </button>
         )}
       </BottomSheetTrigger>

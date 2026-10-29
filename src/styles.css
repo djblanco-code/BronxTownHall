@@ -273,17 +273,17 @@ html.simplified .text-2xl {
 html.simplified .text-3xl {
   font-size: 2.25rem !important;
 }
-/* Tab labels stay on one line: five words must share a phone's width. */
-html.simplified [data-app-tabbar] span {
-  font-size: 0.75rem;
-  line-height: 1.1;
-  white-space: nowrap;
-}
+/* Tab labels: five share a phone's width, so a long one wraps to two lines
+   (the Simplified tab bar is taller to fit them) instead of being cut off. */
 [data-app-tabbar] a > span:last-child {
   max-width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  padding-inline: 2px;
+  text-align: center;
+}
+/* Fixed, not rem: it must not keep growing with the text-size setting,
+   or five tabs stop fitting; 14px is still well above the normal 11px. */
+html.simplified [data-app-tabbar] a > span:last-child {
+  font-size: 14px;
+  line-height: 1.1;
 }
 
 /* 48×48 minimum touch targets on all interactive elements */
@@ -351,6 +351,9 @@ html.simplified [data-message-action] {
 @media (width < 64rem) {
   html:has([data-app-tabbar]) {
     --app-tabbar-h: calc(4rem + env(safe-area-inset-bottom, 0px));
+  }
+  html.simplified:has([data-app-tabbar]) {
+    --app-tabbar-h: calc(5rem + env(safe-area-inset-bottom, 0px));
   }
 }
 /* Floating buttons, toasts and cards: 1rem above the bottom chrome and any docked bar. */
