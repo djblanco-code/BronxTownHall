@@ -5,8 +5,8 @@ import { useI18n } from "@/lib/i18n-context";
 import { Section, SectionAction } from "@/components/ui/section";
 
 /**
- * Compact icon grid: four across on phones, so eight categories fit in two
- * rows above the fold. The rest open in place.
+ * Category tiles: two across on phones, four on wider screens, each a soft
+ * tinted mark and a label. The rest open in place.
  */
 export function CategoryGrid({
   featured,
@@ -36,7 +36,7 @@ export function CategoryGrid({
         )
       }
     >
-      <ul id="category-grid" className="grid grid-cols-4 gap-x-2 gap-y-4 sm:grid-cols-8">
+      <ul id="category-grid" className="grid grid-cols-2 gap-2 sm:grid-cols-4">
         {shown.map((c) => {
           const linkProps =
             c.id === "government"
@@ -46,16 +46,16 @@ export function CategoryGrid({
             <li key={c.id}>
               <Link
                 {...linkProps}
-                className="no-min-h group flex flex-col items-center gap-1.5 text-center"
+                className="no-min-h group flex h-14 items-center gap-3 rounded-2xl border border-border bg-card ps-2 pe-3 transition hover:border-primary hover:shadow-sm"
               >
                 <span
                   aria-hidden="true"
-                  className="grid aspect-square w-full max-w-16 place-items-center rounded-2xl text-2xl shadow-sm transition group-hover:-translate-y-0.5 group-hover:shadow-md"
-                  style={{ backgroundColor: c.color }}
+                  className="grid h-10 w-10 shrink-0 place-items-center rounded-xl text-xl transition group-hover:scale-105"
+                  style={{ backgroundColor: `color-mix(in oklch, ${c.color} 16%, transparent)` }}
                 >
                   {c.emoji}
                 </span>
-                <span className="text-xs font-semibold leading-tight text-foreground">
+                <span className="min-w-0 truncate text-sm font-semibold text-foreground">
                   {t(c.labelKey)}
                 </span>
               </Link>
