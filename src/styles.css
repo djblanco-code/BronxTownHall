@@ -399,6 +399,20 @@ h2,
   font-family: var(--font-heading);
   letter-spacing: -0.02em;
 }
+/* Small capitals label above a headline or name ("HEALTH · 1.2 MI"). */
+@utility label-caps {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+:lang(ar) .label-caps,
+:lang(bn) .label-caps {
+  letter-spacing: normal;
+  font-size: 0.75rem;
+}
+
 /* Tight tracking only suits Latin letters. */
 :lang(ar) :is(h1, h2, .font-display),
 :lang(bn) :is(h1, h2, .font-display) {

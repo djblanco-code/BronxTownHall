@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { ChevronRight, Landmark, Shield, Users } from "lucide-react";
+import { Landmark, Shield, Users } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { useI18n } from "@/lib/i18n-context";
 import {
@@ -47,16 +47,23 @@ export function TownHallCard() {
     <Section
       id="home-townhall-title"
       title={t("home.townHallTitle")}
+      ruled
       action={
-        <SectionAction asChild>
-          <Link to="/civic">{t("home.seeAll")}</Link>
-        </SectionAction>
+        zip && !editing ? (
+          <SectionAction onClick={() => setEditing(true)}>
+            {t("home.zipLabel")} {zip} · {t("home.zipChange")}
+          </SectionAction>
+        ) : (
+          <SectionAction asChild>
+            <Link to="/civic">{t("home.seeAll")}</Link>
+          </SectionAction>
+        )
       }
     >
       {zip === undefined ? (
-        <div aria-hidden="true" className="h-40 animate-pulse rounded-2xl bg-muted" />
+        <div aria-hidden="true" className="h-40 animate-pulse rounded-sm bg-muted" />
       ) : zip && !editing ? (
-        <Representatives zip={zip} onChange={() => setEditing(true)} />
+        <Representatives zip={zip} />
       ) : (
         <ZipForm initial={zip ?? ""} onSave={save} />
       )}
@@ -64,7 +71,7 @@ export function TownHallCard() {
   );
 }
 
-function Representatives({ zip, onChange }: { zip: string; onChange: () => void }) {
+function Representatives({ zip }: { zip: string }) {
   const { t } = useI18n();
   const area = ZIP_MAP[zip];
   const council = officialsForZip(zip).council[0];
@@ -75,20 +82,8 @@ function Representatives({ zip, onChange }: { zip: string; onChange: () => void 
     : null;
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-border bg-card">
-      <div className="flex items-center justify-between gap-3 border-b border-border px-3 py-2 text-sm">
-        <span className="text-muted-foreground">
-          {t("home.zipLabel")}: <span className="font-bold text-foreground">{zip}</span>
-        </span>
-        <button
-          type="button"
-          onClick={onChange}
-          className="no-min-h h-8 rounded-full px-3 font-semibold text-primary hover:bg-secondary"
-        >
-          {t("home.zipChange")}
-        </button>
-      </div>
-      <ul className="divide-y divide-border lg:grid lg:grid-cols-3 lg:divide-x lg:divide-y-0 rtl:lg:divide-x-reverse">
+    <>
+      <ul className="divide-y divide-border border-b border-border lg:grid lg:grid-cols-3 lg:gap-6 lg:divide-y-0">
         {council && (
           <Row
             icon={Landmark}
@@ -114,7 +109,7 @@ function Representatives({ zip, onChange }: { zip: string; onChange: () => void 
           />
         )}
       </ul>
-    </div>
+    </>
   );
 }
 
@@ -131,32 +126,20 @@ function Row({
 }) {
   return (
     <li>
-      <Link
-        to="/civic"
-        className="no-min-h flex h-full items-center gap-3 px-3 py-3 transition hover:bg-secondary/60"
-      >
-        <span
-          aria-hidden="true"
-          className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-primary/10 text-primary"
-        >
-          <Icon className="h-5 w-5" />
-        </span>
+      <Link to="/civic" className="no-min-h group flex h-full items-start gap-3 py-3">
+        <Icon className="mt-4 h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
         <span className="min-w-0 flex-1">
-          <span className="block text-xs font-semibold text-muted-foreground">{label}</span>
+          <span className="label-caps block text-primary">{label}</span>
           {/* Schedules and titles come from English records; dir="auto" keeps them readable in Arabic. */}
-          <span dir="auto" className="line-clamp-2 font-semibold text-foreground">
+          <span dir="auto" className="line-clamp-2 font-bold text-foreground group-hover:underline">
             {title}
           </span>
           {sub && (
-            <span dir="auto" className="block truncate text-xs text-muted-foreground">
+            <span dir="auto" className="block truncate text-sm text-muted-foreground">
               {sub}
             </span>
           )}
         </span>
-        <ChevronRight
-          className="h-4 w-4 shrink-0 text-muted-foreground rtl:rotate-180"
-          aria-hidden="true"
-        />
       </Link>
     </li>
   );
@@ -175,7 +158,7 @@ function ZipForm({ initial, onSave }: { initial: string; onSave: (zip: string) =
         if (ZIP_MAP[z]) onSave(z);
         else setInvalid(true);
       }}
-      className="rounded-2xl border border-border bg-card p-4"
+      className="border-b border-border pb-4"
     >
       <p className="text-sm text-foreground">{t("home.townHallPrompt")}</p>
       <div className="mt-3 flex gap-2">
@@ -193,12 +176,12 @@ function ZipForm({ initial, onSave }: { initial: string; onSave: (zip: string) =
             }}
             aria-invalid={invalid}
             aria-describedby="home-zip-hint"
-            className="h-11 w-full rounded-full border border-border bg-background px-4 text-base text-foreground focus-visible:border-primary focus-visible:outline-none"
+            className="h-11 w-full rounded-md border-2 border-foreground bg-card px-4 text-base text-foreground focus-visible:border-primary focus-visible:outline-none"
           />
         </label>
         <button
           type="submit"
-          className="no-min-h h-11 shrink-0 rounded-full bg-primary px-5 text-sm font-semibold text-primary-foreground hover:bg-primary/90"
+          className="no-min-h h-11 shrink-0 rounded-md bg-primary px-5 text-sm font-semibold text-primary-foreground hover:bg-primary/90"
         >
           {t("home.zipShow")}
         </button>

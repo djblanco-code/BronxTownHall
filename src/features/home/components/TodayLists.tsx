@@ -15,7 +15,8 @@ import { EventRow } from "./EventRow";
 const FIRST_ROWS = 3;
 const MAX_ROWS = 8;
 
-const LIST = "divide-y divide-border overflow-hidden rounded-2xl border border-border bg-card";
+/** Ruled list: hairlines between rows and under the last one, no box. */
+const LIST = "divide-y divide-border border-b border-border";
 
 /**
  * The two "what's useful now" lists: places open tonight, then events in the
@@ -57,6 +58,7 @@ function OpenTonight({ neighborhood }: { neighborhood: string | null }) {
     <Section
       id="home-tonight-title"
       title={t("home.openTonight")}
+      ruled
       className={COLUMN}
       action={
         open &&
@@ -111,6 +113,7 @@ function ThisWeek({ neighborhood }: { neighborhood: string | null }) {
     <Section
       id="home-week-title"
       title={t("home.thisWeek")}
+      ruled
       className={COLUMN}
       action={
         <SectionAction asChild>
@@ -129,12 +132,9 @@ function ListSkeleton({ label }: { label: string }) {
     <div className={LIST} aria-busy="true">
       <span className="sr-only">{label}</span>
       {[0, 1, 2].map((i) => (
-        <div key={i} aria-hidden="true" className="flex items-center gap-3 p-3">
-          <div className="h-11 w-11 shrink-0 animate-pulse rounded-xl bg-muted" />
-          <div className="flex-1 space-y-2">
-            <div className="h-3.5 w-3/4 animate-pulse rounded bg-muted" />
-            <div className="h-3 w-1/2 animate-pulse rounded bg-muted" />
-          </div>
+        <div key={i} aria-hidden="true" className="space-y-2 py-3">
+          <div className="h-3 w-1/3 animate-pulse rounded-sm bg-muted" />
+          <div className="h-4 w-3/4 animate-pulse rounded-sm bg-muted" />
         </div>
       ))}
     </div>

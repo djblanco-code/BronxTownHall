@@ -52,7 +52,7 @@ export function SimplerViewPrompt() {
             toast.success(t("home.simplerToast"));
             dismiss();
           }}
-          className="no-min-h h-9 shrink-0 rounded-full bg-primary px-4 text-sm font-semibold text-primary-foreground hover:bg-primary/90"
+          className="no-min-h h-9 shrink-0 rounded-md bg-primary px-4 text-sm font-semibold text-primary-foreground hover:bg-primary/90"
         >
           {t("home.simplerOn")}
         </button>
@@ -60,7 +60,7 @@ export function SimplerViewPrompt() {
           type="button"
           onClick={dismiss}
           aria-label={t("shell.dismiss")}
-          className="no-min-h -me-1 grid h-8 w-8 shrink-0 place-items-center rounded-full text-muted-foreground hover:bg-secondary hover:text-foreground"
+          className="no-min-h -me-1 grid h-8 w-8 shrink-0 place-items-center rounded-md text-muted-foreground hover:bg-secondary hover:text-foreground"
         >
           <X className="h-4 w-4" aria-hidden="true" />
         </button>

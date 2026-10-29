@@ -30,10 +30,13 @@ export function DeadlineAlerts() {
 
   return (
     <section aria-labelledby="home-deadlines-title" className="mx-auto mt-6 max-w-5xl px-4">
-      <h2 id="home-deadlines-title" className="sr-only">
+      <h2
+        id="home-deadlines-title"
+        className="label-caps border-t-[3px] border-amber-500 pt-2 text-amber-800 dark:text-amber-200"
+      >
         {t("home.deadlinesTitle")}
       </h2>
-      <ul className="space-y-2">
+      <ul className="divide-y divide-border border-b border-border">
         {alerts.map((a) => {
           const date = new Date(`${a.deadline_date}T12:00:00`).toLocaleDateString(locale, {
             month: "short",
@@ -51,7 +54,9 @@ export function DeadlineAlerts() {
                 <span className="block text-xs font-bold text-amber-800 dark:text-amber-200">
                   {t("home.deadlineOn", { date })}
                 </span>
-                <span className="block text-sm font-semibold text-foreground">{a.headline}</span>
+                <span className="block font-bold text-foreground group-hover:underline">
+                  {a.headline}
+                </span>
               </span>
               {linked && (
                 <ChevronRight
@@ -61,8 +66,7 @@ export function DeadlineAlerts() {
               )}
             </>
           );
-          const cls =
-            "no-min-h flex items-start gap-3 rounded-2xl border border-amber-300/70 bg-amber-50/70 p-3 hover:border-amber-500 dark:bg-amber-500/10";
+          const cls = "no-min-h group flex items-start gap-3 py-3";
           return (
             <li key={a.id}>
               {hasPage ? (

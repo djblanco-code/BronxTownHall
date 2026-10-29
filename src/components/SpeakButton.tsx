@@ -33,7 +33,7 @@ export function SpeakButton({
         if (active) stop();
         else void speak(text, { title });
       }}
-      className={`no-min-h ${sizeCls} inline-flex items-center justify-center rounded-full bg-bronx-orange text-bronx-orange-foreground shadow-md hover:scale-105 active:scale-95 transition`}
+      className={`no-min-h ${sizeCls} inline-flex items-center justify-center rounded-md bg-bronx-orange text-bronx-orange-foreground transition hover:brightness-95`}
       aria-label={aria}
       title={aria}
     >

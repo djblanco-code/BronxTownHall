@@ -4,15 +4,6 @@ import { windowRange } from "@/lib/event-windows";
 import type { EventSummary } from "@/features/events";
 import type { PolicyAlert } from "@/lib/policy-alerts";
 
-/** Which greeting to show: before noon, before 5 PM, or after. */
-export function greetingKey(
-  minutes: number,
-): "greetingMorning" | "greetingAfternoon" | "greetingEvening" {
-  if (minutes >= 5 * 60 && minutes < 12 * 60) return "greetingMorning";
-  if (minutes >= 12 * 60 && minutes < 17 * 60) return "greetingAfternoon";
-  return "greetingEvening";
-}
-
 export type OpenListing = { resource: Resource; status: OpeningStatus };
 
 /**

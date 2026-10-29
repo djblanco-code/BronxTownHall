@@ -3,3 +3,4 @@ export { ResourceCard } from "./components/ResourceCard";
 export type { ListingResource } from "./components/ResourceCard";
 export { ResourceTile, OpeningStatusLine } from "./components/ResourceTile";
 export { ResourceRow } from "./components/ResourceRow";
+export { CATEGORY_ICONS } from "./lib/category-icons";
