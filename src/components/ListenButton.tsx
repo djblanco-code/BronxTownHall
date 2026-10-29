@@ -41,7 +41,7 @@ export function ListenButton({
         onClick={onClick}
         aria-label={aria}
         title={aria}
-        className={`no-min-h h-9 w-9 shrink-0 inline-flex items-center justify-center rounded-md bg-bronx-orange text-bronx-orange-foreground hover:brightness-95 transition ${className}`}
+        className={`no-min-h h-10 w-10 shrink-0 inline-flex items-center justify-center rounded-md bg-bronx-orange text-bronx-orange-foreground hover:brightness-95 transition ${className}`}
       >
         {isLoading && active ? (
           <Loader2 className="h-4 w-4 animate-spin" />
@@ -59,7 +59,7 @@ export function ListenButton({
         type="button"
         onClick={onClick}
         aria-label={aria}
-        className={`no-min-h inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-bold border border-foreground hover:bg-secondary transition ${active ? "bg-primary text-primary-foreground border-primary" : ""} ${className}`}
+        className={`no-min-h inline-flex min-h-[44px] items-center gap-1.5 px-3 rounded-md text-sm font-bold bg-bronx-orange text-bronx-orange-foreground hover:brightness-95 transition ${className}`}
       >
         {isLoading && active ? (
           <Loader2 className="h-3.5 w-3.5 animate-spin" />

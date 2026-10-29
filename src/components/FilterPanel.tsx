@@ -86,7 +86,7 @@ export function FilterPanel({
             id="flt-nbhd"
             value={local.neighborhood}
             onChange={(e) => setLocal({ ...local, neighborhood: e.target.value })}
-            className="w-full px-3 py-2.5 rounded-lg border border-border bg-background text-sm min-h-[44px]"
+            className="w-full px-3 py-2.5 rounded-md border border-border bg-background text-sm min-h-[44px]"
           >
             <option value="">{t("interface.anyNeighborhood")}</option>
             {BRONX_NEIGHBORHOODS.map((n) => (
@@ -126,7 +126,7 @@ export function FilterPanel({
             value={local.heritage}
             onChange={(e) => setLocal({ ...local, heritage: e.target.value })}
             placeholder={t("interface.heritagePlaceholder")}
-            className="w-full px-3 py-2.5 rounded-lg border border-border bg-background text-sm min-h-[44px]"
+            className="w-full px-3 py-2.5 rounded-md border border-border bg-background text-sm min-h-[44px]"
           />
         </Group>
         {showDietary && (
@@ -170,7 +170,7 @@ export function FilterPanel({
       <div className="pt-4 mt-4 border-t border-border flex items-center gap-2 sticky bottom-0 bg-card">
         <button
           onClick={() => setLocal(EMPTY_FILTERS)}
-          className="no-min-h px-4 py-3 rounded-xl border border-border bg-card text-sm font-semibold min-h-[44px]"
+          className="no-min-h px-4 py-3 rounded-md border border-border bg-card text-sm font-semibold min-h-[44px]"
         >
           {t("interface.clearAll")}
         </button>
@@ -179,7 +179,7 @@ export function FilterPanel({
             onApply(local);
             onClose();
           }}
-          className="no-min-h flex-1 px-4 py-3 rounded-xl bg-primary text-primary-foreground font-bold min-h-[44px]"
+          className="no-min-h flex-1 px-4 py-3 rounded-md bg-primary text-primary-foreground font-bold min-h-[44px]"
         >
           {t("interface.showResults", { count: resultCount })}
         </button>
@@ -214,7 +214,7 @@ function Check({
   children: React.ReactNode;
 }) {
   return (
-    <label className="flex items-center gap-3 p-2.5 rounded-lg border border-border cursor-pointer hover:bg-secondary min-h-[44px]">
+    <label className="flex items-center gap-3 p-2.5 rounded-md border border-border cursor-pointer hover:bg-secondary min-h-[44px]">
       <input type="checkbox" checked={checked} onChange={onChange} className="h-5 w-5" />
       <span className="text-sm font-medium">{children}</span>
     </label>

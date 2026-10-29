@@ -12,7 +12,7 @@ export function PackCheckbox({ id, label }: { id: string; label: string }) {
       disabled={disabled}
       aria-pressed={checked}
       aria-label={checked ? `Remove ${label} from share pack` : `Add ${label} to share pack`}
-      className={`shrink-0 h-9 w-9 rounded-lg border-2 flex items-center justify-center transition disabled:opacity-40 ${
+      className={`no-min-h shrink-0 h-10 w-10 rounded-md border-2 flex items-center justify-center transition disabled:opacity-40 ${
         checked
           ? "border-primary bg-primary text-primary-foreground"
           : "border-border bg-card text-muted-foreground hover:border-primary"

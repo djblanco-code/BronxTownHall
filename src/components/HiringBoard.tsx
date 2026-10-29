@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { ArrowUpDown, BriefcaseBusiness, MapPinned, Scale } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { EmptyState } from "@/components/ui/empty-state";
 import { hiringActionHref, loadHiringPosts, type HiringPost } from "@/lib/business-support";
 
 type Sort = "newest" | "employer";
@@ -28,10 +29,10 @@ export function HiringBoard() {
   );
 
   return (
-    <section aria-labelledby="hiring-board-heading" className="space-y-4">
-      <div>
-        <p className="text-xs font-bold uppercase text-primary">Quick hiring board</p>
-        <h2 id="hiring-board-heading" className="text-xl font-bold">
+    <section aria-labelledby="hiring-board-heading" className="space-y-3">
+      <div className="border-t-[3px] border-foreground pt-2">
+        <p className="label-caps text-primary">Quick hiring board</p>
+        <h2 id="hiring-board-heading" className="text-lg font-bold sm:text-2xl">
           Now Hiring
         </h2>
         <p className="text-sm text-muted-foreground">
@@ -66,20 +67,16 @@ export function HiringBoard() {
         </label>
       </div>
       {visible.length === 0 ? (
-        <div className="rounded-md border border-dashed border-border p-6 text-center text-sm text-muted-foreground">
-          No active openings match these filters yet.
-        </div>
+        <EmptyState icon={BriefcaseBusiness} title="No active openings match these filters yet." />
       ) : (
-        <ul className="grid sm:grid-cols-2 gap-3">
+        <ul className="divide-y divide-border border-y border-border sm:grid sm:grid-cols-2 sm:gap-x-8 sm:divide-y-0 sm:border-b-0">
           {visible.map((post) => {
             const href = hiringActionHref(post.application_method);
             return (
-              <li key={post.id} className="rounded-md border border-border bg-card p-4 space-y-3">
+              <li key={post.id} className="space-y-3 py-3 sm:border-b sm:border-border">
                 <div className="flex items-start gap-3">
-                  <span className="grid h-10 w-10 shrink-0 place-items-center rounded-md bg-primary/10 text-primary">
-                    <BriefcaseBusiness className="h-5 w-5" />
-                  </span>
-                  <div>
+                  <BriefcaseBusiness className="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden />
+                  <div className="min-w-0">
                     <h3 className="font-bold">{post.role_title}</h3>
                     <p className="text-sm text-muted-foreground">{post.employer_name}</p>
                   </div>
@@ -87,12 +84,12 @@ export function HiringBoard() {
                 <p className="text-sm">{post.description}</p>
                 <div className="flex flex-wrap gap-1.5">
                   {post.bronx_preferred && (
-                    <span className="rounded-full bg-primary/10 px-2 py-1 text-xs font-bold text-primary">
+                    <span className="rounded-sm bg-primary/10 px-1.5 py-0.5 text-xs font-bold text-primary">
                       Bronx Preferred
                     </span>
                   )}
                   {post.fair_chance_employer && (
-                    <span className="rounded-full bg-success/15 px-2 py-1 text-xs font-bold text-success">
+                    <span className="rounded-sm bg-success/15 px-1.5 py-0.5 text-xs font-bold text-success">
                       Fair Chance Employer · self-reported
                     </span>
                   )}

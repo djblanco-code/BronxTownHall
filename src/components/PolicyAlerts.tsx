@@ -23,12 +23,12 @@ export function PolicyAlerts({ category }: { category: string }) {
   return (
     <section
       aria-labelledby="policy-alerts-heading"
-      className="mb-6 rounded-2xl border-2 border-amber-300/70 bg-amber-50/60 dark:bg-amber-500/5 p-4"
+      className="mb-6 border-t-[3px] border-b border-t-foreground border-b-border pt-2 pb-3"
     >
       <div className="flex items-start gap-2">
-        <AlertTriangle className="h-5 w-5 text-amber-600 shrink-0 mt-0.5" aria-hidden />
-        <div className="flex-1">
-          <h2 id="policy-alerts-heading" className="font-bold">
+        <AlertTriangle className="h-5 w-5 text-warning shrink-0 mt-1" aria-hidden />
+        <div className="min-w-0 flex-1">
+          <h2 id="policy-alerts-heading" className="text-lg font-bold text-foreground sm:text-2xl">
             {t("alertsTitle")}
           </h2>
           <p className="text-sm text-muted-foreground">{t("alertsSubtitle")}</p>
@@ -38,19 +38,19 @@ export function PolicyAlerts({ category }: { category: string }) {
       {alerts.length === 0 ? (
         <p className="mt-3 text-sm text-muted-foreground">{t("alertsEmpty")}</p>
       ) : (
-        <ul className="mt-3 space-y-2">
+        <ul className="mt-2 divide-y divide-border border-y border-border">
           {alerts.map((a) => {
             const isOpen = open === a.id;
             return (
-              <li key={a.id} className="rounded-xl bg-card border border-border p-3">
+              <li key={a.id} className="py-3">
                 <div className="flex items-start gap-2 flex-wrap">
                   {a.kind === "deadline" && (
-                    <span className="inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-700 dark:text-amber-300 shrink-0">
-                      <CalendarClock className="h-3.5 w-3.5" aria-hidden />
+                    <span className="label-caps inline-flex items-center gap-1 text-foreground shrink-0">
+                      <CalendarClock className="h-3.5 w-3.5 text-warning" aria-hidden />
                       {a.deadline_date ? formatDeadline(a.deadline_date) : t("alertsDeadline")}
                     </span>
                   )}
-                  <p className="font-semibold flex-1 min-w-[12rem]">{a.headline}</p>
+                  <p className="font-bold flex-1 min-w-[12rem]">{a.headline}</p>
                 </div>
 
                 {(a.detail || a.source_url) && (
@@ -93,7 +93,7 @@ export function PolicyAlerts({ category }: { category: string }) {
 
       <p className="mt-3 text-xs text-muted-foreground">{t("alertsStaffNote")}</p>
 
-      <div className="mt-3 pt-3 border-t border-amber-300/50">
+      <div className="mt-3 pt-3 border-t border-border">
         {showForm ? (
           <AlertSubscribeForm defaultCategory={category} onDone={() => setShowForm(false)} />
         ) : (

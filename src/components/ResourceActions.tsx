@@ -94,14 +94,14 @@ export function ResourceActions({
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4">
         <button
           onClick={() => (user ? setShowLists(true) : toast.info("Sign in to save to a list"))}
-          className="no-min-h inline-flex items-center justify-center gap-1.5 py-3 rounded-xl border border-border bg-card text-sm font-medium hover:bg-secondary min-h-[44px]"
+          className="no-min-h inline-flex items-center justify-center gap-1.5 py-3 rounded-md border border-border bg-card text-sm font-semibold hover:border-foreground min-h-[44px]"
         >
           <ListPlus className="h-4 w-4" /> {t("interface.addList")}
         </button>
         <a
           href={smsHref}
           onClick={() => trackResourceShared({ resourceId, category, method: "sms" })}
-          className="no-min-h inline-flex items-center justify-center gap-1.5 py-3 rounded-xl border border-border bg-card text-sm font-medium hover:bg-secondary min-h-[44px]"
+          className="no-min-h inline-flex items-center justify-center gap-1.5 py-3 rounded-md border border-border bg-card text-sm font-semibold hover:border-foreground min-h-[44px]"
         >
           <MessageSquare className="h-4 w-4" /> {t("interface.shareSms")}
         </a>
@@ -110,7 +110,7 @@ export function ResourceActions({
             trackResourceShared({ resourceId, category, method: "print" });
             if (typeof window !== "undefined") window.print();
           }}
-          className="no-min-h inline-flex items-center justify-center gap-1.5 py-3 rounded-xl border border-border bg-card text-sm font-medium hover:bg-secondary min-h-[44px]"
+          className="no-min-h inline-flex items-center justify-center gap-1.5 py-3 rounded-md border border-border bg-card text-sm font-semibold hover:border-foreground min-h-[44px]"
         >
           <Printer className="h-4 w-4" /> {t("interface.print")}
         </button>
@@ -118,7 +118,7 @@ export function ResourceActions({
           onClick={() =>
             user ? setShowReferral(true) : toast.info("Sign in as a professional to log referrals")
           }
-          className="no-min-h inline-flex items-center justify-center gap-1.5 py-3 rounded-xl border border-border bg-card text-sm font-medium hover:bg-secondary min-h-[44px]"
+          className="no-min-h inline-flex items-center justify-center gap-1.5 py-3 rounded-md border border-border bg-card text-sm font-semibold hover:border-foreground min-h-[44px]"
         >
           <ClipboardCheck className="h-4 w-4" /> {t("interface.logReferral")}
         </button>
@@ -132,7 +132,7 @@ export function ResourceActions({
           onClick={() => setShowLists(false)}
         >
           <div
-            className="bg-card rounded-2xl border border-border w-full max-w-md p-5"
+            className="bg-card rounded-md border border-border shadow-xl w-full max-w-md p-5"
             onClick={(e) => e.stopPropagation()}
           >
             <h3 className="font-bold text-lg mb-3">Add to a list</h3>
@@ -145,7 +145,7 @@ export function ResourceActions({
                     <button
                       disabled={loading}
                       onClick={() => handleAddToList(l.id)}
-                      className="no-min-h w-full text-left px-3 py-2 rounded-lg hover:bg-secondary"
+                      className="no-min-h w-full text-left px-3 py-2 rounded-md hover:bg-secondary"
                     >
                       {l.name}{" "}
                       {l.is_public && (
@@ -161,12 +161,12 @@ export function ResourceActions({
                 value={newName}
                 onChange={(e) => setNewName(e.target.value)}
                 placeholder="New list name"
-                className="flex-1 px-3 py-2 rounded-lg border border-border bg-background text-sm"
+                className="flex-1 px-3 py-2 rounded-md border border-border bg-background text-sm"
               />
               <button
                 disabled={loading || !newName.trim()}
                 onClick={handleCreateList}
-                className="no-min-h px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-semibold disabled:opacity-50"
+                className="no-min-h px-4 py-2 rounded-md bg-primary text-primary-foreground text-sm font-semibold disabled:opacity-50"
               >
                 Create
               </button>
@@ -188,7 +188,7 @@ export function ResourceActions({
           onClick={() => setShowReferral(false)}
         >
           <div
-            className="bg-card rounded-2xl border border-border w-full max-w-md p-5"
+            className="bg-card rounded-md border border-border shadow-xl w-full max-w-md p-5"
             onClick={(e) => e.stopPropagation()}
           >
             <h3 className="font-bold text-lg mb-1">Log a client referral</h3>
@@ -200,26 +200,26 @@ export function ResourceActions({
               value={clientLabel}
               onChange={(e) => setClientLabel(e.target.value)}
               placeholder="e.g. Case #1234"
-              className="w-full px-3 py-2 rounded-lg border border-border bg-background text-sm mb-3"
+              className="w-full px-3 py-2 rounded-md border border-border bg-background text-sm mb-3"
             />
             <label className="block text-sm font-medium mb-1">Note</label>
             <textarea
               value={referralNote}
               onChange={(e) => setReferralNote(e.target.value)}
               rows={3}
-              className="w-full px-3 py-2 rounded-lg border border-border bg-background text-sm mb-3"
+              className="w-full px-3 py-2 rounded-md border border-border bg-background text-sm mb-3"
             />
             <div className="flex justify-end gap-2">
               <button
                 onClick={() => setShowReferral(false)}
-                className="no-min-h px-3 py-2 rounded-lg border border-border text-sm"
+                className="no-min-h px-3 py-2 rounded-md border border-border text-sm"
               >
                 Cancel
               </button>
               <button
                 disabled={loading}
                 onClick={handleLogReferral}
-                className="no-min-h px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-semibold disabled:opacity-50"
+                className="no-min-h px-4 py-2 rounded-md bg-primary text-primary-foreground text-sm font-semibold disabled:opacity-50"
               >
                 Log referral
               </button>

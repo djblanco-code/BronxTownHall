@@ -35,12 +35,12 @@ function inNyc(lat: number, lng: number) {
   );
 }
 
-function pinSvg(color: string, emoji: string) {
+/** A plain pin in the category's color: no emoji (docs/design-system.md). */
+function pinSvg(color: string) {
   const svg = `
     <svg xmlns="http://www.w3.org/2000/svg" width="36" height="46" viewBox="0 0 36 46">
       <path d="M18 0C8.06 0 0 8.06 0 18c0 13.5 18 28 18 28s18-14.5 18-28C36 8.06 27.94 0 18 0z" fill="${color}" stroke="#fff" stroke-width="2"/>
-      <circle cx="18" cy="17" r="11" fill="#fff"/>
-      <text x="18" y="22" font-size="14" text-anchor="middle" font-family="system-ui,sans-serif">${emoji}</text>
+      <circle cx="18" cy="17" r="7" fill="#fff"/>
     </svg>`;
   return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
 }
@@ -114,7 +114,7 @@ export function MapView({
         position: { lat: loc.latitude, lng: loc.longitude },
         title: r.name,
         icon: {
-          url: pinSvg(cat.color, cat.emoji),
+          url: pinSvg(cat.color),
           scaledSize: new g.maps.Size(36, 46),
           anchor: new g.maps.Point(18, 46),
         },
@@ -220,7 +220,7 @@ export function MapView({
 
   if (err) {
     return (
-      <div className="rounded-2xl border border-destructive/30 bg-destructive/5 p-6 text-sm">
+      <div className="rounded-md border border-border p-6 text-sm text-muted-foreground">
         Map unavailable: {err}
       </div>
     );
@@ -228,7 +228,7 @@ export function MapView({
 
   return (
     <div
-      className="relative rounded-2xl overflow-hidden border border-border bg-secondary"
+      className="relative rounded-md overflow-hidden border border-foreground bg-secondary"
       style={{ height }}
     >
       <div ref={elRef} className="absolute inset-0" aria-label="Resource map" role="application" />
@@ -236,18 +236,18 @@ export function MapView({
         <button
           onClick={locateMe}
           aria-label="Center map on my location"
-          className="no-min-h h-10 w-10 rounded-full bg-card border border-border shadow grid place-items-center hover:bg-secondary"
+          className="no-min-h h-11 w-11 rounded-md bg-card border-2 border-foreground grid place-items-center hover:bg-secondary"
         >
-          <LocateFixed className="h-4 w-4" />
+          <LocateFixed className="h-4 w-4" aria-hidden />
         </button>
       </div>
       {(!ready || isLoading) && (
-        <div className="absolute top-3 start-3 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-card border border-border shadow text-xs font-medium">
-          <Loader2 className="h-3.5 w-3.5 animate-spin" />{" "}
+        <div className="absolute top-3 start-3 inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-card border border-foreground text-xs font-semibold">
+          <Loader2 className="h-3.5 w-3.5 animate-spin" aria-hidden />{" "}
           {ready ? "Locating resources…" : "Loading map…"}
         </div>
       )}
-      <p className="absolute bottom-3 start-3 px-2.5 py-1 rounded-full bg-card/95 border border-border shadow text-[11px] font-medium text-muted-foreground">
+      <p className="absolute bottom-3 start-3 px-2.5 py-1 rounded-md bg-card border border-foreground text-xs font-semibold text-foreground">
         {visible.length} on map
       </p>
     </div>

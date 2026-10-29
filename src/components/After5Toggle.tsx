@@ -26,16 +26,16 @@ export function After5Toggle({ active, onToggle, count, className = "" }: Props)
         onMouseLeave={() => setHover(false)}
         onFocus={() => setHover(true)}
         onBlur={() => setHover(false)}
-        className={`no-min-h inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold border-2 transition min-h-[44px] ${
+        className={`no-min-h simplified-exempt inline-flex h-9 items-center gap-1.5 rounded-md border px-3 text-sm font-semibold transition-colors ${
           active
-            ? "bg-primary text-primary-foreground border-primary shadow-md"
-            : "bg-card text-foreground border-border hover:border-primary/60 hover:bg-secondary"
+            ? "border-primary bg-primary text-primary-foreground hover:bg-primary/90"
+            : "border-border bg-card text-foreground hover:bg-secondary"
         }`}
       >
-        <Clock className="h-4 w-4" aria-hidden />
+        <Clock className={`h-4 w-4 ${active ? "" : "text-primary"}`} aria-hidden />
         <span>{t("interface.after5")}</span>
         <span
-          className={`inline-flex items-center justify-center min-w-[1.5rem] h-5 px-1.5 rounded-full text-xs font-bold ${
+          className={`inline-flex items-center justify-center min-w-[1.5rem] h-5 px-1.5 rounded-sm text-xs font-bold ${
             active
               ? "bg-primary-foreground/20 text-primary-foreground"
               : "bg-secondary text-secondary-foreground"
@@ -48,7 +48,7 @@ export function After5Toggle({ active, onToggle, count, className = "" }: Props)
       {hover && (
         <span
           role="tooltip"
-          className="pointer-events-none absolute z-50 top-full mt-2 left-1/2 -translate-x-1/2 max-w-[16rem] rounded-lg bg-foreground text-background text-xs px-3 py-2 shadow-lg"
+          className="pointer-events-none absolute z-50 top-full mt-2 left-1/2 -translate-x-1/2 max-w-[16rem] rounded-md bg-foreground text-background text-xs px-3 py-2 shadow-lg"
         >
           {tooltip}
         </span>

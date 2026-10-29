@@ -10,6 +10,7 @@ import { suggestCorrection } from "@/lib/fuzzy";
 import { ArrowLeft, Search, Sparkles } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ListenButton } from "@/components/ListenButton";
+import { EmptyState } from "@/components/ui/empty-state";
 import { buildResourceScript } from "@/lib/tts-context";
 import { ViewToggle, ViewMode } from "@/components/ViewToggle";
 import { MapView, MapResource } from "@/components/MapView";
@@ -117,40 +118,42 @@ function SearchPage() {
         >
           <ArrowLeft className="h-4 w-4" /> {t("back")}
         </button>
-        <h1 className="text-2xl font-bold text-foreground mb-3">Search Bronx resources</h1>
-        <div className="flex items-center gap-2">
-          <div className="relative flex-1">
-            <label htmlFor="search-input" className="sr-only">
-              Search resources
-            </label>
-            <Search
-              aria-hidden="true"
-              className="absolute start-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground pointer-events-none"
-            />
-            <input
-              id="search-input"
-              type="search"
-              value={q}
-              onChange={(e) => setQ(e.target.value)}
-              placeholder="Try: halal food, Guinean restaurant, wheelchair accessible…"
-              className="w-full ps-12 pe-4 py-4 rounded-2xl border-2 border-border bg-card text-base focus:outline-none focus:border-primary shadow-sm min-h-[56px]"
-              autoFocus
-            />
-          </div>
-          <VoiceSearchButton onResult={(text) => setQ(text)} />
+        <h1 className="text-3xl font-bold leading-tight text-foreground mb-3 sm:text-4xl">
+          Search Bronx resources
+        </h1>
+        <div className="flex h-14 items-center gap-2 rounded-md border-2 border-foreground bg-card ps-4 pe-1.5 focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-ring">
+          <label htmlFor="search-input" className="sr-only">
+            Search resources
+          </label>
+          <Search aria-hidden="true" className="h-5 w-5 shrink-0 text-foreground" />
+          <input
+            id="search-input"
+            type="search"
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+            placeholder="Try: halal food, Guinean restaurant, wheelchair accessible…"
+            className="h-full min-w-0 flex-1 bg-transparent text-base text-foreground placeholder:text-muted-foreground focus-visible:outline-none"
+            autoFocus
+          />
+          <VoiceSearchButton
+            className="rounded-md bg-bronx-orange text-bronx-orange-foreground hover:bg-bronx-orange/90"
+            onResult={(text) => setQ(text)}
+          />
         </div>
         <Link
           to="/help"
           search={{ q: q.trim() || undefined }}
-          className="no-min-h mt-3 flex items-center gap-2 rounded-2xl border border-primary/30 bg-primary/5 px-4 py-3 text-sm hover:border-primary transition"
+          className="no-min-h group mt-3 flex items-start gap-3 border-b border-border py-3 text-sm"
         >
-          <Sparkles className="h-4 w-4 text-primary shrink-0" aria-hidden />
+          <Sparkles className="mt-0.5 h-4 w-4 text-primary shrink-0" aria-hidden />
           <span>
-            <span className="font-semibold">Not sure what to search?</span> Describe your situation
-            instead — “I got laid off and I have two kids”.
+            <span className="font-bold text-primary group-hover:underline">
+              Not sure what to search?
+            </span>{" "}
+            Describe your situation instead — “I got laid off and I have two kids”.
           </span>
         </Link>
-        <LocationSourceCard className="mt-3" />
+        <LocationSourceCard />
         {(() => {
           const suggestion = q.trim() && results.length < 3 ? suggestCorrection(q) : null;
           return suggestion ? (
@@ -168,7 +171,10 @@ function SearchPage() {
         })()}
         {intent.message && (
           <div className="mt-3 flex flex-wrap items-center gap-3">
-            <p className="text-sm font-medium text-primary">✨ {intent.message}</p>
+            <p className="inline-flex items-start gap-1.5 text-sm font-medium text-primary">
+              <Sparkles className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />
+              {intent.message}
+            </p>
             {helpfulRated ? (
               <span className="text-xs text-muted-foreground">Thanks for the feedback!</span>
             ) : (
@@ -179,7 +185,7 @@ function SearchPage() {
                     trackAiHelpful({ query: q, resourceCount: results.length, helpful: true });
                     setHelpfulRated("yes");
                   }}
-                  className="no-min-h px-2.5 py-1 rounded-full border border-border font-semibold hover:bg-secondary"
+                  className="no-min-h h-9 rounded-md border border-border px-3 font-semibold hover:border-foreground"
                 >
                   Yes
                 </button>
@@ -188,7 +194,7 @@ function SearchPage() {
                     trackAiHelpful({ query: q, resourceCount: results.length, helpful: false });
                     setHelpfulRated("no");
                   }}
-                  className="no-min-h px-2.5 py-1 rounded-full border border-border font-semibold hover:bg-secondary"
+                  className="no-min-h h-9 rounded-md border border-border px-3 font-semibold hover:border-foreground"
                 >
                   No
                 </button>
@@ -196,8 +202,8 @@ function SearchPage() {
             )}
           </div>
         )}
-        <div className="mt-2 flex items-center justify-between gap-2 flex-wrap">
-          <p className="text-sm text-muted-foreground">
+        <div className="mt-6 flex items-center justify-between gap-2 flex-wrap border-t-[3px] border-foreground pt-2">
+          <p className="text-sm font-bold text-foreground">
             {results.length} result{results.length === 1 ? "" : "s"}
           </p>
           <div className="flex items-center gap-2 flex-wrap">
@@ -260,7 +266,7 @@ function SearchPage() {
           </div>
         )}
         {view === "list" && (
-          <ul className="mt-4 space-y-3">
+          <ul className="mt-2 border-t border-border">
             {results.map((r, i) => (
               <li key={r.id}>
                 <ResourceCard
@@ -275,8 +281,12 @@ function SearchPage() {
               </li>
             ))}
             {results.length === 0 && (
-              <li className="text-center text-muted-foreground py-10">
-                No matches. Try a different keyword.
+              <li>
+                <EmptyState
+                  icon={Search}
+                  title="No matches. Try a different keyword."
+                  className="border-t-0"
+                />
               </li>
             )}
           </ul>

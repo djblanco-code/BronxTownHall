@@ -1,6 +1,8 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { AppShell } from "@/features/shell";
-import { ResourceCard } from "@/features/resources";
+import { CATEGORY_ICONS, ResourceCard } from "@/features/resources";
+import { Chip, chipVariants } from "@/components/ui/chip";
+import { cn } from "@/lib/utils";
 import { useResourceMeta } from "@/lib/resource-meta";
 import { MapView, MapResource } from "@/components/MapView";
 import { SpreadsheetView, SheetRow } from "@/components/SpreadsheetView";
@@ -71,42 +73,52 @@ function GlobalMapPage() {
         </button>
 
         <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
-          <h1 className="text-2xl sm:text-3xl font-bold">Bronx Resource Map</h1>
+          <h1 className="text-3xl font-bold leading-tight text-foreground sm:text-4xl">
+            Bronx Resource Map
+          </h1>
           <ViewToggle value={view} onChange={setView} />
         </div>
 
         <LocationSourceCard className="mb-4" />
 
-        <div className="rounded-2xl border border-border bg-card p-4 mb-4 space-y-3">
+        <div className="mb-4 space-y-3 border-t-[3px] border-b border-t-foreground border-b-border pt-2 pb-4">
+          <p className="label-caps text-muted-foreground">Categories</p>
           <div className="flex flex-wrap items-center gap-2">
-            <span className="text-xs font-bold uppercase tracking-wide text-muted-foreground me-1">
-              Categories
-            </span>
             {CATEGORIES.map((c) => {
               const meta = CATEGORY_PIN[c.id];
               const active = activeCats.has(c.id);
+              const Icon = CATEGORY_ICONS[c.id];
               return (
+                // The chips double as the map legend: a shown category keeps its
+                // pin-colored icon; a hidden one fades to grey.
                 <button
                   key={c.id}
                   onClick={() => toggleCat(c.id)}
                   aria-pressed={active}
-                  className={`no-min-h inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold border ${active ? "text-white" : "bg-card text-muted-foreground border-border"}`}
-                  style={
-                    active ? { backgroundColor: meta?.color, borderColor: meta?.color } : undefined
-                  }
+                  className={cn(
+                    chipVariants(),
+                    active
+                      ? "border-foreground"
+                      : "border-dashed text-muted-foreground line-through",
+                  )}
                 >
-                  <span>{meta?.emoji ?? "📍"}</span> {meta?.label ?? c.id}
+                  <Icon
+                    className="h-4 w-4 shrink-0"
+                    style={active ? { color: meta?.color } : undefined}
+                    aria-hidden="true"
+                  />
+                  {meta?.label ?? c.id}
                 </button>
               );
             })}
           </div>
           <div className="flex flex-wrap items-center gap-3">
-            <label className="text-xs font-medium inline-flex items-center gap-2">
+            <label className="text-sm font-semibold inline-flex items-center gap-2">
               Within
               <select
                 value={maxDist}
                 onChange={(e) => setMaxDist(Number(e.target.value))}
-                className="px-2 py-1 rounded border border-border bg-card text-xs"
+                className="h-9 rounded-md border border-border bg-card px-2 text-sm"
               >
                 <option value={1}>1 mi</option>
                 <option value={3}>3 mi</option>
@@ -114,16 +126,12 @@ function GlobalMapPage() {
                 <option value={50}>Any</option>
               </select>
             </label>
-            <button
-              onClick={() => setHeatmap((h) => !h)}
-              aria-pressed={heatmap}
-              className={`no-min-h inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-semibold border ${heatmap ? "bg-orange-500 text-white border-orange-500" : "bg-card border-border"}`}
-            >
-              <Flame className="h-3 w-3" /> Heatmap
-            </button>
+            <Chip selected={heatmap} icon={Flame} onClick={() => setHeatmap((h) => !h)}>
+              Heatmap
+            </Chip>
             <Link
               to="/search"
-              className="no-min-h ms-auto text-xs font-semibold text-primary hover:underline"
+              className="no-min-h ms-auto text-sm font-bold text-primary underline underline-offset-4 hover:decoration-2"
             >
               Search resources →
             </Link>
@@ -133,7 +141,7 @@ function GlobalMapPage() {
         {view === "map" && <MapView resources={mapResources} height={560} showHeatmap={heatmap} />}
         {view === "sheet" && <SpreadsheetView rows={sheetRows} />}
         {view === "list" && (
-          <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <ul className="grid grid-cols-1 border-t-[3px] border-foreground sm:grid-cols-2 sm:gap-x-8">
             {filtered.map((r) => (
               <li key={r.id}>
                 <ResourceCard resource={r} meta={resMeta[r.id]} showCategory />
