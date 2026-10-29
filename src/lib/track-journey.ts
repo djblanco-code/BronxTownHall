@@ -2,6 +2,7 @@
 // All state is stored locally (dates only) — no personal data leaves the device.
 import { trackEvent } from "./analytics";
 import { recordCategoryView } from "./interest-history";
+import { normalizeQuery } from "./track-search";
 
 const LAST_VISIT_KEY = "bronx.lastVisit";
 const CHURN_KEY = "bronx.churnReported";
@@ -44,7 +45,8 @@ export function trackResourceFound({
   category?: string;
 }) {
   trackEvent("resource_found", {
-    search_query: (query || "").trim().toLowerCase().slice(0, 60) || "(empty)",
+    // Only the coarse intent bucket, never what the person typed.
+    search_query: normalizeQuery(query || "") || "(empty)",
     resource_id: resourceId,
     ...(category ? { category } : {}),
   });
