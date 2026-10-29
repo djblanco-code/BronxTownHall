@@ -22,9 +22,10 @@ import {
 } from "lucide-react";
 
 export const Route = createFileRoute("/businesses")({
-  staticData: { sitemap: true },
+  staticData: { sitemap: false },
   head: () => ({
     meta: [
+      { name: "robots", content: "noindex" },
       { title: "Bronx Businesses — The Bronx App" },
       {
         name: "description",

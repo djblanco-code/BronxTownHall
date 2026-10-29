@@ -27,6 +27,7 @@ import { useI18n } from "@/lib/i18n-context";
 export const Route = createFileRoute("/digest")({
   head: () => ({
     meta: [
+      { name: "robots", content: "noindex" },
       { title: "This Week in the Bronx — Weekly Digest | The Bronx App" },
       {
         name: "description",
@@ -43,7 +44,7 @@ export const Route = createFileRoute("/digest")({
       { name: "twitter:card", content: "summary" },
     ],
   }),
-  staticData: { sitemap: true },
+  staticData: { sitemap: false },
   component: DigestPage,
 });
 

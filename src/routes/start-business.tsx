@@ -5,9 +5,10 @@ import { EntrepreneurLeadForm } from "@/components/EntrepreneurLeadForm";
 import { ArrowLeft, ExternalLink, Phone, MapPin, Rocket, Sparkles, Calendar } from "lucide-react";
 
 export const Route = createFileRoute("/start-business")({
-  staticData: { sitemap: true },
+  staticData: { sitemap: false },
   head: () => ({
     meta: [
+      { name: "robots", content: "noindex" },
       { title: "Start a Business in The Bronx — The Bronx App" },
       {
         name: "description",

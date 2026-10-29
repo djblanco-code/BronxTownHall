@@ -36,16 +36,6 @@ const steps: Step[] = [
     path: "/map",
   },
   {
-    title: "Business Hub",
-    body: "Free + Premium tiers. Businesses claim, upload storefront photos and short videos, and appear with verified badges.",
-    path: "/businesses",
-  },
-  {
-    title: "Entrepreneur Hub",
-    body: "Aspiring founders get a roadmap, grants directory, advisors, and workshops. Leads captured to a moderation queue.",
-    path: "/start-business",
-  },
-  {
     title: "Hyper-Local Events",
     body: "Community-submitted events with admin moderation, category filters, and calendar export.",
     path: "/events",

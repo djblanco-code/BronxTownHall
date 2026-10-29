@@ -62,9 +62,6 @@ export const FOOTER_SECTIONS: FooterSection[] = [
     links: [
       { to: "/events", labelKey: "common.navEvents" },
       { to: "/civic", labelKey: "common.footerYourVoice" },
-      { to: "/businesses", labelKey: "common.footerBusinesses" },
-      { to: "/creators", labelKey: "common.footerPicks" },
-      { to: "/roadmap", labelKey: "common.footerStartBusiness", soon: true },
       { to: "/urgent", labelKey: "common.footerUrgent" },
     ],
   },

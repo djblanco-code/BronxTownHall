@@ -20,9 +20,10 @@ import {
 } from "lucide-react";
 
 export const Route = createFileRoute("/roadmap")({
-  staticData: { sitemap: true },
+  staticData: { sitemap: false },
   head: () => ({
     meta: [
+      { name: "robots", content: "noindex" },
       { title: "What's Coming — The Bronx App" },
       {
         name: "description",

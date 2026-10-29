@@ -52,7 +52,7 @@ function HowToAddPage() {
               t("howToAdd.orgs4"),
             ]}
             action={
-              <Link to="/business-register" className="btn-primary">
+              <Link to="/portal" className="btn-primary">
                 {t("howToAdd.orgsCta")}
               </Link>
             }

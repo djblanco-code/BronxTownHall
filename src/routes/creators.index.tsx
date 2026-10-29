@@ -5,10 +5,11 @@ import { listCreators, type Creator } from "@/lib/creators";
 import { Users } from "lucide-react";
 
 export const Route = createFileRoute("/creators/")({
-  staticData: { sitemap: true },
+  staticData: { sitemap: false },
   component: CreatorsIndex,
   head: () => ({
     meta: [
+      { name: "robots", content: "noindex" },
       { title: "Bronx Community Picks — Creators Share Their Favorite Spots" },
       {
         name: "description",
