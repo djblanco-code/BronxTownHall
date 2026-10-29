@@ -1,10 +1,9 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
-import { ChevronDown, Lock, Search, ShieldCheck } from "lucide-react";
+import { ChevronDown, Search } from "lucide-react";
 import type { CategoryMeta } from "@/lib/data";
 import { useI18n } from "@/lib/i18n-context";
 import { BRONX_NEIGHBORHOODS } from "@/lib/neighborhoods";
-import { useResourceMeta } from "@/lib/resource-meta";
 import { SpeakButton } from "@/components/SpeakButton";
 import { VoiceSearchButton } from "@/components/VoiceSearchButton";
 import { LANGS } from "@/lib/i18n";
@@ -26,7 +25,7 @@ const PLACEHOLDERS = [
 /**
  * Top of Home: today's Bronx photo with the date, area and title over it and
  * one search field (voice inside it); then a row of one-tap needs led by
- * "Ask a question", and two short trust links.
+ * "Ask a question". Trust links live at the bottom of Home.
  */
 export function HomeHero({
   neighborhood,
@@ -42,21 +41,12 @@ export function HomeHero({
   const nav = useNavigate();
   const [query, setQuery] = useState("");
   const [placeholderIndex, setPlaceholderIndex] = useState(0);
-  const meta = useResourceMeta();
 
   // Rotating examples: the app is discovery + utility, not only crisis help.
   useEffect(() => {
     const id = setInterval(() => setPlaceholderIndex((i) => (i + 1) % PLACEHOLDERS.length), 3800);
     return () => clearInterval(id);
   }, []);
-
-  const verifiedThisWeek = useMemo(
-    () =>
-      Object.values(meta).filter(
-        (m) => m.last_verified && Date.now() - new Date(m.last_verified).getTime() < 7 * 86_400_000,
-      ).length,
-    [meta],
-  );
 
   const search = (q: string) => nav({ to: "/help", search: { q } });
 
@@ -180,25 +170,6 @@ export function HomeHero({
           </li>
         ))}
       </ul>
-
-      <p className="mt-2 flex flex-wrap gap-x-4 gap-y-1 px-1 text-xs text-muted-foreground">
-        <Link
-          to="/data-quality"
-          className="inline-flex items-center gap-1.5 underline-offset-2 hover:text-foreground hover:underline"
-        >
-          <ShieldCheck className="h-3.5 w-3.5 shrink-0 text-success" aria-hidden="true" />
-          {verifiedThisWeek > 0
-            ? t("interface.verifiedWeek", { count: verifiedThisWeek })
-            : t("interface.howVerifyListings")}
-        </Link>
-        <Link
-          to="/privacy"
-          className="inline-flex items-center gap-1.5 underline-offset-2 hover:text-foreground hover:underline"
-        >
-          <Lock className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
-          {t("interface.privacyLink")}
-        </Link>
-      </p>
     </section>
   );
 }
