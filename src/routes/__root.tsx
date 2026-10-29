@@ -92,7 +92,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { property: "og:type", content: "website" },
       // Installable-app (home screen) support — optional layer, the site works the same without it.
-      { name: "theme-color", content: "#1d4ed8" },
+      { name: "theme-color", content: "#ffffff" },
       { name: "mobile-web-app-capable", content: "yes" },
       { name: "apple-mobile-web-app-capable", content: "yes" },
       { name: "apple-mobile-web-app-status-bar-style", content: "default" },
