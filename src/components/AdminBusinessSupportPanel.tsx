@@ -136,13 +136,13 @@ export function AdminBusinessSupportPanel() {
                 variant="outline"
                 onClick={async () => {
                   await updateHiringPost(p.id, {
-                    status: p.status === "closed" ? "published" : "closed",
+                    status: p.status === "published" ? "closed" : "published",
                   });
                   toast.success("Hiring post updated.");
                   void refresh();
                 }}
               >
-                {p.status === "closed" ? "Publish" : "Close"}
+                {p.status === "published" ? "Close" : "Publish"}
               </Button>
             </article>
           ))

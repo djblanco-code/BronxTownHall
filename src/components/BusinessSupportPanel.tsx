@@ -86,25 +86,27 @@ export function BusinessSupportPanel({
               <div>
                 <p className="font-semibold text-sm">{post.role_title}</p>
                 <p className="text-xs text-muted-foreground">
-                  {post.status}
+                  {post.status === "draft" ? "Waiting for review" : post.status}
                   {post.bronx_preferred ? " · Bronx Preferred" : ""}
                 </p>
               </div>
-              <Button
-                size="sm"
-                variant="outline"
-                onClick={async () => {
-                  await updateHiringPost(post.id, {
-                    status: post.status === "published" ? "closed" : "published",
-                  });
-                  toast.success(
-                    post.status === "published" ? "Hiring post closed." : "Hiring post published.",
-                  );
-                  void refreshPosts();
-                }}
-              >
-                {post.status === "published" ? "Close post" : "Publish"}
-              </Button>
+              {post.status !== "closed" && (
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={async () => {
+                    try {
+                      await updateHiringPost(post.id, { status: "closed" });
+                      toast.success("Hiring post closed.");
+                    } catch {
+                      toast.error("Could not close this post. Please try again.");
+                    }
+                    void refreshPosts();
+                  }}
+                >
+                  Close post
+                </Button>
+              )}
             </div>
           ))}
         </div>
@@ -232,9 +234,10 @@ function HiringForm({
         application_method: application.trim(),
         bronx_preferred: preferred,
         fair_chance_employer: fairChance,
-        status: "published",
+        // Staff review every opening before it reaches residents.
+        status: "draft",
       });
-      toast.success("Opening published to Jobs.");
+      toast.success("Opening sent for review. It shows on Jobs once our team approves it.");
       onDone();
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Could not publish opening");
