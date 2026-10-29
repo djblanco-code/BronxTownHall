@@ -343,7 +343,7 @@ function ResourcePage() {
                     url: res.website,
                   })
                 }
-                className="no-min-h inline-flex items-center justify-center gap-2 py-3 min-h-[52px] rounded-md border-2 border-foreground bg-transparent font-bold text-foreground transition-colors hover:bg-foreground hover:text-background"
+                className="no-min-h inline-flex items-center justify-center gap-2 py-3 min-h-[52px] rounded-md border border-border bg-transparent font-bold text-foreground transition-colors hover:bg-secondary"
               >
                 <ExternalLink className="h-5 w-5" aria-hidden /> {t("interface.seeLocations")}
               </a>
@@ -360,7 +360,7 @@ function ResourcePage() {
                   distanceMiles: res.distance,
                 });
               }}
-              className="no-min-h justify-center gap-2 py-3 min-h-[52px] hover:no-underline rounded-md border-2 border-foreground bg-transparent font-bold text-foreground transition-colors hover:bg-foreground hover:text-background"
+              className="no-min-h justify-center gap-2 py-3 min-h-[52px] hover:no-underline rounded-md border border-border bg-transparent font-bold text-foreground transition-colors hover:bg-secondary"
             />
           )}
         </div>
@@ -388,7 +388,7 @@ function ResourcePage() {
                     url: action.href,
                   });
               }}
-              className="no-min-h w-full inline-flex items-center justify-center gap-2 py-3 mb-3 min-h-[52px] rounded-md border-2 border-foreground bg-transparent font-bold text-foreground transition-colors hover:bg-foreground hover:text-background"
+              className="no-min-h w-full inline-flex items-center justify-center gap-2 py-3 mb-3 min-h-[52px] rounded-md border border-border bg-transparent font-bold text-foreground transition-colors hover:bg-secondary"
             >
               {isPhone ? (
                 <Phone className="h-5 w-5" aria-hidden />
@@ -402,7 +402,7 @@ function ResourcePage() {
         })()}
         <button
           onClick={handleShare}
-          className="no-min-h w-full inline-flex items-center justify-center gap-2 py-3 mb-4 min-h-[48px] print-hide rounded-md border-2 border-foreground bg-transparent font-bold text-foreground transition-colors hover:bg-foreground hover:text-background"
+          className="no-min-h w-full inline-flex items-center justify-center gap-2 py-3 mb-4 min-h-[48px] print-hide rounded-md border border-border bg-transparent font-bold text-foreground transition-colors hover:bg-secondary"
         >
           <Share2 className="h-5 w-5" aria-hidden /> {t("interface.shareWhatsApp")}
         </button>
@@ -415,7 +415,7 @@ function ResourcePage() {
           category={res.category}
         />
 
-        <div className="divide-y divide-border border-t-[3px] border-b border-t-foreground border-b-border">
+        <div className="divide-y divide-border border-y border-border">
           <InfoRow label={t("address")}>{res.address}</InfoRow>
           <InfoRow label={t("phone")}>{res.phone}</InfoRow>
           <InfoRow label={t("hours")}>{res.hours[lang]}</InfoRow>
@@ -447,7 +447,7 @@ function ResourcePage() {
         </div>
 
         <section className="mt-8">
-          <h2 className="mb-2 border-t-[3px] border-foreground pt-2 text-lg font-bold text-foreground sm:text-2xl">
+          <h2 className="mb-2 pt-2 text-lg font-bold text-foreground sm:text-2xl">
             {t("services")}
           </h2>
           <p className="text-foreground leading-relaxed">{res.description[lang]}</p>
@@ -462,7 +462,7 @@ function ResourcePage() {
             No placeholder content is ever rendered here. */}
         {realReviews.length > 0 && (
           <section className="mt-8">
-            <h2 className="border-t-[3px] border-foreground pt-2 text-lg font-bold text-foreground sm:text-2xl">
+            <h2 className="pt-2 text-lg font-bold text-foreground sm:text-2xl">
               {t("neighborsSay")}
             </h2>
             <ul className="mt-1 divide-y divide-border border-b border-border">

@@ -36,30 +36,24 @@ function TermsPage() {
           <p>{t("terms.intro")}</p>
 
           <section>
-            <h2 className="mb-2 border-t-[3px] border-foreground pt-2 text-xl font-bold sm:text-2xl">
-              {t("terms.accuracyTitle")}
-            </h2>
+            <h2 className="mb-2 pt-2 text-xl font-bold sm:text-2xl">{t("terms.accuracyTitle")}</h2>
             <p>{t("terms.accuracy")}</p>
           </section>
 
           <section>
-            <h2 className="mb-2 border-t-[3px] border-foreground pt-2 text-xl font-bold sm:text-2xl">
+            <h2 className="mb-2 pt-2 text-xl font-bold sm:text-2xl">
               {t("terms.submissionsTitle")}
             </h2>
             <p>{t("terms.submissions")}</p>
           </section>
 
           <section>
-            <h2 className="mb-2 border-t-[3px] border-foreground pt-2 text-xl font-bold sm:text-2xl">
-              {t("terms.listingsTitle")}
-            </h2>
+            <h2 className="mb-2 pt-2 text-xl font-bold sm:text-2xl">{t("terms.listingsTitle")}</h2>
             <p>{t("terms.listings")}</p>
           </section>
 
           <section>
-            <h2 className="mb-2 border-t-[3px] border-foreground pt-2 text-xl font-bold sm:text-2xl">
-              {t("terms.useTitle")}
-            </h2>
+            <h2 className="mb-2 pt-2 text-xl font-bold sm:text-2xl">{t("terms.useTitle")}</h2>
             <ul className="list-disc ps-6 space-y-1">
               <li>{t("terms.use1")}</li>
               <li>{t("terms.use2")}</li>
@@ -68,16 +62,12 @@ function TermsPage() {
           </section>
 
           <section>
-            <h2 className="mb-2 border-t-[3px] border-foreground pt-2 text-xl font-bold sm:text-2xl">
-              {t("terms.warrantyTitle")}
-            </h2>
+            <h2 className="mb-2 pt-2 text-xl font-bold sm:text-2xl">{t("terms.warrantyTitle")}</h2>
             <p>{t("terms.warranty")}</p>
           </section>
 
           <section>
-            <h2 className="mb-2 border-t-[3px] border-foreground pt-2 text-xl font-bold sm:text-2xl">
-              {t("terms.contactTitle")}
-            </h2>
+            <h2 className="mb-2 pt-2 text-xl font-bold sm:text-2xl">{t("terms.contactTitle")}</h2>
             <p>
               {t("terms.contactPre")}{" "}
               <a href="mailto:hello@thebronxapp.org" className="text-primary underline">

@@ -225,7 +225,7 @@ const GROUP = "max-w-none px-0";
 
 /** Secondary action: a 2px outline that fills on hover (docs/design-system.md). */
 const SECONDARY =
-  "no-min-h inline-flex min-h-11 items-center gap-2 rounded-md border-2 border-foreground px-4 py-2 text-sm font-bold text-foreground hover:bg-foreground hover:text-background";
+  "no-min-h inline-flex min-h-11 items-center gap-2 rounded-md border border-border px-4 py-2 text-sm font-bold text-foreground hover:bg-secondary";
 
 /** One-of-three choices as rows between hairlines, a check on the chosen one. */
 const OPTIONS = "divide-y divide-border border-y border-border";

@@ -21,7 +21,7 @@ export function LanguageButton() {
         <button
           type="button"
           aria-label={`${t("chooseLanguage")} — ${current.native}`}
-          className="no-min-h simplified-exempt inline-flex h-10 items-center gap-1.5 rounded-md border border-foreground px-3 text-sm font-bold text-foreground hover:bg-foreground hover:text-background"
+          className="no-min-h simplified-exempt inline-flex h-10 items-center gap-1.5 rounded-md border border-border px-3 text-sm font-bold text-foreground hover:bg-secondary"
         >
           <Globe className="h-4 w-4" aria-hidden="true" />
           <span lang={current.code}>{current.native}</span>

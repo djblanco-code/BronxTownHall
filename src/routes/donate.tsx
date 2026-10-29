@@ -39,7 +39,7 @@ function DonatePage() {
           {[10, 25, 100].map((n) => (
             <button
               key={n}
-              className="no-min-h min-h-16 rounded-md border-2 border-foreground p-4 text-2xl font-bold text-foreground hover:bg-foreground hover:text-background"
+              className="no-min-h min-h-16 rounded-md border border-border p-4 text-2xl font-bold text-foreground hover:bg-secondary"
             >
               ${n}
             </button>

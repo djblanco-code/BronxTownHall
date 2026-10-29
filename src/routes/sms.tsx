@@ -81,7 +81,7 @@ function SmsPage() {
           No smartphone, no data, no app. Send one word by text message and get the nearest open
           Bronx pantry, clinic, or legal clinic right back.
         </p>
-        <div className="mt-6 rounded-md border-2 border-foreground p-4">
+        <div className="mt-6 rounded-md border border-border p-4">
           {SMS_CONFIGURED ? (
             <>
               <p className="text-sm text-muted-foreground">Text a keyword to</p>
@@ -130,7 +130,7 @@ function SmsPage() {
           id="sms-demo"
           value={demo}
           onChange={(e) => setDemo(e.target.value)}
-          className="mt-2 h-12 w-full rounded-md border-2 border-foreground bg-card px-4 text-base uppercase focus-visible:border-primary focus-visible:outline-none"
+          className="mt-2 h-12 w-full rounded-md border border-border bg-card px-4 text-base uppercase focus-visible:border-primary focus-visible:outline-none"
         />
         <pre className="mt-3 rounded-md bg-secondary p-4 font-sans text-sm whitespace-pre-wrap text-foreground">
           {liveReply ?? buildSmsReply(demo)}
@@ -177,7 +177,7 @@ function SmsPage() {
           </Link>
           <Link
             to="/"
-            className="no-min-h inline-flex h-11 items-center rounded-md border-2 border-foreground px-4 text-sm font-bold text-foreground hover:bg-foreground hover:text-background"
+            className="no-min-h inline-flex h-11 items-center rounded-md border border-border px-4 text-sm font-bold text-foreground hover:bg-secondary"
           >
             Browse the app
           </Link>

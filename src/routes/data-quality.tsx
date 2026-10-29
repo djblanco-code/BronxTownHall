@@ -95,10 +95,7 @@ function DataQualityPage() {
           <RecentlyFixedTicker />
         </div>
 
-        <section
-          aria-labelledby="dq-breakdown"
-          className="mt-8 border-t-[3px] border-foreground pt-2"
-        >
+        <section aria-labelledby="dq-breakdown" className="mt-8 pt-2">
           <h2 id="dq-breakdown" className="mb-4 text-lg font-bold sm:text-2xl">
             Verification breakdown
           </h2>
@@ -146,7 +143,7 @@ function DataQualityPage() {
         </section>
 
         <div className="mt-8 grid gap-x-6 sm:grid-cols-2">
-          <div className="border-t-[3px] border-foreground py-3">
+          <div className="py-3">
             <div className="mb-1 flex items-center gap-2">
               <Flag className="h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
               <h3 className="font-bold">See something wrong?</h3>
@@ -156,7 +153,7 @@ function DataQualityPage() {
               auto-hide a resource until a Liaison re-checks it.
             </p>
           </div>
-          <div className="border-t-[3px] border-foreground py-3">
+          <div className="py-3">
             <div className="mb-1 flex items-center gap-2">
               <ShieldCheck className="h-5 w-5 shrink-0 text-success" aria-hidden="true" />
               <h3 className="font-bold">Community Liaison network</h3>
@@ -193,7 +190,7 @@ function Stat({
   tone: "fresh" | "neutral";
 }) {
   return (
-    <div className="border-t-[3px] border-foreground py-3">
+    <div className="py-3">
       <div className="flex items-center gap-2 text-sm text-muted-foreground">
         <span className={tone === "fresh" ? "text-success" : "text-primary"}>{icon}</span>
         <span>{label}</span>

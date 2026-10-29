@@ -81,7 +81,7 @@ function GlobalMapPage() {
 
         <LocationSourceCard className="mb-4" />
 
-        <div className="mb-4 space-y-3 border-t-[3px] border-b border-t-foreground border-b-border pt-2 pb-4">
+        <div className="mb-4 space-y-3 border-y border-border pt-2 pb-4">
           <p className="label-caps text-muted-foreground">Categories</p>
           <div className="flex flex-wrap items-center gap-2">
             {CATEGORIES.map((c) => {
@@ -141,7 +141,7 @@ function GlobalMapPage() {
         {view === "map" && <MapView resources={mapResources} height={560} showHeatmap={heatmap} />}
         {view === "sheet" && <SpreadsheetView rows={sheetRows} />}
         {view === "list" && (
-          <ul className="grid grid-cols-1 border-t-[3px] border-foreground sm:grid-cols-2 sm:gap-x-8">
+          <ul className="grid grid-cols-1 sm:grid-cols-2 sm:gap-x-8">
             {filtered.map((r) => (
               <li key={r.id}>
                 <ResourceCard resource={r} meta={resMeta[r.id]} showCategory />

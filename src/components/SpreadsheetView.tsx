@@ -20,7 +20,7 @@ export type SheetRow = {
 
 export function SpreadsheetView({ rows }: { rows: SheetRow[] }) {
   return (
-    <div className="overflow-x-auto border-t-[3px] border-b border-t-foreground border-b-border">
+    <div className="overflow-x-auto border-y border-border">
       <table className="min-w-full text-sm">
         <thead className="label-caps text-muted-foreground">
           <tr>

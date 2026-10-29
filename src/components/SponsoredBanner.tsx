@@ -54,7 +54,7 @@ export function SponsoredBanner() {
         {isHouse ? (
           <Link
             to="/advertise"
-            className="no-min-h inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-lg border-2 border-foreground/70 text-sm font-semibold hover:bg-foreground hover:text-background transition shrink-0"
+            className="no-min-h inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-lg border border-border/70 text-sm font-semibold hover:bg-secondary transition shrink-0"
           >
             {ctaLabel} <ExternalLink className="h-4 w-4" aria-hidden />
           </Link>
@@ -63,7 +63,7 @@ export function SponsoredBanner() {
             href={ad.cta_url}
             target="_blank"
             rel="noreferrer nofollow sponsored"
-            className="no-min-h inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-lg border-2 border-foreground/70 text-sm font-semibold hover:bg-foreground hover:text-background transition shrink-0"
+            className="no-min-h inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-lg border border-border/70 text-sm font-semibold hover:bg-secondary transition shrink-0"
           >
             {ctaLabel} <ExternalLink className="h-4 w-4" aria-hidden />
           </a>

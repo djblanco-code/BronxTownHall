@@ -56,7 +56,7 @@ function AboutPage() {
           <h2 className={H2}>{t("about.howTitle")}</h2>
           <p>{t("about.how")}</p>
 
-          <div className="mt-10 border-t-[3px] border-foreground pt-3">
+          <div className="mt-10 pt-3">
             <p className="mb-3 font-bold">{t("about.helpTitle")}</p>
             <div className="flex flex-wrap gap-3">
               <Link
@@ -67,7 +67,7 @@ function AboutPage() {
               </Link>
               <Link
                 to="/contact"
-                className="no-min-h inline-flex h-11 items-center rounded-md border-2 border-foreground px-5 text-sm font-bold text-foreground hover:bg-foreground hover:text-background"
+                className="no-min-h inline-flex h-11 items-center rounded-md border border-border px-5 text-sm font-bold text-foreground hover:bg-secondary"
               >
                 {t("about.getInTouch")}
               </Link>
@@ -80,4 +80,4 @@ function AboutPage() {
 }
 
 /** Section headings in running text: a heavy rule above, as on Home. */
-const H2 = "mt-8 border-t-[3px] border-foreground pt-2 text-xl font-bold sm:text-2xl";
+const H2 = "mt-8 pt-2 text-xl font-bold sm:text-2xl";

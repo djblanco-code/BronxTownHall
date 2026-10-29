@@ -170,7 +170,7 @@ function DashboardPage() {
                 await supabase.auth.signOut();
                 navigate({ to: "/" });
               }}
-              className="no-min-h h-11 rounded-md border-2 border-foreground px-4 text-sm font-bold text-foreground hover:bg-foreground hover:text-background"
+              className="no-min-h h-11 rounded-md border border-border px-4 text-sm font-bold text-foreground hover:bg-secondary"
             >
               Sign out
             </button>
@@ -265,7 +265,7 @@ function OrgCard({
   };
 
   return (
-    <section className="space-y-3 border-t-[3px] border-foreground pt-3">
+    <section className="space-y-3 pt-3">
       <div className="flex items-start justify-between gap-3 flex-wrap">
         <div className="flex gap-3">
           {photo ? (
@@ -292,14 +292,14 @@ function OrgCard({
         </div>
         <button
           onClick={onEdit}
-          className="no-min-h inline-flex h-11 items-center gap-1.5 rounded-md border-2 border-foreground px-3 text-sm font-bold text-foreground hover:bg-foreground hover:text-background"
+          className="no-min-h inline-flex h-11 items-center gap-1.5 rounded-md border border-border px-3 text-sm font-bold text-foreground hover:bg-secondary"
         >
           <Pencil className="h-4 w-4" aria-hidden="true" /> Edit listing
         </button>
       </div>
 
       {org.status === "needs_changes" && (
-        <p className="rounded-md border-2 border-foreground p-3 text-sm">
+        <p className="rounded-md border border-border p-3 text-sm">
           A reviewer asked for changes{org.admin_notes ? `: ${org.admin_notes}` : "."} Edit your
           listing and save to send it back.
         </p>

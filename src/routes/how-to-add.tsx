@@ -80,7 +80,7 @@ function HowToAddPage() {
 
 /** Each section's next step: the secondary outline button (docs/design-system.md). */
 const ACTION =
-  "no-min-h inline-flex min-h-11 items-center rounded-md border-2 border-foreground px-5 py-2 text-sm font-bold text-foreground hover:bg-foreground hover:text-background";
+  "no-min-h inline-flex min-h-11 items-center rounded-md border border-border px-5 py-2 text-sm font-bold text-foreground hover:bg-secondary";
 
 function Card({
   title,
@@ -92,7 +92,7 @@ function Card({
   action?: React.ReactNode;
 }) {
   return (
-    <section className="mt-8 border-t-[3px] border-foreground pt-2">
+    <section className="mt-8 pt-2">
       <h2 className="mb-3 text-lg font-bold sm:text-2xl">{title}</h2>
       <ol className="mb-4 space-y-2">
         {steps.map((s, i) => (

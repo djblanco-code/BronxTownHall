@@ -82,7 +82,7 @@ function Section({
 }) {
   return (
     // A ruled group, not a box; the floated legend sits under the rule instead of on it.
-    <fieldset className="min-w-0 border-t-[3px] border-foreground pt-2">
+    <fieldset className="min-w-0 pt-2">
       <legend className="float-start mb-2 w-full text-lg font-bold">{title}</legend>
       <div className="clear-both space-y-3">
         {hint && <p className="-mt-1 text-xs text-muted-foreground">{hint}</p>}

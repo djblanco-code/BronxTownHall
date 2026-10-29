@@ -53,7 +53,7 @@ function RequestResource() {
           <h1 className="text-3xl font-bold text-foreground sm:text-4xl">
             Thanks — request received
           </h1>
-          <div className="mt-6 flex items-start gap-3 border-t-[3px] border-b border-t-foreground border-b-border py-5">
+          <div className="mt-6 flex items-start gap-3 border-y border-border py-5">
             <Inbox className="mt-0.5 h-5 w-5 shrink-0 text-success" aria-hidden="true" />
             <div className="min-w-0 flex-1">
               <p className="text-muted-foreground">

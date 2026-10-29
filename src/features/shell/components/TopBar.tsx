@@ -16,7 +16,7 @@ export function TopBar() {
   const path = useRouterState({ select: (s) => s.location.pathname });
 
   return (
-    <header className="sticky top-0 z-30 border-b border-foreground bg-background">
+    <header className="sticky top-0 z-30 border-b border-border bg-background">
       <div className="mx-auto flex h-14 max-w-5xl items-center gap-3 px-4">
         <Link
           to="/"

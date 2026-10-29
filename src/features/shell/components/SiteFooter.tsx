@@ -10,7 +10,7 @@ import { FOOTER_SECTIONS } from "../nav";
 export function SiteFooter() {
   const { t } = useI18n();
   return (
-    <footer className="mt-12 hidden border-t-[3px] border-foreground lg:block">
+    <footer className="mt-12 hidden lg:block">
       <div className="mx-auto max-w-5xl px-4 py-8">
         <div className="mb-6 grid grid-cols-2 gap-6 md:grid-cols-4">
           {FOOTER_SECTIONS.map((section) => (

@@ -63,7 +63,7 @@ function ContactPage() {
         </p>
 
         {done ? (
-          <div className="flex items-start gap-3 rounded-md border-2 border-foreground p-4">
+          <div className="flex items-start gap-3 rounded-md border border-border p-4">
             <CheckCircle2 className="mt-0.5 h-6 w-6 shrink-0 text-success" aria-hidden="true" />
             <div className="min-w-0">
               <p className="text-lg font-bold">{t("contact.doneTitle")}</p>

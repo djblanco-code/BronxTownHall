@@ -5,8 +5,8 @@ import { CATEGORY_ICONS } from "../lib/category-icons";
 import { OpeningStatusLine } from "./ResourceTile";
 
 /**
- * A listing as one row of a ruled list (Home's "Open tonight"): a line icon
- * and a small capitals label in the category's color, then the name and
+ * A listing as one row of a list (Home's "Open tonight"): a line icon on a
+ * soft tile and a small label in the category's color, then the name and
  * whether it's open. Wrap rows in a `<ul>` with `divide-y`.
  */
 export function ResourceRow({ resource: r }: { resource: Resource }) {
@@ -26,10 +26,20 @@ export function ResourceRow({ resource: r }: { resource: Resource }) {
       <Link
         to="/resource/$id"
         params={{ id: r.id }}
-        className="no-min-h group flex items-start gap-3 py-3"
+        className="no-min-h group flex items-center gap-3 py-3"
         style={category ? { color: category.color } : undefined}
       >
-        <Icon className="mt-4 h-5 w-5 shrink-0" aria-hidden="true" />
+        <span
+          aria-hidden="true"
+          className="grid h-11 w-11 shrink-0 place-items-center rounded-xl"
+          style={
+            category
+              ? { backgroundColor: `color-mix(in oklch, ${category.color} 14%, white)` }
+              : undefined
+          }
+        >
+          <Icon className="h-5 w-5" />
+        </span>
         <span className="min-w-0 flex-1">
           <span className="label-caps block truncate">{label}</span>
           <span className="block font-bold text-foreground group-hover:underline">

@@ -58,10 +58,7 @@ function A11yDemo() {
           <LanguageSelector />
         </div>
 
-        <section
-          aria-labelledby="a11y-sample"
-          className="mt-8 border-t-[3px] border-foreground pt-4"
-        >
+        <section aria-labelledby="a11y-sample" className="mt-8 pt-4">
           <div className="flex items-center gap-3">
             <SpeakButton text={fullText} large label={t("listenAll")} />
             <p className="label-caps text-muted-foreground">{t("listenAll")}</p>

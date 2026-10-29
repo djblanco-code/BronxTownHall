@@ -168,7 +168,7 @@ function HelpPage() {
             e.preventDefault();
             run(input);
           }}
-          className="mt-4 rounded-md border-2 border-foreground bg-card p-3 focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-ring"
+          className="mt-4 rounded-md border border-border bg-card p-3 focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-ring"
         >
           <label htmlFor="need-input" className="sr-only">
             Describe what you need help with
@@ -253,7 +253,7 @@ function HelpPage() {
                     </a>
                     <Link
                       to="/emergency"
-                      className="no-min-h inline-flex min-h-[44px] items-center rounded-md border-2 border-foreground px-4 text-sm font-bold text-foreground hover:bg-foreground hover:text-background"
+                      className="no-min-h inline-flex min-h-[44px] items-center rounded-md border border-border px-4 text-sm font-bold text-foreground hover:bg-secondary"
                     >
                       All hotlines
                     </Link>
@@ -262,7 +262,7 @@ function HelpPage() {
               </div>
             )}
 
-            <div className="mt-6 border-t-[3px] border-foreground pt-3">
+            <div className="mt-6 pt-3">
               <div className="flex items-start gap-2">
                 <Sparkles className="h-5 w-5 text-primary shrink-0 mt-0.5" aria-hidden />
                 <div className="min-w-0 flex-1">
@@ -312,16 +312,14 @@ function HelpPage() {
                 />
                 <button
                   onClick={sharePack}
-                  className="no-min-h inline-flex min-h-[44px] items-center gap-2 rounded-md border-2 border-foreground px-4 text-sm font-bold text-foreground transition-colors hover:bg-foreground hover:text-background"
+                  className="no-min-h inline-flex min-h-[44px] items-center gap-2 rounded-md border border-border px-4 text-sm font-bold text-foreground transition-colors hover:bg-secondary"
                 >
                   <Share2 className="h-4 w-4" aria-hidden /> Send by text
                 </button>
               </div>
             </div>
 
-            <h2 className="mt-8 border-t-[3px] border-foreground pt-2 text-lg font-bold sm:text-2xl">
-              Your 5 resources
-            </h2>
+            <h2 className="mt-8 pt-2 text-lg font-bold sm:text-2xl">Your 5 resources</h2>
             <ol className="mt-1 divide-y divide-border border-y border-border">
               {pack.map((r, i) => {
                 const cat = CATEGORIES.find((c) => c.id === r.category);
@@ -384,7 +382,7 @@ function HelpPage() {
                       <div className="mt-3 flex flex-wrap gap-2 ps-8">
                         <a
                           href={`tel:${r.phone}`}
-                          className="no-min-h inline-flex min-h-[44px] items-center gap-1.5 rounded-md border-2 border-foreground px-3 text-sm font-bold text-foreground transition-colors hover:bg-foreground hover:text-background"
+                          className="no-min-h inline-flex min-h-[44px] items-center gap-1.5 rounded-md border border-border px-3 text-sm font-bold text-foreground transition-colors hover:bg-secondary"
                         >
                           <Phone className="h-4 w-4" aria-hidden /> Call
                         </a>

@@ -14,10 +14,15 @@ export function HelpNowList() {
       <h2 id="home-help-now-title" className="sr-only">
         {t("home.helpNow")}
       </h2>
-      <ul className="divide-y divide-border border-t-[3px] border-b border-t-destructive border-b-border">
+      <ul className="divide-y divide-border border-y border-border">
         <li>
-          <Link to="/emergency" className="no-min-h group flex items-start gap-3 py-3">
-            <Phone className="mt-0.5 h-5 w-5 shrink-0 text-destructive" aria-hidden="true" />
+          <Link to="/emergency" className="no-min-h group flex items-center gap-3 py-3">
+            <span
+              aria-hidden="true"
+              className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-destructive text-destructive-foreground"
+            >
+              <Phone className="h-5 w-5" />
+            </span>
             <span className="min-w-0 flex-1">
               <span className="block font-bold text-destructive group-hover:underline">
                 {t("interface.emergencyHelp")}

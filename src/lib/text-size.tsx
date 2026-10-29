@@ -85,7 +85,7 @@ export function TextSizeControl({ className = "" }: { className?: string }) {
     <div
       role="group"
       aria-label="Text size"
-      className={`inline-flex items-center rounded-md border border-foreground p-0.5 ${className}`}
+      className={`inline-flex items-center rounded-md border border-border p-0.5 ${className}`}
     >
       {TEXT_SIZES.map((s, i) => (
         <button

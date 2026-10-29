@@ -146,7 +146,7 @@ function ContactModal({ o, onClose }: { o: Official; onClose: () => void }) {
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
-        className="max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-md border border-foreground bg-card p-5 shadow-xl"
+        className="max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-md border border-border bg-card p-5 shadow-xl"
         onClick={(e) => e.stopPropagation()}
       >
         <h3
@@ -478,7 +478,7 @@ export function CivicPage() {
           <ArrowLeft className="h-4 w-4 rtl:rotate-180" aria-hidden="true" /> {t("back")}
         </button>
 
-        <header className="mt-1 flex items-start gap-3 border-b-[3px] border-double border-foreground pb-4">
+        <header className="mt-1 flex items-start gap-3 pb-4">
           <div className="min-w-0 flex-1">
             <h1 className="text-3xl font-extrabold text-foreground sm:text-4xl">
               Your Voice in the Bronx
@@ -521,7 +521,7 @@ export function CivicPage() {
                 placeholder="e.g. 10462"
                 inputMode="numeric"
                 maxLength={5}
-                className="h-11 w-full min-w-0 flex-1 rounded-md border-2 border-foreground bg-background px-4 text-base text-foreground focus-visible:border-primary focus-visible:outline-none"
+                className="h-11 w-full min-w-0 flex-1 rounded-md border border-border bg-background px-4 text-base text-foreground focus-visible:border-primary focus-visible:outline-none"
                 aria-label="Bronx zip code"
               />
               <button type="submit" className={PRIMARY_BTN}>

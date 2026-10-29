@@ -71,7 +71,7 @@ function ListsPage() {
       <AppShell>
         <div className="mx-auto max-w-3xl px-4 py-6">
           <h1 className="text-3xl font-bold text-foreground sm:text-4xl">My Lists</h1>
-          <div className="mt-6 flex items-start gap-3 border-t-[3px] border-b border-t-foreground border-b-border py-5">
+          <div className="mt-6 flex items-start gap-3 border-y border-border py-5">
             <ListPlus
               className="mt-0.5 h-5 w-5 shrink-0 text-muted-foreground"
               aria-hidden="true"
@@ -134,7 +134,7 @@ function ListsPage() {
         ) : lists.length === 0 ? (
           <p className="border-y border-border py-4 text-muted-foreground">No lists yet.</p>
         ) : (
-          <ul className="divide-y divide-border border-t-[3px] border-b border-t-foreground border-b-border">
+          <ul className="divide-y divide-border border-y border-border">
             {lists.map((l) => (
               <li key={l.id} className="flex items-center gap-2 py-2">
                 <div className="min-w-0 flex-1 py-1">

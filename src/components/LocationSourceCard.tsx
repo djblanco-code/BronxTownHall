@@ -57,7 +57,7 @@ export function LocationSourceCard({ className = "" }: { className?: string }) {
             {live ? (
               <button
                 onClick={useZipOnly}
-                className="no-min-h inline-flex min-h-[44px] items-center gap-1.5 rounded-md border-2 border-foreground px-3 py-2 text-sm font-bold text-foreground transition-colors hover:bg-foreground hover:text-background"
+                className="no-min-h inline-flex min-h-[44px] items-center gap-1.5 rounded-md border border-border px-3 py-2 text-sm font-bold text-foreground transition-colors hover:bg-secondary"
               >
                 <MapPin className="h-3.5 w-3.5" aria-hidden /> Switch back to zip code only
               </button>
@@ -65,7 +65,7 @@ export function LocationSourceCard({ className = "" }: { className?: string }) {
               <button
                 onClick={enableLive}
                 disabled={status === "requesting" || !supported}
-                className="no-min-h inline-flex min-h-[44px] items-center gap-1.5 rounded-md border-2 border-foreground px-3 py-2 text-sm font-bold text-foreground transition-colors hover:bg-foreground hover:text-background disabled:opacity-60"
+                className="no-min-h inline-flex min-h-[44px] items-center gap-1.5 rounded-md border border-border px-3 py-2 text-sm font-bold text-foreground transition-colors hover:bg-secondary disabled:opacity-60"
               >
                 {status === "requesting" ? (
                   <>
