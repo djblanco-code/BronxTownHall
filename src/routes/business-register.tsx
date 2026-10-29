@@ -1,9 +1,9 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/business-register")({
-  staticData: { sitemap: true },
+  staticData: { sitemap: false },
   beforeLoad: () => {
-    throw redirect({ to: "/auth" });
+    throw redirect({ to: "/portal" });
   },
   component: () => null,
 });

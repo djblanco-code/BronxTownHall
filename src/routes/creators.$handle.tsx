@@ -24,6 +24,7 @@ export const Route = createFileRoute("/creators/$handle")({
   component: CreatorPage,
   head: ({ params }) => ({
     meta: [
+      { name: "robots", content: "noindex" },
       { title: `${params.handle}'s Bronx Picks — The Bronx App` },
       {
         name: "description",

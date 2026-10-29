@@ -36,7 +36,7 @@ function FaqPage() {
       q: t("faq.q3"),
       a: (
         <>
-          {t("faq.a3")} — {link("/business-register", t("faq.linkRegister"))}
+          {t("faq.a3")} — {link("/portal", t("faq.linkRegister"))}
         </>
       ),
     },

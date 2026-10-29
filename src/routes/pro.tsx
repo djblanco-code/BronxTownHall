@@ -17,10 +17,11 @@ import { toast } from "sonner";
 import { Briefcase, Download, Trash2, BadgeCheck } from "lucide-react";
 
 export const Route = createFileRoute("/pro")({
-  staticData: { sitemap: true },
+  staticData: { sitemap: false },
   component: ProPortal,
   head: () => ({
     meta: [
+      { name: "robots", content: "noindex" },
       { title: "Professional Portal — The Bronx App" },
       {
         name: "description",

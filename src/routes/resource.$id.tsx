@@ -27,7 +27,6 @@ import { trackUsage } from "@/lib/personalization";
 import { useResourceMeta } from "@/lib/resource-meta";
 import { VerifiedPill } from "@/components/VerifiedPill";
 import { AvailabilityBadge, CallAheadNote } from "@/components/AvailabilityBadge";
-import { FeaturedByCreators } from "@/components/FeaturedByCreators";
 import type { VerificationStatus } from "@/lib/verification";
 import { getProfile } from "@/lib/onboarding";
 import { SuggestEditModal } from "@/components/SuggestEditModal";
@@ -278,7 +277,6 @@ function ResourcePage() {
             </span>
           </p>
         )}
-        <FeaturedByCreators targetId={res.id} />
 
         <div className="mt-3">
           <CoachMark
