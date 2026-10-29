@@ -7,8 +7,8 @@ import { getProfile, saveProfile, useProfile } from "@/lib/onboarding";
 const KEY = "bronx.simplerViewBannerDismissed";
 
 /**
- * One-row, one-time offer of Simplified View, for people who need bigger
- * text before they struggle with the rest of the screen.
+ * A slim, one-time strip under the masthead offering Simplified View, for
+ * people who need bigger text before they struggle with the rest of the screen.
  */
 export function SimplerViewPrompt() {
   const { t } = useI18n();
@@ -35,19 +35,16 @@ export function SimplerViewPrompt() {
   if (!show || profile.simplifiedMode) return null;
 
   return (
-    <div className="mx-auto mt-4 max-w-5xl px-4">
-      <div
-        role="region"
-        aria-label={t("home.simplerTitle")}
-        className="flex items-center gap-3 rounded-2xl border border-primary/25 bg-primary/5 p-3"
-      >
-        <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-primary/10 text-primary">
-          <Accessibility className="h-5 w-5" aria-hidden="true" />
-        </span>
-        <div className="min-w-0 flex-1">
-          <p className="text-sm font-semibold text-foreground">{t("home.simplerTitle")}</p>
-          <p className="text-xs text-muted-foreground">{t("home.simplerBody")}</p>
-        </div>
+    <div
+      role="region"
+      aria-label={t("home.simplerTitle")}
+      className="border-b border-border bg-card"
+    >
+      <div className="mx-auto flex max-w-5xl items-center gap-3 px-4 py-2">
+        <Accessibility className="h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
+        <p className="min-w-0 flex-1 text-sm font-semibold text-foreground">
+          {t("home.simplerTitle")}
+        </p>
         <button
           type="button"
           onClick={() => {
@@ -55,7 +52,7 @@ export function SimplerViewPrompt() {
             toast.success(t("home.simplerToast"));
             dismiss();
           }}
-          className="no-min-h h-10 shrink-0 rounded-full bg-primary px-4 text-sm font-semibold text-primary-foreground hover:bg-primary/90"
+          className="no-min-h h-9 shrink-0 rounded-full bg-primary px-4 text-sm font-semibold text-primary-foreground hover:bg-primary/90"
         >
           {t("home.simplerOn")}
         </button>

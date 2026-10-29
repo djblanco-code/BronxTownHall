@@ -8,6 +8,7 @@ import {
   Search,
   ShieldCheck,
 } from "lucide-react";
+import type { CategoryMeta } from "@/lib/data";
 import { useI18n } from "@/lib/i18n-context";
 import { BRONX_NEIGHBORHOODS } from "@/lib/neighborhoods";
 import { useResourceMeta } from "@/lib/resource-meta";
@@ -31,15 +32,18 @@ const PLACEHOLDERS = [
 ];
 
 /**
- * Top of Home: a greeting for the time of day and neighborhood, then one
- * search field (voice inside it) and two quiet trust lines.
+ * Top of Home: the date and greeting, one search field (voice inside it),
+ * a row of one-tap needs led by "Ask a question", and two short trust links.
  */
 export function HomeHero({
   neighborhood,
   onNeighborhoodChange,
+  needs,
 }: {
   neighborhood: string;
   onNeighborhoodChange: (value: string) => void;
+  /** Categories for the one-tap chips under search, most relevant first. */
+  needs: CategoryMeta[];
 }) {
   const { t, lang } = useI18n();
   const nav = useNavigate();
@@ -72,7 +76,7 @@ export function HomeHero({
       >
         BX
       </span>
-      <div className="mx-auto max-w-5xl px-4 pt-3 pb-6 lg:pt-8 lg:pb-12">
+      <div className="mx-auto max-w-5xl px-4 pt-3 pb-5 lg:pt-8 lg:pb-10">
         <div className="flex items-center justify-between gap-3">
           <label className="relative inline-flex min-w-0 items-center">
             <span className="sr-only">{t("interface.neighborhood")}</span>
@@ -111,7 +115,7 @@ export function HomeHero({
             e.preventDefault();
             search(query);
           }}
-          className="mt-5 lg:mt-7 lg:max-w-3xl"
+          className="mt-4 lg:mt-7 lg:max-w-3xl"
         >
           <div
             id="search-bar"
@@ -138,45 +142,50 @@ export function HomeHero({
           </div>
         </form>
 
-        <div className="mt-3 flex flex-wrap gap-2">
-          <Link to="/ask" className={GHOST_CHIP}>
-            <MessageCircleQuestion className="h-4 w-4" aria-hidden="true" />
-            {t("home.askQuestion")}
-          </Link>
-          <Link to="/search" search={{ q: "" }} className={GHOST_CHIP}>
-            <Search className="h-4 w-4" aria-hidden="true" />
-            {t("interface.keywordSearch")}
-          </Link>
-        </div>
-
-        <ul className="mt-5 flex flex-col gap-1.5 text-xs text-white/75 sm:flex-row sm:flex-wrap sm:gap-x-5">
-          <li className="flex items-start gap-1.5">
-            <ShieldCheck className="mt-px h-3.5 w-3.5 shrink-0 text-[#4ade80]" aria-hidden="true" />
-            <span>
-              {t("listing.trustLine")}{" "}
-              <Link
-                to="/data-quality"
-                className="font-semibold text-white underline-offset-2 hover:underline"
-              >
-                {verifiedThisWeek > 0
-                  ? t("interface.verifiedWeek", { count: verifiedThisWeek })
-                  : t("interface.howVerifyListings")}
-              </Link>
-            </span>
+        {/* One tap to a need, Google Maps–style; asking in your own words comes first. */}
+        <ul
+          aria-label={t("interface.browseCategory")}
+          className="-mx-4 mt-3 flex gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] lg:mx-0 lg:flex-wrap lg:overflow-visible lg:px-0"
+        >
+          <li className="shrink-0">
+            <Link to="/ask" className={GHOST_CHIP}>
+              <MessageCircleQuestion className="h-4 w-4" aria-hidden="true" />
+              {t("home.askQuestion")}
+            </Link>
           </li>
-          <li className="flex items-start gap-1.5">
-            <Lock className="mt-px h-3.5 w-3.5 shrink-0" aria-hidden="true" />
-            <span>
-              {t("interface.privacySearch")}{" "}
+          {needs.map((c) => (
+            <li key={c.id} className="shrink-0">
               <Link
-                to="/privacy"
-                className="font-semibold text-white underline-offset-2 hover:underline"
+                {...(c.id === "government"
+                  ? { to: "/civic" as const }
+                  : { to: "/category/$cat" as const, params: { cat: c.id } })}
+                className={GHOST_CHIP}
               >
-                {t("interface.privacyLink")}
+                <span aria-hidden="true">{c.emoji}</span>
+                {t(c.labelKey)}
               </Link>
-            </span>
-          </li>
+            </li>
+          ))}
         </ul>
+
+        <p className="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-xs text-white/75">
+          <Link
+            to="/data-quality"
+            className="inline-flex items-center gap-1.5 underline-offset-2 hover:text-white hover:underline"
+          >
+            <ShieldCheck className="h-3.5 w-3.5 shrink-0 text-[#4ade80]" aria-hidden="true" />
+            {verifiedThisWeek > 0
+              ? t("interface.verifiedWeek", { count: verifiedThisWeek })
+              : t("interface.howVerifyListings")}
+          </Link>
+          <Link
+            to="/privacy"
+            className="inline-flex items-center gap-1.5 underline-offset-2 hover:text-white hover:underline"
+          >
+            <Lock className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+            {t("interface.privacyLink")}
+          </Link>
+        </p>
       </div>
       <SubwayStripe />
     </section>
@@ -201,7 +210,7 @@ function Greeting({ neighborhood }: { neighborhood: string }) {
   const { t, lang } = useI18n();
   const now = useNycTime();
   const locale = LANGS.find((l) => l.code === lang)?.bcp47;
-  if (!now) return <p className="mt-5 h-4 lg:mt-8" aria-hidden="true" />;
+  if (!now) return <p className="mt-4 h-4 lg:mt-8" aria-hidden="true" />;
   const greeting = t(`home.${greetingKey(now.minutes)}`);
   const date = new Date().toLocaleDateString(locale, {
     weekday: "short",
@@ -212,7 +221,7 @@ function Greeting({ neighborhood }: { neighborhood: string }) {
   return (
     <p
       className={cn(
-        "mt-5 flex min-h-4 items-start gap-2 text-xs font-bold text-white/75 uppercase lg:mt-8",
+        "mt-4 flex min-h-4 items-start gap-2 text-xs font-bold text-white/75 uppercase lg:mt-8",
         // Letter-spacing breaks joined scripts (Arabic) and Bengali conjuncts.
         LATIN.has(lang) && "tracking-[0.12em]",
       )}
