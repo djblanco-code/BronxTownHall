@@ -63,7 +63,7 @@ export function TtsPlayer() {
             <button
               disabled
               aria-label="Loading audio"
-              className="no-min-h h-10 w-10 rounded-full grid place-items-center bg-primary text-primary-foreground opacity-80"
+              className="no-min-h h-10 w-10 rounded-full grid place-items-center bg-primary-fill text-primary-fill-foreground opacity-80"
             >
               <Loader2 className="h-5 w-5 animate-spin" />
             </button>
@@ -71,7 +71,7 @@ export function TtsPlayer() {
             <button
               onClick={pause}
               aria-label="Pause"
-              className="no-min-h h-10 w-10 rounded-full grid place-items-center bg-primary text-primary-foreground hover:bg-primary/90"
+              className="no-min-h h-10 w-10 rounded-full grid place-items-center bg-primary-fill text-primary-fill-foreground hover:bg-primary-fill-hover"
             >
               <Pause className="h-5 w-5" />
             </button>
@@ -79,7 +79,7 @@ export function TtsPlayer() {
             <button
               onClick={resume}
               aria-label="Play"
-              className="no-min-h h-10 w-10 rounded-full grid place-items-center bg-primary text-primary-foreground hover:bg-primary/90"
+              className="no-min-h h-10 w-10 rounded-full grid place-items-center bg-primary-fill text-primary-fill-foreground hover:bg-primary-fill-hover"
             >
               <Play className="h-5 w-5" />
             </button>

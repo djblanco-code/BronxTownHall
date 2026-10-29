@@ -96,7 +96,7 @@ export function VoiceSearchButton({
         "no-min-h relative inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full transition",
         listening
           ? "bg-destructive text-destructive-foreground"
-          : "bg-primary text-primary-foreground hover:bg-primary/90",
+          : "bg-primary-fill text-primary-fill-foreground hover:bg-primary-fill-hover",
         // Callers restyle the idle button; while listening it always reads as "stop".
         className,
         listening && "bg-destructive text-destructive-foreground hover:bg-destructive",

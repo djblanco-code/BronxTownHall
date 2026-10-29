@@ -138,7 +138,7 @@ export function AdInquiryForm() {
       <button
         type="submit"
         disabled={status === "loading"}
-        className="no-min-h inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-md bg-primary py-3 font-bold text-primary-foreground hover:bg-primary/90 disabled:opacity-60"
+        className="no-min-h inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-md bg-primary-fill py-3 font-bold text-primary-fill-foreground hover:bg-primary-fill-hover disabled:opacity-60"
       >
         {status === "loading" ? (
           <Loader2 className="h-5 w-5 animate-spin" aria-hidden />

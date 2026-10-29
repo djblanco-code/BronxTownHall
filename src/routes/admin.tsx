@@ -81,7 +81,7 @@ function AdminPage() {
           </p>
           <Link
             to="/auth"
-            className="inline-block py-2.5 px-4 rounded-lg bg-primary text-primary-foreground font-semibold"
+            className="inline-block py-2.5 px-4 rounded-lg bg-primary-fill text-primary-fill-foreground font-semibold"
           >
             Sign in
           </Link>
@@ -225,7 +225,7 @@ function AdminPage() {
             </button>
             <Link
               to="/admin/analytics"
-              className="no-min-h inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg bg-primary text-primary-foreground text-sm font-semibold min-h-[44px]"
+              className="no-min-h inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg bg-primary-fill text-primary-fill-foreground text-sm font-semibold min-h-[44px]"
             >
               View analytics
             </Link>

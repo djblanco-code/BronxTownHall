@@ -179,7 +179,7 @@ export function FilterPanel({
             onApply(local);
             onClose();
           }}
-          className="no-min-h flex-1 px-4 py-3 rounded-md bg-primary text-primary-foreground font-bold min-h-[44px]"
+          className="no-min-h flex-1 px-4 py-3 rounded-md bg-primary-fill text-primary-fill-foreground font-bold min-h-[44px]"
         >
           {t("interface.showResults", { count: resultCount })}
         </button>

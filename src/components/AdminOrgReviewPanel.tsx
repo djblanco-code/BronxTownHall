@@ -264,7 +264,7 @@ export function AdminOrgReviewPanel() {
                   onClick={() =>
                     act(() => setOrgStatus(o.id, "verified", user!.id), "Marked verified.")
                   }
-                  className="no-min-h px-3 py-1.5 rounded-lg bg-primary text-primary-foreground text-sm font-semibold"
+                  className="no-min-h px-3 py-1.5 rounded-lg bg-primary-fill text-primary-fill-foreground text-sm font-semibold"
                 >
                   Mark verified
                 </button>
@@ -364,7 +364,7 @@ function FieldRow({
             disabled={confirmed}
             aria-pressed={on}
             onClick={() => setSel(on ? sel.filter((x) => x !== f) : [...sel, f])}
-            className={`no-min-h rounded-full px-2.5 py-1 text-xs font-semibold border-2 ${confirmed ? "border-success/40 bg-success/15 text-success" : on ? "border-primary bg-primary text-primary-foreground" : "border-border"}`}
+            className={`no-min-h rounded-full px-2.5 py-1 text-xs font-semibold border-2 ${confirmed ? "border-success/40 bg-success/15 text-success" : on ? "border-primary bg-primary-fill text-primary-fill-foreground" : "border-border"}`}
           >
             {FIELD_LABELS[f] ?? f}
             {confirmed ? " ✓" : ""}
@@ -377,7 +377,7 @@ function FieldRow({
             onConfirm(sel);
             setSel([]);
           }}
-          className="no-min-h px-3 py-1 rounded-lg bg-primary text-primary-foreground text-xs font-semibold"
+          className="no-min-h px-3 py-1 rounded-lg bg-primary-fill text-primary-fill-foreground text-xs font-semibold"
         >
           Confirm {sel.length}
         </button>

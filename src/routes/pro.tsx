@@ -77,7 +77,7 @@ function ProPortal() {
           </p>
           <Link
             to="/auth"
-            className="inline-block px-5 py-3 rounded-xl bg-primary text-primary-foreground font-semibold"
+            className="inline-block px-5 py-3 rounded-xl bg-primary-fill text-primary-fill-foreground font-semibold"
           >
             Sign in
           </Link>
@@ -204,7 +204,7 @@ function ProPortal() {
             <div className="sm:col-span-2">
               <button
                 disabled={saving}
-                className="px-4 py-2 rounded-lg bg-primary text-primary-foreground font-semibold disabled:opacity-50"
+                className="px-4 py-2 rounded-lg bg-primary-fill text-primary-fill-foreground font-semibold disabled:opacity-50"
               >
                 {profile ? "Save changes" : "Create profile"}
               </button>

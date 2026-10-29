@@ -94,7 +94,7 @@ export function FlagBusinessModal({
           </p>
           <button
             onClick={onClose}
-            className="no-min-h mt-2 px-5 py-2.5 rounded-lg bg-primary text-primary-foreground font-semibold min-h-[44px]"
+            className="no-min-h mt-2 px-5 py-2.5 rounded-lg bg-primary-fill text-primary-fill-foreground font-semibold min-h-[44px]"
           >
             Close
           </button>

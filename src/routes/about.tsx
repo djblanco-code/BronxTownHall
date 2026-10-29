@@ -61,7 +61,7 @@ function AboutPage() {
             <div className="flex flex-wrap gap-3">
               <Link
                 to="/how-to-add"
-                className="no-min-h inline-flex h-11 items-center rounded-md bg-primary px-5 text-sm font-bold text-primary-foreground hover:bg-primary/90"
+                className="no-min-h inline-flex h-11 items-center rounded-md bg-primary-fill px-5 text-sm font-bold text-primary-fill-foreground hover:bg-primary-fill-hover"
               >
                 {t("about.addResource")}
               </Link>

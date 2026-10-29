@@ -96,7 +96,7 @@ function ConnectedPage() {
               ) : waStep === "idle" ? (
                 <button
                   onClick={() => setWaStep("code")}
-                  className="px-3 py-1.5 rounded-lg bg-primary text-primary-foreground text-sm font-semibold"
+                  className="px-3 py-1.5 rounded-lg bg-primary-fill text-primary-fill-foreground text-sm font-semibold"
                 >
                   Connect
                 </button>
@@ -171,7 +171,7 @@ function Row({
       ) : (
         <button
           onClick={onConnect}
-          className="px-3 py-1.5 rounded-lg bg-primary text-primary-foreground text-sm font-semibold"
+          className="px-3 py-1.5 rounded-lg bg-primary-fill text-primary-fill-foreground text-sm font-semibold"
         >
           Connect
         </button>

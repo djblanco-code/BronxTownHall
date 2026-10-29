@@ -153,7 +153,10 @@ export function HomeHero({
         className="-mx-3 mt-3 flex gap-2 overflow-x-auto px-3 pb-1 [scrollbar-width:none] lg:mx-0 lg:flex-wrap lg:overflow-visible lg:px-0"
       >
         <li className="shrink-0">
-          <Link to="/ask" className={cn(CHIP, "border-primary bg-primary text-primary-foreground")}>
+          <Link
+            to="/ask"
+            className={cn(CHIP, "border-primary bg-primary-fill text-primary-fill-foreground")}
+          >
             {t("home.askQuestion")}
           </Link>
         </li>

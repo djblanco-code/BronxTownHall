@@ -89,7 +89,7 @@ function DashboardPage() {
           <p className="text-muted-foreground">Organization accounts sign in here.</p>
           <Link
             to="/portal"
-            className="no-min-h inline-flex h-11 items-center rounded-md bg-primary px-5 font-semibold text-primary-foreground hover:bg-primary/90"
+            className="no-min-h inline-flex h-11 items-center rounded-md bg-primary-fill px-5 font-semibold text-primary-fill-foreground hover:bg-primary-fill-hover"
           >
             Go to the organization portal
           </Link>
@@ -161,7 +161,7 @@ function DashboardPage() {
           <div className="flex gap-2">
             <Link
               to="/portal"
-              className="no-min-h inline-flex h-11 items-center gap-1.5 rounded-md bg-primary px-4 text-sm font-semibold text-primary-foreground hover:bg-primary/90"
+              className="no-min-h inline-flex h-11 items-center gap-1.5 rounded-md bg-primary-fill px-4 text-sm font-semibold text-primary-fill-foreground hover:bg-primary-fill-hover"
             >
               <Plus className="h-4 w-4" aria-hidden="true" /> Add another
             </Link>
@@ -432,7 +432,7 @@ function OfficialUpdateBox({ org, userId }: { org: OrgAccount; userId: string })
         <button
           onClick={post}
           disabled={busy || !body.trim()}
-          className="no-min-h h-11 rounded-md bg-primary px-4 text-sm font-semibold text-primary-foreground hover:bg-primary/90 disabled:opacity-50"
+          className="no-min-h h-11 rounded-md bg-primary-fill px-4 text-sm font-semibold text-primary-fill-foreground hover:bg-primary-fill-hover disabled:opacity-50"
         >
           {busy ? "Posting…" : "Post"}
         </button>

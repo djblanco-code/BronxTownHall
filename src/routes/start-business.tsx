@@ -37,7 +37,7 @@ function StartBusinessPage() {
         </Link>
 
         {/* Hero */}
-        <section className="rounded-3xl bg-gradient-to-br from-primary via-primary to-accent text-primary-foreground p-6 sm:p-10 shadow-lg">
+        <section className="rounded-3xl bg-gradient-to-br from-primary via-primary to-accent text-primary-fill-foreground p-6 sm:p-10 shadow-lg">
           <div className="flex items-start gap-3">
             <div className="h-12 w-12 rounded-2xl bg-white/20 grid place-items-center shrink-0">
               <Rocket className="h-7 w-7" aria-hidden />
@@ -172,7 +172,7 @@ function StartBusinessPage() {
                   <a
                     href={`tel:${a.phone.replace(/[^0-9+]/g, "")}`}
                     data-call-now
-                    className="no-min-h inline-flex items-center gap-1.5 px-3 py-2 rounded-full bg-primary text-primary-foreground text-sm font-semibold min-h-[44px]"
+                    className="no-min-h inline-flex items-center gap-1.5 px-3 py-2 rounded-full bg-primary-fill text-primary-fill-foreground text-sm font-semibold min-h-[44px]"
                   >
                     <Phone className="h-4 w-4" aria-hidden /> {a.phone}
                   </a>
@@ -290,7 +290,7 @@ function StartBusinessPage() {
           </div>
           <Link
             to="/businesses"
-            className="no-min-h inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-primary text-primary-foreground font-semibold text-sm hover:opacity-90"
+            className="no-min-h inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-primary-fill text-primary-fill-foreground font-semibold text-sm hover:opacity-90"
           >
             Browse the directory →
           </Link>

@@ -36,7 +36,7 @@ export function SiteFooter() {
             <h3 className="mb-2 text-sm font-bold">{t("common.footerSupport")}</h3>
             <Link
               to="/donate"
-              className="no-min-h inline-flex items-center gap-1.5 rounded-md bg-primary px-4 py-2 text-sm font-bold text-primary-foreground hover:bg-primary/90"
+              className="no-min-h inline-flex items-center gap-1.5 rounded-md bg-primary-fill px-4 py-2 text-sm font-bold text-primary-fill-foreground hover:bg-primary-fill-hover"
             >
               <Heart className="h-4 w-4" fill="currentColor" aria-hidden="true" />{" "}
               {t("common.footerDonate")}

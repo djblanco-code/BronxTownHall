@@ -146,7 +146,7 @@ function AuthPage() {
           <button
             type="submit"
             disabled={busy}
-            className="no-min-h inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-md bg-primary py-3 font-bold text-primary-foreground hover:bg-primary/90 disabled:opacity-50"
+            className="no-min-h inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-md bg-primary-fill py-3 font-bold text-primary-fill-foreground hover:bg-primary-fill-hover disabled:opacity-50"
           >
             <Mail className="h-4 w-4" aria-hidden="true" />{" "}
             {busy ? "Working…" : mode === "sign-up" ? "Create account" : "Sign in"}

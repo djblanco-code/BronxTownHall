@@ -169,7 +169,7 @@ function DashboardPage() {
           </p>
           <Link
             to="/advertise"
-            className="no-min-h mt-3 inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90"
+            className="no-min-h mt-3 inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-primary-fill text-primary-fill-foreground text-sm font-semibold hover:bg-primary-fill-hover"
           >
             Advertise with us
           </Link>
@@ -187,7 +187,7 @@ function DashboardPage() {
           </Link>
           <Link
             to="/business-update"
-            className="no-min-h inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90"
+            className="no-min-h inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-primary-fill text-primary-fill-foreground text-sm font-semibold hover:bg-primary-fill-hover"
           >
             Post an Update
           </Link>

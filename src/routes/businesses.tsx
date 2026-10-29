@@ -171,7 +171,7 @@ function BusinessesPage() {
         </Link>
 
         {/* Hero */}
-        <section className="rounded-3xl bg-gradient-to-br from-accent to-primary text-primary-foreground p-6 sm:p-8 shadow-lg">
+        <section className="rounded-3xl bg-gradient-to-br from-accent to-primary text-primary-fill-foreground p-6 sm:p-8 shadow-lg">
           <div className="flex items-start gap-3">
             <div className="h-12 w-12 rounded-2xl bg-white/20 grid place-items-center shrink-0">
               <Briefcase className="h-7 w-7" aria-hidden />
@@ -215,7 +215,7 @@ function BusinessesPage() {
                 onClick={() => setCat(c)}
                 className={`no-min-h text-sm px-3 py-2 rounded-full border-2 transition ${
                   active
-                    ? "border-primary bg-primary text-primary-foreground"
+                    ? "border-primary bg-primary-fill text-primary-fill-foreground"
                     : "border-border bg-card hover:border-primary"
                 }`}
               >
@@ -341,7 +341,7 @@ function BusinessesPage() {
                       <a
                         href={`tel:${b.phone.replace(/[^0-9+]/g, "")}`}
                         data-call-now
-                        className="no-min-h mt-3 inline-flex items-center gap-1.5 self-start px-3 py-2 rounded-full bg-primary text-primary-foreground text-sm font-semibold min-h-[44px]"
+                        className="no-min-h mt-3 inline-flex items-center gap-1.5 self-start px-3 py-2 rounded-full bg-primary-fill text-primary-fill-foreground text-sm font-semibold min-h-[44px]"
                       >
                         <Phone className="h-4 w-4" aria-hidden /> {b.phone}
                       </a>

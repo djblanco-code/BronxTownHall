@@ -77,7 +77,7 @@ export function ReportModal({
           </p>
           <button
             onClick={onClose}
-            className="no-min-h mt-2 px-5 py-2.5 rounded-lg bg-primary text-primary-foreground font-semibold min-h-[44px]"
+            className="no-min-h mt-2 px-5 py-2.5 rounded-lg bg-primary-fill text-primary-fill-foreground font-semibold min-h-[44px]"
           >
             {t("interface.close")}
           </button>
@@ -140,7 +140,7 @@ export function ReportModal({
           <button
             type="submit"
             disabled={submitting || !issue}
-            className="no-min-h w-full py-3 rounded-lg bg-primary text-primary-foreground font-semibold hover:bg-primary/90 disabled:opacity-60 min-h-[44px]"
+            className="no-min-h w-full py-3 rounded-lg bg-primary-fill text-primary-fill-foreground font-semibold hover:bg-primary-fill-hover disabled:opacity-60 min-h-[44px]"
           >
             {submitting ? t("interface.sending") : t("interface.submitReport")}
           </button>

@@ -326,7 +326,7 @@ function ResourcePage() {
               trackUsage(res.id, "call");
               trackCallClicked({ resourceId: res.id, category: res.category, phone: res.phone });
             }}
-            className="no-min-h inline-flex items-center justify-center gap-2 py-3 rounded-md bg-primary text-primary-foreground font-bold hover:bg-primary/90 transition-colors min-h-[52px]"
+            className="no-min-h inline-flex items-center justify-center gap-2 py-3 rounded-md bg-primary-fill text-primary-fill-foreground font-bold hover:bg-primary-fill-hover transition-colors min-h-[52px]"
           >
             <Phone className="h-5 w-5" aria-hidden /> {t("callNow")}
           </a>

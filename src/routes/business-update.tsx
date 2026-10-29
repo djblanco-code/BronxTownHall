@@ -117,7 +117,7 @@ function UpdatePage() {
           <button
             disabled={!text}
             onClick={shareUpdate}
-            className="px-4 py-2 rounded-lg bg-primary text-primary-foreground font-semibold disabled:opacity-50"
+            className="px-4 py-2 rounded-lg bg-primary-fill text-primary-fill-foreground font-semibold disabled:opacity-50"
           >
             Share Update
           </button>

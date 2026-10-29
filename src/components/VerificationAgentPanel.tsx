@@ -86,7 +86,7 @@ export function VerificationAgentPanel() {
         <button
           onClick={runNow}
           disabled={running}
-          className="px-3 py-1.5 rounded-lg bg-primary text-primary-foreground text-sm font-semibold inline-flex items-center gap-1.5 disabled:opacity-60"
+          className="px-3 py-1.5 rounded-lg bg-primary-fill text-primary-fill-foreground text-sm font-semibold inline-flex items-center gap-1.5 disabled:opacity-60"
         >
           {running ? (
             <Loader2 className="h-4 w-4 animate-spin" aria-hidden />

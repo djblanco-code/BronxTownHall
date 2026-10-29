@@ -18,15 +18,16 @@ The reference implementation is Home (`src/features/home`).
 
 ## Color
 
-| Token                       | Use                                                                       |
-| --------------------------- | ------------------------------------------------------------------------- |
-| `foreground` / `background` | Navy text on plain white                                                  |
-| `border`                    | Hairlines between rows, borders on cards and inputs                       |
-| `primary` (subway blue)     | Links, the main button, the active tab, icon tiles for civic rows         |
-| `bronx-orange`              | Voice and read-aloud buttons, the accent word on a photo. Navy text on it |
-| `destructive`               | Crisis and SOS only                                                       |
-| `success`                   | "Open now" status                                                         |
-| `--cat-*`                   | A category's icon and label color; a 14% tint of it behind the icon tile  |
+| Token                        | Use                                                                       |
+| ---------------------------- | ------------------------------------------------------------------------- |
+| `foreground` / `background`  | Navy text on plain white                                                  |
+| `border`                     | Hairlines between rows, borders on cards and inputs                       |
+| `primary` (calm subway blue) | Links and blue text (stays readable on white), icon tiles for civic rows  |
+| `primary-fill` (pastel blue) | Filled buttons, selected chips, the active state. Navy text on it         |
+| `bronx-orange`               | Voice and read-aloud buttons, the accent word on a photo. Navy text on it |
+| `destructive`                | Crisis and SOS only                                                       |
+| `success`                    | "Open now" status                                                         |
+| `--cat-*`                    | A category's icon and label color; a 14% tint of it behind the icon tile  |
 
 No gradients on buttons or panels, no glow, no neon, no purple accents, no
 warm "paper" tints. The one gradient allowed is the dark fade over a photo so
@@ -71,7 +72,7 @@ white text stays readable.
 
 ## Components
 
-- Buttons: primary is solid `primary`; secondary is the `outline` variant (1px
+- Buttons: primary is solid `primary-fill` (pastel blue, navy text); secondary is the `outline` variant (1px
   `border`, white, gray on hover). One primary button per view.
 - Chips and filters: `Chip` from `@/components/ui/chip`.
 - Empty and error states suggest a next step (`EmptyState`).

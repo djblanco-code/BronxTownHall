@@ -52,7 +52,7 @@ export function PackShareBar() {
           type="button"
           onClick={() => share("sms")}
           disabled={busy !== null}
-          className="inline-flex items-center gap-1.5 rounded-xl bg-primary px-3 py-2 text-sm font-bold text-primary-foreground disabled:opacity-60"
+          className="inline-flex items-center gap-1.5 rounded-xl bg-primary-fill px-3 py-2 text-sm font-bold text-primary-fill-foreground disabled:opacity-60"
         >
           {busy === "sms" ? (
             <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />

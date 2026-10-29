@@ -166,7 +166,7 @@ function PitchPage() {
     <AppShell>
       <div className="max-w-6xl mx-auto px-4 py-8 sm:py-12 space-y-16">
         {/* HERO */}
-        <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary to-accent text-primary-foreground p-8 sm:p-14">
+        <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary to-accent text-primary-fill-foreground p-8 sm:p-14">
           <div className="max-w-3xl relative z-10">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary-foreground/15 text-xs font-semibold mb-5 backdrop-blur">
               <Sparkles className="h-3.5 w-3.5" /> Functional Prototype · For Acquirer / Operator
@@ -492,7 +492,7 @@ function PitchPage() {
           <div className="mt-8 flex flex-wrap gap-3">
             <Link
               to="/contact"
-              className="no-min-h inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-primary-foreground font-bold text-sm shadow hover:opacity-90"
+              className="no-min-h inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary-fill text-primary-fill-foreground font-bold text-sm shadow hover:opacity-90"
             >
               Talk to the founder <ArrowRight className="h-4 w-4" />
             </Link>

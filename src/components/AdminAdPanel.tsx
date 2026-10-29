@@ -256,7 +256,7 @@ export function AdminAdPanel() {
           </div>
           <button
             type="submit"
-            className="no-min-h px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-bold hover:bg-primary/90"
+            className="no-min-h px-4 py-2 rounded-lg bg-primary-fill text-primary-fill-foreground text-sm font-bold hover:bg-primary-fill-hover"
           >
             Create (starts off)
           </button>

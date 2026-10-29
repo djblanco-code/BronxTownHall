@@ -13,7 +13,7 @@ const chipVariants = cva(
         soft: "bg-secondary text-foreground hover:bg-secondary/70",
       },
       selected: {
-        true: "border-primary bg-primary text-primary-foreground hover:bg-primary/90",
+        true: "border-primary bg-primary-fill text-primary-fill-foreground hover:bg-primary-fill-hover",
         false: "",
       },
     },

@@ -48,7 +48,7 @@ function DonatePage() {
 
         <a
           href="mailto:hello@thebronxapp.org?subject=Donation%20inquiry"
-          className="no-min-h inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-md bg-primary px-6 py-4 text-lg font-bold text-primary-foreground hover:bg-primary/90"
+          className="no-min-h inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-md bg-primary-fill px-6 py-4 text-lg font-bold text-primary-fill-foreground hover:bg-primary-fill-hover"
         >
           Donate Now
         </a>

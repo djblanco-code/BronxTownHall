@@ -154,7 +154,7 @@ function SmsPage() {
                 aria-label="Email address"
                 className="h-12 min-w-0 rounded-md border border-border sm:flex-1 bg-background px-4 text-base focus-visible:border-primary focus-visible:outline-none"
               />
-              <button className="no-min-h h-12 rounded-md bg-primary px-5 font-semibold text-primary-foreground hover:bg-primary/90">
+              <button className="no-min-h h-12 rounded-md bg-primary-fill px-5 font-semibold text-primary-fill-foreground hover:bg-primary-fill-hover">
                 Notify me
               </button>
             </form>

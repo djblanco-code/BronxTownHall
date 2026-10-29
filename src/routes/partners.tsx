@@ -74,7 +74,7 @@ function PartnersPage() {
           <div className="flex flex-wrap gap-3 mt-4">
             <Link
               to="/pitch"
-              className="no-min-h px-4 py-2 rounded-full bg-primary text-primary-foreground text-sm font-semibold"
+              className="no-min-h px-4 py-2 rounded-full bg-primary-fill text-primary-fill-foreground text-sm font-semibold"
             >
               See the Investor Overview
             </Link>
